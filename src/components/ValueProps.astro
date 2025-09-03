@@ -1,0 +1,31 @@
+---
+const { locale='en' } = Astro.props;
+const isZh = locale==='zh';
+const items = isZh ? [
+  { t:'多提供商统一', d:'单一抽象覆盖 OpenAI / Groq / Anthropic / Gemini / Mistral / Cohere 等。' },
+  { t:'一致的流式与增量', d:'标准增量格式，隐藏底层 SSE 差异。' },
+  { t:'可靠性原语', d:'重试 / 超时 / 分类错误 / 代理 / 连接池。' },
+  { t:'模型策略', d:'性能 / 成本 / 健康 / 加权路由。' },
+  { t:'低开销', d:'SDK 层额外延迟 ~0.6–0.9ms（基准方法透明）。' },
+  { t:'渐进式复杂度', d:'从 quick_chat 到自定义传输/指标按需扩展。' },
+] : [
+  { t:'Unified Providers', d:'One abstraction spans OpenAI, Groq, Anthropic, Gemini, Mistral, Cohere, etc.' },
+  { t:'Consistent Streaming', d:'Standard incremental deltas; hides raw SSE differences.' },
+  { t:'Reliability Primitives', d:'Retries, timeout, error typing, proxy control, connection pooling.' },
+  { t:'Model Strategy', d:'Performance / cost / health / weighted routing out of the box.' },
+  { t:'Low Overhead', d:'Adds ~0.6–0.9ms per request (transparent methodology).' },
+  { t:'Progressive Complexity', d:'Scale from quick_chat to custom transports & metrics gradually.' },
+];
+---
+
+<section>
+  <h2>{isZh ? '核心价值' : 'Core Value'}</h2>
+  <div class="cards cols-3" style="margin-top:34px;">
+    {items.map(i => (
+      <div class="card">
+        <h3>{i.t}</h3>
+        <p class="dim" style="margin:0;">{i.d}</p>
+      </div>
+    ))}
+  </div>
+</section>

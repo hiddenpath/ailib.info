@@ -1,0 +1,33 @@
+---
+const { locale='en' } = Astro.props;
+const isZh = locale==='zh';
+---
+
+<section>
+  <h2>{isZh ? '架构快照' : 'Architecture Snapshot'}</h2>
+  <p class="dim" style="max-width:760px;">
+    {isZh
+      ? <>分层设计：应用 → 高级 API → 统一抽象 → 提供商适配器 → 传输（HTTP/流式 + 可靠性）→ 通用类型。</>
+      : <>Layered design: App → High-level API → Unified abstraction → Provider adapters → Transport (HTTP/stream + reliability) → Common types.</>}
+  </p>
+  <div class="arch-box">
+{`┌───────────────────────────────────────────────────────────┐
+│                       Your Application                      │
+└───────────────▲─────────────────────────▲──────────────────┘
+                │                         │
+        High-level API             Advanced Control
+                │                         │
+      AiClient / Builder  ←  Model Mgmt / Metrics / Batch / Tools
+                │
+        ┌────────── Unified Abstraction Layer ────────────┐
+        │   Provider Adapters (Hybrid: config + custom)   │
+        └──────┬────────────┬────────────┬────────────────┘
+               │            │            │
+        OpenAI / Groq   Gemini / Mistral  Ollama / Region / ...
+               │
+      Transport (HTTP + Streaming + Retry + Proxy + Timeout)
+               │
+      Common Types (Request / Message / Content / Tools / Error)
+`}
+  </div>
+</section>

@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+import Hero from '../components/Hero.astro';
+import ValueProps from '../components/ValueProps.astro';
+import Install from '../components/Install.astro';
+import Providers from '../components/Providers.astro';
+import Performance from '../components/Performance.astro';
+import Architecture from '../components/Architecture.astro';
+import Roadmap from '../components/Roadmap.astro';
+import Support from '../components/Support.astro';
+import FAQ from '../components/FAQ.astro';
+import Footer from '../components/Footer.astro';
+const locale = 'en';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ai-lib – Unified Multi-Provider AI SDK for Rust</title>
+    <meta name="description" content="One Rust SDK for OpenAI, Groq, Anthropic, Gemini, Mistral, Cohere & more. Unified streaming, reliability, model strategy & observability with minimal overhead." />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta property="og:title" content="ai-lib – Unified AI SDK for Rust" />
+    <meta property="og:description" content="Unified multi-provider AI SDK for Rust: streaming, reliability, model strategy, under 1ms overhead." />
+    <meta property="og:image" content="/og-image.png" />
+    <link rel="icon" href="/favicon.svg" />
+    <!-- Cloudflare Web Analytics (replace token if used)
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token":"YOUR_TOKEN"}'></script>
+    -->
+  </head>
+  <body>
+    <Hero locale={locale} />
+    <ValueProps locale={locale} />
+    <Install locale={locale} />
+    <Providers locale={locale} />
+    <Performance locale={locale} />
+    <Architecture locale={locale} />
+    <Roadmap locale={locale} />
+    <Support locale={locale} />
+    <FAQ locale={locale} />
+    <Footer locale={locale} />
+  </body>
+</html>

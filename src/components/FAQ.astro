@@ -1,0 +1,29 @@
+---
+const { locale='en' } = Astro.props;
+const isZh = locale==='zh';
+const data = isZh ? [
+  { q:'是否支持本地推理？', a:'是，集成 Ollama，可与云模型混合编排。' },
+  { q:'如何判断错误是否可重试？', a:'错误类型区分瞬态与永久，可用 e.is_retryable()。' },
+  { q:'是否会记录用户内容？', a:'默认不记录请求/响应内容，可自行添加指标。' },
+  { q:'是否支持函数调用？', a:'通过 Tool + FunctionCallPolicy 统一封装。' },
+  { q:'何时不该用 ai-lib？', a:'只需一次性调用单一供应商的简单脚本，可直接用官方 SDK。' }
+] : [
+  { q:'Does it support local inference?', a:'Yes via Ollama; can mix with cloud providers.' },
+  { q:'How to know if an error is retryable?', a:'Errors are typed; use e.is_retryable().' },
+  { q:'Do you log request content?', a:'No. Content is not logged by default; add metrics hooks if needed.' },
+  { q:'Is function calling supported?', a:'Yes unified through Tool + FunctionCallPolicy.' },
+  { q:'When should I NOT use it?', a:'One-off small scripts targeting a single provider—use the vendor SDK directly.' }
+];
+---
+
+<section>
+  <h2>{isZh ? '常见问题' : 'FAQ'}</h2>
+  <div style="margin-top:26px;">
+    {data.map(item => (
+      <div style="margin-bottom:22px;">
+        <strong style="display:block; margin-bottom:4px; font-size:15px;">{item.q}</strong>
+        <span class="dim" style="font-size:14px;">{item.a}</span>
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,39 @@
+---
+import '../../styles/global.css';
+import Hero from '../../components/Hero.astro';
+import ValueProps from '../../components/ValueProps.astro';
+import Install from '../../components/Install.astro';
+import Providers from '../../components/Providers.astro';
+import Performance from '../../components/Performance.astro';
+import Architecture from '../../components/Architecture.astro';
+import Roadmap from '../../components/Roadmap.astro';
+import Support from '../../components/Support.astro';
+import FAQ from '../../components/FAQ.astro';
+import Footer from '../../components/Footer.astro';
+const locale = 'zh';
+---
+
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <title>ai-lib – 统一的多提供商 Rust AI SDK</title>
+    <meta name="description" content="一个 Rust SDK 统一 OpenAI/Groq/Anthropic/Gemini/Mistral/Cohere 等，提供流式、可靠性、模型策略与可观测性，低开销。" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta property="og:title" content="ai-lib – 统一的多提供商 Rust AI SDK" />
+    <meta property="og:description" content="统一多提供商、流式、函数调用、可靠性、模型策略与可观测性。" />
+    <meta property="og:image" content="/og-image.png" />
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+  <body>
+    <Hero locale={locale} />
+    <ValueProps locale={locale} />
+    <Install locale={locale} />
+    <Providers locale={locale} />
+    <Performance locale={locale} />
+    <Architecture locale={locale} />
+    <Roadmap locale={locale} />
+    <Support locale={locale} />
+    <FAQ locale={locale} />
+    <Footer locale={locale} />
+  </body>
+</html>

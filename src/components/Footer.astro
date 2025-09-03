@@ -1,0 +1,44 @@
+---
+const { locale='en' } = Astro.props;
+const isZh = locale==='zh';
+---
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h3 style="margin-top:0;">ai-lib</h3>
+      <p class="dim" style="margin-top:8px; font-size:14px;">
+        {isZh
+          ? <>统一、可靠、高性能的多提供商 Rust AI SDK。</>
+          : <>Unified, reliable & high-performance multi-provider AI SDK for Rust.</>}
+      </p>
+      <p style="margin-top:14px; font-size:12px;" class="dim">
+        MIT / Apache-2.0 · © {new Date().getFullYear()}
+      </p>
+    </div>
+    <div>
+      <h4>Links</h4>
+      <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.7;">
+        <li><a href="https://github.com/hiddenpath/ai-lib" target="_blank">GitHub</a></li>
+        <li><a href="/">{isZh ? '首页' : 'Home'}</a></li>
+        <li><a href="#quickstart">{isZh ? '快速开始' : 'Quick Start'}</a></li>
+        <li><a href="#contact">{isZh ? '支持' : 'Support'}</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>{isZh ? '资源' : 'Resources'}</h4>
+      <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.7;">
+        <li><a href="https://github.com/hiddenpath/ai-lib/tree/main/examples" target="_blank">Examples</a></li>
+        <li><a href="https://github.com/hiddenpath/ai-lib#%F0%9F%93%8A-%E6%80%A7%E8%83%BD" target="_blank">{isZh ? '性能说明' : 'Performance Notes'}</a></li>
+        <li><a href="https://github.com/hiddenpath/ai-lib#-%E8%B7%AF%E7%BA%BF%E5%9B%BE" target="_blank">{isZh ? '路线图' : 'Roadmap'}</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>{isZh ? '联系' : 'Contact'}</h4>
+      <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.7;">
+        <li><a href="#contact">{isZh ? '表单' : 'Form'}</a></li>
+        <li><a href="mailto:team@ailib.rs">team@ailib.rs</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>

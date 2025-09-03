@@ -1,0 +1,23 @@
+---
+const { locale='en' } = Astro.props;
+const isZh = locale==='zh';
+const providers = [
+  'OpenAI','Groq','Anthropic','Gemini','Mistral','Cohere','HuggingFace','TogetherAI','DeepSeek','Qwen','Baidu Wenxin','Tencent Hunyuan','iFlytek Spark','Moonshot Kimi','Azure OpenAI','Ollama','xAI Grok'
+];
+---
+
+<section>
+  <h2>{isZh ? '支持的提供商' : 'Supported Providers'}</h2>
+  <p class="dim" style="max-width:740px;">
+    {isZh
+      ? <>统一枚举 <code>Provider</code>，无需为不同 API 分别写适配器；本地 + 云可混合（例如 Ollama + OpenAI）。</>
+      : <>A single <code>Provider</code> enum eliminates branching by vendor; mix local and cloud (e.g. Ollama + OpenAI) effortlessly.</>}
+  </p>
+  <div class="cards cols-4" style="margin-top:30px;">
+    {providers.map(p => (
+      <div class="card" style="padding:14px 14px;">
+        <strong style="font-size:14px;">{p}</strong>
+      </div>
+    ))}
+  </div>
+</section>

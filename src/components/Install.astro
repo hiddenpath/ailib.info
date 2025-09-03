@@ -1,0 +1,25 @@
+---
+const { locale='en' } = Astro.props;
+const isZh = locale==='zh';
+---
+
+<section id="quickstart">
+  <h2>{isZh ? '安装与快速开始' : 'Install & Quick Start'}</h2>
+  <p class="dim">
+    {isZh
+      ? <>添加依赖后，你可以通过 <code>quick_chat_text()</code> 立即调用任意受支持的模型提供商。</>
+      : <>After adding the dependency you can immediately call any supported provider via <code>quick_chat_text()</code>.</>}
+  </p>
+  <pre><code>[dependencies]
+ai-lib = "0.2.12"
+tokio = { version = "1", features = ["full"] }
+futures = "0.3"</code></pre>
+  <pre><code>use ai_lib::Provider;
+
+#[tokio::main]
+async fn main() -> anyhow::Result&lt;()&gt; {
+    let reply = ai_lib::AiClient::quick_chat_text(Provider::Groq, "Ping?").await?;
+    println!("Reply: {reply}");
+    Ok(())
+}</code></pre>
+</section>
