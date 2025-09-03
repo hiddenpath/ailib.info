@@ -19,7 +19,7 @@ futures = "0.3"</code></pre>
 #[tokio::main]
 async fn main() -> anyhow::Result&lt;()&gt; {
     let reply = ai_lib::AiClient::quick_chat_text(Provider::Groq, "Ping?").await?;
-    println!("Reply: {reply}");
+    println!("Reply: {}", reply);
     Ok(())
 }</code></pre>
 </section>
