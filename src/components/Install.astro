@@ -1,6 +1,24 @@
 ---
 const { locale='en' } = Astro.props;
 const isZh = locale==='zh';
+
+// 代码片段用字符串，防止 Astro 模板把 {} 当表达式起点
+const snippetToml = `[dependencies]
+ai-lib = "0.2.12"
+tokio = { version = "1", features = ["full"] }
+futures = "0.3"
+`;
+
+// 注意：尖括号在 HTML 里需转义，否则 < 会被视为标签起始
+const snippetRust = `use ai_lib::Provider;
+
+#[tokio::main]
+async fn main() -> anyhow::Result&lt;()&gt; {
+    let reply = ai_lib::AiClient::quick_chat_text(Provider::Groq, "Ping?").await?;
+    println!("Reply: {}", reply);
+    Ok(())
+}
+`;
 ---
 
 <section id="quickstart">
@@ -10,16 +28,6 @@ const isZh = locale==='zh';
       ? <>添加依赖后，你可以通过 <code>quick_chat_text()</code> 立即调用任意受支持的模型提供商。</>
       : <>After adding the dependency you can immediately call any supported provider via <code>quick_chat_text()</code>.</>}
   </p>
-  <pre><code>[dependencies]
-ai-lib = "0.2.12"
-tokio = { version = "1", features = ["full"] }
-futures = "0.3"</code></pre>
-  <pre><code>use ai_lib::Provider;
-
-#[tokio::main]
-async fn main() -> anyhow::Result&lt;()&gt; {
-    let reply = ai_lib::AiClient::quick_chat_text(Provider::Groq, "Ping?").await?;
-    println!("Reply: {}", reply);
-    Ok(())
-}</code></pre>
+  <pre><code>{snippetToml}</code></pre>
+  <pre><code set:html>{snippetRust}</code></pre>
 </section>
