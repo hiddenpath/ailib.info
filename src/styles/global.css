@@ -11,6 +11,45 @@
   --danger:#ff6f6f;
   --radius:10px;
   font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  /* surface + code tokens */
+  --code-inline-bg:#1d2430;
+  --code-block-bg:#12171f;
+  --code-border:#1f2530;
+  --code-text:var(--text);
+  --input-bg:#141b24;
+  --input-border:#26313f;
+  --badge-bg:#223049;
+  --badge-fg:#b5d2ff;
+}
+
+/* Intel One Mono font (SIL Open Font License) */
+@font-face {
+  font-family: 'Intel One Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://cdn.jsdelivr.net/gh/intel/intel-one-mono/fonts/ttf/IntelOneMono-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Intel One Mono';
+  font-style: normal;
+  font-weight: 500;
+  src: url('https://cdn.jsdelivr.net/gh/intel/intel-one-mono/fonts/ttf/IntelOneMono-Medium.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Intel One Mono';
+  font-style: normal;
+  font-weight: 600;
+  src: url('https://cdn.jsdelivr.net/gh/intel/intel-one-mono/fonts/ttf/IntelOneMono-SemiBold.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Intel One Mono';
+  font-style: normal;
+  font-weight: 700;
+  src: url('https://cdn.jsdelivr.net/gh/intel/intel-one-mono/fonts/ttf/IntelOneMono-Bold.ttf') format('truetype');
+  font-display: swap;
 }
 
 /* Light theme */
@@ -25,6 +64,14 @@
   --warn:#cf8000;
   --ok:#1e995d;
   --danger:#d12d2d;
+  --code-inline-bg:#edf1f7;
+  --code-block-bg:#ffffff;
+  --code-border:#d6dee7;
+  --code-text:#1d232b;
+  --input-bg:#ffffff;
+  --input-border:#cdd6e0;
+  --badge-bg:#e1e9f7;
+  --badge-fg:#2d64ff;
 }
 
 /* Pure black theme */
@@ -36,6 +83,14 @@
   --text-dim:#8a9099;
   --accent:#5d8bff;
   --accent-glow:rgba(93,139,255,0.45);
+  --code-inline-bg:#121318;
+  --code-block-bg:#0f1014;
+  --code-border:#1d1f24;
+  --code-text:#f5f6f7;
+  --input-bg:#111318;
+  --input-border:#23262c;
+  --badge-bg:#1d2330;
+  --badge-fg:#aac9ff;
 }
 
 html,body {
@@ -136,8 +191,8 @@ section {
 .badge {
   display:inline-block;
   padding:2px 8px 3px;
-  background:#223049;
-  color:#b5d2ff;
+  background:var(--badge-bg);
+  color:var(--badge-fg);
   border-radius:6px;
   font-size:12px;
   letter-spacing:.5px;
@@ -178,21 +233,24 @@ section {
 .dim { color:var(--text-dim); }
 
 code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Liberation Mono", monospace;
-  background:#1d2430;
+  font-family: 'Intel One Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, "Liberation Mono", monospace;
+  background:var(--code-inline-bg);
+  color:var(--code-text);
   padding:2px 5px;
   border-radius:4px;
-  font-size: 14px;
+  font-size:15px; /* increased one step */
 }
 
 pre {
-  background:#12171f;
+  background:var(--code-block-bg);
   padding:18px 20px;
   border-radius: var(--radius);
   overflow:auto;
-  font-size:14px;
-  border:1px solid #1f2530;
-  line-height:1.4;
+  font-size:15px; /* increased one step */
+  border:1px solid var(--code-border);
+  line-height:1.5;
+  font-family: 'Intel One Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, "Liberation Mono", monospace;
+  color:var(--code-text);
 }
 
 table {
@@ -264,13 +322,14 @@ footer {
 
 input, textarea {
   font:inherit;
-  background:#141b24;
-  border:1px solid #26313f;
+  background:var(--input-bg);
+  border:1px solid var(--input-border);
   padding:10px 12px;
   color:var(--text);
   border-radius:8px;
   width:100%;
   box-sizing:border-box;
+  transition:.18s background, .18s border-color;
 }
 
 input:focus, textarea:focus {
@@ -308,13 +367,14 @@ form label {
 }
 
 .arch-box {
-  background:#10151c;
-  border:1px solid #202832;
+  background:var(--code-block-bg);
+  border:1px solid var(--code-border);
   border-radius: var(--radius);
   padding:20px;
-  font-size:13px;
+  font-size:14px; /* bumped */
   overflow:auto;
-  line-height:1.4;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  line-height:1.45;
+  font-family: 'Intel One Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   max-width: 740px;
+  color:var(--code-text);
 }

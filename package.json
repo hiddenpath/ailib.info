@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "format": "prettier --write ."
+  "preview": "astro preview",
+  "format": "prettier --write .",
+  "fetch:favicons": "node scripts/fetch-favicons.mjs"
   },
   "dependencies": {
     "astro": "^4.10.0"

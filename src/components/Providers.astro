@@ -1,8 +1,26 @@
 ---
 const { locale='en' } = Astro.props;
 const isZh = locale==='zh';
+// Provider metadata with official domains for favicon retrieval.
+// Favicons will be downloaded into /public/providers/*.ico by a fetch script.
 const providers = [
-  'OpenAI','Groq','Anthropic','Gemini','Mistral','Cohere','HuggingFace','TogetherAI','DeepSeek','Qwen','Baidu Wenxin','Tencent Hunyuan','iFlytek Spark','Moonshot Kimi','Azure OpenAI','Ollama','xAI Grok'
+  { name:'OpenAI', domain:'openai.com', file:'openai.ico' },
+  { name:'Groq', domain:'groq.com', file:'groq.ico' },
+  { name:'Anthropic', domain:'anthropic.com', file:'anthropic.ico' },
+  { name:'Gemini', domain:'gemini.google.com', file:'gemini.ico' },
+  { name:'Mistral', domain:'mistral.ai', file:'mistral.ico' },
+  { name:'Cohere', domain:'cohere.com', file:'cohere.ico' },
+  { name:'HuggingFace', domain:'huggingface.co', file:'huggingface.ico' },
+  { name:'TogetherAI', domain:'together.ai', file:'togetherai.ico' },
+  { name:'DeepSeek', domain:'deepseek.com', file:'deepseek.ico' },
+  { name:'Qwen', domain:'qwen.ai', file:'qwen.ico' },
+  { name:'Baidu Wenxin', domain:'baidu.com', file:'baidu.ico' },
+  { name:'Tencent Hunyuan', domain:'hunyuan.tencent.com', file:'hunyuan.ico' },
+  { name:'iFlytek Spark', domain:'xfyun.cn', file:'iflytek.ico' },
+  { name:'Moonshot Kimi', domain:'moonshot.cn', file:'kimi.ico' },
+  { name:'Azure OpenAI', domain:'azure.microsoft.com', file:'azure.ico' },
+  { name:'Ollama', domain:'ollama.com', file:'ollama.ico' },
+  { name:'xAI Grok', domain:'x.ai', file:'grok.ico' }
 ];
 ---
 
@@ -13,11 +31,32 @@ const providers = [
       ? <>统一枚举 <code>Provider</code>，无需为不同 API 分别写适配器；本地 + 云可混合（例如 Ollama + OpenAI）。</>
       : <>A single <code>Provider</code> enum eliminates branching by vendor; mix local and cloud (e.g. Ollama + OpenAI) effortlessly.</>}
   </p>
-  <div class="cards cols-4" style="margin-top:30px;">
-    {providers.map(p => (
-      <div class="card" style="padding:14px 14px;">
-        <strong style="font-size:14px;">{p}</strong>
-      </div>
-    ))}
+  <div class="providers-grid">
+    {providers.map(p => {
+      const local = `/providers/${p.file}`;
+      const fallbackRemote = `https://${p.domain.replace(/\/.*$/, '')}/favicon.ico`;
+      return (
+        <div class="provider-item">
+          <picture>
+            <source srcset={local} />
+            <img src={fallbackRemote} alt={`${p.name} favicon`} loading="lazy" width="32" height="32" />
+          </picture>
+          <span class="label">{p.name}</span>
+        </div>
+      );
+    })}
   </div>
 </section>
+
+<style>
+  .providers-grid { display:grid; gap:18px; margin-top:30px; }
+  @media (min-width:600px){ .providers-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
+  @media (min-width:900px){ .providers-grid { grid-template-columns: repeat(5,minmax(0,1fr)); } }
+  .provider-item { background:var(--bg-alt); border:1px solid var(--border); border-radius: var(--radius); padding:12px 12px 14px; display:flex; align-items:center; gap:10px; min-height:54px; position:relative; overflow:hidden; }
+  .provider-item img, .provider-item picture, .provider-item .placeholder { width:32px; height:32px; border-radius:8px; flex-shrink:0; display:block; object-fit:cover; }
+  .provider-item .placeholder { background:linear-gradient(135deg,#3a4656,#222a33); display:flex; align-items:center; justify-content:center; font-weight:600; color:var(--text-dim); font-size:14px; }
+  [data-theme='light'] .provider-item .placeholder { background:linear-gradient(135deg,#f0f3f7,#d7dde4); color:#59626d; }
+  .provider-item .label { font-size:13px; font-weight:500; line-height:1.2; }
+  .provider-item:hover { border-color:var(--accent); box-shadow:0 0 0 1px var(--accent-glow); }
+  .provider-item img { filter:drop-shadow(0 2px 4px rgba(0,0,0,.35)); }
+</style>
