@@ -2,7 +2,7 @@
 import '../../styles/global.css';
 import Hero from '../../components/Hero.astro';
 import ValueProps from '../../components/ValueProps.astro';
-import Install from '../../components/Install.astro';
+// import Install from '../../components/Install.astro';
 import Providers from '../../components/Providers.astro';
 import Performance from '../../components/Performance.astro';
 import Architecture from '../../components/Architecture.astro';
@@ -10,6 +10,10 @@ import Roadmap from '../../components/Roadmap.astro';
 import Support from '../../components/Support.astro';
 import FAQ from '../../components/FAQ.astro';
 import Footer from '../../components/Footer.astro';
+
+// 引入中文 Markdown
+import InstallMDZh from '../../markdown/install.zh.md';
+
 const locale = 'zh';
 ---
 
@@ -27,7 +31,9 @@ const locale = 'zh';
   <body>
     <Hero locale={locale} />
     <ValueProps locale={locale} />
-    <Install locale={locale} />
+    <section id="quickstart">
+      <InstallMDZh />
+    </section>
     <Providers locale={locale} />
     <Performance locale={locale} />
     <Architecture locale={locale} />
