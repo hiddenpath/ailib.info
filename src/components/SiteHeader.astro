@@ -1,0 +1,83 @@
+---
+const { locale = 'en' } = Astro.props;
+const isZh = locale === 'zh';
+---
+<header class="site-header">
+  <div class="inner">
+    <a href={isZh ? '/zh/' : '/'} class="brand" aria-label="ai-lib home">
+      <span class="logo-mark" aria-hidden="true">λ</span>
+      <span class="brand-text">Ailib</span>
+    </a>
+    <nav class="nav-actions">
+      <div class="theme-switch" id="theme-switcher">
+        <button type="button" class="theme-btn" data-mode="dark" aria-label={isZh ? '切换主题' : 'Toggle Theme'}>
+          <span class="theme-label">🌓</span>
+        </button>
+        <div class="theme-menu" hidden>
+          <button type="button" data-set-theme="dark">{isZh ? '深色' : 'Dark'}</button>
+          <button type="button" data-set-theme="black">{isZh ? '纯黑' : 'Black'}</button>
+          <button type="button" data-set-theme="light">{isZh ? '浅色' : 'Light'}</button>
+        </div>
+      </div>
+      <div class="lang-switch-top">
+        {isZh ? <a href="/">English</a> : <a href="/zh/">中文</a>}
+      </div>
+      <a class="gh" href="https://github.com/hiddenpath/ai-lib" target="_blank" rel="noopener" aria-label="GitHub">★</a>
+    </nav>
+  </div>
+  <script>
+    const KEY = 'ailib-theme';
+    const root = document.documentElement;
+    function applyTheme(t){
+      root.dataset.theme = t;
+    }
+    (function init(){
+      const saved = localStorage.getItem(KEY);
+      if(saved) applyTheme(saved);
+      else {
+        const prefers = matchMedia('(prefers-color-scheme: light)').matches ? 'light':'dark';
+        applyTheme(prefers);
+      }
+    })();
+    const switcher = document.getElementById('theme-switcher');
+    const btn = switcher.querySelector('.theme-btn');
+    const menu = switcher.querySelector('.theme-menu');
+    btn.addEventListener('click', ()=>{
+      menu.hidden = !menu.hidden;
+    });
+    menu.addEventListener('click', (e)=>{
+      const target = e.target.closest('[data-set-theme]');
+      if(!target) return;
+      const t = target.getAttribute('data-set-theme');
+      applyTheme(t);
+      localStorage.setItem(KEY, t);
+      menu.hidden = true;
+    });
+    document.addEventListener('click', (e)=>{
+      if(!switcher.contains(e.target)) menu.hidden = true;
+    });
+  </script>
+</header>
+
+<style>
+  .site-header { position:fixed; top:0; left:0; right:0; backdrop-filter:blur(14px); background:rgba(10,12,16,.72); border-bottom:1px solid rgba(60,70,84,.4); z-index:50; }
+  [data-theme='light'] .site-header { background:rgba(255,255,255,.72); border-color:rgba(180,190,205,.6); }
+  .site-header .inner { max-width:1120px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:10px 20px; }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:600; font-size:18px; color:var(--text); text-decoration:none; }
+  .logo-mark { width:28px; height:28px; background:linear-gradient(135deg,var(--accent),#7ca8ff); display:inline-flex; align-items:center; justify-content:center; font-size:16px; color:#fff; border-radius:8px; box-shadow:0 2px 6px -2px var(--accent-glow),0 0 0 1px rgba(255,255,255,.04) inset; }
+  .nav-actions { display:flex; align-items:center; gap:18px; }
+  .lang-switch-top a { font-size:14px; }
+  .gh { font-size:18px; text-decoration:none; }
+  .theme-switch { position:relative; }
+  .theme-btn { background:var(--bg-alt); color:var(--text-dim); border:1px solid var(--border); padding:6px 10px; border-radius:8px; cursor:pointer; display:flex; align-items:center; gap:6px; font-size:14px; }
+  [data-theme='light'] .theme-btn { background:#f1f4f8; color:#555; border-color:#cfd6e0; }
+  .theme-btn:hover { filter:brightness(1.08); }
+  .theme-menu { position:absolute; top:44px; right:0; background:var(--bg-alt); border:1px solid var(--border); border-radius:10px; display:flex; flex-direction:column; min-width:120px; padding:6px; box-shadow:0 6px 24px -8px rgba(0,0,0,.5); animation:fadeIn .14s ease; }
+  [data-theme='light'] .theme-menu { background:#fff; border-color:#cfd6e0; }
+  .theme-menu button { background:transparent; border:0; padding:8px 10px; text-align:left; font:inherit; color:var(--text); cursor:pointer; border-radius:6px; font-size:14px; }
+  [data-theme='light'] .theme-menu button { color:#222; }
+  .theme-menu button:hover { background:rgba(255,255,255,.06); }
+  [data-theme='light'] .theme-menu button:hover { background:rgba(0,0,0,.06); }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(-4px);} to { opacity:1; transform:translateY(0);} }
+  @media (max-width:640px) { .brand-text { display:none; } .nav-actions { gap:12px; } }
+</style>

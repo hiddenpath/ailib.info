@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
 import Hero from '../components/Hero.astro';
 import ValueProps from '../components/ValueProps.astro';
 // import Install from '../components/Install.astro';  // 旧的删除
@@ -29,6 +30,7 @@ const locale = 'en';
     <link rel="icon" href="/favicon.svg" />
   </head>
   <body>
+    <SiteHeader locale={locale} />
     <Hero locale={locale} />
     <ValueProps locale={locale} />
     <section id="quickstart">
