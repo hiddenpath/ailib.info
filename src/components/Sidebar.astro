@@ -1,0 +1,59 @@
+---
+import sidebar from '../config/sidebar.en';
+const { currentPath = '', version = '' } = Astro.props;
+function isActive(path?: string){
+  if(!path) return false;
+  if(path === '/docs/intro' && currentPath === '/docs') return true;
+  return currentPath === path;
+}
+---
+<aside class="sidebar">
+  <div class="logo-row"><a href="/" class="brand">Ailib</a></div>
+  {sidebar.map(group => (
+    <div class="group">
+      <button class="group-head" type="button" data-collapse>
+        <span>{group.group}</span>
+      </button>
+      <ul>
+        {group.items.map(item => (
+          <li class={isActive(item.path) ? 'active' : ''}>
+            {item.path && <a href={item.path}>{item.title}{item.status && <span class={`badge-status ${item.status}`}>{item.status}</span>}</a>}
+            {item.external && <a href={item.external} target="_blank" rel="noopener">{item.title} ↗</a>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+  <div class="version">v{version}</div>
+</aside>
+<script>
+  const groups = document.currentScript.previousElementSibling.querySelectorAll('.group');
+  groups.forEach(g=>{
+    const head = g.querySelector('[data-collapse]');
+    const list = g.querySelector('ul');
+    head.addEventListener('click', ()=>{
+      g.classList.toggle('collapsed');
+    });
+  });
+</script>
+<style>
+.sidebar { position:sticky; top:70px; max-height:calc(100vh - 80px); overflow:auto; width:250px; padding:12px 10px 40px; border-right:1px solid var(--border); background:var(--bg-alt); }
+.logo-row { padding:4px 8px 10px; font-weight:600; }
+.brand { color:var(--text); text-decoration:none; font-size:18px; }
+.group { margin-top:14px; }
+.group-head { width:100%; background:transparent; border:0; text-align:left; padding:6px 8px; font:inherit; font-size:13px; letter-spacing:.5px; text-transform:uppercase; color:var(--text-dim); display:flex; justify-content:space-between; cursor:pointer; }
+.group.collapsed ul { display:none; }
+ul { list-style:none; margin:4px 0 0; padding:0; }
+li a { display:flex; align-items:center; gap:6px; padding:6px 10px; border-radius:6px; color:var(--text-dim); font-size:14px; text-decoration:none; }
+li a:hover { background:var(--bg); color:var(--text); }
+li.active > a { background:var(--accent); color:#fff; }
+.badge-status { font-size:10px; text-transform:uppercase; letter-spacing:.5px; padding:2px 4px; border-radius:4px; background:#2a3442; color:#b5c6e5; }
+.badge-status.stable { background:#1d4d2f; color:#9ee3b4; }
+.badge-status.partial { background:#5a4708; color:#ffdb85; }
+.badge-status.planned { background:#3a3a3a; color:#c8c8c8; }
+.version { margin-top:28px; font-size:12px; color:var(--text-dim); padding:8px 10px; border-top:1px solid var(--border); }
+@media (max-width:960px){
+  .sidebar { position:fixed; left:0; top:0; bottom:0; transform:translateX(-101%); transition:.25s transform; z-index:120; max-height:none; width:270px; border-right:1px solid var(--border); }
+  .sidebar.open { transform:translateX(0); }
+}
+</style>

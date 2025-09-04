@@ -1,0 +1,16 @@
+---
+layout: '../../layouts/DocsLayout.astro'
+title: 'Core Concepts'
+---
+<h1>Core Concepts</h1>
+<p>Key abstractions provided by the SDK.</p>
+<h2>Message Abstraction</h2>
+<p>Messages normalize roles (system, user, assistant, tool) and multimodal parts (text, image).</p>
+<h2>Model Descriptor</h2>
+<p>Provider + model name + capability flags guide routing and validation.</p>
+<h2>Tool Definition</h2>
+<p>Tools are declared with name, description, JSON schema parameters. Execution returns structured JSON.</p>
+<h2>Reliability Policies</h2>
+<p>Retry, fallback chains, race sets, and circuit breaker windows compose to raise success probability.</p>
+<h2>Streaming Cursor</h2>
+<p>Unified iterator producing deltas (text, tool_call_start, tool_call_delta, tool_call_end, done).</p>

@@ -1,0 +1,11 @@
+---
+layout: '../../layouts/DocsLayout.astro'
+title: 'Circuit Breaker'
+---
+<h1>Circuit Breaker (Partial)</h1>
+<p>Opens after consecutive error threshold; half-open trial after cooldown. Currently coarse per provider/model.</p>
+<pre><code>policy: {
+  circuit: { failures: 5, windowMs: 30000, cooldownMs: 10000 }
+}
+</code></pre>
+<p>Planned: error classification weighting & per-endpoint granularity.</p>

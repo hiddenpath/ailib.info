@@ -1,0 +1,11 @@
+---
+layout: '../../layouts/DocsLayout.astro'
+title: 'Rate Limiting'
+---
+<h1>Rate Limiting (Partial)</h1>
+<p>Token bucket (in-memory) per provider key. Basic smoothing of burst traffic.</p>
+<pre><code>policy: {
+  rateLimit: { tokensPerMinute: 3000, burst: 600 }
+}
+</code></pre>
+<p>Planned: distributed quota sync & adaptive concurrency.</p>

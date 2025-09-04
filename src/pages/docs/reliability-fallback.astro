@@ -1,0 +1,15 @@
+---
+layout: '../../layouts/DocsLayout.astro'
+title: 'Fallback Chains'
+---
+<h1>Fallback Chains (Stable)</h1>
+<p>Define ordered list of (model, conditions). When prior fails, next attempted.</p>
+<pre><code>policy: {
+  fallback: [
+    { model: 'gpt-4o' },
+    { model: 'claude-3-haiku', on: ['timeout','rate_limit'] },
+    { model: 'mistral-medium' }
+  ]
+}
+</code></pre>
+<p>Success short-circuits the chain. Combine with race for aggressive latency reduction.</p>

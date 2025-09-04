@@ -1,0 +1,25 @@
+---
+layout: '../../layouts/DocsLayout.astro'
+title: 'Functions & Tools'
+---
+<h1>Functions & Tools</h1>
+<p>Define callable tools for models that support function/tool calling.</p>
+<h2>Definition</h2>
+<pre><code>const tools = [{
+  name: 'get_weather',
+  description: 'Current weather',
+  parameters: {
+    type: 'object',
+    properties: { city: { type: 'string' } },
+    required: ['city']
+  }
+}];
+</code></pre>
+<h2>Execution Flow</h2>
+<ol>
+  <li>Model emits tool_call start.</li>
+  <li>Stream yields arguments delta.</li>
+  <li>Tool resolved, result appended as tool message.</li>
+  <li>Model continues / final answer.</li>
+</ol>
+<p>Multiple tools can be proposed in parallel; the runtime executes sequentially today (parallel planned).</p>

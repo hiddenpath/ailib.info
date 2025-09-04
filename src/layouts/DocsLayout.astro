@@ -1,0 +1,37 @@
+---
+import Sidebar from '../components/Sidebar.astro';
+// Load version dynamically from package.json so docs always show current package version
+// Astro supports importing JSON directly at build time.
+import pkg from '../../package.json';
+const version = pkg.version as string;
+const { frontmatter, url } = Astro;
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{frontmatter?.title || 'Ailib Docs'}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+  <body data-docs>
+    <div class="docs-shell">
+      <Sidebar currentPath={url.pathname} version={version} />
+      <main class="doc-main">
+        <article class="doc-article">
+          <slot />
+        </article>
+      </main>
+    </div>
+  </body>
+</html>
+<style>
+body[data-docs] { display:block; }
+.docs-shell { display:flex; align-items:flex-start; }
+.doc-main { flex:1; padding:40px 46px 120px; min-width:0; }
+.doc-article h1 { margin-top:0; font-size:40px; }
+.doc-article pre { margin:20px 0; }
+@media (max-width:960px){
+  .docs-shell { display:block; }
+  .doc-main { padding:90px 22px 120px; }
+}
+</style>

@@ -1,0 +1,14 @@
+---
+layout: '../../layouts/DocsLayout.astro'
+title: 'Architecture'
+---
+<h1>Architecture</h1>
+<p>The SDK layers concerns: transport adapters, model routing, reliability middleware, and user-facing high-level chat/functions API.</p>
+<ul>
+  <li><strong>Core Types</strong>: unified request / response enums.</li>
+  <li><strong>Provider Drivers</strong>: per-provider normalization.</li>
+  <li><strong>Reliability Layer</strong>: retry, fallback, race, routing, partial circuit breaker.</li>
+  <li><strong>Tools / Functions</strong>: JSON schema based, type-safe.</li>
+  <li><strong>Streaming</strong>: Incremental tokens & tool calls surfaced uniformly.</li>
+</ul>
+<p>See diagram on the main page for a visual overview. This page will expand with sequence diagrams and data flow examples.</p>

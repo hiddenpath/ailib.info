@@ -1,3 +1,4 @@
+// Deprecated: Remote favicon service now used directly; keeping script for reference.
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import https from 'node:https';

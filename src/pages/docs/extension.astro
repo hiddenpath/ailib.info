@@ -1,0 +1,13 @@
+---
+layout: '../../layouts/DocsLayout.astro'
+title: 'Extending the SDK'
+---
+<h1>Extending the SDK</h1>
+<p>Add a provider by implementing the ProviderDriver interface (normalize request, map streaming, error classification).</p>
+<ol>
+  <li>Create driver with metadata (capabilities).</li>
+  <li>Map internal ChatRequest -> provider payload.</li>
+  <li>Stream provider events -> unified deltas.</li>
+  <li>Add to registry.</li>
+</ol>
+<p>Planned doc: full code template.</p>
