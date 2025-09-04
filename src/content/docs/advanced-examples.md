@@ -57,7 +57,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = AiClient::new(Provider::OpenAI)?;
     let questions = ["RAII?", "Lifetimes?", "Send vs Sync?"];
     let mut handles = Vec::new();
-    for q in questions { 
+    for q in questions {
         let c = client.clone(); // assuming Clone implemented
         let req = prompt(q);
         handles.push(task::spawn(async move { c.chat_completion(req).await }));

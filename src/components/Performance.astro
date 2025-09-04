@@ -1,14 +1,24 @@
 ---
-const { locale='en' } = Astro.props;
-const isZh = locale==='zh';
+const { locale = 'en' } = Astro.props;
+const isZh = locale === 'zh';
 ---
 
 <section>
   <h2>{isZh ? '性能与方法说明' : 'Performance & Methodology'}</h2>
   <p class="dim" style="max-width:800px;">
-    {isZh
-      ? <>以下指标为 SDK 自身层（排除模型推理）。详情见仓库 README。请使用你的实际工作负载再行基准验证。</>
-      : <>The following metrics refer to SDK layer overhead only (excludes remote model latency). See repository README for full methodology. Always benchmark with your workload.</>}
+    {
+      isZh ? (
+        <>
+          以下指标为 SDK 自身层（排除模型推理）。详情见仓库
+          README。请使用你的实际工作负载再行基准验证。
+        </>
+      ) : (
+        <>
+          The following metrics refer to SDK layer overhead only (excludes remote model latency).
+          See repository README for full methodology. Always benchmark with your workload.
+        </>
+      )
+    }
   </p>
   <div class="flex-row">
     <div class="inline-metric">
@@ -25,8 +35,15 @@ const isZh = locale==='zh';
     </div>
   </div>
   <p class="notice">
-    {isZh
-      ? <>提示：真实场景受提供商速率限制与网络影响。数值并非保证，仅供参考。</>
-      : <>Note: Real-world throughput constrained by provider rate limits & network. Figures are indicative, not guarantees.</>}
+    {
+      isZh ? (
+        <>提示：真实场景受提供商速率限制与网络影响。数值并非保证，仅供参考。</>
+      ) : (
+        <>
+          Note: Real-world throughput constrained by provider rate limits & network. Figures are
+          indicative, not guarantees.
+        </>
+      )
+    }
   </p>
 </section>

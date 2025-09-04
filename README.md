@@ -3,6 +3,7 @@
 This is the minimal marketing & info site for **ai-lib** (Unified Multi-Provider AI SDK for Rust).
 
 ## Features (MVP)
+
 - English + Simplified Chinese landing pages
 - Core value props
 - Quick Start installation snippet
@@ -42,12 +43,14 @@ Output will be in `dist/` (static export).
 ## Domain (ailib.rs)
 
 For apex domain (root):
+
 - Add an A record:
   - Host: `@`
   - Value: `76.76.21.21`
   - TTL: auto/3600
 
 Optional `www`:
+
 - CNAME: `www` → `cname.vercel-dns.com`.
 
 Then verify in Vercel.
@@ -57,7 +60,7 @@ Then verify in Vercel.
 Replace placeholder:
 
 ```html
-<form method="POST" action="https://formspree.io/f/your-form-id">
+<form method="POST" action="https://formspree.io/f/your-form-id"></form>
 ```
 
 with the Formspree form ID you create.
@@ -78,6 +81,7 @@ Uncomment Cloudflare snippet in `<head>` sections and add token if you enable Cl
 ## i18n Strategy
 
 Currently manual duplication:
+
 - `/src/pages/index.astro` (en)
 - `/src/pages/zh/index.astro` (zh)
 
@@ -88,6 +92,7 @@ If content grows, migrate to an Astro i18n or content collections approach.
 Follow main project (MIT / Apache-2.0). Content here can mirror same licensing.
 
 ---
+
 ## Continuous Integration (GitHub Actions)
 
 This repository includes a GitHub Actions workflow that:
@@ -102,26 +107,32 @@ This repository includes a GitHub Actions workflow that:
 If you deploy with **Vercel** connected to GitHub, Vercel will build & deploy separately; this CI build is a quality gate (fast failure feedback). You can safely disable the build step in Vercel if you later introduce a multi-step pipeline, but default settings are fine.
 
 ### Local parity
+
 The CI uses:
+
 ```bash
 npm ci
 npm run format:check
 npm run build
 ```
+
 Ensure your local Node.js version is >= the version declared in your `.nvmrc` (add one if needed) or engines field if added later.
 
 ## Automated Deployment (Vercel)
 
 When the repo is linked to Vercel:
+
 - Every push to `main` triggers a Production deployment.
 - Every PR gets a Preview URL (great for design/content review).
 - Build command: `astro build`
 - Output dir: `dist`
 
 ### Environment Variables
+
 Currently none required. If later you add analytics tokens or form IDs, set them in Vercel Project Settings → Environment Variables, then reference via `import.meta.env`. Re-run deployments after adding them.
 
 ### Recommended Hardening
+
 - Add a `NODE_VERSION` or `engines` constraint to ensure consistent runtime.
 - Add a `sitemap.xml` generation step (Astro integration) for SEO.
 - Add a `robots.txt` rule update if you introduce staging environments.

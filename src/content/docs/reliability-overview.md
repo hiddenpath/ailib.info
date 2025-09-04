@@ -9,6 +9,7 @@ order: 0
 Composable primitives raise success probability and reduce tail latency.
 
 Sections:
+
 - [Retry](/docs/reliability-retry)
 - [Fallback Chains](/docs/reliability-fallback)
 - [Race / Hedging](/docs/reliability-race)

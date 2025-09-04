@@ -76,6 +76,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 ```
 
 ## Execution Flow Recap
+
 1. Model emits a tool/function call intent.
 2. You parse the name + arguments (JSON).
 3. Execute server-side; produce JSON result.

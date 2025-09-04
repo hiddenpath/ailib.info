@@ -2,33 +2,105 @@
 const { locale = 'en' } = Astro.props;
 const isZh = locale === 'zh';
 ---
+
 <header class="site-header">
   <div class="inner">
     <a href={isZh ? '/zh/' : '/'} class="brand" aria-label="ai-lib home">
       <span class="logo-mark" aria-hidden="true">λ</span>
       <span class="brand-text">Ailib</span>
     </a>
-  <nav class="nav-actions">
+    <nav class="nav-actions">
       <div class="lang-switch-top">
         {isZh ? <a href="/">English</a> : <a href="/zh/">中文</a>}
       </div>
-      <a class="gh" href="https://github.com/hiddenpath/ai-lib" target="_blank" rel="noopener" aria-label="GitHub">★</a>
+      <a
+        class="gh"
+        href="https://github.com/hiddenpath/ai-lib"
+        target="_blank"
+        rel="noopener"
+        aria-label="GitHub">★</a
+      >
     </nav>
   </div>
   <script>
-  document.documentElement.dataset.theme = 'light';
+    document.documentElement.dataset.theme = 'light';
   </script>
 </header>
 
 <style>
-  .site-header { position:fixed; top:0; left:0; right:0; backdrop-filter:blur(14px); background:rgba(10,12,16,.72); border-bottom:1px solid rgba(60,70,84,.4); z-index:50; }
-  [data-theme='light'] .site-header { background:rgba(255,255,255,.72); border-color:rgba(180,190,205,.6); }
-  .site-header .inner { max-width:1120px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:10px 20px; }
-  .brand { display:flex; align-items:center; gap:10px; font-weight:600; font-size:18px; color:var(--text); text-decoration:none; }
-  .logo-mark { width:28px; height:28px; background:linear-gradient(135deg,var(--accent),#7ca8ff); display:inline-flex; align-items:center; justify-content:center; font-size:16px; color:#fff; border-radius:8px; box-shadow:0 2px 6px -2px var(--accent-glow),0 0 0 1px rgba(255,255,255,.04) inset; }
-  .nav-actions { display:flex; align-items:center; gap:18px; }
-  .lang-switch-top a { font-size:14px; }
-  .gh { font-size:18px; text-decoration:none; }
-  @keyframes fadeIn { from { opacity:0; transform:translateY(-4px);} to { opacity:1; transform:translateY(0);} }
-  @media (max-width:640px) { .brand-text { display:none; } .nav-actions { gap:12px; } }
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    backdrop-filter: blur(14px);
+    background: rgba(10, 12, 16, 0.72);
+    border-bottom: 1px solid rgba(60, 70, 84, 0.4);
+    z-index: 50;
+  }
+  [data-theme='light'] .site-header {
+    background: rgba(255, 255, 255, 0.72);
+    border-color: rgba(180, 190, 205, 0.6);
+  }
+  .site-header .inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .logo-mark {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, var(--accent), #7ca8ff);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 8px;
+    box-shadow:
+      0 2px 6px -2px var(--accent-glow),
+      0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  }
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .lang-switch-top a {
+    font-size: 14px;
+  }
+  .gh {
+    font-size: 18px;
+    text-decoration: none;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @media (max-width: 640px) {
+    .brand-text {
+      display: none;
+    }
+    .nav-actions {
+      gap: 12px;
+    }
+  }
 </style>

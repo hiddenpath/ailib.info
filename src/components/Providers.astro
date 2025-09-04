@@ -1,56 +1,118 @@
 ---
-const { locale='en' } = Astro.props;
-const isZh = locale==='zh';
+const { locale = 'en' } = Astro.props;
+const isZh = locale === 'zh';
 // Provider metadata (using Google favicon service for consistent PNG output)
 const providers = [
-  { name:'OpenAI', domain:'openai.com' },
-  { name:'Groq', domain:'groq.com' },
-  { name:'Anthropic', domain:'anthropic.com' },
-  { name:'Gemini', domain:'gemini.google.com' },
-  { name:'Mistral', domain:'mistral.ai' },
-  { name:'Cohere', domain:'cohere.com' },
-  { name:'HuggingFace', domain:'huggingface.co' },
-  { name:'TogetherAI', domain:'together.ai' },
-  { name:'DeepSeek', domain:'deepseek.com' },
-  { name:'Qwen', domain:'qwen.ai' },
-  { name:'Baidu Wenxin', domain:'baidu.com' },
-  { name:'Tencent Hunyuan', domain:'hunyuan.tencent.com' },
-  { name:'iFlytek Spark', domain:'xfyun.cn' },
-  { name:'Moonshot Kimi', domain:'moonshot.cn' },
-  { name:'Azure OpenAI', domain:'azure.microsoft.com' },
-  { name:'Ollama', domain:'ollama.com' },
-  { name:'xAI Grok', domain:'x.ai' }
+  { name: 'OpenAI', domain: 'openai.com' },
+  { name: 'Groq', domain: 'groq.com' },
+  { name: 'Anthropic', domain: 'anthropic.com' },
+  { name: 'Gemini', domain: 'gemini.google.com' },
+  { name: 'Mistral', domain: 'mistral.ai' },
+  { name: 'Cohere', domain: 'cohere.com' },
+  { name: 'HuggingFace', domain: 'huggingface.co' },
+  { name: 'TogetherAI', domain: 'together.ai' },
+  { name: 'DeepSeek', domain: 'deepseek.com' },
+  { name: 'Qwen', domain: 'qwen.ai' },
+  { name: 'Baidu Wenxin', domain: 'baidu.com' },
+  { name: 'Tencent Hunyuan', domain: 'hunyuan.tencent.com' },
+  { name: 'iFlytek Spark', domain: 'xfyun.cn' },
+  { name: 'Moonshot Kimi', domain: 'moonshot.cn' },
+  { name: 'Azure OpenAI', domain: 'azure.microsoft.com' },
+  { name: 'Ollama', domain: 'ollama.com' },
+  { name: 'xAI Grok', domain: 'x.ai' },
 ];
 ---
 
 <section>
   <h2>{isZh ? '支持的提供商' : 'Supported Providers'}</h2>
   <p class="dim" style="max-width:740px;">
-    {isZh
-      ? <>统一枚举 <code>Provider</code>，无需为不同 API 分别写适配器；本地 + 云可混合（例如 Ollama + OpenAI）。</>
-      : <>A single <code>Provider</code> enum eliminates branching by vendor; mix local and cloud (e.g. Ollama + OpenAI) effortlessly.</>}
+    {
+      isZh ? (
+        <>
+          统一枚举 <code>Provider</code>，无需为不同 API 分别写适配器；本地 + 云可混合（例如 Ollama
+          + OpenAI）。
+        </>
+      ) : (
+        <>
+          A single <code>Provider</code> enum eliminates branching by vendor; mix local and cloud
+          (e.g. Ollama + OpenAI) effortlessly.
+        </>
+      )
+    }
   </p>
   <div class="providers-grid">
-    {providers.map(p => {
-      const favicon = `https://www.google.com/s2/favicons?sz=64&domain=${p.domain}`;
-      return (
-        <div class="provider-item">
-          <img src={favicon} alt={`${p.name} favicon`} loading="lazy" width="28" height="28" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'text-fallback',textContent:' '+this.alt.charAt(0)}));" />
-          <span class="label">{p.name}</span>
-        </div>
-      );
-    })}
+    {
+      providers.map((p) => {
+        const favicon = `https://www.google.com/s2/favicons?sz=64&domain=${p.domain}`;
+        return (
+          <div class="provider-item">
+            <img
+              src={favicon}
+              alt={`${p.name} favicon`}
+              loading="lazy"
+              width="28"
+              height="28"
+              onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'text-fallback',textContent:' '+this.alt.charAt(0)}));"
+            />
+            <span class="label">{p.name}</span>
+          </div>
+        );
+      })
+    }
   </div>
 </section>
 
 <style>
-  .providers-grid { display:grid; gap:18px; margin-top:30px; }
-  @media (min-width:600px){ .providers-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
-  @media (min-width:900px){ .providers-grid { grid-template-columns: repeat(5,minmax(0,1fr)); } }
-  .provider-item { background:var(--bg-alt); border:1px solid var(--border); border-radius: var(--radius); padding:10px 12px; display:flex; align-items:center; gap:10px; min-height:50px; position:relative; overflow:hidden; }
-  .provider-item img { width:28px; height:28px; border-radius:6px; flex-shrink:0; display:block; }
-  .provider-item .text-fallback { font-weight:600; font-size:16px; line-height:1; color:var(--text); }
-  .provider-item .label { font-size:13px; font-weight:600; line-height:1.2; }
-  .provider-item:hover { border-color:var(--accent); box-shadow:0 0 0 1px var(--accent-glow); }
-  .provider-item img { filter:drop-shadow(0 1px 3px rgba(0,0,0,.35)); }
+  .providers-grid {
+    display: grid;
+    gap: 18px;
+    margin-top: 30px;
+  }
+  @media (min-width: 600px) {
+    .providers-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 900px) {
+    .providers-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+  .provider-item {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  .provider-item img {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    display: block;
+  }
+  .provider-item .text-fallback {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1;
+    color: var(--text);
+  }
+  .provider-item .label {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .provider-item:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent-glow);
+  }
+  .provider-item img {
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35));
+  }
 </style>

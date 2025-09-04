@@ -1,6 +1,6 @@
 ---
-const { locale='en' } = Astro.props;
-const isZh = locale==='zh';
+const { locale = 'en' } = Astro.props;
+const isZh = locale === 'zh';
 ---
 
 <footer>
@@ -8,9 +8,13 @@ const isZh = locale==='zh';
     <div>
       <h3 style="margin-top:0;">ai-lib</h3>
       <p class="dim" style="margin-top:8px; font-size:14px;">
-        {isZh
-          ? <>统一、可靠、高性能的多提供商 Rust AI SDK。</>
-          : <>Unified, reliable & high-performance multi-provider AI SDK for Rust.</>}
+        {
+          isZh ? (
+            <>统一、可靠、高性能的多提供商 Rust AI SDK。</>
+          ) : (
+            <>Unified, reliable & high-performance multi-provider AI SDK for Rust.</>
+          )
+        }
       </p>
       <p style="margin-top:14px; font-size:12px;" class="dim">
         MIT / Apache-2.0 · © {new Date().getFullYear()}
@@ -28,9 +32,20 @@ const isZh = locale==='zh';
     <div>
       <h4>{isZh ? '资源' : 'Resources'}</h4>
       <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.7;">
-        <li><a href="https://github.com/hiddenpath/ai-lib/tree/main/examples" target="_blank">Examples</a></li>
-        <li><a href="https://github.com/hiddenpath/ai-lib#%F0%9F%93%8A-%E6%80%A7%E8%83%BD" target="_blank">{isZh ? '性能说明' : 'Performance Notes'}</a></li>
-        <li><a href="https://github.com/hiddenpath/ai-lib#-%E8%B7%AF%E7%BA%BF%E5%9B%BE" target="_blank">{isZh ? '路线图' : 'Roadmap'}</a></li>
+        <li>
+          <a href="https://github.com/hiddenpath/ai-lib/tree/main/examples" target="_blank"
+            >Examples</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/hiddenpath/ai-lib#%F0%9F%93%8A-%E6%80%A7%E8%83%BD"
+            target="_blank">{isZh ? '性能说明' : 'Performance Notes'}</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/hiddenpath/ai-lib#-%E8%B7%AF%E7%BA%BF%E5%9B%BE"
+            target="_blank">{isZh ? '路线图' : 'Roadmap'}</a>
+        </li>
       </ul>
     </div>
     <div>

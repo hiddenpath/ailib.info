@@ -123,6 +123,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 ```
 
 If a smarter variant exists:
+
 ```rust
 // let results = client.chat_completion_batch_smart(batch).await?;
 ```
@@ -146,6 +147,7 @@ Some crates expose ergonomic shortcuts like `quick_chat_text(model, prompt)` ret
 ## Notes
 
 Tips:
+
 - Check docs.rs for any renames (e.g. `chat` vs `chat_completion`).
 - Collect streaming deltas into a `String` if you need the final answer.
 - Batch + streaming together? Launch multiple `chat_completion_stream` tasks and aggregate.

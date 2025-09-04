@@ -1,5 +1,13 @@
-export interface SidebarItem { title: string; path?: string; external?: string; status?: 'stable'|'partial'|'planned'; }
-export interface SidebarGroup { group: string; items: SidebarItem[] }
+export interface SidebarItem {
+  title: string;
+  path?: string;
+  external?: string;
+  status?: 'stable' | 'partial' | 'planned';
+}
+export interface SidebarGroup {
+  group: string;
+  items: SidebarItem[];
+}
 
 const sidebar: SidebarGroup[] = [
   {
@@ -9,8 +17,8 @@ const sidebar: SidebarGroup[] = [
       { title: 'Getting Started', path: '/docs/getting-started' },
       { title: 'Supported Providers', path: '/docs/providers' },
       { title: 'Architecture', path: '/docs/architecture' },
-      { title: 'FAQ', path: '/docs/faq' }
-    ]
+      { title: 'FAQ', path: '/docs/faq' },
+    ],
   },
   {
     group: 'Developer Guide',
@@ -26,31 +34,29 @@ const sidebar: SidebarGroup[] = [
       { title: 'Rate Limiting', path: '/docs/reliability-rate', status: 'partial' },
       { title: 'Circuit Breaker', path: '/docs/reliability-circuit', status: 'partial' },
       { title: 'Observability', path: '/docs/observability', status: 'planned' },
-      { title: 'Extending the SDK', path: '/docs/extension', status: 'stable' }
-    ]
+      { title: 'Extending the SDK', path: '/docs/extension', status: 'stable' },
+    ],
   },
   {
     group: 'Recipes',
-    items: [
-      { title: 'Recipes Overview', path: '/docs/recipes', status: 'planned' }
-    ]
+    items: [{ title: 'Recipes Overview', path: '/docs/recipes', status: 'planned' }],
   },
   {
     group: 'Enterprise',
     items: [
       { title: 'Why Ailib', path: '/docs/enterprise-overview' },
       { title: 'Deployment & Security', path: '/docs/enterprise-deployment', status: 'partial' },
-      { title: 'Support & Contact', path: '/docs/enterprise-support' }
-    ]
+      { title: 'Support & Contact', path: '/docs/enterprise-support' },
+    ],
   },
   {
     group: 'Reference',
     items: [
       { title: 'API (docs.rs)', external: 'https://docs.rs/ai-lib/latest/ai_lib/' },
       { title: 'Changelog', external: 'https://github.com/hiddenpath/ai-lib/releases' },
-      { title: 'Roadmap', external: 'https://github.com/hiddenpath/ai-lib#roadmap' }
-    ]
-  }
+      { title: 'Roadmap', external: 'https://github.com/hiddenpath/ai-lib#roadmap' },
+    ],
+  },
 ];
 
 export default sidebar;

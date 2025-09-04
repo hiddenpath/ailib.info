@@ -6,9 +6,9 @@ const docs = defineCollection({
     title: z.string(),
     group: z.string().optional(),
     order: z.number().optional(),
-    status: z.enum(['stable','partial','planned']).optional(),
-    description: z.string().optional()
-  })
+    status: z.enum(['stable', 'partial', 'planned']).optional(),
+    description: z.string().optional(),
+  }),
 });
 
 export const collections = { docs };

@@ -1,34 +1,42 @@
 ---
-const { locale='en' } = Astro.props;
-const isZh = locale==='zh';
-const items = isZh ? [
-  { phase: '阶段 1', desc: '高级背压 & 自适应速率协调' },
-  { phase: '阶段 2', desc: '内置缓存层（请求/结果分层）' },
-  { phase: '阶段 3', desc: '实时配置热重载 + 插件系统雏形' },
-  { phase: '阶段 4', desc: 'GraphQL 表面 & WebSocket 流式' },
-  { phase: '阶段 5', desc: '增强安全：密钥轮换 / KMS 集成' }
-] : [
-  { phase: 'Phase 1', desc: 'Advanced backpressure & adaptive rate coordination' },
-  { phase: 'Phase 2', desc: 'Built‑in caching layers (request/result tiers)' },
-  { phase: 'Phase 3', desc: 'Live config hot‑reload + early plugin system' },
-  { phase: 'Phase 4', desc: 'GraphQL surface & native WebSocket streaming' },
-  { phase: 'Phase 5', desc: 'Enhanced security: key rotation / KMS integration' }
-];
+const { locale = 'en' } = Astro.props;
+const isZh = locale === 'zh';
+const items = isZh
+  ? [
+      { phase: '阶段 1', desc: '高级背压 & 自适应速率协调' },
+      { phase: '阶段 2', desc: '内置缓存层（请求/结果分层）' },
+      { phase: '阶段 3', desc: '实时配置热重载 + 插件系统雏形' },
+      { phase: '阶段 4', desc: 'GraphQL 表面 & WebSocket 流式' },
+      { phase: '阶段 5', desc: '增强安全：密钥轮换 / KMS 集成' },
+    ]
+  : [
+      { phase: 'Phase 1', desc: 'Advanced backpressure & adaptive rate coordination' },
+      { phase: 'Phase 2', desc: 'Built‑in caching layers (request/result tiers)' },
+      { phase: 'Phase 3', desc: 'Live config hot‑reload + early plugin system' },
+      { phase: 'Phase 4', desc: 'GraphQL surface & native WebSocket streaming' },
+      { phase: 'Phase 5', desc: 'Enhanced security: key rotation / KMS integration' },
+    ];
 ---
 
 <section>
   <h2>{isZh ? '路线图（快照）' : 'Roadmap (Snapshot)'}</h2>
   <div class="cards cols-3" style="margin-top:30px;">
-    {items.map(i => (
-      <div class="card">
-        <h3 style="margin:0 0 6px;">{i.phase}</h3>
-        <p class="dim" style="margin:0;">{i.desc}</p>
-      </div>
-    ))}
+    {
+      items.map((i) => (
+        <div class="card">
+          <h3 style="margin:0 0 6px;">{i.phase}</h3>
+          <p class="dim" style="margin:0;">
+            {i.desc}
+          </p>
+        </div>
+      ))
+    }
   </div>
   <p class="notice" style="margin-top:18px;">
-    {isZh
-      ? '说明：顺序可能随反馈调整，以性能与可靠性为最高优先级。'
-      : 'Note: Order may shift based on feedback; performance & reliability remain top priorities.'}
+    {
+      isZh
+        ? '说明：顺序可能随反馈调整，以性能与可靠性为最高优先级。'
+        : 'Note: Order may shift based on feedback; performance & reliability remain top priorities.'
+    }
   </p>
 </section>

@@ -9,8 +9,8 @@ status: planned
 
 See also [Advanced Examples](/docs/advanced-examples) for implemented code patterns.
 
-- Chatbot loop with fallback chain *(planned)*
-- Tool call execution loop *(planned)*
-- Multimodal image + text request *(planned)*
-- Latency race (hedging) example *(planned)*
-- Cost-aware routing strategy *(planned)*
+- Chatbot loop with fallback chain _(planned)_
+- Tool call execution loop _(planned)_
+- Multimodal image + text request _(planned)_
+- Latency race (hedging) example _(planned)_
+- Cost-aware routing strategy _(planned)_

@@ -8,29 +8,42 @@ for (const d of docs) {
   const g = d.data.group || 'Other';
   (groups[g] ||= []).push(d);
 }
-for (const g in groups) groups[g].sort((a,b)=> (a.data.order ?? 0) - (b.data.order ?? 0));
-const groupNames = Object.keys(groups).sort((a,b)=> a.localeCompare(b));
-function isActiveSlug(slug: string){
-  if(slug === 'intro' && (currentPath === '/docs' || currentPath === '/docs/')) return true;
+for (const g in groups) groups[g].sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const groupNames = Object.keys(groups).sort((a, b) => a.localeCompare(b));
+function isActiveSlug(slug: string) {
+  if (slug === 'intro' && (currentPath === '/docs' || currentPath === '/docs/')) return true;
   return currentPath === '/docs/' + slug;
 }
 ---
+
 <aside class="sidebar" id="docs-sidebar" role="navigation" aria-label="Documentation navigation">
-  <div class="logo-row"><a href="/" class="brand">Ailib</a><button id="sidebar-close" aria-label="Close" class="close-btn">×</button></div>
-  {groupNames.map(name => (
-    <div class="group">
-      <button class="group-head" type="button" data-collapse>
-        <span>{name}</span>
-      </button>
-      <ul>
-        {groups[name].map(entry => (
-          <li class={isActiveSlug(entry.slug) ? 'active' : ''}>
-            <a href={`/docs/${entry.slug}`}>{entry.data.title}{entry.data.status && <span class={`badge-status ${entry.data.status}`}>{entry.data.status}</span>}</a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  ))}
+  <div class="logo-row">
+    <a href="/" class="brand">Ailib</a><button
+      id="sidebar-close"
+      aria-label="Close"
+      class="close-btn">×</button>
+  </div>
+  {
+    groupNames.map((name) => (
+      <div class="group">
+        <button class="group-head" type="button" data-collapse>
+          <span>{name}</span>
+        </button>
+        <ul>
+          {groups[name].map((entry) => (
+            <li class={isActiveSlug(entry.slug) ? 'active' : ''}>
+              <a href={`/docs/${entry.slug}`}>
+                {entry.data.title}
+                {entry.data.status && (
+                  <span class={`badge-status ${entry.data.status}`}>{entry.data.status}</span>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
   <div class="version">v{version}</div>
   <button id="sidebar-backdrop" aria-hidden="true"></button>
 </aside>
@@ -43,67 +56,225 @@ function isActiveSlug(slug: string){
   const STORAGE_KEY = 'docs.sidebar.state.v1';
   const GROUP_KEY_PREFIX = 'docs.group.';
 
-  function loadState(){
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; }
+  function loadState() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    } catch {
+      return {};
+    }
   }
-  function saveState(state){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
   const state = loadState();
-  if(state.open) sidebar.classList.add('open');
+  if (state.open) sidebar.classList.add('open');
 
-  function open(){ sidebar.classList.add('open'); state.open = true; saveState(state); }
-  function close(){ sidebar.classList.remove('open'); state.open = false; saveState(state); }
-  toggleBtn.addEventListener('click', ()=> sidebar.classList.contains('open') ? close() : open());
+  function open() {
+    sidebar.classList.add('open');
+    state.open = true;
+    saveState(state);
+  }
+  function close() {
+    sidebar.classList.remove('open');
+    state.open = false;
+    saveState(state);
+  }
+  toggleBtn.addEventListener('click', () =>
+    sidebar.classList.contains('open') ? close() : open()
+  );
   closeBtn.addEventListener('click', close);
   backdrop.addEventListener('click', close);
 
-  window.addEventListener('keydown', (e)=>{
-    if(e.key === 'Escape' && sidebar.classList.contains('open')) close();
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sidebar.classList.contains('open')) close();
   });
 
   const groups = sidebar.querySelectorAll('.group');
-  groups.forEach(g=>{
+  groups.forEach((g) => {
     const head = g.querySelector('[data-collapse]');
     const name = head?.textContent?.trim() || '';
     const key = GROUP_KEY_PREFIX + name;
-    if(localStorage.getItem(key) === 'collapsed') g.classList.add('collapsed');
-    head.addEventListener('click', ()=>{
+    if (localStorage.getItem(key) === 'collapsed') g.classList.add('collapsed');
+    head.addEventListener('click', () => {
       const collapsed = g.classList.toggle('collapsed');
       localStorage.setItem(key, collapsed ? 'collapsed' : 'open');
     });
   });
 
   // Close on link click in mobile mode
-  sidebar.querySelectorAll('a').forEach(a=>{
-    a.addEventListener('click', ()=>{ if(matchMedia('(max-width:960px)').matches) close(); });
+  sidebar.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', () => {
+      if (matchMedia('(max-width:960px)').matches) close();
+    });
   });
 </script>
 <style>
-.sidebar { position:sticky; top:70px; max-height:calc(100vh - 80px); overflow:auto; width:250px; padding:12px 10px 40px; border-right:1px solid var(--border); background:var(--bg-alt); box-shadow:0 0 0 rgba(0,0,0,0); }
-.logo-row { padding:4px 8px 10px; font-weight:600; }
-.brand { color:var(--text); text-decoration:none; font-size:18px; }
-.close-btn { margin-left:auto; background:transparent; border:0; font-size:24px; line-height:1; cursor:pointer; color:var(--text-dim); display:none; }
-.close-btn:hover { color:var(--text); }
-.group { margin-top:14px; }
-.group-head { width:100%; background:transparent; border:0; text-align:left; padding:6px 8px; font:inherit; font-size:13px; letter-spacing:.5px; text-transform:uppercase; color:var(--text-dim); display:flex; justify-content:space-between; cursor:pointer; }
-.group.collapsed ul { display:none; }
-ul { list-style:none; margin:4px 0 0; padding:0; }
-li a { display:flex; align-items:center; gap:6px; padding:6px 10px; border-radius:6px; color:var(--text-dim); font-size:14px; text-decoration:none; }
-li a:hover { background:var(--bg); color:var(--text); }
-li.active > a { background:var(--accent); color:#fff; }
-.badge-status { font-size:10px; text-transform:uppercase; letter-spacing:.5px; padding:2px 4px; border-radius:4px; background:#2a3442; color:#b5c6e5; }
-.badge-status.stable { background:#1d4d2f; color:#9ee3b4; }
-.badge-status.partial { background:#5a4708; color:#ffdb85; }
-.badge-status.planned { background:#3a3a3a; color:#c8c8c8; }
-.version { margin-top:28px; font-size:12px; color:var(--text-dim); padding:8px 10px; border-top:1px solid var(--border); }
-.sidebar-toggle { position:fixed; left:14px; top:14px; z-index:90; background:var(--accent); color:#fff; border:0; border-radius:6px; padding:8px 12px; font-size:18px; cursor:pointer; display:none; box-shadow:0 2px 6px rgba(0,0,0,.2); }
-#sidebar-backdrop { display:none; position:fixed; inset:0; background:rgba(0,0,0,.25); border:0; padding:0; margin:0; }
-@media (max-width:960px){
-  .sidebar-toggle { display:block; }
-  .sidebar { position:fixed; left:0; top:0; bottom:0; transform:translateX(-101%); transition:.25s transform, .25s box-shadow; z-index:120; max-height:none; width:270px; border-right:1px solid var(--border); box-shadow:0 0 0 rgba(0,0,0,0); }
-  .sidebar.open { transform:translateX(0); box-shadow:0 8px 30px rgba(0,0,0,.35); }
-  #sidebar-backdrop { display:block; opacity:0; transition:.25s opacity; }
-  .sidebar.open + #sidebar-backdrop { opacity:1; pointer-events:auto; }
-  #sidebar-backdrop { pointer-events:none; }
-  .close-btn { display:block; }
-}
+  .sidebar {
+    position: sticky;
+    top: 70px;
+    max-height: calc(100vh - 80px);
+    overflow: auto;
+    width: 250px;
+    padding: 12px 10px 40px;
+    border-right: 1px solid var(--border);
+    background: var(--bg-alt);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+  .logo-row {
+    padding: 4px 8px 10px;
+    font-weight: 600;
+  }
+  .brand {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 18px;
+  }
+  .close-btn {
+    margin-left: auto;
+    background: transparent;
+    border: 0;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--text-dim);
+    display: none;
+  }
+  .close-btn:hover {
+    color: var(--text);
+  }
+  .group {
+    margin-top: 14px;
+  }
+  .group-head {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    text-align: left;
+    padding: 6px 8px;
+    font: inherit;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  .group.collapsed ul {
+    display: none;
+  }
+  ul {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 0;
+  }
+  li a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: var(--text-dim);
+    font-size: 14px;
+    text-decoration: none;
+  }
+  li a:hover {
+    background: var(--bg);
+    color: var(--text);
+  }
+  li.active > a {
+    background: var(--accent);
+    color: #fff;
+  }
+  .badge-status {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    background: #2a3442;
+    color: #b5c6e5;
+  }
+  .badge-status.stable {
+    background: #1d4d2f;
+    color: #9ee3b4;
+  }
+  .badge-status.partial {
+    background: #5a4708;
+    color: #ffdb85;
+  }
+  .badge-status.planned {
+    background: #3a3a3a;
+    color: #c8c8c8;
+  }
+  .version {
+    margin-top: 28px;
+    font-size: 12px;
+    color: var(--text-dim);
+    padding: 8px 10px;
+    border-top: 1px solid var(--border);
+  }
+  .sidebar-toggle {
+    position: fixed;
+    left: 14px;
+    top: 14px;
+    z-index: 90;
+    background: var(--accent);
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 18px;
+    cursor: pointer;
+    display: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  #sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+  @media (max-width: 960px) {
+    .sidebar-toggle {
+      display: block;
+    }
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      transform: translateX(-101%);
+      transition:
+        0.25s transform,
+        0.25s box-shadow;
+      z-index: 120;
+      max-height: none;
+      width: 270px;
+      border-right: 1px solid var(--border);
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
+    .sidebar.open {
+      transform: translateX(0);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+    }
+    #sidebar-backdrop {
+      display: block;
+      opacity: 0;
+      transition: 0.25s opacity;
+    }
+    .sidebar.open + #sidebar-backdrop {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #sidebar-backdrop {
+      pointer-events: none;
+    }
+    .close-btn {
+      display: block;
+    }
+  }
 </style>

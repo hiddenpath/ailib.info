@@ -1,16 +1,30 @@
 ---
-const { locale='en' } = Astro.props;
-const isZh = locale==='zh';
+const { locale = 'en' } = Astro.props;
+const isZh = locale === 'zh';
 ---
 
 <section id="contact">
   <h2>{isZh ? '商业与支持' : 'Commercial & Support'}</h2>
   <p class="dim" style="max-width:760px;">
-    {isZh
-      ? <>当前阶段：征集早期使用反馈与企业级需求。我们计划提供分层支持：集成指导、模型策略咨询、性能基准验证、架构评审等。欢迎填写下列表单，获取帮助。</>
-      : <>We are gathering early adopter feedback & enterprise requirements. Planned tiers include integration guidance, model strategy consulting, performance validation, and architecture reviews. Use the form below to express interest.</>}
+    {
+      isZh ? (
+        <>
+          当前阶段：征集早期使用反馈与企业级需求。我们计划提供分层支持：集成指导、模型策略咨询、性能基准验证、架构评审等。欢迎填写下列表单，获取帮助。
+        </>
+      ) : (
+        <>
+          We are gathering early adopter feedback & enterprise requirements. Planned tiers include
+          integration guidance, model strategy consulting, performance validation, and architecture
+          reviews. Use the form below to express interest.
+        </>
+      )
+    }
   </p>
-  <form method="POST" action="https://formsubmit.co/wang.luqiang@gmail.com" style="margin-top:30px;">
+  <form
+    method="POST"
+    action="https://formsubmit.co/wang.luqiang@gmail.com"
+    style="margin-top:30px;"
+  >
     <input type="hidden" name="_subject" value="ai-lib Feedback / Support" />
     <input type="hidden" name="_captcha" value="false" />
     <input type="hidden" name="_template" value="table" />
@@ -31,23 +45,40 @@ const isZh = locale==='zh';
       </div>
       <div style="flex:1; min-width:240px;">
         <label>{isZh ? '预计用例' : 'Intended Use Case'}</label>
-        <input name="use_case" placeholder={isZh ? '多提供商路由 / 成本优化' : 'Multi-provider routing / cost optimization'} />
+        <input
+          name="use_case"
+          placeholder={isZh
+            ? '多提供商路由 / 成本优化'
+            : 'Multi-provider routing / cost optimization'}
+        />
       </div>
     </div>
     <div style="margin-top:16px;">
       <label>{isZh ? '需求描述 / 时间表' : 'Need Description / Timeline'}</label>
-      <textarea name="details" rows="5" placeholder={isZh ? 'Q4 计划上线，需可靠性策略...' : 'Planning production Q4, need reliability strategy...'}></textarea>
+      <textarea
+        name="details"
+        rows="5"
+        placeholder={isZh
+          ? 'Q4 计划上线，需可靠性策略...'
+          : 'Planning production Q4, need reliability strategy...'}></textarea>
     </div>
     <div style="margin-top:16px;">
       <label>{isZh ? '其他反馈' : 'Additional Feedback'}</label>
-      <textarea name="feedback" rows="4" placeholder={isZh ? '功能建议 / 痛点 / 期望集成...' : 'Feature suggestions / pain points / desired integrations...'}></textarea>
+      <textarea
+        name="feedback"
+        rows="4"
+        placeholder={isZh
+          ? '功能建议 / 痛点 / 期望集成...'
+          : 'Feature suggestions / pain points / desired integrations...'}></textarea>
     </div>
     <div style="margin-top:18px;">
       <button class="button" type="submit">{isZh ? '提交' : 'Submit'}</button>
       <span class="notice">
-        {isZh
-          ? '提交后反馈会直接发送到核心团队邮箱，我们通常 2–3 个工作日内回复。'
-          : 'Feedback goes directly to the core team inbox. We usually respond within 2–3 business days.'}
+        {
+          isZh
+            ? '提交后反馈会直接发送到核心团队邮箱，我们通常 2–3 个工作日内回复。'
+            : 'Feedback goes directly to the core team inbox. We usually respond within 2–3 business days.'
+        }
       </span>
     </div>
   </form>

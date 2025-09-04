@@ -12,5 +12,5 @@ export default defineConfig({
     // 如需自定义 remark 插件：
     // remarkPlugins: [],
     // rehypePlugins: [],
-  }
+  },
 });
