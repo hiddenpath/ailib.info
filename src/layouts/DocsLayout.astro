@@ -1,15 +1,48 @@
 ---
 import Sidebar from '../components/Sidebar.astro';
+import { getCollection } from 'astro:content';
 // Load version dynamically from package.json so docs always show current package version
 // Astro supports importing JSON directly at build time.
 import pkg from '../../package.json';
 const version = pkg.version as string;
-const { frontmatter, url } = Astro;
+// Support both frontmatter (from old static .astro pages) and docTitle prop (dynamic collection pages)
+// Astro.props holds passed props when used via dynamic [slug] route.
+// Fallback order: explicit docTitle -> frontmatter.title -> default.
+// We also forward frontmatter when provided for potential meta usage later.
+// @ts-ignore
+const { frontmatter, url, docTitle } = { ...(Astro as any), ...(Astro.props || {}) };
+
+// Build ordered flat list for prev/next (only for doc pages with a slug path starting /docs)
+let nav: { slug: string; title: string; order: number; group: string }[] = [];
+try {
+  const coll = await getCollection('docs');
+  for (const e of coll) {
+    nav.push({ slug: e.slug, title: e.data.title, order: e.data.order ?? 0, group: e.data.group || 'Other' });
+  }
+  nav.sort((a,b)=>{
+    // group alphabetical first, then numeric order, then title
+    if(a.group !== b.group) return a.group.localeCompare(b.group);
+    if(a.order !== b.order) return a.order - b.order;
+    return a.title.localeCompare(b.title);
+  });
+} catch (e) {
+  // collection not available (e.g., index page) – ignore
+}
+
+let prev: typeof nav[number] | undefined;
+let next: typeof nav[number] | undefined;
+if(frontmatter?.title){
+  const idx = nav.findIndex(n => '/docs/' + n.slug === url.pathname || (n.slug === 'intro' && (url.pathname === '/docs' || url.pathname === '/docs/')));
+  if(idx !== -1){
+    prev = idx > 0 ? nav[idx-1] : undefined;
+    next = idx < nav.length-1 ? nav[idx+1] : undefined;
+  }
+}
 ---
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>{frontmatter?.title || 'Ailib Docs'}</title>
+  <title>{docTitle || frontmatter?.title || 'Ailib Docs'}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" href="/favicon.svg" />
   </head>
@@ -19,6 +52,12 @@ const { frontmatter, url } = Astro;
       <main class="doc-main">
         <article class="doc-article">
           <slot />
+          {(prev || next) && (
+            <nav class="prev-next">
+              {prev ? <a class="prev" href={`/docs/${prev.slug}`}>← {prev.title}</a> : <span />}
+              {next ? <a class="next" href={`/docs/${next.slug}`}>{next.title} →</a> : <span />}
+            </nav>
+          )}
         </article>
       </main>
     </div>
@@ -30,6 +69,9 @@ body[data-docs] { display:block; }
 .doc-main { flex:1; padding:40px 46px 120px; min-width:0; }
 .doc-article h1 { margin-top:0; font-size:40px; }
 .doc-article pre { margin:20px 0; }
+.prev-next { display:flex; justify-content:space-between; gap:20px; margin-top:60px; padding-top:30px; border-top:1px solid var(--border); font-size:14px; }
+.prev-next a { text-decoration:none; color:var(--text-dim); padding:8px 12px; background:var(--bg-alt); border:1px solid var(--border); border-radius:6px; transition:.15s background,color; }
+.prev-next a:hover { background:var(--accent); color:#fff; }
 @media (max-width:960px){
   .docs-shell { display:block; }
   .doc-main { padding:90px 22px 120px; }

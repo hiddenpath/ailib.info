@@ -88,3 +88,46 @@ If content grows, migrate to an Astro i18n or content collections approach.
 Follow main project (MIT / Apache-2.0). Content here can mirror same licensing.
 
 ---
+## Continuous Integration (GitHub Actions)
+
+This repository includes a GitHub Actions workflow that:
+
+1. Runs on pushes to `main` and on all pull requests.
+2. Caches `~/.npm` for faster builds.
+3. Installs dependencies with `npm ci`.
+4. Checks formatting (`npm run format:check`).
+5. Builds the static site (`npm run build`).
+6. (Optional) Uploads the `dist/` folder as an artifact for PR preview.
+
+If you deploy with **Vercel** connected to GitHub, Vercel will build & deploy separately; this CI build is a quality gate (fast failure feedback). You can safely disable the build step in Vercel if you later introduce a multi-step pipeline, but default settings are fine.
+
+### Local parity
+The CI uses:
+```bash
+npm ci
+npm run format:check
+npm run build
+```
+Ensure your local Node.js version is >= the version declared in your `.nvmrc` (add one if needed) or engines field if added later.
+
+## Automated Deployment (Vercel)
+
+When the repo is linked to Vercel:
+- Every push to `main` triggers a Production deployment.
+- Every PR gets a Preview URL (great for design/content review).
+- Build command: `astro build`
+- Output dir: `dist`
+
+### Environment Variables
+Currently none required. If later you add analytics tokens or form IDs, set them in Vercel Project Settings → Environment Variables, then reference via `import.meta.env`. Re-run deployments after adding them.
+
+### Recommended Hardening
+- Add a `NODE_VERSION` or `engines` constraint to ensure consistent runtime.
+- Add a `sitemap.xml` generation step (Astro integration) for SEO.
+- Add a `robots.txt` rule update if you introduce staging environments.
+
+## Artifacts
+
+The CI workflow uploads `site-dist` artifact for inspection. Download from the workflow run page if you need to diff generated HTML without pulling locally.
+
+---

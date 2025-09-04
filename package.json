@@ -7,10 +7,12 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "format": "prettier --write ."
+  "format": "prettier --write .",
+  "format:check": "prettier --check ."
   },
   "dependencies": {
-    "astro": "^4.10.0"
+    "astro": "^4.10.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "prettier": "^3.3.3",
