@@ -10,24 +10,16 @@ const isZh = locale==='zh';
       ? <>分层设计：应用 → 高级 API → 统一抽象 → 提供商适配器 → 传输（HTTP/流式 + 可靠性）→ 通用类型。</>
       : <>Layered design: App → High-level API → Unified abstraction → Provider adapters → Transport (HTTP/stream + reliability) → Common types.</>}
   </p>
-  <div class="arch-box">
-{`┌──────────────────────────────────────────────────────────────┐
-│                       Your Application                         │
-└──────────────▲───────────────────────────▲────────────────────┘
-               │                           │
-        High-level API               Advanced Control
-               │                           │
-  AiClient / Builder   ←  Model Mgmt / Metrics / Batch / Tools
-               │
-       ┌──────────── Unified Abstraction Layer ────────────┐
-       │   Provider Adapters (Hybrid: config + custom)     │
-       └───────┬─────────────┬─────────────┬──────────────┘
-               │             │             │
-      OpenAI / Groq   Gemini / Mistral   Ollama / Region / ...
-               │
-   Transport: HTTP · Streaming · Retry · Proxy · Timeout
-               │
-   Common Types: Request · Message · Content · Tools · Error
-`}
-  </div>
+  <figure class="arch-figure">
+    <img src="/Architecture_Snapshot.png" alt={isZh ? '架构快照图：展示应用、高级API、统一抽象、适配器、传输与通用类型分层' : 'Architecture snapshot diagram: app, high-level API, unified abstraction, adapters, transport, common types'} loading="lazy" decoding="async" />
+    <figcaption class="dim" style="font-size:12px; margin-top:8px;">
+      {isZh ? '示意图：实际实现中各层可按需裁剪或替换。' : 'Schematic: layers may be trimmed or swapped in real deployments.'}
+    </figcaption>
+  </figure>
 </section>
+
+<style>
+  .arch-figure { margin:32px 0 0; }
+  .arch-figure img { max-width:100%; border:1px solid var(--code-border, var(--border)); border-radius:12px; background:var(--bg-alt); display:block; }
+  [data-theme='light'] .arch-figure img { background:#fff; }
+</style>
