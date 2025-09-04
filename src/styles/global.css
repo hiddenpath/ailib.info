@@ -234,11 +234,12 @@ section {
 
 code {
   font-family: 'Intel One Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, "Liberation Mono", monospace;
-  background:var(--code-inline-bg);
-  color:var(--code-text);
-  padding:2px 5px;
-  border-radius:4px;
-  font-size:15px; /* increased one step */
+  background:transparent;
+  color:var(--accent);
+  padding:0 2px;
+  border-radius:2px;
+  font-size:15px;
+  font-weight:600;
 }
 
 pre {

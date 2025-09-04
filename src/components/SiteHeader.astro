@@ -92,9 +92,10 @@ const isZh = locale === 'zh';
       else if(e.key==='End'){ e.preventDefault(); options[options.length-1].focus(); }
       else if(e.key==='Enter' || e.key===' '){ e.preventDefault(); document.activeElement.click(); }
     });
-    document.addEventListener('click', (e)=>{
+    document.addEventListener('pointerdown', (e)=>{
       if(!switcher.contains(e.target)) closeMenu();
     });
+    window.addEventListener('scroll', closeMenu, { passive:true });
     window.addEventListener('blur', closeMenu);
   </script>
 </header>

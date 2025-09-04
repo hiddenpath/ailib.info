@@ -11,23 +11,23 @@ const isZh = locale==='zh';
       : <>Layered design: App → High-level API → Unified abstraction → Provider adapters → Transport (HTTP/stream + reliability) → Common types.</>}
   </p>
   <div class="arch-box">
-{`┌───────────────────────────────────────────────────────────┐
-│                       Your Application                      │
-└───────────────▲─────────────────────────▲──────────────────┘
-                │                         │
-        High-level API             Advanced Control
-                │                         │
-      AiClient / Builder  ←  Model Mgmt / Metrics / Batch / Tools
-                │
-        ┌────────── Unified Abstraction Layer ────────────┐
-        │   Provider Adapters (Hybrid: config + custom)   │
-        └──────┬────────────┬────────────┬────────────────┘
-               │            │            │
-        OpenAI / Groq   Gemini / Mistral  Ollama / Region / ...
+{`┌──────────────────────────────────────────────────────────────┐
+│                       Your Application                         │
+└──────────────▲───────────────────────────▲────────────────────┘
+               │                           │
+        High-level API               Advanced Control
+               │                           │
+  AiClient / Builder   ←  Model Mgmt / Metrics / Batch / Tools
                │
-      Transport (HTTP + Streaming + Retry + Proxy + Timeout)
+       ┌──────────── Unified Abstraction Layer ────────────┐
+       │   Provider Adapters (Hybrid: config + custom)     │
+       └───────┬─────────────┬─────────────┬──────────────┘
+               │             │             │
+      OpenAI / Groq   Gemini / Mistral   Ollama / Region / ...
                │
-      Common Types (Request / Message / Content / Tools / Error)
+   Transport: HTTP · Streaming · Retry · Proxy · Timeout
+               │
+   Common Types: Request · Message · Content · Tools · Error
 `}
   </div>
 </section>
