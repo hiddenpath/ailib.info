@@ -8,17 +8,7 @@ const isZh = locale === 'zh';
       <span class="logo-mark" aria-hidden="true">λ</span>
       <span class="brand-text">Ailib</span>
     </a>
-    <nav class="nav-actions">
-      <div class="theme-switch" id="theme-switcher">
-        <button type="button" class="theme-btn" data-mode="dark" aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu" aria-label={isZh ? '切换主题' : 'Toggle Theme'}>
-          <span class="theme-label">🌓</span>
-        </button>
-        <div class="theme-menu" id="theme-menu" role="menu" hidden>
-          <button type="button" role="menuitemradio" aria-checked="false" data-set-theme="dark">{isZh ? '深色' : 'Dark'}</button>
-          <button type="button" role="menuitemradio" aria-checked="false" data-set-theme="black">{isZh ? '纯黑' : 'Black'}</button>
-          <button type="button" role="menuitemradio" aria-checked="false" data-set-theme="light">{isZh ? '浅色' : 'Light'}</button>
-        </div>
-      </div>
+  <nav class="nav-actions">
       <div class="lang-switch-top">
         {isZh ? <a href="/">English</a> : <a href="/zh/">中文</a>}
       </div>
@@ -26,77 +16,7 @@ const isZh = locale === 'zh';
     </nav>
   </div>
   <script>
-    const KEY = 'ailib-theme';
-    const root = document.documentElement;
-    function applyTheme(t){
-      root.dataset.theme = t;
-    }
-    (function init(){
-      const saved = localStorage.getItem(KEY);
-      if(saved) applyTheme(saved);
-      else {
-        const prefers = matchMedia('(prefers-color-scheme: light)').matches ? 'light':'dark';
-        applyTheme(prefers);
-      }
-    })();
-    const switcher = document.getElementById('theme-switcher');
-    const btn = switcher.querySelector('.theme-btn');
-    const menu = switcher.querySelector('.theme-menu');
-    const options = Array.from(menu.querySelectorAll('[data-set-theme]'));
-
-    function syncChecked() {
-      const current = document.documentElement.dataset.theme;
-      options.forEach(o=> o.setAttribute('aria-checked', o.getAttribute('data-set-theme')===current ? 'true':'false'));
-    }
-    syncChecked();
-
-    function openMenu(){
-      if(!menu.hidden) return;
-      menu.hidden = false;
-      btn.setAttribute('aria-expanded','true');
-      syncChecked();
-      const current = options.find(o=>o.getAttribute('aria-checked')==='true') || options[0];
-      current.focus({preventScroll:true});
-    }
-    function closeMenu(){
-      if(menu.hidden) return;
-      menu.hidden = true;
-      btn.setAttribute('aria-expanded','false');
-      btn.focus({preventScroll:true});
-    }
-    btn.addEventListener('click', (e)=>{
-      e.stopPropagation();
-      menu.hidden ? openMenu() : closeMenu();
-    });
-    btn.addEventListener('keydown',(e)=>{
-      if(e.key==='ArrowDown' || e.key==='Enter' || e.key===' '){
-        e.preventDefault();
-        openMenu();
-      }
-    });
-    menu.addEventListener('click', (e)=>{
-      const target = e.target.closest('[data-set-theme]');
-      if(!target) return;
-      const t = target.getAttribute('data-set-theme');
-      applyTheme(t);
-      localStorage.setItem(KEY, t);
-      syncChecked();
-      closeMenu();
-    });
-    menu.addEventListener('keydown',(e)=>{
-      const idx = options.indexOf(document.activeElement);
-      if(e.key==='Escape'){ closeMenu(); }
-      else if(e.key==='ArrowDown'){ e.preventDefault(); options[(idx+1)%options.length].focus(); }
-      else if(e.key==='ArrowUp'){ e.preventDefault(); options[(idx-1+options.length)%options.length].focus(); }
-      else if(e.key==='Home'){ e.preventDefault(); options[0].focus(); }
-      else if(e.key==='End'){ e.preventDefault(); options[options.length-1].focus(); }
-      else if(e.key==='Enter' || e.key===' '){ e.preventDefault(); document.activeElement.click(); }
-    });
-    document.addEventListener('pointerdown', (e)=>{
-      if(!switcher.contains(e.target)) closeMenu();
-    });
-    window.addEventListener('scroll', closeMenu, { passive:true });
-    window.addEventListener('blur', closeMenu);
+  document.documentElement.dataset.theme = 'light';
   </script>
 </header>
 
@@ -109,16 +29,6 @@ const isZh = locale === 'zh';
   .nav-actions { display:flex; align-items:center; gap:18px; }
   .lang-switch-top a { font-size:14px; }
   .gh { font-size:18px; text-decoration:none; }
-  .theme-switch { position:relative; }
-  .theme-btn { background:var(--bg-alt); color:var(--text-dim); border:1px solid var(--border); padding:6px 10px; border-radius:8px; cursor:pointer; display:flex; align-items:center; gap:6px; font-size:14px; }
-  [data-theme='light'] .theme-btn { background:#f1f4f8; color:#555; border-color:#cfd6e0; }
-  .theme-btn:hover { filter:brightness(1.08); }
-  .theme-menu { position:absolute; top:44px; right:0; background:var(--bg-alt); border:1px solid var(--border); border-radius:10px; display:flex; flex-direction:column; min-width:120px; padding:6px; box-shadow:0 6px 24px -8px rgba(0,0,0,.5); animation:fadeIn .14s ease; }
-  [data-theme='light'] .theme-menu { background:#fff; border-color:#cfd6e0; }
-  .theme-menu button { background:transparent; border:0; padding:8px 10px; text-align:left; font:inherit; color:var(--text); cursor:pointer; border-radius:6px; font-size:14px; }
-  [data-theme='light'] .theme-menu button { color:#222; }
-  .theme-menu button:hover { background:rgba(255,255,255,.06); }
-  [data-theme='light'] .theme-menu button:hover { background:rgba(0,0,0,.06); }
   @keyframes fadeIn { from { opacity:0; transform:translateY(-4px);} to { opacity:1; transform:translateY(0);} }
   @media (max-width:640px) { .brand-text { display:none; } .nav-actions { gap:12px; } }
 </style>
