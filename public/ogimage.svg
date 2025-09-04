@@ -1,133 +1,442 @@
-<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <title>ai-lib – Unified Multi-Provider AI SDK for Rust</title>
-  <desc>Open Graph preview image for ai-lib: Rust unified multi-provider AI SDK with streaming, reliability and model strategy.</desc>
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1200"
+   height="630"
+   viewBox="0 0 1200 630"
+   fill="none"
+   version="1.1"
+   id="svg28"
+   sodipodi:docname="ogimage.svg"
+   inkscape:export-filename="ogimage.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview28"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.90577012"
+     inkscape:cx="595.62575"
+     inkscape:cy="261.10378"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg28" />
+  <title
+     id="title1">ai-lib – Unified Multi-Provider AI SDK for Rust</title>
+  <desc
+     id="desc1">Open Graph preview image for ai-lib: Rust unified multi-provider AI SDK with streaming, reliability and model strategy.</desc>
   <!-- 背景渐变 -->
-  <defs>
-    <linearGradient id="bg-grad" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0B0D11"/>
-      <stop offset="55%" stop-color="#121824"/>
-      <stop offset="100%" stop-color="#162437"/>
+  <defs
+     id="defs11">
+    <linearGradient
+       id="bg-grad"
+       x1="0"
+       y1="0"
+       x2="1200"
+       y2="630"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0%"
+         stop-color="#0B0D11"
+         id="stop1" />
+      <stop
+         offset="55%"
+         stop-color="#121824"
+         id="stop2" />
+      <stop
+         offset="100%"
+         stop-color="#162437"
+         id="stop3" />
     </linearGradient>
-
-    <radialGradient id="glow1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
-      gradientTransform="translate(880 160) rotate(45) scale(360 220)">
-      <stop offset="0%" stop-color="#5d8bff" stop-opacity="0.55"/>
-      <stop offset="70%" stop-color="#5d8bff" stop-opacity="0.05"/>
-      <stop offset="100%" stop-color="#5d8bff" stop-opacity="0"/>
+    <radialGradient
+       id="glow1"
+       cx="0"
+       cy="0"
+       r="1"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(880 160) rotate(45) scale(360 220)">
+      <stop
+         offset="0%"
+         stop-color="#5d8bff"
+         stop-opacity="0.55"
+         id="stop4" />
+      <stop
+         offset="70%"
+         stop-color="#5d8bff"
+         stop-opacity="0.05"
+         id="stop5" />
+      <stop
+         offset="100%"
+         stop-color="#5d8bff"
+         stop-opacity="0"
+         id="stop6" />
     </radialGradient>
-
-    <radialGradient id="glow2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
-      gradientTransform="translate(300 500) rotate(0) scale(420 260)">
-      <stop offset="0%" stop-color="#5bd691" stop-opacity="0.35"/>
-      <stop offset="75%" stop-color="#5bd691" stop-opacity="0.04"/>
-      <stop offset="100%" stop-color="#5bd691" stop-opacity="0"/>
+    <radialGradient
+       id="glow2"
+       cx="0"
+       cy="0"
+       r="1"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(300 500) rotate(0) scale(420 260)">
+      <stop
+         offset="0%"
+         stop-color="#5bd691"
+         stop-opacity="0.35"
+         id="stop7" />
+      <stop
+         offset="75%"
+         stop-color="#5bd691"
+         stop-opacity="0.04"
+         id="stop8" />
+      <stop
+         offset="100%"
+         stop-color="#5bd691"
+         stop-opacity="0"
+         id="stop9" />
     </radialGradient>
-
-    <linearGradient id="title-grad" x1="150" y1="120" x2="780" y2="260" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#6DA8FF"/>
-      <stop offset="100%" stop-color="#9CC5FF"/>
+    <linearGradient
+       id="title-grad"
+       x1="150"
+       y1="120"
+       x2="780"
+       y2="260"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0%"
+         stop-color="#6DA8FF"
+         id="stop10" />
+      <stop
+         offset="100%"
+         stop-color="#9CC5FF"
+         id="stop11" />
     </linearGradient>
-
-    <filter id="soft-blur" x="-10%" y="-10%" width="120%" height="120%">
-      <feGaussianBlur stdDeviation="40" result="blur"/>
-      <feComponentTransfer>
-        <feFuncA type="linear" slope="0.9"/>
+    <filter
+       id="soft-blur"
+       x="-0.27428571"
+       y="-0.22857143"
+       width="1.5485714"
+       height="1.4571429">
+      <feGaussianBlur
+         stdDeviation="40"
+         result="blur"
+         id="feGaussianBlur11" />
+      <feComponentTransfer
+         id="feComponentTransfer11">
+        <feFuncA
+           type="linear"
+           slope="0.9"
+           id="feFuncA11" />
       </feComponentTransfer>
     </filter>
-
     <!-- 胶囊阴影 -->
-    <filter id="capsule-shadow" x="-20%" y="-50%" width="140%" height="200%">
-      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="#000" flood-opacity="0.45"/>
+    <filter
+       id="capsule-shadow"
+       x="-0.0022727273"
+       y="-0.0071428571"
+       width="1.0045455"
+       height="1.0142857">
+      <feDropShadow
+         dx="0"
+         dy="4"
+         stdDeviation="12"
+         flood-color="#000"
+         flood-opacity="0.45" />
     </filter>
-
     <!-- 细网格 pattern -->
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M40 0H0V40" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+    <pattern
+       id="grid"
+       width="40"
+       height="40"
+       patternUnits="userSpaceOnUse">
+      <path
+         d="M40 0H0V40"
+         stroke="#ffffff"
+         stroke-opacity="0.04"
+         stroke-width="1"
+         id="path11" />
     </pattern>
-    <mask id="grid-mask">
-      <rect x="0" y="0" width="1200" height="630" fill="url(#grid)"/>
+    <mask
+       id="grid-mask">
+      <rect
+         x="0"
+         y="0"
+         width="1200"
+         height="630"
+         fill="url(#grid)"
+         id="rect11" />
     </mask>
   </defs>
-
   <!-- 背景 -->
-  <rect width="1200" height="630" fill="url(#bg-grad)"/>
-
+  <rect
+     width="1200"
+     height="630"
+     fill="url(#bg-grad)"
+     id="rect12" />
   <!-- 网格 + 渐变叠加 -->
-  <rect width="1200" height="630" fill="url(#grid)" mask="url(#grid-mask)" opacity="0.5"/>
-
+  <rect
+     width="1200"
+     height="630"
+     fill="url(#grid)"
+     mask="url(#grid-mask)"
+     opacity="0.5"
+     id="rect13" />
   <!-- 柔光渐变 -->
-  <rect width="1200" height="630" fill="url(#glow1)"/>
-  <rect width="1200" height="630" fill="url(#glow2)"/>
-
+  <rect
+     width="1200"
+     height="630"
+     fill="url(#glow1)"
+     id="rect14" />
+  <rect
+     width="1200"
+     height="630"
+     fill="url(#glow2)"
+     id="rect15" />
   <!-- 左侧主内容区域 (留安全边距) -->
-  <g font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" letter-spacing="0.5">
-    <!-- 标题 -->
-    <text x="150" y="200"
-          font-size="150"
-          font-weight="600"
-          fill="url(#title-grad)"
-          style="paint-order:stroke; stroke:#6DA8FF; stroke-width:1; stroke-opacity:0.15; letter-spacing:-2px;">
-      ai-lib
-    </text>
-
-    <!-- 副标题 -->
-    <text x="150" y="270"
-          font-size="44"
-          font-weight="500"
-          fill="#D2DAE4">
-      Unified Multi-Provider AI SDK for Rust
-    </text>
-
-    <!-- 胶囊标签组 -->
-    <g font-size="28" font-weight="500" fill="#B7D5FF">
-      <!-- 胶囊函数 -->
-      <g>
-        <rect x="150" y="315" rx="40" ry="40" width="265" height="70"
-              fill="#223049" fill-opacity="0.9" stroke="#355171" stroke-opacity="0.55" filter="url(#capsule-shadow)"/>
-        <text x="282" y="360" text-anchor="middle">17+ Providers</text>
-      </g>
-      <g>
-        <rect x="430" y="315" rx="40" ry="40" width="220" height="70"
-              fill="#223049" fill-opacity="0.9" stroke="#355171" stroke-opacity="0.55" filter="url(#capsule-shadow)"/>
-        <text x="540" y="360" text-anchor="middle">Streaming</text>
-      </g>
-      <g>
-        <rect x="670" y="315" rx="40" ry="40" width="260" height="70"
-              fill="#223049" fill-opacity="0.9" stroke="#355171" stroke-opacity="0.55" filter="url(#capsule-shadow)"/>
-        <text x="800" y="360" text-anchor="middle">&lt;1ms Overhead</text>
+  <!-- 右侧抽象结构图（简化层次示意） -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="Layer 1">
+    <g
+       transform="translate(760,110)"
+       opacity="0.9"
+       id="g28"
+       style="display:inline">
+      <!-- 背面模糊光块 -->
+      <rect
+         x="40"
+         y="10"
+         width="350"
+         height="420"
+         rx="26"
+         fill="#1e2a36"
+         opacity="0.75"
+         filter="url(#soft-blur)"
+         id="rect21" />
+      <!-- 分层 -->
+      <g
+         font-family="Inter, system-ui, sans-serif"
+         font-size="18px"
+         font-weight="500"
+         id="g27"
+         transform="matrix(0.95919907,0.31540164,-0.30282462,0.94296236,71.407628,-43.07563)"
+         inkscape:transform-center-y="4.7114235"
+         inkscape:transform-center-x="-2.1440227">
+        <rect
+           x="0"
+           y="0"
+           width="340"
+           height="70"
+           rx="18"
+           fill="#141c25"
+           stroke="#2e3c4b"
+           stroke-opacity="0.9"
+           id="rect22" />
+        <text
+           x="194"
+           y="42"
+           fill="#9cc5ff"
+           id="text22">Your Application</text>
+        <rect
+           x="12"
+           y="88"
+           width="316"
+           height="64"
+           rx="16"
+           fill="#161f29"
+           stroke="#2e3c4b"
+           stroke-opacity="0.7"
+           id="rect23" />
+        <text
+           x="212"
+           y="128"
+           fill="#c7d4e2"
+           font-size="16px"
+           id="text23">High-level API</text>
+        <rect
+           x="24"
+           y="166"
+           width="292"
+           height="60"
+           rx="14"
+           fill="#182430"
+           stroke="#355171"
+           stroke-opacity="0.6"
+           id="rect24" />
+        <text
+           x="164"
+           y="204"
+           fill="#c7d4e2"
+           font-size="16px"
+           id="text24">Unified Abstraction</text>
+        <rect
+           x="36"
+           y="240"
+           width="268"
+           height="56"
+           rx="13"
+           fill="#1a2a38"
+           stroke="#406086"
+           stroke-opacity="0.55"
+           id="rect25" />
+        <text
+           x="170"
+           y="276"
+           fill="#c7d4e2"
+           font-size="15px"
+           id="text25">Provider Adapters</text>
+        <rect
+           x="48"
+           y="308"
+           width="244"
+           height="54"
+           rx="12"
+           fill="#1c2e3e"
+           stroke="#5d8bff"
+           stroke-opacity="0.55"
+           id="rect26" />
+        <text
+           x="132"
+           y="344"
+           fill="#c7d4e2"
+           font-size="15px"
+           id="text26">Transport / Streaming</text>
+        <rect
+           x="60"
+           y="374"
+           width="220"
+           height="50"
+           rx="12"
+           fill="#1e3345"
+           stroke="#5bd691"
+           stroke-opacity="0.55"
+           id="rect27" />
+        <text
+           x="108"
+           y="406"
+           fill="#c7d4e2"
+           font-size="15px"
+           id="text27">Common Types / Errors</text>
       </g>
     </g>
-
-    <!-- 底部版权 -->
-    <text x="150" y="560" font-size="24" fill="#8EA0B2">
-      MIT / Apache-2.0 • https://ailib.info
-    </text>
   </g>
-
-  <!-- 右侧抽象结构图（简化层次示意） -->
-  <g transform="translate(760,110)" opacity="0.9">
-    <!-- 背面模糊光块 -->
-    <rect x="40" y="10" width="350" height="420" rx="26" fill="#1E2A36" opacity="0.75" filter="url(#soft-blur)"/>
-    <!-- 分层 -->
-    <g font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="500">
-      <rect x="0" y="0" width="340" height="70" rx="18" fill="#141C25" stroke="#2E3C4B" stroke-opacity="0.9"/>
-      <text x="30" y="42" fill="#9CC5FF">Your Application</text>
-
-      <rect x="12" y="88" width="316" height="64" rx="16" fill="#161F29" stroke="#2E3C4B" stroke-opacity="0.7"/>
-      <text x="30" y="128" fill="#C7D4E2" font-size="16">High-level API</text>
-
-      <rect x="24" y="166" width="292" height="60" rx="14" fill="#182430" stroke="#355171" stroke-opacity="0.6"/>
-      <text x="40" y="204" fill="#C7D4E2" font-size="16">Unified Abstraction</text>
-
-      <rect x="36" y="240" width="268" height="56" rx="13" fill="#1A2A38" stroke="#406086" stroke-opacity="0.55"/>
-      <text x="52" y="276" fill="#C7D4E2" font-size="15">Provider Adapters</text>
-
-      <rect x="48" y="308" width="244" height="54" rx="12" fill="#1C2E3E" stroke="#5D8BFF" stroke-opacity="0.55"/>
-      <text x="60" y="344" fill="#C7D4E2" font-size="15">Transport / Streaming</text>
-
-      <rect x="60" y="374" width="220" height="50" rx="12" fill="#1E3345" stroke="#5BD691" stroke-opacity="0.55"/>
-      <text x="72" y="406" fill="#C7D4E2" font-size="15">Common Types / Errors</text>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2">
+    <g
+       font-family="Inter, system-ui, '-apple-system', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+       letter-spacing="0.5"
+       id="g21"
+       style="display:inline">
+      <!-- 标题 -->
+      <text
+         x="150"
+         y="200"
+         font-size="150px"
+         font-weight="600"
+         fill="url(#title-grad)"
+         style="letter-spacing:-2px;stroke:#6da8ff;stroke-width:1;stroke-opacity:0.15;paint-order:stroke"
+         id="text15">ai-lib</text>
+      <!-- 副标题 -->
+      <text
+         x="150"
+         y="270"
+         font-size="44px"
+         font-weight="500"
+         fill="#d2dae4"
+         id="text16"
+         style="fill:#deaa87">一个API接口连通所有AI大模型 Rust SDK</text>
+      <!-- 胶囊标签组 -->
+      <g
+         font-size="28px"
+         font-weight="500"
+         fill="#b7d5ff"
+         id="g20">
+        <!-- 胶囊函数 -->
+        <g
+           id="g17">
+          <rect
+             x="150"
+             y="315"
+             rx="40"
+             ry="40"
+             width="265"
+             height="70"
+             fill="#223049"
+             fill-opacity="0.9"
+             stroke="#355171"
+             stroke-opacity="0.55"
+             filter="url(#capsule-shadow)"
+             id="rect16" />
+          <text
+             x="282"
+             y="360"
+             text-anchor="middle"
+             id="text17">目前已通17家...</text>
+        </g>
+        <g
+           id="g18">
+          <rect
+             x="430"
+             y="315"
+             rx="40"
+             ry="40"
+             width="220"
+             height="70"
+             fill="#223049"
+             fill-opacity="0.9"
+             stroke="#355171"
+             stroke-opacity="0.55"
+             filter="url(#capsule-shadow)"
+             id="rect17" />
+          <text
+             x="540"
+             y="360"
+             text-anchor="middle"
+             id="text18">Streaming</text>
+        </g>
+        <g
+           id="g19">
+          <rect
+             x="670"
+             y="315"
+             rx="40"
+             ry="40"
+             width="260"
+             height="70"
+             fill="#223049"
+             fill-opacity="0.9"
+             stroke="#355171"
+             stroke-opacity="0.55"
+             filter="url(#capsule-shadow)"
+             id="rect18" />
+          <text
+             x="800"
+             y="360"
+             text-anchor="middle"
+             id="text19">&lt;1ms Overhead</text>
+        </g>
+      </g>
+      <!-- 底部版权 -->
+      <text
+         x="150"
+         y="554"
+         font-size="24px"
+         fill="#8ea0b2"
+         id="text20">MIT / Apache-2.0 • https://ailib.info</text>
     </g>
   </g>
 </svg>
