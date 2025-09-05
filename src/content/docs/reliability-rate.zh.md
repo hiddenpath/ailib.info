@@ -14,7 +14,7 @@ status: partial
 // let client = AiClientBuilder::new(Provider::OpenAI).rate_limit(limiter).build()?;
 ```
 
-计划中：分布式状态和自适应并发。
+自适应并发已实现。分布式状态计划在未来的版本中发布。
 
 ## 速率限制实现
 

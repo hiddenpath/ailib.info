@@ -14,4 +14,4 @@ Token bucket (in-memory) per provider key concept for smoothing bursts.
 // let client = AiClientBuilder::new(Provider::OpenAI).rate_limit(limiter).build()?;
 ```
 
-Planned: distributed state & adaptive concurrency.
+Adaptive concurrency is implemented. Distributed state is planned for future releases.
