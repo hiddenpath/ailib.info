@@ -16,7 +16,7 @@ function isActiveSlug(slug: string) {
 }
 ---
 
-<aside class="sidebar" id="docs-sidebar" role="navigation" aria-label="Documentation navigation">
+<aside class="sidebar" id="docs-sidebar" role="navigation" aria-label="Documentation navigation" style="border: 2px solid red; background: yellow; min-height: 200px;">
   <div class="logo-row">
     <a href="/" class="brand">Ailib</a><button
       id="sidebar-close"
@@ -240,9 +240,13 @@ function isActiveSlug(slug: string) {
     margin: 0;
   }
   /* Desktop styles - ensure sidebar is visible */
+  .sidebar {
+    display: block !important;
+  }
+  
   @media (min-width: 961px) {
     .sidebar {
-      display: block;
+      display: block !important;
     }
     .sidebar-toggle {
       display: none;
