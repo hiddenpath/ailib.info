@@ -3,9 +3,8 @@ import { getCollection } from 'astro:content';
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 
 // 获取中文文档
-const entries = await getCollection('docs', ({ id }) => {
-  return id.endsWith('.zh');
-});
+const allEntries = await getCollection('docs');
+const entries = allEntries.filter(entry => entry.id.includes('.zh.'));
 
 const groups = new Map();
 for (const e of entries) {
@@ -25,7 +24,7 @@ for (const list of groups.values()) list.sort((a, b) => (a.data.order ?? 0) - (b
         <ul>
           {groups.get(g).map((e) => (
             <li>
-              <a href={`/zh/docs/${e.slug.replace('.zh', '')}`}>
+              <a href={`/zh/docs/${e.slug}`}>
                 {e.data.title}
                 {e.data.status && (
                   <span class={`badge-status ${e.data.status}`}> {e.data.status}</span>
