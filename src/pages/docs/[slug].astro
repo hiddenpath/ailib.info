@@ -3,7 +3,9 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('docs');
+  const entries = await getCollection('docs', ({ id }) => {
+    return !id.includes('.zh.');
+  });
   return entries.map((e) => ({ params: { slug: e.slug }, props: { entry: e } }));
 }
 

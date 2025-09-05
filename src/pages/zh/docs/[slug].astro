@@ -4,10 +4,10 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('docs', ({ id }) => {
-    return id.endsWith('.zh');
+    return id.includes('.zh.');
   });
   return entries.map((entry) => ({
-    params: { slug: entry.slug.replace('.zh', '') },
+    params: { slug: entry.slug.replace('zh', '') },
     props: { entry },
   }));
 }
