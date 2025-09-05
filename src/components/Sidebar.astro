@@ -239,6 +239,16 @@ function isActiveSlug(slug: string) {
     padding: 0;
     margin: 0;
   }
+  /* Desktop styles - ensure sidebar is visible */
+  @media (min-width: 961px) {
+    .sidebar {
+      display: block;
+    }
+    .sidebar-toggle {
+      display: none;
+    }
+  }
+
   @media (max-width: 960px) {
     .sidebar-toggle {
       display: block;
