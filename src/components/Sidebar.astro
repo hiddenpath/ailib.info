@@ -161,6 +161,12 @@ function isActivePath(path: string) {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+  }
+  .group-head:hover {
+    background: rgba(93, 139, 255, 0.05);
+    color: var(--accent);
   }
   .group.collapsed ul {
     display: none;
@@ -174,15 +180,18 @@ function isActivePath(path: string) {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 10px;
+    padding: 6px 10px 6px 20px;
     border-radius: 6px;
     color: var(--text-dim);
     font-size: 14px;
     text-decoration: none;
+    transition: all 0.2s ease;
   }
   li a:hover {
-    background: var(--bg);
-    color: var(--text);
+    background: rgba(93, 139, 255, 0.1);
+    color: var(--accent);
+    transform: translateX(2px);
+    transition: all 0.2s ease;
   }
   li.active > a {
     background: var(--accent);
