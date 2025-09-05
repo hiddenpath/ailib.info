@@ -19,28 +19,26 @@ const isZh = url.pathname.startsWith('/zh/');
 const locale = isZh ? 'zh' : 'en';
 const basePath = isZh ? '/zh/docs/' : '/docs/';
 
-// Build ordered flat list for prev/next (only for doc pages with a slug path starting /docs)
+// Build ordered flat list for prev/next based on sidebar configuration
 let nav: { slug: string; title: string; order: number; group: string }[] = [];
 try {
-  const coll = await getCollection('docs');
-  for (const e of coll) {
-    // Filter by language
-    const isChineseDoc = e.id.endsWith('.zh');
-    if ((isZh && isChineseDoc) || (!isZh && !isChineseDoc)) {
-      nav.push({
-        slug: isZh ? e.slug.replace('.zh', '') : e.slug,
-        title: e.data.title,
-        order: e.data.order ?? 0,
-        group: e.data.group || (isZh ? '其他' : 'Other'),
-      });
+  const sidebar = isZh ? (await import('../config/sidebar.zh')).default : (await import('../config/sidebar.en')).default;
+  
+  let order = 0;
+  for (const group of sidebar) {
+    for (const item of group.items) {
+      if (item.path && !item.external) {
+        // Extract slug from path
+        const slug = item.path.split('/').pop() || '';
+        nav.push({
+          slug,
+          title: item.title,
+          order: order++,
+          group: group.group,
+        });
+      }
     }
   }
-  nav.sort((a, b) => {
-    // group alphabetical first, then numeric order, then title
-    if (a.group !== b.group) return a.group.localeCompare(b.group);
-    if (a.order !== b.order) return a.order - b.order;
-    return a.title.localeCompare(b.title);
-  });
 } catch (e) {
   // collection not available (e.g., index page) – ignore
 }

@@ -1,31 +1,17 @@
 ---
 import { getCollection } from 'astro:content';
+import sidebarEn from '../config/sidebar.en';
+import sidebarZh from '../config/sidebar.zh';
+
 const { currentPath = '', version = '' } = Astro.props;
 
 // Determine language from current path
 const isZh = currentPath.startsWith('/zh/');
-const basePath = isZh ? '/zh/docs/' : '/docs/';
+const sidebar = isZh ? sidebarZh : sidebarEn;
 
-// Get documents filtered by language
-const allDocs = await getCollection('docs');
-const docs = allDocs.filter(d => {
-  const isChineseDoc = d.id.endsWith('.zh');
-  return (isZh && isChineseDoc) || (!isZh && !isChineseDoc);
-});
-
-// group documents
-const groups: Record<string, typeof docs> = {};
-for (const d of docs) {
-  const g = d.data.group || (isZh ? '其他' : 'Other');
-  (groups[g] ||= []).push(d);
-}
-for (const g in groups) groups[g].sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
-const groupNames = Object.keys(groups).sort((a, b) => a.localeCompare(b));
-
-function isActiveSlug(slug: string) {
-  const cleanSlug = isZh ? slug.replace('.zh', '') : slug;
-  if (cleanSlug === 'intro' && (currentPath === basePath.slice(0, -1) || currentPath === basePath)) return true;
-  return currentPath === basePath + cleanSlug;
+function isActivePath(path: string) {
+  if (path.startsWith('http')) return false;
+  return currentPath === path || currentPath === path + '/';
 }
 ---
 
@@ -38,18 +24,18 @@ function isActiveSlug(slug: string) {
     >
   </div>
   {
-    groupNames.map((name) => (
+    sidebar.map((group) => (
       <div class="group">
         <button class="group-head" type="button" data-collapse>
-          <span>{name}</span>
+          <span>{group.group}</span>
         </button>
         <ul>
-          {groups[name].map((entry) => (
-            <li class={isActiveSlug(entry.slug) ? 'active' : ''}>
-              <a href={`${basePath}${isZh ? entry.slug.replace('.zh', '') : entry.slug}`}>
-                {entry.data.title}
-                {entry.data.status && (
-                  <span class={`badge-status ${entry.data.status}`}>{entry.data.status}</span>
+          {group.items.map((item) => (
+            <li class={isActivePath(item.path || '') ? 'active' : ''}>
+              <a href={item.path || item.external || '#'} target={item.external ? '_blank' : undefined} rel={item.external ? 'noopener' : undefined}>
+                {item.title}
+                {item.status && (
+                  <span class={`badge-status ${item.status}`}>{item.status}</span>
                 )}
               </a>
             </li>

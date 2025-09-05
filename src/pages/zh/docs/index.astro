@@ -24,7 +24,7 @@ for (const list of groups.values()) list.sort((a, b) => (a.data.order ?? 0) - (b
         <ul>
           {groups.get(g).map((e) => (
             <li>
-              <a href={`/zh/docs/${e.slug}`}>
+              <a href={`/zh/docs/${e.slug.replace('zh', '')}`}>
                 {e.data.title}
                 {e.data.status && (
                   <span class={`badge-status ${e.data.status}`}> {e.data.status}</span>
