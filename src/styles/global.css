@@ -10,6 +10,8 @@
   --ok: #5bd691;
   --danger: #ff6f6f;
   --radius: 10px;
+  --header-bg: #f0f4ff;
+  --footer-bg: #f0f4ff;
   font-family:
     system-ui,
     -apple-system,
@@ -84,6 +86,8 @@
   --input-border: #cdd6e0;
   --badge-bg: #e1e9f7;
   --badge-fg: #2d64ff;
+  --header-bg: #f0f4ff;
+  --footer-bg: #f0f4ff;
 }
 
 /* Pure black theme */
@@ -330,7 +334,7 @@ hr {
 
 footer {
   padding: 50px 24px 80px;
-  background: #0f1217;
+  background: var(--footer-bg);
   border-top: 1px solid #1c222b;
   margin-top: 40px;
 }

@@ -7,61 +7,128 @@ description: Install and run your first chat call in Rust.
 
 # Getting Started
 
-This crate gives you a unified interface to multiple AI providers using pure Rust.
+ai-lib provides a unified interface to 17+ AI providers using pure Rust. This guide will get you up and running in minutes.
 
 ## Add Dependencies
 
-`Cargo.toml`:
+Add ai-lib to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-ai-lib = "0.2.12"
-tokio = { version = "1", features = ["rt-multi-thread","macros"] }
+ai-lib = "0.2.20"
+tokio = { version = "1", features = ["full"] }
+futures = "0.3"
 ```
 
-## Minimal Chat Request
+## Quick Start
+
+The fastest way to get started is with a simple chat request:
 
 ```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::types::common::Content;
+use ai_lib::{AiClient, Provider, Message, Role, Content, ChatCompletionRequest};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-  // Select provider
-  let client = AiClient::new(Provider::Groq)?;
+    // Select your AI provider
+    let client = AiClient::new(Provider::Groq)?;
 
-  // Build a request (helper constructors may exist; adjust if crate renamed them)
-  let req = ChatCompletionRequest::new(
-    "llama3-8b-8192".into(),
-    vec![Message { role: Role::User, content: Content::Text("Explain transformers in one sentence.".into()), function_call: None }]
-  );
+    // Create a chat request
+    let req = ChatCompletionRequest::new(
+        client.default_chat_model(),
+        vec![Message::user(Content::new_text("Explain transformers in one sentence."))]
+    );
 
-  // Core call (assumed method name: chat_completion)
-  let resp = client.chat_completion(req).await?;
+    // Send the request
+    let resp = client.chat_completion(req).await?;
 
-  // Convenience accessor patterns vary; adapt to actual response struct
-  if let Some(choice) = resp.choices.first() {
-    println!("Model: {}", resp.model);
-    // Suppose unified message text helper exists
-    // println!("Answer: {}", choice.message_text());
-  }
-
-  Ok(())
+    // Get the response text
+    println!("Answer: {}", resp.first_text()?);
+    Ok(())
 }
 ```
 
 ## Environment Variables
 
-Set provider keys as normal environment variables (e.g. `OPENAI_API_KEY`, etc.). The client will pick them up according to its provider configuration.
+Set your API keys as environment variables:
 
-## Proxy (Optional)
+```bash
+# For Groq
+export GROQ_API_KEY=your_groq_api_key
+
+# For OpenAI
+export OPENAI_API_KEY=your_openai_api_key
+
+# For Anthropic
+export ANTHROPIC_API_KEY=your_anthropic_api_key
+
+# For other providers, see the full list in [Providers](/docs/providers)
+```
+
+## Streaming Example
+
+For real-time responses, use streaming:
+
+```rust
+use futures::StreamExt;
+
+let mut stream = client.chat_completion_stream(req).await?;
+while let Some(chunk) = stream.next().await {
+    let c = chunk?;
+    if let Some(delta) = c.choices[0].delta.content.clone() {
+        print!("{delta}");
+    }
+}
+```
+
+## Function Calling
+
+ai-lib supports function calling with a unified interface:
+
+```rust
+use ai_lib::{Tool, FunctionCallPolicy};
+
+let tool = Tool::new_json(
+    "get_weather",
+    Some("Get current weather information"),
+    serde_json::json!({
+        "type": "object",
+        "properties": {
+            "location": {"type": "string", "description": "City name"}
+        },
+        "required": ["location"]
+    })
+);
+
+let req = ChatCompletionRequest::new(model, messages)
+    .with_functions(vec![tool])
+    .with_function_call(FunctionCallPolicy::Auto);
+```
+
+## Proxy Configuration (Optional)
+
+Configure proxy settings if needed:
 
 ```bash
 export AI_PROXY_URL=http://proxy.example.com:8080
 ```
 
+Or set it programmatically:
+
+```rust
+use ai_lib::{AiClient, Provider, ConnectionOptions};
+
+let client = AiClient::with_options(
+    Provider::Groq,
+    ConnectionOptions {
+        proxy: Some("http://proxy.example.com:8080".into()),
+        ..Default::default()
+    }
+)?;
+```
+
 ## Next Steps
 
-- Try streaming: see [Chat & Streaming](/docs/chat)
-- Explore reliability: [Reliability Overview](/docs/reliability-overview)
-- Check advanced code recipes: [Recipes](/docs/recipes)
+- **Streaming**: Learn about real-time responses in [Chat & Streaming](/docs/chat)
+- **Reliability**: Explore retry, circuit breakers, and fallback strategies in [Reliability Overview](/docs/reliability-overview)
+- **Advanced Features**: Check out [Advanced Examples](/docs/advanced-examples)
+- **Provider Details**: See all supported providers in [Providers](/docs/providers)

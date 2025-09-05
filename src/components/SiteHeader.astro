@@ -37,12 +37,12 @@ const isZh = locale === 'zh';
     left: 0;
     right: 0;
     backdrop-filter: blur(14px);
-    background: rgba(10, 12, 16, 0.72);
+    background: var(--header-bg);
     border-bottom: 1px solid rgba(60, 70, 84, 0.4);
     z-index: 50;
   }
   [data-theme='light'] .site-header {
-    background: rgba(255, 255, 255, 0.72);
+    background: var(--header-bg);
     border-color: rgba(180, 190, 205, 0.6);
   }
   .site-header .inner {
