@@ -1,8 +1,10 @@
 {
-  "headers": [
+  "redirects": [
     {
-      "source": "/assets/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "ailib.info" }],
+      "destination": "https://www.ailib.info/$1",
+      "permanent": true
     }
   ]
 }
