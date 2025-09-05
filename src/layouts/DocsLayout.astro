@@ -1,5 +1,6 @@
 ---
 import Sidebar from '../components/Sidebar.astro';
+import BuildMeta from '../components/BuildMeta.astro';
 import { getCollection } from 'astro:content';
 // Load version dynamically from package.json so docs always show current package version
 // Astro supports importing JSON directly at build time.
@@ -84,6 +85,7 @@ if (frontmatter?.title) {
           }
         </article>
       </main>
+      <BuildMeta />
     </div>
   </body>
 </html>
