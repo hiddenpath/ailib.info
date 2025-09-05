@@ -2,8 +2,9 @@
 // Build metadata display (commit hash + build time) for cache/alias debugging.
 const commitHash = (process.env.VERCEL_GIT_COMMIT_SHA || process.env.GITHUB_SHA || '').slice(0, 7);
 const buildTime = new Date().toISOString();
+const version = '0.21'; // Updated to trigger Vercel deploy
 ---
 
 <div style="margin-top:40px;font-size:11px;opacity:.55;letter-spacing:.5px">
-  Build: {commitHash || 'local'} · {buildTime}
+  Build: {commitHash || 'local'} · {buildTime} · v{version}
 </div>
