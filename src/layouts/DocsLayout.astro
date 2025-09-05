@@ -14,17 +14,26 @@ const version = pkg.version as string;
 // @ts-ignore
 const { frontmatter, url, docTitle } = { ...(Astro as any), ...(Astro.props || {}) };
 
+// Determine language from URL path
+const isZh = url.pathname.startsWith('/zh/');
+const locale = isZh ? 'zh' : 'en';
+const basePath = isZh ? '/zh/docs/' : '/docs/';
+
 // Build ordered flat list for prev/next (only for doc pages with a slug path starting /docs)
 let nav: { slug: string; title: string; order: number; group: string }[] = [];
 try {
   const coll = await getCollection('docs');
   for (const e of coll) {
-    nav.push({
-      slug: e.slug,
-      title: e.data.title,
-      order: e.data.order ?? 0,
-      group: e.data.group || 'Other',
-    });
+    // Filter by language
+    const isChineseDoc = e.id.endsWith('.zh');
+    if ((isZh && isChineseDoc) || (!isZh && !isChineseDoc)) {
+      nav.push({
+        slug: isZh ? e.slug.replace('.zh', '') : e.slug,
+        title: e.data.title,
+        order: e.data.order ?? 0,
+        group: e.data.group || (isZh ? '其他' : 'Other'),
+      });
+    }
   }
   nav.sort((a, b) => {
     // group alphabetical first, then numeric order, then title
@@ -41,8 +50,8 @@ let next: (typeof nav)[number] | undefined;
 if (frontmatter?.title) {
   const idx = nav.findIndex(
     (n) =>
-      '/docs/' + n.slug === url.pathname ||
-      (n.slug === 'intro' && (url.pathname === '/docs' || url.pathname === '/docs/'))
+      basePath + n.slug === url.pathname ||
+      (n.slug === 'intro' && (url.pathname === basePath.slice(0, -1) || url.pathname === basePath))
   );
   if (idx !== -1) {
     prev = idx > 0 ? nav[idx - 1] : undefined;
@@ -51,10 +60,10 @@ if (frontmatter?.title) {
 }
 ---
 
-<html lang="en">
+<html lang={isZh ? 'zh' : 'en'}>
   <head>
     <meta charset="utf-8" />
-    <title>{docTitle || frontmatter?.title || 'Ailib Docs'}</title>
+    <title>{docTitle || frontmatter?.title || (isZh ? 'Ailib 文档' : 'Ailib Docs')}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" href="/favicon.svg" />
     <script>
@@ -64,14 +73,16 @@ if (frontmatter?.title) {
   <body data-docs>
     <header class="site-header">
       <div class="inner">
-        <a href="/" class="brand" aria-label="ai-lib home">
+        <a href={isZh ? '/zh/' : '/'} class="brand" aria-label="ai-lib home">
           <span class="logo-mark" aria-hidden="true">λ</span>
           <span class="brand-text">Ailib</span>
         </a>
         <nav class="nav-actions">
-          <a href="/docs" class="nav-link active">Docs</a>
+          <a href={isZh ? '/zh/docs' : '/docs'} class="nav-link active">
+            {isZh ? '开发者参考' : 'Developer Reference'}
+          </a>
           <div class="lang-switch-top">
-            <a href="/">English</a>
+            {isZh ? <a href="/docs">English</a> : <a href="/zh/docs">中文</a>}
           </div>
           <a
             class="gh"
@@ -92,14 +103,14 @@ if (frontmatter?.title) {
             (prev || next) && (
               <nav class="prev-next">
                 {prev ? (
-                  <a class="prev" href={`/docs/${prev.slug}`}>
+                  <a class="prev" href={`${basePath}${prev.slug}`}>
                     ← {prev.title}
                   </a>
                 ) : (
                   <span />
                 )}
                 {next ? (
-                  <a class="next" href={`/docs/${next.slug}`}>
+                  <a class="next" href={`${basePath}${next.slug}`}>
                     {next.title} →
                   </a>
                 ) : (

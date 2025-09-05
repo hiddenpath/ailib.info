@@ -148,9 +148,23 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".md"] };
+"advanced-examples.zh.md": {
+	id: "advanced-examples.zh.md";
+  slug: "advanced-exampleszh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
 "architecture.md": {
 	id: "architecture.md";
   slug: "architecture";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"architecture.zh.md": {
+	id: "architecture.zh.md";
+  slug: "architecturezh";
   body: string;
   collection: "docs";
   data: InferEntrySchema<"docs">
@@ -162,9 +176,23 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".md"] };
+"chat.zh.md": {
+	id: "chat.zh.md";
+  slug: "chatzh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
 "concepts.md": {
 	id: "concepts.md";
   slug: "concepts";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"concepts.zh.md": {
+	id: "concepts.zh.md";
+  slug: "conceptszh";
   body: string;
   collection: "docs";
   data: InferEntrySchema<"docs">
@@ -176,9 +204,23 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".md"] };
+"enterprise-deployment.zh.md": {
+	id: "enterprise-deployment.zh.md";
+  slug: "enterprise-deploymentzh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
 "enterprise-overview.md": {
 	id: "enterprise-overview.md";
   slug: "enterprise-overview";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"enterprise-overview.zh.md": {
+	id: "enterprise-overview.zh.md";
+  slug: "enterprise-overviewzh";
   body: string;
   collection: "docs";
   data: InferEntrySchema<"docs">
@@ -190,9 +232,23 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".md"] };
+"enterprise-support.zh.md": {
+	id: "enterprise-support.zh.md";
+  slug: "enterprise-supportzh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
 "extension.md": {
 	id: "extension.md";
   slug: "extension";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"extension.zh.md": {
+	id: "extension.zh.md";
+  slug: "extensionzh";
   body: string;
   collection: "docs";
   data: InferEntrySchema<"docs">
@@ -204,9 +260,23 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".md"] };
+"faq.zh.md": {
+	id: "faq.zh.md";
+  slug: "faqzh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
 "functions.md": {
 	id: "functions.md";
   slug: "functions";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"functions.zh.md": {
+	id: "functions.zh.md";
+  slug: "functionszh";
   body: string;
   collection: "docs";
   data: InferEntrySchema<"docs">
@@ -218,9 +288,23 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".md"] };
+"getting-started.zh.md": {
+	id: "getting-started.zh.md";
+  slug: "getting-startedzh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
 "intro.md": {
 	id: "intro.md";
   slug: "intro";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"intro.zh.md": {
+	id: "intro.zh.md";
+  slug: "introzh";
   body: string;
   collection: "docs";
   data: InferEntrySchema<"docs">
@@ -232,9 +316,23 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".md"] };
+"observability.zh.md": {
+	id: "observability.zh.md";
+  slug: "observabilityzh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
 "providers.md": {
 	id: "providers.md";
   slug: "providers";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"providers.zh.md": {
+	id: "providers.zh.md";
+  slug: "providerszh";
   body: string;
   collection: "docs";
   data: InferEntrySchema<"docs">
@@ -246,9 +344,23 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".md"] };
+"recipes.zh.md": {
+	id: "recipes.zh.md";
+  slug: "recipeszh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
 "reliability-circuit.md": {
 	id: "reliability-circuit.md";
   slug: "reliability-circuit";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"reliability-circuit.zh.md": {
+	id: "reliability-circuit.zh.md";
+  slug: "reliability-circuitzh";
   body: string;
   collection: "docs";
   data: InferEntrySchema<"docs">
@@ -260,9 +372,23 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".md"] };
+"reliability-fallback.zh.md": {
+	id: "reliability-fallback.zh.md";
+  slug: "reliability-fallbackzh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
 "reliability-overview.md": {
 	id: "reliability-overview.md";
   slug: "reliability-overview";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"reliability-overview.zh.md": {
+	id: "reliability-overview.zh.md";
+  slug: "reliability-overviewzh";
   body: string;
   collection: "docs";
   data: InferEntrySchema<"docs">
@@ -274,9 +400,23 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".md"] };
+"reliability-race.zh.md": {
+	id: "reliability-race.zh.md";
+  slug: "reliability-racezh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
 "reliability-rate.md": {
 	id: "reliability-rate.md";
   slug: "reliability-rate";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"reliability-rate.zh.md": {
+	id: "reliability-rate.zh.md";
+  slug: "reliability-ratezh";
   body: string;
   collection: "docs";
   data: InferEntrySchema<"docs">
@@ -288,9 +428,23 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".md"] };
+"reliability-retry.zh.md": {
+	id: "reliability-retry.zh.md";
+  slug: "reliability-retryzh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
 "reliability-routing.md": {
 	id: "reliability-routing.md";
   slug: "reliability-routing";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"reliability-routing.zh.md": {
+	id: "reliability-routing.zh.md";
+  slug: "reliability-routingzh";
   body: string;
   collection: "docs";
   data: InferEntrySchema<"docs">

@@ -1,24 +1,37 @@
 ---
 import { getCollection } from 'astro:content';
 const { currentPath = '', version = '' } = Astro.props;
-const docs = await getCollection('docs');
+
+// Determine language from current path
+const isZh = currentPath.startsWith('/zh/');
+const basePath = isZh ? '/zh/docs/' : '/docs/';
+
+// Get documents filtered by language
+const allDocs = await getCollection('docs');
+const docs = allDocs.filter(d => {
+  const isChineseDoc = d.id.endsWith('.zh');
+  return (isZh && isChineseDoc) || (!isZh && !isChineseDoc);
+});
+
 // group documents
 const groups: Record<string, typeof docs> = {};
 for (const d of docs) {
-  const g = d.data.group || 'Other';
+  const g = d.data.group || (isZh ? '其他' : 'Other');
   (groups[g] ||= []).push(d);
 }
 for (const g in groups) groups[g].sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 const groupNames = Object.keys(groups).sort((a, b) => a.localeCompare(b));
+
 function isActiveSlug(slug: string) {
-  if (slug === 'intro' && (currentPath === '/docs' || currentPath === '/docs/')) return true;
-  return currentPath === '/docs/' + slug;
+  const cleanSlug = isZh ? slug.replace('.zh', '') : slug;
+  if (cleanSlug === 'intro' && (currentPath === basePath.slice(0, -1) || currentPath === basePath)) return true;
+  return currentPath === basePath + cleanSlug;
 }
 ---
 
 <aside class="sidebar" id="docs-sidebar" role="navigation" aria-label="Documentation navigation">
   <div class="logo-row">
-    <a href="/" class="brand">Ailib</a><button
+    <a href={isZh ? '/zh/' : '/'} class="brand">Ailib</a><button
       id="sidebar-close"
       aria-label="Close"
       class="close-btn">×</button
@@ -33,7 +46,7 @@ function isActiveSlug(slug: string) {
         <ul>
           {groups[name].map((entry) => (
             <li class={isActiveSlug(entry.slug) ? 'active' : ''}>
-              <a href={`/docs/${entry.slug}`}>
+              <a href={`${basePath}${isZh ? entry.slug.replace('.zh', '') : entry.slug}`}>
                 {entry.data.title}
                 {entry.data.status && (
                   <span class={`badge-status ${entry.data.status}`}>{entry.data.status}</span>
