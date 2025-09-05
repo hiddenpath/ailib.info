@@ -16,7 +16,7 @@ function isActiveSlug(slug: string) {
 }
 ---
 
-<aside class="sidebar" id="docs-sidebar" role="navigation" aria-label="Documentation navigation" style="border: 2px solid red; background: yellow; min-height: 200px;">
+<aside class="sidebar" id="docs-sidebar" role="navigation" aria-label="Documentation navigation">
   <div class="logo-row">
     <a href="/" class="brand">Ailib</a><button
       id="sidebar-close"
@@ -120,6 +120,7 @@ function isActiveSlug(slug: string) {
     border-right: 1px solid var(--border);
     background: var(--bg-alt);
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    z-index: 10;
   }
   .logo-row {
     padding: 4px 8px 10px;

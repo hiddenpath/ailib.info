@@ -10,6 +10,9 @@ const isZh = locale === 'zh';
       <span class="brand-text">Ailib</span>
     </a>
     <nav class="nav-actions">
+      <a href="/docs" class="nav-link">
+        {isZh ? '文档' : 'Docs'}
+      </a>
       <div class="lang-switch-top">
         {isZh ? <a href="/">English</a> : <a href="/zh/">中文</a>}
       </div>
@@ -77,6 +80,19 @@ const isZh = locale === 'zh';
     display: flex;
     align-items: center;
     gap: 18px;
+  }
+  .nav-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+  }
+  .nav-link:hover {
+    background: var(--bg-alt);
+    color: var(--accent);
   }
   .lang-switch-top a {
     font-size: 14px;
