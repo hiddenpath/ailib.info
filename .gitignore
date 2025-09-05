@@ -35,3 +35,4 @@ Thumbs.db
 # Astro specific (if using adapter outputs)
 .server/
 .astro/
+.vercel
