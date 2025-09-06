@@ -9,9 +9,9 @@ const isZh = locale === 'zh';
     <h1 style="margin:18px 0 20px; font-size:48px; max-width:820px;">
       {
         isZh ? (
-          <>Ai-lib: 一个API连通所有AI大模型 (Rust SDK)</>
+          <>Ai-lib: 一个API客户端连通所有AI模型 (Rust)</>
         ) : (
-          <>Ai-lib: Unified Multi-Provider AI SDK for Rust</>
+          <>Ai-lib: Unified Multi-Provider AI API Client for Rust</>
         )
       }
     </h1>
@@ -19,14 +19,12 @@ const isZh = locale === 'zh';
       {
         isZh ? (
           <>
-            只要一个 API 连接 17+ AI
-            平台：统一聊天、多模态、流式、函数调用、推理大模型、可靠性、模型策略与可观测性，SDK
-            自身开销&lt;1ms。
+            一个API客户端，多个提供商：可靠流式处理、函数调用、推理大模型与可观测性 — SDK开销&lt;1ms。
           </>
         ) : (
           <>
-            One API for 17+ AI platforms: unified chat & multimodal, streaming, function calls,
-            reasoning models, reliability primitives, model strategy, and observability — with &lt;1ms SDK overhead.
+            One API client, multiple providers: reliable streaming, function calls,
+            reasoning models, and observability — with &lt;1ms overhead.
           </>
         )
       }

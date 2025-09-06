@@ -8,6 +8,6 @@ order: 30
 
 Commercial support could include SLA options, model selection advisory, and integration reviews for production Rust workloads.
 
-Email: [wang.luqiang@gmail.com](mailto:wang.luqiang@gmail.com)
+Email: [walex_98@msn.com](mailto:walex_98@msn.com)
 
 Include use case summary, traffic expectations, and latency requirements.

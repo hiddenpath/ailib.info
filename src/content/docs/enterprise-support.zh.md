@@ -8,7 +8,7 @@ order: 30
 
 商业支持可包括SLA选项、模型选择咨询以及生产Rust工作负载的集成审查。
 
-邮箱：[wang.luqiang@gmail.com](mailto:wang.luqiang@gmail.com)
+邮箱：[walex_98@msn.com](mailto:walex_98@msn.com)
 
 请包含用例摘要、流量预期和延迟要求。
 
@@ -77,7 +77,7 @@ order: 30
 ### 联系信息
 
 #### 技术支持
-- **邮箱**：[wang.luqiang@gmail.com](mailto:wang.luqiang@gmail.com)
+- **邮箱**：[walex_98@msn.com](mailto:walex_98@msn.com)
 - **响应时间**：24小时内
 - **工作时间**：周一至周五 9:00-18:00 (UTC+8)
 

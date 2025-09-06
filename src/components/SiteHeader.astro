@@ -10,7 +10,7 @@ const isZh = locale === 'zh';
       <span class="brand-text">Ailib</span>
     </a>
     <nav class="nav-actions">
-      <a href="/docs" class="nav-link">
+      <a href={isZh ? '/zh/docs/intro' : '/docs/intro'} class="nav-link dev-ref-btn">
         {isZh ? '开发者参考' : 'Developer Reference'}
       </a>
       <div class="lang-switch-top">
@@ -93,6 +93,20 @@ const isZh = locale === 'zh';
   .nav-link:hover {
     background: var(--bg-alt);
     color: var(--accent);
+  }
+  .dev-ref-btn {
+    background: linear-gradient(135deg, var(--accent), #7ca8ff);
+    color: #fff !important;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px -2px var(--accent-glow);
+    transition: all 0.2s ease;
+  }
+  .dev-ref-btn:hover {
+    background: linear-gradient(135deg, #5a8cff, #6b9bff);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px -2px var(--accent-glow);
   }
   .lang-switch-top a {
     font-size: 14px;
