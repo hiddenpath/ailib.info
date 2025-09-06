@@ -24,6 +24,7 @@ const sidebar: SidebarGroup[] = [
     items: [
       { title: '聊天与流式处理', path: '/zh/docs/chat', status: 'stable' },
       { title: '函数与工具', path: '/zh/docs/functions', status: 'stable' },
+      { title: '推理大模型', path: '/zh/docs/reasoning-models', status: 'stable' },
       { title: '可观测性', path: '/zh/docs/observability', status: 'stable' },
     ],
   },

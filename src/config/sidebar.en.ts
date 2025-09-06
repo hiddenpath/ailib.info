@@ -24,6 +24,7 @@ const sidebar: SidebarGroup[] = [
     items: [
       { title: 'Chat & Streaming', path: '/docs/chat', status: 'stable' },
       { title: 'Functions & Tools', path: '/docs/functions', status: 'stable' },
+      { title: 'Reasoning Models', path: '/docs/reasoning-models', status: 'stable' },
       { title: 'Observability', path: '/docs/observability', status: 'stable' },
     ],
   },

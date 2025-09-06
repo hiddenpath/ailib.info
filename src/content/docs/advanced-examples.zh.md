@@ -294,6 +294,121 @@ async fn controlled_concurrency() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
+## 14. 推理大模型集成
+
+```rust
+use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
+use ai_lib::types::common::Content;
+use ai_lib::types::function_call::{Tool, FunctionCallPolicy};
+use serde_json::json;
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let client = AiClient::new(Provider::Groq)?;
+    
+    // 创建推理工具
+    let reasoning_tool = Tool {
+        name: "step_by_step_reasoning".to_string(),
+        description: Some("执行步骤化推理解决复杂问题".to_string()),
+        parameters: Some(json!({
+            "type": "object",
+            "properties": {
+                "problem": {"type": "string", "description": "要解决的问题"},
+                "steps": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "step_number": {"type": "integer"},
+                            "description": {"type": "string"},
+                            "reasoning": {"type": "string"},
+                            "conclusion": {"type": "string"}
+                        }
+                    }
+                },
+                "final_answer": {"type": "string"}
+            }
+        })),
+    };
+
+    let request = ChatCompletionRequest::new(
+        "qwen-qwq-32b".to_string(),
+        vec![Message {
+            role: Role::User,
+            content: Content::Text("解决这个数学问题：一个班级有30个学生，60%是女生，40%是男生。如果25%的女生戴眼镜，20%的男生戴眼镜，总共有多少学生戴眼镜？".to_string()),
+            function_call: None,
+        }],
+    )
+    .with_functions(vec![reasoning_tool])
+    .with_function_call(FunctionCallPolicy::Auto("auto".to_string()));
+
+    let response = client.chat_completion(request).await?;
+    
+    // 处理推理结果
+    for choice in response.choices {
+        if let Some(function_call) = choice.message.function_call {
+            if function_call.name == "step_by_step_reasoning" {
+                if let Some(args) = function_call.arguments {
+                    println!("结构化推理结果:");
+                    println!("{}", serde_json::to_string_pretty(&args)?);
+                }
+            }
+        }
+    }
+    
+    Ok(())
+}
+```
+
+## 15. 流式推理配置
+
+```rust
+use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
+use ai_lib::types::common::Content;
+use futures_util::StreamExt;
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let client = AiClient::new(Provider::Groq)?;
+    
+    let mut request = ChatCompletionRequest::new(
+        "qwen-qwq-32b".to_string(),
+        vec![Message {
+            role: Role::User,
+            content: Content::Text("解释量子计算原理，并提供步骤化推理".to_string()),
+            function_call: None,
+        }],
+    );
+    
+    // 添加推理配置
+    request = request
+        .with_provider_specific("reasoning_format", serde_json::Value::String("parsed".to_string()))
+        .with_provider_specific("reasoning_effort", serde_json::Value::String("high".to_string()));
+
+    let mut stream = client.chat_completion_stream(request).await?;
+    
+    println!("推理过程（流式输出）:");
+    while let Some(chunk) = stream.next().await {
+        match chunk {
+            Ok(chunk) => {
+                if let Some(choice) = chunk.choices.first() {
+                    if let Some(content) = &choice.delta.content {
+                        print!("{}", content);
+                        std::io::stdout().flush().unwrap();
+                    }
+                }
+            }
+            Err(e) => {
+                println!("\n流式错误: {}", e);
+                break;
+            }
+        }
+    }
+    
+    Ok(())
+}
+```
+
 ---
 
 如果方法名称更改或新原语（熔断器、自适应路由）从部分→稳定，请更新此页面。

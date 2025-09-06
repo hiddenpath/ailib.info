@@ -160,6 +160,121 @@ use tokio::time::{timeout, Duration};
 
 See [Functions & Tools](/docs/functions) for a loop that detects function/tool intents, executes locally, then continues the conversation.
 
+## 11. Reasoning Model Integration
+
+```rust
+use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
+use ai_lib::types::common::Content;
+use ai_lib::types::function_call::{Tool, FunctionCallPolicy};
+use serde_json::json;
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let client = AiClient::new(Provider::Groq)?;
+    
+    // Create reasoning tool
+    let reasoning_tool = Tool {
+        name: "step_by_step_reasoning".to_string(),
+        description: Some("Execute step-by-step reasoning to solve complex problems".to_string()),
+        parameters: Some(json!({
+            "type": "object",
+            "properties": {
+                "problem": {"type": "string", "description": "The problem to solve"},
+                "steps": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "step_number": {"type": "integer"},
+                            "description": {"type": "string"},
+                            "reasoning": {"type": "string"},
+                            "conclusion": {"type": "string"}
+                        }
+                    }
+                },
+                "final_answer": {"type": "string"}
+            }
+        })),
+    };
+
+    let request = ChatCompletionRequest::new(
+        "qwen-qwq-32b".to_string(),
+        vec![Message {
+            role: Role::User,
+            content: Content::Text("Solve this math problem: A class has 30 students, 60% are girls and 40% are boys. If 25% of girls wear glasses and 20% of boys wear glasses, how many students in total wear glasses?".to_string()),
+            function_call: None,
+        }],
+    )
+    .with_functions(vec![reasoning_tool])
+    .with_function_call(FunctionCallPolicy::Auto("auto".to_string()));
+
+    let response = client.chat_completion(request).await?;
+    
+    // Process reasoning results
+    for choice in response.choices {
+        if let Some(function_call) = choice.message.function_call {
+            if function_call.name == "step_by_step_reasoning" {
+                if let Some(args) = function_call.arguments {
+                    println!("Structured reasoning result:");
+                    println!("{}", serde_json::to_string_pretty(&args)?);
+                }
+            }
+        }
+    }
+    
+    Ok(())
+}
+```
+
+## 12. Streaming Reasoning with Configuration
+
+```rust
+use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
+use ai_lib::types::common::Content;
+use futures_util::StreamExt;
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let client = AiClient::new(Provider::Groq)?;
+    
+    let mut request = ChatCompletionRequest::new(
+        "qwen-qwq-32b".to_string(),
+        vec![Message {
+            role: Role::User,
+            content: Content::Text("Explain quantum computing principles with step-by-step reasoning".to_string()),
+            function_call: None,
+        }],
+    );
+    
+    // Add reasoning configuration
+    request = request
+        .with_provider_specific("reasoning_format", serde_json::Value::String("parsed".to_string()))
+        .with_provider_specific("reasoning_effort", serde_json::Value::String("high".to_string()));
+
+    let mut stream = client.chat_completion_stream(request).await?;
+    
+    println!("Reasoning process (streaming):");
+    while let Some(chunk) = stream.next().await {
+        match chunk {
+            Ok(chunk) => {
+                if let Some(choice) = chunk.choices.first() {
+                    if let Some(content) = &choice.delta.content {
+                        print!("{}", content);
+                        std::io::stdout().flush().unwrap();
+                    }
+                }
+            }
+            Err(e) => {
+                println!("\nStreaming error: {}", e);
+                break;
+            }
+        }
+    }
+    
+    Ok(())
+}
+```
+
 ---
 
 Update this page if method names change or new primitives (circuit breaker, adaptive routing) move from partial → stable.
