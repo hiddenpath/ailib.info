@@ -12,7 +12,7 @@ ai-lib supports 17+ AI providers through a unified interface. Each provider is c
 ## Provider Categories
 
 ### Config-Driven Providers
-These providers use a unified configuration system for easy setup:
+These providers use a unified configuration system for easy setup and optimal performance:
 
 | Provider | Chat | Streaming | Multimodal | Function Calls | Notes |
 |----------|------|-----------|------------|----------------|-------|
@@ -36,7 +36,7 @@ Specialized for Chinese language and enterprise needs:
 | **Moonshot Kimi** | ✅ | ✅ | ✅ | ✅ | Long context models |
 
 ### Independent Adapters
-These providers have custom integration logic:
+These providers have custom integration logic with high-performance direct HTTP client implementation:
 
 | Provider | Chat | Streaming | Multimodal | Function Calls | Notes |
 |----------|------|-----------|------------|----------------|-------|

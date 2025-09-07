@@ -19,12 +19,12 @@ use ai_lib::types::common::Content;
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let client = AiClient::new(Provider::OpenAI)?;
   let req = ChatCompletionRequest::new(
-    "gpt-4o".into(),
-    vec![Message { role: Role::User, content: Content::Text("Summarize Rust ownership succinctly.".into()), function_call: None }]
+    "gpt-4o".to_string(),
+    vec![Message { role: Role::User, content: Content::Text("Summarize Rust ownership succinctly.".to_string()), function_call: None }]
   );
   let resp = client.chat_completion(req).await?;
   if let Some(first) = resp.choices.first() {
-    // println!("Answer: {}", first.message_text()); // adapt to actual helper
+    println!("Answer: {}", first.message.content.as_text());
   }
   Ok(())
 }
@@ -43,14 +43,18 @@ use futures_util::StreamExt; // if using futures stream
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let client = AiClient::new(Provider::Groq)?;
   let req = ChatCompletionRequest::new(
-    "llama3-8b-8192".into(),
-    vec![Message { role: Role::User, content: Content::Text("Stream a haiku about concurrency.".into()), function_call: None }]
+    "llama3-8b-8192".to_string(),
+    vec![Message { role: Role::User, content: Content::Text("Stream a haiku about concurrency.".to_string()), function_call: None }]
   );
   let mut stream = client.chat_completion_stream(req).await?;
   while let Some(chunk) = stream.next().await {
     match chunk {
       Ok(c) => {
-        // print!("{}", c.delta_text()); // adapt to actual field accessor
+        if let Some(choice) = c.choices.first() {
+            if let Some(content) = &choice.delta.content {
+                print!("{}", content);
+            }
+        }
       }
       Err(e) => { eprintln!("stream error: {e}"); break; }
     }
@@ -140,8 +144,10 @@ Some crates expose ergonomic shortcuts like `quick_chat_text(model, prompt)` ret
 ## List Models
 
 ```rust
-// let models = client.list_models().await?;
-// for m in models { println!("{}", m.name); }
+let models = client.list_models().await?;
+for model in models { 
+    println!("{}", model); 
+}
 ```
 
 ## Notes

@@ -4,7 +4,7 @@ Add the dependency, then use the unified API to call any supported provider imme
 
 ```toml
 [dependencies]
-ai-lib = "0.2.20"
+ai-lib = "0.2.21"
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 ```
@@ -12,17 +12,21 @@ futures = "0.3"
 ### Quick Start
 
 ```rust
-use ai_lib::{AiClient, Provider, Message, Content, ChatCompletionRequest};
+use ai_lib::{AiClient, Provider, Message, Role, Content, ChatCompletionRequest};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = AiClient::new(Provider::Groq)?;
     let req = ChatCompletionRequest::new(
         client.default_chat_model(),
-        vec![Message::user(Content::new_text("Hello, world!"))]
+        vec![Message {
+            role: Role::User,
+            content: Content::Text("Hello, world!".to_string()),
+            function_call: None,
+        }]
     );
     let resp = client.chat_completion(req).await?;
-    println!("Answer: {}", resp.first_text()?);
+    println!("Answer: {}", resp.choices[0].message.content.as_text());
     Ok(())
 }
 ```

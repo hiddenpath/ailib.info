@@ -22,8 +22,8 @@ use tokio::time::{timeout, Duration};
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = AiClient::new(Provider::OpenAI)?;
     let req = ChatCompletionRequest::new(
-        "gpt-4o".into(),
-        vec![Message { role: Role::User, content: Content::Text("Write a long poem about Rust lifetimes".into()), function_call: None }]
+        "gpt-4o".to_string(),
+        vec![Message { role: Role::User, content: Content::Text("Write a long poem about Rust lifetimes".to_string()), function_call: None }]
     );
     let (mut stream, handle) = client.chat_completion_stream_with_cancel(req).await?;
     let res = timeout(Duration::from_millis(500), async {
@@ -47,8 +47,8 @@ use tokio::task;
 
 fn prompt(q: &str) -> ChatCompletionRequest {
     ChatCompletionRequest::new(
-        "gpt-4o".into(),
-        vec![Message { role: Role::User, content: Content::Text(q.into()), function_call: None }]
+        "gpt-4o".to_string(),
+        vec![Message { role: Role::User, content: Content::Text(q.to_string()), function_call: None }]
     )
 }
 
@@ -96,8 +96,8 @@ use ai_lib::{AiClient, Provider};
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let groq = AiClient::new(Provider::Groq)?;
     let openai = AiClient::new(Provider::OpenAI)?;
-    // let models = openai.list_models().await?; // iterate & pick
-    // println!("OpenAI models: {}", models.len());
+    let models = openai.list_models().await?; // iterate & pick
+    println!("OpenAI models: {}", models.len());
     // let text = groq.quick_chat_text("llama3-8b-8192", "Hi from Groq").await?;
     // println!("Groq: {text}");
     Ok(())

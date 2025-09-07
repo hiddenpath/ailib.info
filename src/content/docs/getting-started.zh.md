@@ -15,7 +15,7 @@ ai-lib为17+个AI提供商提供统一的Rust接口。本指南将在几分钟�
 
 ```toml
 [dependencies]
-ai-lib = "0.2.20"
+ai-lib = "0.2.21"
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 ```
@@ -35,14 +35,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 创建聊天请求
     let req = ChatCompletionRequest::new(
         client.default_chat_model(),
-        vec![Message::user(Content::new_text("用一句话解释transformer模型。"))]
+        vec![Message {
+            role: Role::User,
+            content: Content::Text("用一句话解释transformer模型。".to_string()),
+            function_call: None,
+        }]
     );
 
     // 发送请求
     let resp = client.chat_completion(req).await?;
 
     // 获取响应文本
-    println!("回答: {}", resp.first_text()?);
+    println!("回答: {}", resp.choices[0].message.content.as_text());
     Ok(())
 }
 ```

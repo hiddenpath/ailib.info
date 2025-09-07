@@ -15,7 +15,7 @@ Add ai-lib to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-ai-lib = "0.2.20"
+ai-lib = "0.2.21"
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 ```
@@ -35,14 +35,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Create a chat request
     let req = ChatCompletionRequest::new(
         client.default_chat_model(),
-        vec![Message::user(Content::new_text("Explain transformers in one sentence."))]
+        vec![Message {
+            role: Role::User,
+            content: Content::Text("Explain transformers in one sentence.".to_string()),
+            function_call: None,
+        }]
     );
 
     // Send the request
     let resp = client.chat_completion(req).await?;
 
     // Get the response text
-    println!("Answer: {}", resp.first_text()?);
+    println!("Answer: {}", resp.choices[0].message.content.as_text());
     Ok(())
 }
 ```

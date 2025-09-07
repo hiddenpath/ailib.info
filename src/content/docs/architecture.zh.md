@@ -84,7 +84,7 @@ let client = AiClient::with_options(
 
 ### 3. 传输层
 
-具有内置功能的可插拔HTTP传输：
+高性能HTTP传输，直接客户端集成：
 
 ```rust
 use ai_lib::transport::{HttpTransport, DynHttpTransport};
@@ -98,6 +98,12 @@ impl DynHttpTransport for CustomTransport {
     // 自定义实现
 }
 ```
+
+**性能优化：**
+- 直接`reqwest::Client`集成，实现最佳性能
+- 通过`AI_PROXY_URL`环境变量统一代理支持
+- 使用原生reqwest方法进行高效JSON序列化
+- 最小抽象开销，实现最大吞吐量
 
 ### 4. 可靠性功能
 
@@ -213,7 +219,7 @@ impl ModelSelectionStrategy for CustomStrategy {
 2. **渐进复杂性**：从简单开始，根据需要添加功能
 3. **可扩展性**：可插拔的传输、指标和策略
 4. **可靠性**：内置重试、熔断器和错误处理
-5. **性能**：最小开销，高效资源使用
+5. **性能**：直接HTTP客户端集成，最小抽象开销
 6. **类型安全**：整个API的强类型
 
 ## 未来增强

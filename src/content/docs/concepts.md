@@ -17,12 +17,16 @@ The `Message` struct unifies conversation roles and content across all providers
 use ai_lib::{Message, Role, Content};
 
 // Create a user message with text content
-let user_msg = Message::user(Content::new_text("Hello, world!"));
+let user_msg = Message {
+    role: Role::User,
+    content: Content::Text("Hello, world!".to_string()),
+    function_call: None,
+};
 
 // Create a system message
 let system_msg = Message {
     role: Role::System,
-    content: Content::new_text("You are a helpful assistant."),
+    content: Content::Text("You are a helpful assistant.".to_string()),
     function_call: None,
 };
 ```
@@ -119,7 +123,7 @@ Comprehensive error classification:
 
 ```rust
 match client.chat_completion(req).await {
-    Ok(response) => println!("Success: {}", response.first_text()?),
+    Ok(response) => println!("Success: {}", response.choices[0].message.content.as_text()),
     Err(e) if e.is_retryable() => {
         // Handle retryable errors (network, rate limits)
         println!("Retryable error: {}", e);

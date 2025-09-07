@@ -84,7 +84,7 @@ Two types of provider adapters:
 
 ### 3. Transport Layer
 
-Pluggable HTTP transport with built-in features:
+High-performance HTTP transport with direct client integration:
 
 ```rust
 use ai_lib::transport::{HttpTransport, DynHttpTransport};
@@ -98,6 +98,12 @@ impl DynHttpTransport for CustomTransport {
     // Custom implementation
 }
 ```
+
+**Performance Optimizations:**
+- Direct `reqwest::Client` integration for optimal performance
+- Unified proxy support via `AI_PROXY_URL` environment variable
+- Efficient JSON serialization using native reqwest methods
+- Minimal abstraction overhead for maximum throughput
 
 ### 4. Reliability Features
 
@@ -213,7 +219,7 @@ impl ModelSelectionStrategy for CustomStrategy {
 2. **Progressive Complexity**: Start simple, add features as needed
 3. **Extensibility**: Pluggable transport, metrics, and strategies
 4. **Reliability**: Built-in retry, circuit breaker, and error handling
-5. **Performance**: Minimal overhead, efficient resource usage
+5. **Performance**: Direct HTTP client integration, minimal abstraction overhead
 6. **Type Safety**: Strong typing throughout the API
 
 ## Future Enhancements

@@ -4,7 +4,7 @@
 
 ```toml
 [dependencies]
-ai-lib = "0.2.20"
+ai-lib = "0.2.21"
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 ```
@@ -12,17 +12,21 @@ futures = "0.3"
 ### 快速开始
 
 ```rust
-use ai_lib::{AiClient, Provider, Message, Content, ChatCompletionRequest};
+use ai_lib::{AiClient, Provider, Message, Role, Content, ChatCompletionRequest};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = AiClient::new(Provider::Groq)?;
     let req = ChatCompletionRequest::new(
         client.default_chat_model(),
-        vec![Message::user(Content::new_text("你好，世界！"))]
+        vec![Message {
+            role: Role::User,
+            content: Content::Text("你好，世界！".to_string()),
+            function_call: None,
+        }]
     );
     let resp = client.chat_completion(req).await?;
-    println!("回答: {}", resp.first_text()?);
+    println!("回答: {}", resp.choices[0].message.content.as_text());
     Ok(())
 }
 ```
