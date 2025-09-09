@@ -10,12 +10,7 @@ export interface SidebarGroup {
 }
 
 const sidebar: SidebarGroup[] = [
-  {
-    group: 'News',
-    items: [
-      { title: 'Release v0.3.0', path: '/docs/news-030', status: 'stable' },
-    ],
-  },
+  // News group temporarily hidden (moved announcement to Intro)
   {
     group: 'Getting Started',
     items: [

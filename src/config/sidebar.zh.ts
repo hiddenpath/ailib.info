@@ -10,12 +10,7 @@ export interface SidebarGroup {
 }
 
 const sidebar: SidebarGroup[] = [
-  {
-    group: '新闻',
-    items: [
-      { title: '发布 v0.3.0', path: '/zh/docs/news-030', status: 'stable' },
-    ],
-  },
+  // 新闻分组暂时隐藏（通知移至 Intro）
   {
     group: '快速开始',
     items: [
