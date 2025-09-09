@@ -15,7 +15,7 @@ const isZh = locale === 'zh';
     }
   </p>
 
-  <button class="contact-link" type="button" onclick="openContactModal()">
+  <button class="contact-link" type="button">
     {isZh ? '联系团队' : 'Contact the Team'}
   </button>
 
@@ -68,20 +68,53 @@ const isZh = locale === 'zh';
 </section>
 
 <script>
-  // Expose globally so header/nav can trigger it reliably
-  window.openContactModal = function() {
-    const m = document.getElementById('contact-modal');
-    if (!m) { location.hash = 'contact'; return; }
-    m.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  };
-  window.closeContactModal = function() {
-    const m = document.getElementById('contact-modal');
-    if (!m) return;
-    m.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  };
-</script>
+  (function(){
+    function open() {
+      const m = document.getElementById('contact-modal');
+      if (!m) { location.hash = 'contact'; return; }
+      m.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      const first = m.querySelector('input, textarea, button');
+      if (first) setTimeout(()=> first.focus(), 30);
+    }
+    function close() {
+      const m = document.getElementById('contact-modal');
+      if (!m) return;
+      m.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    window.openContactModal = open;
+    window.closeContactModal = close;
+
+    document.addEventListener('keydown', (e)=> {
+      if (e.key === 'Escape') {
+        const m = document.getElementById('contact-modal');
+        if (m && m.getAttribute('aria-hidden') === 'false') close();
+      }
+    });
+
+    if (location.hash === '#contact') {
+      requestAnimationFrame(()=> open());
+    }
+
+    document.addEventListener('click', (e) => {
+      const target = e.target instanceof Element ? e.target : null;
+      const a = target ? target.closest('a') : null;
+      if (!a) return;
+      const href = a.getAttribute('href') || '';
+      if (href.endsWith('#contact') || href === '#contact') {
+        e.preventDefault();
+        const section = document.getElementById('contact');
+        if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(()=> open(), 120);
+      }
+    }, { passive: false });
+
+    // Fallback: ensure button works even if inline onclick executes before script load
+    const btn = document.querySelector('.contact-link');
+    if (btn) btn.addEventListener('click', (e)=> { e.preventDefault(); open(); });
+  })();
+ </script>
 
 <style>
   .contact-link {

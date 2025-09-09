@@ -2,17 +2,27 @@
 import { getCollection } from 'astro:content';
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 
+// Generate canonical zh paths + simple fallback (slug + 'zh') redirect.
 export async function getStaticPaths() {
-  const entries = await getCollection('docs', ({ id }) => {
-    return id.includes('.zh.');
+  const zhDocs = await getCollection('docs', ({ id }) => id.includes('.zh.'));
+  return zhDocs.map(entry => {
+    const base = entry.slug.replace(/zh$/, ''); // canonical without trailing zh
+    return { params: { slug: base }, props: { targetSlug: entry.slug } };
   });
-  return entries.map((entry) => ({
-    params: { slug: entry.slug.replace('zh', '') },
-    props: { entry },
-  }));
 }
 
-const { entry } = Astro.props;
+// Props
+// @ts-ignore
+const { targetSlug } = Astro.props;
+const docs = await getCollection('docs');
+// Find exact zh entry by original slug, fallback: slug + 'zh'
+let entry = docs.find(d => d.slug === targetSlug);
+if (!entry) {
+  entry = docs.find(d => d.slug === `${targetSlug}zh`);
+}
+if (!entry) {
+  return Astro.redirect('/zh/docs/intro');
+}
 const { Content } = await entry.render();
 ---
 

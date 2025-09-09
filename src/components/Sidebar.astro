@@ -1,17 +1,48 @@
 ---
 import { getCollection } from 'astro:content';
-import sidebarEn from '../config/sidebar.en';
-import sidebarZh from '../config/sidebar.zh';
-
 const { currentPath = '', version = '' } = Astro.props;
-
-// Determine language from current path
 const isZh = currentPath.startsWith('/zh/');
-const sidebar = isZh ? sidebarZh : sidebarEn;
+const all = await getCollection('docs');
 
-function isActivePath(path: string) {
-  if (path.startsWith('http')) return false;
-  return currentPath === path || currentPath === path + '/';
+// Split language collections
+const enDocs = all.filter(d => !d.id.includes('.zh.'));
+const zhDocsRaw = all.filter(d => d.id.includes('.zh.'));
+// Normalize zh docs by stripping trailing 'zh' once for canonical route display
+const zhDocs = zhDocsRaw.map(d => ({...d, canonicalSlug: d.slug.replace(/zh$/, '') }));
+const activeDocs = isZh ? zhDocs : enDocs;
+
+// Normalize slug (strip .zh)
+function normSlug(d){
+  if (isZh) return (d.canonicalSlug || d.slug).replace(/\.zh$/,'');
+  return d.slug;
+}
+
+// Desired ordered groups (curated logical learning path)
+const orderedGroups = isZh
+  ? ['新闻','概述','指南','核心功能','可靠性','示例','企业']
+  : ['News','Overview','Guide','Core Features','Reliability','Recipes','Enterprise'];
+
+// Build map: group -> items
+const map = new Map();
+for (const d of activeDocs) {
+  const grp = d.data.group || (isZh ? '其它' : 'Other');
+  if (!map.has(grp)) map.set(grp, []);
+  map.get(grp).push(d);
+}
+
+// Sort items per group: order asc, title asc
+for (const [k, arr] of map.entries()) {
+  arr.sort((a,b)=> (a.data.order ?? 0) - (b.data.order ?? 0) || a.data.title.localeCompare(b.data.title));
+}
+
+// Compose final list honoring orderedGroups first, then remaining groups alphabetically
+const remaining = Array.from(map.keys()).filter(g => !orderedGroups.includes(g)).sort((a,b)=> a.localeCompare(b));
+const finalGroups = [...orderedGroups, ...remaining].filter(g => map.has(g));
+
+function isActive(slug){
+  const s = slug === 'intro' ? 'intro' : slug;
+  const base = isZh ? '/zh/docs/' : '/docs/';
+  return currentPath === base + s || currentPath === base + s + '/' || (s==='intro' && (currentPath===base || currentPath===base.slice(0,-1)));
 }
 ---
 
@@ -23,27 +54,29 @@ function isActivePath(path: string) {
       class="close-btn">×</button
     >
   </div>
-  {
-    sidebar.map((group) => (
+  {finalGroups.map(groupName => {
+    const items = map.get(groupName) || [];
+    return (
       <div class="group">
         <button class="group-head" type="button" data-collapse>
-          <span>{group.group}</span>
+          <span>{groupName}</span>
         </button>
         <ul>
-          {group.items.map((item) => (
-            <li class={isActivePath(item.path || '') ? 'active' : ''}>
-              <a href={item.path || item.external || '#'} target={item.external ? '_blank' : undefined} rel={item.external ? 'noopener' : undefined}>
-                {item.title}
-                {item.status && (
-                  <span class={`badge-status ${item.status}`}>{item.status}</span>
-                )}
-              </a>
-            </li>
-          ))}
+          {items.map(d => {
+            const slug = normSlug(d);
+            return (
+              <li class={isActive(slug) ? 'active' : ''}>
+                <a href={(isZh ? '/zh/docs/' : '/docs/') + slug}>
+                  {d.data.title}
+                  {d.data.status && <span class={`badge-status ${d.data.status}`}>{d.data.status}</span>}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
-    ))
-  }
+    );
+  })}
   <div class="version">v{version}</div>
   <button id="sidebar-backdrop" aria-hidden="true"></button>
 </aside>

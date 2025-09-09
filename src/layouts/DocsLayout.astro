@@ -3,45 +3,32 @@ import '../styles/global.css';
 import Sidebar from '../components/Sidebar.astro';
 import BuildMeta from '../components/BuildMeta.astro';
 import { getCollection } from 'astro:content';
-// Load version dynamically from package.json so docs always show current package version
-// Astro supports importing JSON directly at build time.
 import pkg from '../../package.json';
 const version = pkg.version as string;
-// Support both frontmatter (from old static .astro pages) and docTitle prop (dynamic collection pages)
-// Astro.props holds passed props when used via dynamic [slug] route.
-// Fallback order: explicit docTitle -> frontmatter.title -> default.
-// We also forward frontmatter when provided for potential meta usage later.
 // @ts-ignore
 const { frontmatter, url, docTitle } = { ...(Astro as any), ...(Astro.props || {}) };
 
-// Determine language from URL path
 const isZh = url.pathname.startsWith('/zh/');
-const locale = isZh ? 'zh' : 'en';
 const basePath = isZh ? '/zh/docs/' : '/docs/';
 
-// Build ordered flat list for prev/next based on sidebar configuration
+// Build prev/next from docs content collection (group -> order -> title)
 let nav: { slug: string; title: string; order: number; group: string }[] = [];
 try {
-  const sidebar = isZh ? (await import('../config/sidebar.zh')).default : (await import('../config/sidebar.en')).default;
-  
-  let order = 0;
-  for (const group of sidebar) {
-    for (const item of group.items) {
-      if (item.path && !item.external) {
-        // Extract slug from path
-        const slug = item.path.split('/').pop() || '';
-        nav.push({
-          slug,
-          title: item.title,
-          order: order++,
-          group: group.group,
-        });
-      }
-    }
+  const docs = await getCollection('docs');
+  for (const d of docs) {
+    nav.push({
+      slug: d.slug,
+      title: d.data.title,
+      order: d.data.order ?? 0,
+      group: d.data.group || 'Other'
+    });
   }
-} catch (e) {
-  // collection not available (e.g., index page) – ignore
-}
+  nav.sort((a,b)=>{
+    if(a.group !== b.group) return a.group.localeCompare(b.group);
+    if(a.order !== b.order) return a.order - b.order;
+    return a.title.localeCompare(b.title);
+  });
+} catch {}
 
 let prev: (typeof nav)[number] | undefined;
 let next: (typeof nav)[number] | undefined;
@@ -61,7 +48,7 @@ if (frontmatter?.title) {
 <html lang={isZh ? 'zh' : 'en'}>
   <head>
     <meta charset="utf-8" />
-    <title>{docTitle || frontmatter?.title || (isZh ? 'Ailib 文档' : 'Ailib Docs')}</title>
+  <title>{docTitle || frontmatter?.title || (isZh ? 'Ailib 文档' : 'Ailib Docs')}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" href="/favicon.svg" />
     <script>
@@ -76,9 +63,10 @@ if (frontmatter?.title) {
           <span class="brand-text">Ailib</span>
         </a>
         <nav class="nav-actions">
-          <a href={isZh ? '/zh/docs/intro' : '/docs/intro'} class="nav-link active">
+          <a href={isZh ? '/zh/docs/intro' : '/docs/intro'} class="nav-link dev-ref-btn">
             {isZh ? '开发者参考' : 'Developer Reference'}
           </a>
+          <a href="#contact" class="nav-link">{isZh ? '联系' : 'Contact'}</a>
           <div class="lang-switch-top">
             {isZh ? <a href="/docs/intro">English</a> : <a href="/zh/docs/intro">中文</a>}
           </div>
@@ -121,6 +109,90 @@ if (frontmatter?.title) {
       </main>
       <BuildMeta />
     </div>
+    <!-- Global contact modal (for docs pages) -->
+    <div id="contact-modal" class="modal" aria-hidden="true">
+      <button class="modal-backdrop" aria-hidden="true" onclick="closeContactModal()"></button>
+      <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="contact-title" onclick="event.stopPropagation()">
+        <button class="modal-close" aria-label="Close" onclick="closeContactModal()">×</button>
+        <h3 id="contact-title">{isZh ? '联系 ai-lib 团队' : 'Contact ai-lib Team'}</h3>
+        <p class="dim">{isZh ? '请填写以下信息，我们通常 2–3 个工作日内回复。' : 'Please fill in the information below. We usually respond within 2–3 business days.'}</p>
+        <form method="POST" action="https://formsubmit.co/walex_98@msn.com">
+          <input type="hidden" name="_subject" value="ai-lib Website Contact" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <div class="row">
+            <div class="col">
+              <label>{isZh ? '姓名' : 'Name'}</label>
+              <input required name="name" placeholder={isZh ? '姓名' : 'Your name'} />
+            </div>
+            <div class="col">
+              <label>Email</label>
+              <input required type="email" name="email" placeholder="you@company.com" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label>{isZh ? '公司 / 组织' : 'Company / Org'}</label>
+              <input name="company" placeholder="Acme Corp" />
+            </div>
+            <div class="col">
+              <label>{isZh ? '预计用例' : 'Intended Use Case'}</label>
+              <input name="use_case" placeholder={isZh ? '路由/成本/推理等' : 'Routing/Cost/Reasoning'} />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col full">
+              <label>{isZh ? '需求与时间表' : 'Needs & Timeline'}</label>
+              <textarea name="details" rows="4" placeholder={isZh ? 'Q4 上线，需可靠性策略...' : 'Prod in Q4, need reliability strategy...'}></textarea>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="button" type="submit">{isZh ? '发送' : 'Send'}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      // Early attach without waiting for any other script
+      (function(){
+        function ensureFns(){
+          if (window.openContactModal) return; // already set by home page or earlier
+          window.openContactModal = function(){
+            const m = document.getElementById('contact-modal');
+            if(!m){ location.hash='contact'; return; }
+            m.setAttribute('aria-hidden','false');
+            document.body.style.overflow='hidden';
+            const first = m.querySelector('input, textarea, button');
+            if(first) setTimeout(()=> first.focus(),30);
+          };
+          window.closeContactModal = function(){
+            const m = document.getElementById('contact-modal');
+            if(!m) return;
+            m.setAttribute('aria-hidden','true');
+            document.body.style.overflow='';
+          };
+        }
+        ensureFns();
+        // Hash open
+        if (location.hash === '#contact') {
+          requestAnimationFrame(()=> window.openContactModal());
+        }
+        // Delegate clicks
+        document.addEventListener('click',(e)=>{
+          const t = e.target instanceof Element ? e.target : null;
+          const a = t ? t.closest('a,button') : null;
+            if(!a) return;
+            const href = a.getAttribute('href')||'';
+            if(href === '#contact' || href.endsWith('#contact') || a.classList.contains('contact-link')){
+              e.preventDefault();
+              window.openContactModal();
+            }
+        }, { passive:false });
+        document.addEventListener('keydown', (e)=> {
+          if(e.key==='Escape'){ const m=document.getElementById('contact-modal'); if(m && m.getAttribute('aria-hidden')==='false') window.closeContactModal(); }
+        });
+      })();
+    </script>
   </body>
 </html>
 <style>
@@ -283,4 +355,16 @@ if (frontmatter?.title) {
       padding: 90px 22px 120px;
     }
   }
+  /* Contact modal (docs) reuse styles */
+  .modal[aria-hidden="true"] { display: none; }
+  .modal { position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; }
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.35); border:0; }
+  .modal-dialog { position: relative; width: min(680px, calc(100% - 28px)); border:1px solid var(--border); background: var(--bg); border-radius:16px; padding:22px 22px 18px; box-shadow:0 16px 48px rgba(0,0,0,.35); animation: modalIn .18s ease-out; }
+  @keyframes modalIn { from { transform: translateY(8px); opacity:.85 } to { transform: translateY(0); opacity:1 } }
+  .modal-close { position:absolute; top:10px; right:12px; border:0; background:transparent; font-size:20px; color: var(--text-dim); cursor:pointer; }
+  .modal-close:hover { color: var(--text); }
+  .row { display:flex; gap:12px; margin-top:10px; }
+  .col { flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px; }
+  .col.full { min-width:100%; }
+  .actions { display:flex; justify-content:flex-end; margin-top:14px; }
 </style>

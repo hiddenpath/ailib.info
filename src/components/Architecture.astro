@@ -40,7 +40,7 @@ const isZh = locale === 'zh';
 
 <script>
   // Lightbox enlarge
-  const thumb = document.currentScript.previousElementSibling.querySelector('[data-enlarge]');
+  const thumb = document.querySelector('.arch-figure [data-enlarge]');
   if (thumb) {
     function open() {
       const src = thumb.querySelector('img').getAttribute('src');
