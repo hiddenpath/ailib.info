@@ -309,6 +309,20 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".md"] };
+"news-030.md": {
+	id: "news-030.md";
+  slug: "news-030";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"news-030.zh.md": {
+	id: "news-030.zh.md";
+  slug: "news-030zh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
 "observability.md": {
 	id: "observability.md";
   slug: "observability";

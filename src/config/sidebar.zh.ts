@@ -11,6 +11,12 @@ export interface SidebarGroup {
 
 const sidebar: SidebarGroup[] = [
   {
+    group: '新闻',
+    items: [
+      { title: '发布 v0.3.0', path: '/zh/docs/news-030', status: 'stable' },
+    ],
+  },
+  {
     group: '快速开始',
     items: [
       { title: '介绍', path: '/zh/docs/intro' },

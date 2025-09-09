@@ -7,82 +7,54 @@ status: stable
 
 # 智能路由（稳定）
 
-基于能力元数据（速度层、质量层、成本）和策略目标选择提供商/模型。
+基于多端点 `ModelArray` 与负载策略进行模型选择，内置最小健康检查与指标。
+
+## 基本用法（routing_mvp）
 
 ```rust
-// let routing = RoutingPolicy::balanced()
-//    .allow(["gpt-4o","claude-3-haiku","mistral-medium"]);
-// let client = AiClientBuilder::new(Provider::OpenAI).routing(routing).build()?;
-```
+use ai_lib::{AiClientBuilder, ChatCompletionRequest, Message, Provider, Role};
+use ai_lib::types::common::Content;
+use ai_lib::provider::models::{ModelArray, ModelEndpoint, LoadBalancingStrategy};
 
-计划中：反馈循环摄取延迟/质量指标以自适应选择。
+// 1) 构建 ModelArray（多端点）
+let mut array = ModelArray::new("prod").with_strategy(LoadBalancingStrategy::RoundRobin);
+array.add_endpoint(ModelEndpoint {
+    name: "groq-70b".to_string(),
+    model_name: "llama-3.3-70b-versatile".to_string(),
+    url: "https://api.groq.com".to_string(),
+    weight: 1.0,
+    healthy: true,
+    connection_count: 0,
+});
 
-## 智能路由实现
-
-智能路由根据请求特性和提供商能力自动选择最佳提供商。
-
-### 基本配置
-
-```rust
-use ai_lib::reliability::RoutingPolicy;
-
-let routing = RoutingPolicy::balanced()
-    .allow(["gpt-4o", "claude-3-haiku", "mistral-medium"])
-    .prefer_fast_for_simple_requests(true)
-    .prefer_quality_for_complex_requests(true)
-    .cost_aware(true);
-
-let client = AiClientBuilder::new(Provider::OpenAI)
-    .routing(routing)
+// 2) 通过 Builder 注入路由数组
+let client = AiClientBuilder::new(Provider::Groq)
+    .with_routing_array(array)
     .build()?;
+
+// 3) 使用占位模型 "__route__" 触发路由选择
+let req = ChatCompletionRequest::new(
+    "__route__".to_string(),
+    vec![Message { role: Role::User, content: Content::new_text("打个招呼"), function_call: None }]
+);
+let resp = client.chat_completion(req).await?;
+println!("已选择模型: {}", resp.model);
 ```
 
-### 高级配置
+## 健康检查与指标
 
-```rust
-let routing = RoutingPolicy::new()
-    .add_provider("gpt-4o", ProviderCapability {
-        speed_tier: SpeedTier::Fast,
-        quality_tier: QualityTier::High,
-        cost_per_token: 0.03,
-        max_tokens: 128000,
-    })
-    .add_provider("claude-3-haiku", ProviderCapability {
-        speed_tier: SpeedTier::VeryFast,
-        quality_tier: QualityTier::Medium,
-        cost_per_token: 0.01,
-        max_tokens: 200000,
-    })
-    .routing_strategy(RoutingStrategy::Adaptive)
-    .feedback_enabled(true); // 计划中
+- 最小健康检查：选择端点时，客户端会在使用前探测 `{base_url}`（或 OpenAI 兼容路径 `{base_url}/models`）。
+- 路由指标（启用 `routing_mvp` 时）：
+  - `routing_mvp.request`
+  - `routing_mvp.selected`
+  - `routing_mvp.health_fail`
+  - `routing_mvp.fallback_default`
+  - `routing_mvp.no_endpoint`
+  - `routing_mvp.missing_array`
 
-let client = AiClientBuilder::new(Provider::OpenAI)
-    .routing(routing)
-    .build()?;
-```
+## 说明
 
-### 使用示例
-
-```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Content};
-
-async fn intelligent_chat(
-    client: &AiClient,
-    request: ChatCompletionRequest,
-) -> Result<String, Box<dyn std::error::Error>> {
-    // 智能路由会自动选择最佳提供商
-    let response = client.chat_completion(request).await?;
-    
-    // 记录路由决策用于反馈
-    client.record_routing_decision(
-        response.provider_used(),
-        response.latency(),
-        response.quality_score(),
-    ).await;
-    
-    Ok(response.first_text()?)
-}
-```
+- 当前为 MVP 形态：支持轮询/权重/最小健康检查；高级自适应策略与反馈闭环可在企业版演进。
 
 ## 下一步
 

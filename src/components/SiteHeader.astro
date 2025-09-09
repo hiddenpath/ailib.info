@@ -13,6 +13,12 @@ const isZh = locale === 'zh';
       <a href={isZh ? '/zh/docs/intro' : '/docs/intro'} class="nav-link dev-ref-btn">
         {isZh ? '开发者参考' : 'Developer Reference'}
       </a>
+      <a href={isZh ? '/zh/docs/reliability-routing' : '/docs/reliability-routing'} class="nav-link">
+        {isZh ? '路由' : 'Routing'}
+      </a>
+      <a href="#contact" class="nav-link" onclick="openContactModal(); return false;">
+        {isZh ? '联系' : 'Contact'}
+      </a>
       <div class="lang-switch-top">
         {isZh ? <a href="/">English</a> : <a href="/zh/">中文</a>}
       </div>
@@ -27,6 +33,16 @@ const isZh = locale === 'zh';
   </div>
   <script>
     document.documentElement.dataset.theme = 'light';
+    function openContactModal(){
+      if (window.openContactModal) {
+        window.openContactModal();
+      } else {
+        const m = document.getElementById('contact-modal');
+        if(!m){ window.location.hash = 'contact'; return; }
+        m.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+      }
+    }
   </script>
 </header>
 
