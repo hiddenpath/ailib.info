@@ -225,6 +225,20 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".md"] };
+"enterprise-pro.md": {
+	id: "enterprise-pro.md";
+  slug: "enterprise-pro";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"enterprise-pro.zh.md": {
+	id: "enterprise-pro.zh.md";
+  slug: "enterprise-prozh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
 "enterprise-support.md": {
 	id: "enterprise-support.md";
   slug: "enterprise-support";

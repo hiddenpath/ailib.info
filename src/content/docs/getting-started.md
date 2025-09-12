@@ -15,7 +15,7 @@ Add ai-lib to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-ai-lib = "0.3.0"
+ai-lib = "0.3.2"
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 ```
@@ -130,9 +130,22 @@ let client = AiClient::with_options(
 )?;
 ```
 
+## Enterprise Features
+
+For production environments and enterprise needs, consider [ai-lib-pro](/docs/enterprise-pro):
+
+- **Advanced Routing**: Policy-driven routing, health monitoring, automatic failover
+- **Enterprise Observability**: Structured logging, metrics, distributed tracing
+- **Cost Management**: Centralized pricing tables and budget tracking
+- **Quota Management**: Tenant/organization quotas and rate limiting
+- **Audit & Compliance**: Comprehensive audit trails with redaction
+- **Security**: Envelope encryption and key management
+- **Configuration**: Hot-reload configuration management
+
 ## Next Steps
 
 - **Streaming**: Learn about real-time responses in [Chat & Streaming](/docs/chat)
 - **Reliability**: Explore retry, circuit breakers, and fallback strategies in [Reliability Overview](/docs/reliability-overview)
 - **Advanced Features**: Check out [Advanced Examples](/docs/advanced-examples)
 - **Provider Details**: See all supported providers in [Providers](/docs/providers)
+- **Enterprise**: Explore [ai-lib-pro](/docs/enterprise-pro) for advanced enterprise capabilities

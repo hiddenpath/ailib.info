@@ -1,0 +1,33 @@
+---
+import '../../styles/global.css';
+import SiteHeader from '../../components/SiteHeader.astro';
+import EnterpriseFeatures from '../../components/EnterpriseFeatures.astro';
+import Footer from '../../components/Footer.astro';
+
+const locale = 'zh';
+---
+
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <title>ai-lib-pro 企业级功能 – 生产环境高级AI基础设施</title>
+    <meta
+      name="description"
+      content="ai-lib-pro提供高级企业功能，包括智能路由、可观测性、安全性、成本管理和合规性，适用于生产环境AI工作负载。"
+    />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta property="og:title" content="ai-lib-pro 企业级功能" />
+    <meta
+      property="og:description"
+      content="生产环境AI基础设施的高级企业功能，包括智能路由、可观测性、安全性和成本管理。"
+    />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:image" content="/og-image-zh.png" />
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+  <body>
+    <SiteHeader locale={locale} />
+    <EnterpriseFeatures locale={locale} />
+    <Footer locale={locale} />
+  </body>
+</html>

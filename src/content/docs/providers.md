@@ -7,7 +7,7 @@ description: Complete list of supported AI providers and their capabilities.
 
 # Supported Providers
 
-ai-lib supports 17+ AI providers through a unified interface. Each provider is configured via environment variables and offers consistent API access.
+ai-lib supports 17+ AI providers through a unified interface. Each provider is configured via environment variables and offers consistent API access. For enterprise environments requiring advanced provider management, routing, and analytics, see [ai-lib-pro](/docs/enterprise-pro).
 
 ## Provider Categories
 
@@ -148,8 +148,19 @@ let array = ModelArray::new("production")
 - **Strengths**: Native image/audio processing
 - **Use cases**: Content analysis, multimodal AI
 
+## Enterprise Provider Management
+
+For production environments with multiple providers, consider ai-lib-pro's advanced features:
+
+- **Advanced Routing**: Intelligent load balancing across providers
+- **Health Monitoring**: Real-time provider health and performance tracking
+- **Cost Optimization**: Provider cost analysis and automatic cost-based routing
+- **Failover Management**: Automatic failover with configurable policies
+- **Usage Analytics**: Detailed provider usage patterns and optimization insights
+
 ## Next Steps
 
 - Learn about [Model Management](/docs/model-management) for advanced provider strategies
 - Explore [Reliability Features](/docs/reliability-overview) for production deployments
 - Check [Advanced Examples](/docs/advanced-examples) for provider-specific patterns
+- Discover [ai-lib-pro](/docs/enterprise-pro) for enterprise-grade provider management

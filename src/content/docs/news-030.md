@@ -1,22 +1,33 @@
 ---
-title: Release v0.3.0
+title: Release v0.3.2
 group: News
 order: 1
 status: stable
 ---
 
-# ai-lib v0.3.0
+# ai-lib v0.3.2
 
 Highlights:
 
-- Unified transport & SSE across adapters (reliability)
-- Model routing MVP via `ModelArray` + health checks + routing metrics
-- Interceptor examples (Retry/Timeout/CircuitBreaker)
-- Docs aligned; pricing scaffold (indicative) for OSS
+- **Enhanced Reliability Features**: Improved streaming performance and error handling
+- **JSONL Streaming Protocol**: Complete implementation with delta/final types for structured streaming
+- **Unified Transport APIs**: Standardized HTTP client factory and configuration across all providers
+- **Function Calling Compatibility**: Cross-provider support for OpenAI-style `tool_calls` and auto-parse of stringified JSON arguments
+- **Interceptor Pipeline**: Pluggable `InterceptorPipeline` with default/minimal presets for retry, timeout, and circuit breaker patterns
+- **Enterprise-Ready Architecture**: Foundation for ai-lib-pro enterprise features
+
+New Features:
+
+- **Incremental JSON Parser**: High-performance streaming content extraction with proper error handling
+- **Enhanced Examples**: Comprehensive examples for all major providers and use cases
+- **Golden Test Cases**: Extensive SSE streaming test coverage with MD5 consistency validation
+- **Configurable Streaming Demos**: Model override support via environment variables
+- **Builder UX Improvements**: `AiClientBuilder` with enhanced configuration options
 
 Quick links:
 
 - Routing guide: /docs/reliability-routing
 - Observability: /docs/observability
+- Enterprise features: /docs/enterprise-pro
 - GitHub Releases: https://github.com/hiddenpath/ai-lib/releases
 

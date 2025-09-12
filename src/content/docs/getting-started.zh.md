@@ -15,7 +15,7 @@ ai-lib为17+个AI提供商提供统一的Rust接口。本指南将在几分钟�
 
 ```toml
 [dependencies]
-ai-lib = "0.3.0"
+ai-lib = "0.3.2"
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 ```
@@ -130,9 +130,22 @@ let client = AiClient::with_options(
 )?;
 ```
 
+## 企业级功能
+
+对于生产环境和企业需求，请考虑[ai-lib-pro](/docs/enterprise-pro)：
+
+- **高级路由**：策略驱动路由、健康监控、自动故障转移
+- **企业可观测性**：结构化日志、指标、分布式追踪
+- **成本管理**：集中化定价表和预算跟踪
+- **配额管理**：租户/组织配额和速率限制
+- **审计与合规**：全面的审计跟踪和脱敏处理
+- **安全性**：信封加密和密钥管理
+- **配置管理**：热重载配置管理
+
 ## 下一步
 
 - **流式处理**：在[聊天与流式处理](/docs/chat)中学习实时响应
 - **可靠性**：在[可靠性概述](/docs/reliability-overview)中探索重试、熔断器和回退策略
 - **高级功能**：查看[高级示例](/docs/advanced-examples)
 - **提供商详情**：在[提供商](/docs/providers)中查看所有支持的提供商
+- **企业版**：探索[ai-lib-pro](/docs/enterprise-pro)的高级企业功能
