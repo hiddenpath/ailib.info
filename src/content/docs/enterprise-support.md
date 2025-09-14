@@ -6,62 +6,36 @@ order: 30
 
 # Support & Contact
 
-## Enterprise Support Options
+Enterprise support focused on reducing operational burden, ensuring production stability, and accelerating delivery.
 
-We provide comprehensive enterprise support for both ai-lib (open source) and ai-lib-pro (commercial) deployments:
+Email: [walex_98@msn.com](mailto:walex_98@msn.com)
 
-### Professional Support Services
-- **Technical Support**: Expert assistance with implementation and optimization
-- **SLA Guarantees**: Response time commitments for critical issues
-- **Model Selection Advisory**: Guidance on optimal provider and model selection
-- **Integration Reviews**: Architecture and performance reviews for production workloads
-- **Custom Development**: Tailored solutions for specific enterprise requirements
+Please include: use case summary, expected traffic/latency targets, compliance requirements, and key architecture points.
 
-### ai-lib-pro Enterprise Features
-- **Advanced Routing**: Policy-driven routing with health monitoring
-- **Enterprise Observability**: Structured logging, distributed tracing, custom metrics
-- **Security & Compliance**: RBAC, SSO, audit trails, GDPR/SOC2 compliance
-- **Cost Management**: Centralized pricing, budget controls, cost analytics
-- **Configuration Management**: Hot-reload, secret management, environment-specific configs
+## Service Tiers (Example)
 
-## Contact Information
+| Tier | Ideal For | What You Get | SLA/Response |
+|---|---|---|---|
+| Foundation | Small teams | Docs & best practices, priority response for community issues, general update notices | ≤24h on business days |
+| Professional | Growth‑stage companies | Dedicated Slack/Teams channel, urgent bug fixes, config & code reviews, deployment architecture consulting | ≤8h during business hours |
+| Enterprise Care | Large customers | Dedicated TAM, SLA (e.g., 99.9%), proactive performance monitoring & alerts, custom feature development | As per contract |
 
-**Email**: [walex_98@msn.com](mailto:walex_98@msn.com)
+## Scope
 
-**For Enterprise Inquiries**: Please include:
-- Use case summary and business requirements
-- Expected traffic volume and latency requirements
-- Security and compliance requirements
-- Current infrastructure and integration needs
-- Timeline for implementation
+Included:
+- ai-lib/ai-lib-pro integration & best practices
+- Production incident triage; performance and reliability tuning
+- Configuration, deployment, and security guidance
 
-## Support Tiers
-
-### Community Support (ai-lib)
-- GitHub Issues and Discussions
-- Community-driven assistance
-- Documentation and examples
-- Regular updates and bug fixes
-
-### Professional Support (ai-lib-pro)
-- Priority technical support
-- Direct access to development team
-- Custom integration assistance
-- Performance optimization consulting
-- Training and best practices guidance
-
-### Enterprise Support (ai-lib-pro)
-- Dedicated account manager
-- 24/7 critical issue support
-- Custom feature development
-- On-site training and workshops
-- SLA-backed support agreements
+Excluded:
+- Unrelated third‑party or hardware issues
+- Custom deliverables beyond contract (available separately)
 
 ## Getting Started
 
-1. **Evaluation**: Start with ai-lib open source version
-2. **Pilot**: Deploy ai-lib-pro for evaluation
-3. **Production**: Scale with enterprise features and support
-4. **Optimization**: Continuous improvement with professional guidance
+1) Discovery → 2) Assessment & proposal → 3) Pilot & validation → 4) Contract & SLA
 
-Ready to get started? [Contact us](mailto:walex_98@msn.com) to discuss your enterprise AI infrastructure needs.
+## Next Steps
+
+- See the [Enterprise Overview](/docs/enterprise-overview) for positioning & value
+- Explore [Enterprise Features & Services](/docs/enterprise-pro)

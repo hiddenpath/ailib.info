@@ -14,7 +14,8 @@ ai-lib为所有支持的提供商提供统一的函数调用。这允许你的AI
 使用`Tool`结构体定义工具并将其附加到聊天请求：
 
 ```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Content, Tool, FunctionCallPolicy};
+use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role, Tool, FunctionCallPolicy};
+use ai_lib::Content;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -39,13 +40,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 创建带工具的聊天请求
     let req = ChatCompletionRequest::new(
         client.default_chat_model(),
-        vec![Message::user(Content::new_text("巴黎的天气怎么样？"))]
+        vec![Message {
+            role: Role::User,
+            content: Content::Text("巴黎的天气怎么样？".to_string()),
+            function_call: None,
+        }]
     )
     .with_functions(vec![weather_tool])
     .with_function_call(FunctionCallPolicy::Auto);
 
     let resp = client.chat_completion(req).await?;
-    println!("响应: {}", resp.first_text()?);
+    println!("响应: {}", resp.choices[0].message.content.as_text());
     Ok(())
 }
 ```
@@ -95,7 +100,7 @@ if let Some(choice) = resp.choices.first() {
                 // 创建工具响应消息
                 let tool_message = Message {
                     role: Role::Assistant, // 注意：ai-lib使用Assistant角色进行工具响应
-                    content: Content::new_json(serde_json::json!({
+                    content: Content::Json(serde_json::json!({
                         "temperature": weather_data.temp,
                         "condition": weather_data.condition,
                         "location": location
@@ -107,14 +112,18 @@ if let Some(choice) = resp.choices.first() {
                 let follow_up_req = ChatCompletionRequest::new(
                     model,
                     vec![
-                        Message::user(Content::new_text("巴黎的天气怎么样？")),
+                        Message {
+                            role: Role::User,
+                            content: Content::Text("巴黎的天气怎么样？".to_string()),
+                            function_call: None,
+                        },
                         choice.message.clone(),
                         tool_message,
                     ]
                 );
 
                 let final_resp = client.chat_completion(follow_up_req).await?;
-                println!("最终答案: {}", final_resp.first_text()?);
+                println!("最终答案: {}", final_resp.choices[0].message.content.as_text());
             }
             _ => println!("未知函数: {}", function_call.name),
         }
@@ -221,7 +230,11 @@ async fn execute_tool_call(function_call: &FunctionCall) -> serde_json::Value {
 }
 
 // 在你的对话循环中使用
-let mut conversation = vec![Message::user(Content::new_text("东京的天气和科技新闻怎么样？"))];
+let mut conversation = vec![Message {
+    role: Role::User,
+    content: Content::Text("东京的天气和科技新闻怎么样？".to_string()),
+    function_call: None,
+}];
 
 loop {
     let req = ChatCompletionRequest::new(model, conversation.clone())
@@ -239,7 +252,7 @@ loop {
             conversation.push(choice.message.clone());
             conversation.push(Message {
                 role: Role::Assistant,
-                content: Content::new_json(result),
+                content: Content::Json(result),
                 function_call: None,
             });
         } else {

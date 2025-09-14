@@ -25,7 +25,8 @@ futures = "0.3"
 最简单的开始方式是进行一个简单的聊天请求：
 
 ```rust
-use ai_lib::{AiClient, Provider, Message, Role, Content, ChatCompletionRequest};
+use ai_lib::{AiClient, Provider, Message, Role, ChatCompletionRequest};
+use ai_lib::Content;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {

@@ -37,19 +37,24 @@ ai-lib支持17+个AI提供商，包括OpenAI、Groq、Anthropic、Gemini、Mistr
 ## 快速开始
 
 ```rust
-use ai_lib::{AiClient, Provider, Message, Role, Content, ChatCompletionRequest};
+use ai_lib::{AiClient, Provider, Message, Role, ChatCompletionRequest};
+use ai_lib::Content;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = AiClient::new(Provider::Groq)?;
     let req = ChatCompletionRequest::new(
         client.default_chat_model(),
-        vec![Message::user(Content::new_text("你好，世界！"))]
+        vec![Message {
+            role: Role::User,
+            content: Content::Text("你好，世界！".to_string()),
+            function_call: None,
+        }]
     );
     let resp = client.chat_completion(req).await?;
-    println!("回答: {}", resp.first_text()?);
+    println!("回答: {}", resp.choices[0].message.content.as_text());
     Ok(())
 }
 ```
 
-下一步：阅读[快速开始](/docs/getting-started)然后探索[高级示例](/docs/advanced-examples)。
+下一步：阅读[快速开始](/docs/getting-started)，再查看[特性开关（Features）](/docs/features.zh)，最后探索[高级示例](/docs/advanced-examples)。

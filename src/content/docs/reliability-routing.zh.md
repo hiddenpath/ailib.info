@@ -13,7 +13,7 @@ status: stable
 
 ```rust
 use ai_lib::{AiClientBuilder, ChatCompletionRequest, Message, Provider, Role};
-use ai_lib::types::common::Content;
+use ai_lib::Content;
 use ai_lib::provider::models::{ModelArray, ModelEndpoint, LoadBalancingStrategy};
 
 // 1) 构建 ModelArray（多端点）

@@ -8,7 +8,15 @@ order: 90
 
 ## Is this production ready?
 
-Core abstractions (client, request/response types) are usable. Reliability primitives (retry / fallback / race / routing) are a focus; rate limiting & circuit breaker partial.
+Yes, ai-lib has reached production readiness (v0.3.2). Core functionality is fully implemented:
+
+- **Complete reliability primitives**: Retry, circuit breaker, rate limiting, timeout control
+- **Interceptor system**: Pluggable middleware pipeline with custom interceptor support
+- **Multi-provider support**: OpenAI, Google Gemini, Mistral, Cohere, and more
+- **Streaming processing**: Complete SSE and JSONL streaming protocol support
+- **Function calling**: Cross-provider structured tool calling
+- **Multimodal support**: Text, image, and audio processing
+- **Enterprise features**: Proxy support, batch processing, metrics monitoring
 
 ## Why not call providers directly?
 

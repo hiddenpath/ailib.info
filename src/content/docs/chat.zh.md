@@ -12,17 +12,24 @@ status: stable
 ## 基本聊天完成
 
 ```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role, Content};
+use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
+use ai_lib::Content;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = AiClient::new(Provider::OpenAI)?;
     let req = ChatCompletionRequest::new(
-        client.default_chat_model(),
-        vec![Message::user(Content::new_text("简洁地总结Rust所有权。"))]
+        "gpt-4o".to_string(),
+        vec![Message { 
+            role: Role::User, 
+            content: Content::Text("简洁地总结Rust所有权。".to_string()), 
+            function_call: None 
+        }]
     );
     let resp = client.chat_completion(req).await?;
-    println!("回答: {}", resp.first_text()?);
+    if let Some(first) = resp.choices.first() {
+        println!("回答: {}", first.message.content.as_text());
+    }
     Ok(())
 }
 ```
@@ -32,22 +39,29 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 方法假设：`chat_completion_stream(request)`返回`Result<ChatCompletionChunk, AiLibError>`的异步流。
 
 ```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Content};
+use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
+use ai_lib::Content;
 use futures::StreamExt;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = AiClient::new(Provider::Groq)?;
     let req = ChatCompletionRequest::new(
-        client.default_chat_model(),
-        vec![Message::user(Content::new_text("流式输出一首关于并发的俳句。"))]
+        "llama3-8b-8192".to_string(),
+        vec![Message { 
+            role: Role::User, 
+            content: Content::Text("流式输出一首关于并发的俳句。".to_string()), 
+            function_call: None 
+        }]
     );
     let mut stream = client.chat_completion_stream(req).await?;
     while let Some(chunk) = stream.next().await {
         match chunk {
             Ok(c) => {
-                if let Some(delta) = c.choices[0].delta.content.clone() {
-                    print!("{delta}");
+                if let Some(choice) = c.choices.first() {
+                    if let Some(content) = &choice.delta.content {
+                        print!("{}", content);
+                    }
                 }
             }
             Err(e) => { 
@@ -65,7 +79,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 假设助手：`chat_completion_stream_with_cancel(req)` → `(impl Stream, CancelHandle)`。
 
 ```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Content, CancelHandle};
+use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
+use ai_lib::Content;
 use futures::StreamExt;
 use tokio::time::{sleep, Duration};
 
@@ -73,18 +88,18 @@ use tokio::time::{sleep, Duration};
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = AiClient::new(Provider::OpenAI)?;
     let req = ChatCompletionRequest::new(
-        client.default_chat_model(),
-        vec![Message::user(Content::new_text("慢慢解释借用检查器。"))]
+        "gpt-4o".to_string(),
+        vec![Message { 
+            role: Role::User, 
+            content: Content::Text("慢慢解释借用检查器。".to_string()), 
+            function_call: None 
+        }]
     );
     let (mut stream, handle) = client.chat_completion_stream_with_cancel(req).await?;
     tokio::select! {
         _ = async {
             while let Some(chunk) = stream.next().await {
-                if let Ok(c) = chunk { 
-                    if let Some(delta) = c.choices[0].delta.content.clone() {
-                        print!("{delta}");
-                    }
-                }
+                if let Ok(c) = chunk { /* print!("{}", c.delta_text()); */ }
             }
         } => {},
         _ = sleep(Duration::from_millis(400)) => {
@@ -104,12 +119,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 2. `chat_completion_batch_smart` – 可能应用内部启发式/路由。
 
 ```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Content};
+use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
+use ai_lib::types::common::Content;
 
 fn prompt(p: &str) -> ChatCompletionRequest {
     ChatCompletionRequest::new(
-        "gpt-4o".into(),
-        vec![Message::user(Content::new_text(p.into()))]
+        "gpt-4o".to_string(),
+        vec![Message { 
+            role: Role::User, 
+            content: Content::Text(p.to_string()), 
+            function_call: None 
+        }]
     )
 }
 
@@ -121,10 +141,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         prompt("用一句话说明生命周期"), 
         prompt("解释Send vs Sync")
     ];
-    let results = client.chat_completion_batch(batch).await?;
+    let results = client.chat_completion_batch(batch, None).await?;
     for (i, r) in results.iter().enumerate() {
-        if let Some(c) = r.choices.first() { 
-            println!("{}: {}", i, c.message.content.as_text()); 
+        if let Ok(response) = r {
+            if let Some(c) = response.choices.first() { 
+                println!("{}: {}", i, c.message.content.as_text()); 
+            }
         }
     }
     Ok(())
@@ -158,23 +180,36 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 ai-lib支持文本、图像和音频内容：
 
 ```rust
-use ai_lib::{Message, Content};
+use ai_lib::{Message, Role};
+use ai_lib::types::common::Content;
 
 // 文本消息
-let text_msg = Message::user(Content::new_text("描述这张图片"));
+let text_msg = Message {
+    role: Role::User,
+    content: Content::Text("描述这张图片".to_string()),
+    function_call: None,
+};
 
 // 图像消息
-let image_msg = Message::user(Content::new_image(
-    Some("https://example.com/image.jpg".to_string()),
-    Some("image/jpeg".to_string()),
-    Some("example.jpg".to_string())
-));
+let image_msg = Message {
+    role: Role::User,
+    content: Content::Image {
+        url: Some("https://example.com/image.jpg".to_string()),
+        mime: Some("image/jpeg".to_string()),
+        name: Some("example.jpg".to_string()),
+    },
+    function_call: None,
+};
 
 // 音频消息
-let audio_msg = Message::user(Content::new_audio(
-    Some("https://example.com/audio.mp3".to_string()),
-    Some("audio/mpeg".to_string())
-));
+let audio_msg = Message {
+    role: Role::User,
+    content: Content::Audio {
+        url: Some("https://example.com/audio.mp3".to_string()),
+        mime: Some("audio/mpeg".to_string()),
+    },
+    function_call: None,
+};
 ```
 
 ## 错误处理
@@ -184,7 +219,9 @@ let audio_msg = Message::user(Content::new_audio(
 ```rust
 match client.chat_completion(req).await {
     Ok(response) => {
-        println!("成功: {}", response.first_text()?);
+        if let Some(first) = response.choices.first() {
+            println!("成功: {}", first.message.content.as_text());
+        }
     }
     Err(e) if e.is_retryable() => {
         // 处理可重试错误（网络、速率限制）

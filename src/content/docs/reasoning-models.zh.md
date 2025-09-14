@@ -25,7 +25,7 @@ ai-lib 通过现有的 API 能力完美支持推理模型，无需额外的接�
 
 ```rust
 use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::types::common::Content;
+use ai_lib::Content;
 use ai_lib::types::function_call::{Tool, FunctionCallPolicy};
 use serde_json::json;
 

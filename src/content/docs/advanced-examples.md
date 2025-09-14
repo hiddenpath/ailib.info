@@ -14,7 +14,7 @@ Practical patterns combining the core APIs. Replace method names if your version
 
 ```rust
 use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::types::common::Content;
+use ai_lib::Content;
 use futures_util::StreamExt;
 use tokio::time::{timeout, Duration};
 
@@ -42,7 +42,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ```rust
 use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::types::common::Content;
+use ai_lib::Content;
 use tokio::task;
 
 fn prompt(q: &str) -> ChatCompletionRequest {
@@ -164,7 +164,7 @@ See [Functions & Tools](/docs/functions) for a loop that detects function/tool i
 
 ```rust
 use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::types::common::Content;
+use ai_lib::Content;
 use ai_lib::types::function_call::{Tool, FunctionCallPolicy};
 use serde_json::json;
 
@@ -230,7 +230,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ```rust
 use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::types::common::Content;
+use ai_lib::Content;
 use futures_util::StreamExt;
 
 #[tokio::main]

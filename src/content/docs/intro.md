@@ -37,19 +37,24 @@ ai-lib supports 17+ AI providers including OpenAI, Groq, Anthropic, Gemini, Mist
 ## Quick Start
 
 ```rust
-use ai_lib::{AiClient, Provider, Message, Role, Content, ChatCompletionRequest};
+use ai_lib::{AiClient, Provider, Message, Role, ChatCompletionRequest};
+use ai_lib::Content;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = AiClient::new(Provider::Groq)?;
     let req = ChatCompletionRequest::new(
         client.default_chat_model(),
-        vec![Message::user(Content::new_text("Hello, world!"))]
+        vec![Message {
+            role: Role::User,
+            content: Content::Text("Hello, world!".to_string()),
+            function_call: None,
+        }]
     );
     let resp = client.chat_completion(req).await?;
-    println!("Answer: {}", resp.first_text()?);
+    println!("Answer: {}", resp.choices[0].message.content.as_text());
     Ok(())
 }
 ```
 
-Next: Read [Getting Started](/docs/getting-started) then explore [Advanced Examples](/docs/advanced-examples).
+Next: Read [Getting Started](/docs/getting-started), then see [Features & Optional Modules](/docs/features), and explore [Advanced Examples](/docs/advanced-examples).

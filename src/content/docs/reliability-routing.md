@@ -13,7 +13,7 @@ Select models via `ModelArray` with load‑balancing strategy, minimal health ch
 
 ```rust
 use ai_lib::{AiClientBuilder, ChatCompletionRequest, Message, Provider, Role};
-use ai_lib::types::common::Content;
+use ai_lib::Content;
 use ai_lib::provider::models::{ModelArray, ModelEndpoint, LoadBalancingStrategy};
 
 let mut array = ModelArray::new("prod").with_strategy(LoadBalancingStrategy::RoundRobin);

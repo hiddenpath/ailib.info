@@ -231,6 +231,16 @@ When ai-lib-pro becomes available, it will be designed as a drop-in replacement 
 
 ## Enterprise Support & Partnership
 
+### Service Tiers (Example)
+
+| Tier | Ideal For | What You Get | Pricing |
+|---|---|---|---|
+| Foundation | Small teams needing baseline assurance | Priority response for community issues; docs & best practices; general update notices | Annual subscription |
+| Professional | Growth‑stage companies needing deeper help | Dedicated Slack/Teams channel; urgent bug fixes; config & code reviews; deployment architecture consulting | Annual subscription (higher tier) |
+| Enterprise Care | Large customers requiring full coverage & SLAs | Dedicated TAM; SLA (e.g., 99.9%); proactive perf monitoring & alerts; custom feature development | Annual contract (custom quote) |
+
+> Our goal is to reduce your operational burden: incident response, upgrades & security patches, performance tuning, and architectural guidance—while you retain technical autonomy.
+
 ### Current Support Options
 
 - **Requirements Discussion**: Detailed assessment of your enterprise AI infrastructure needs

@@ -298,7 +298,7 @@ async fn controlled_concurrency() -> Result<(), Box<dyn std::error::Error>> {
 
 ```rust
 use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::types::common::Content;
+use ai_lib::Content;
 use ai_lib::types::function_call::{Tool, FunctionCallPolicy};
 use serde_json::json;
 
@@ -364,7 +364,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ```rust
 use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::types::common::Content;
+use ai_lib::Content;
 use futures_util::StreamExt;
 
 #[tokio::main]

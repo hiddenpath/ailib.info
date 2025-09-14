@@ -14,7 +14,8 @@ ai-lib provides unified function calling across all supported providers. This al
 Define tools using the `Tool` struct and attach them to your chat requests:
 
 ```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Content, Tool, FunctionCallPolicy};
+use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role, Tool, FunctionCallPolicy};
+use ai_lib::Content;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -39,13 +40,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Create a chat request with tools
     let req = ChatCompletionRequest::new(
         client.default_chat_model(),
-        vec![Message::user(Content::new_text("What's the weather like in Paris?"))]
+        vec![Message {
+            role: Role::User,
+            content: Content::Text("What's the weather like in Paris?".to_string()),
+            function_call: None,
+        }]
     )
     .with_functions(vec![weather_tool])
     .with_function_call(FunctionCallPolicy::Auto);
 
     let resp = client.chat_completion(req).await?;
-    println!("Response: {}", resp.first_text()?);
+    println!("Response: {}", resp.choices[0].message.content.as_text());
     Ok(())
 }
 ```
@@ -95,7 +100,7 @@ if let Some(choice) = resp.choices.first() {
                 // Create a tool response message
                 let tool_message = Message {
                     role: Role::Assistant, // Note: ai-lib uses Assistant role for tool responses
-                    content: Content::new_json(serde_json::json!({
+                    content: Content::Json(serde_json::json!({
                         "temperature": weather_data.temp,
                         "condition": weather_data.condition,
                         "location": location
@@ -107,14 +112,18 @@ if let Some(choice) = resp.choices.first() {
                 let follow_up_req = ChatCompletionRequest::new(
                     model,
                     vec![
-                        Message::user(Content::new_text("What's the weather in Paris?")),
+                        Message {
+                            role: Role::User,
+                            content: Content::Text("What's the weather in Paris?".to_string()),
+                            function_call: None,
+                        },
                         choice.message.clone(),
                         tool_message,
                     ]
                 );
 
                 let final_resp = client.chat_completion(follow_up_req).await?;
-                println!("Final answer: {}", final_resp.first_text()?);
+                println!("Final answer: {}", final_resp.choices[0].message.content.as_text());
             }
             _ => println!("Unknown function: {}", function_call.name),
         }
@@ -221,7 +230,11 @@ async fn execute_tool_call(function_call: &FunctionCall) -> serde_json::Value {
 }
 
 // Use in your conversation loop
-let mut conversation = vec![Message::user(Content::new_text("What's the weather in Tokyo and any tech news?"))];
+let mut conversation = vec![Message {
+    role: Role::User,
+    content: Content::Text("What's the weather in Tokyo and any tech news?".to_string()),
+    function_call: None,
+}];
 
 loop {
     let req = ChatCompletionRequest::new(model, conversation.clone())
@@ -239,7 +252,7 @@ loop {
             conversation.push(choice.message.clone());
             conversation.push(Message {
                 role: Role::Assistant,
-                content: Content::new_json(result),
+                content: Content::Json(result),
                 function_call: None,
             });
         } else {

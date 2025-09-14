@@ -13,14 +13,18 @@ This section shows core APIs: `chat_completion`, streaming variants, cancellatio
 
 ```rust
 use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::types::common::Content;
+use ai_lib::Content;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let client = AiClient::new(Provider::OpenAI)?;
   let req = ChatCompletionRequest::new(
     "gpt-4o".to_string(),
-    vec![Message { role: Role::User, content: Content::Text("Summarize Rust ownership succinctly.".to_string()), function_call: None }]
+    vec![Message { 
+        role: Role::User, 
+        content: Content::Text("Summarize Rust ownership succinctly.".to_string()), 
+        function_call: None 
+    }]
   );
   let resp = client.chat_completion(req).await?;
   if let Some(first) = resp.choices.first() {
@@ -36,15 +40,19 @@ Method assumed: `chat_completion_stream(request)` returning an async stream of `
 
 ```rust
 use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::types::common::Content;
-use futures_util::StreamExt; // if using futures stream
+use ai_lib::Content;
+use futures::StreamExt; // if using futures stream
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let client = AiClient::new(Provider::Groq)?;
   let req = ChatCompletionRequest::new(
     "llama3-8b-8192".to_string(),
-    vec![Message { role: Role::User, content: Content::Text("Stream a haiku about concurrency.".to_string()), function_call: None }]
+    vec![Message { 
+        role: Role::User, 
+        content: Content::Text("Stream a haiku about concurrency.".to_string()), 
+        function_call: None 
+    }]
   );
   let mut stream = client.chat_completion_stream(req).await?;
   while let Some(chunk) = stream.next().await {
@@ -69,16 +77,20 @@ Assumed helper: `chat_completion_stream_with_cancel(req)` → `(impl Stream, Can
 
 ```rust
 use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::types::common::Content;
-use futures_util::StreamExt;
+use ai_lib::Content;
+use futures::StreamExt;
 use tokio::time::{sleep, Duration};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let client = AiClient::new(Provider::OpenAI)?;
   let req = ChatCompletionRequest::new(
-    "gpt-4o".into(),
-    vec![Message { role: Role::User, content: Content::Text("Explain borrow checker slowly.".into()), function_call: None }]
+    "gpt-4o".to_string(),
+    vec![Message { 
+        role: Role::User, 
+        content: Content::Text("Explain borrow checker slowly.".to_string()), 
+        function_call: None 
+    }]
   );
   let (mut stream, handle) = client.chat_completion_stream_with_cancel(req).await?;
   tokio::select! {
@@ -109,8 +121,12 @@ use ai_lib::types::common::Content;
 
 fn prompt(p: &str) -> ChatCompletionRequest {
   ChatCompletionRequest::new(
-    "gpt-4o".into(),
-    vec![Message { role: Role::User, content: Content::Text(p.into()), function_call: None }]
+    "gpt-4o".to_string(),
+    vec![Message { 
+        role: Role::User, 
+        content: Content::Text(p.to_string()), 
+        function_call: None 
+    }]
   )
 }
 
@@ -118,9 +134,13 @@ fn prompt(p: &str) -> ChatCompletionRequest {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let client = AiClient::new(Provider::OpenAI)?;
   let batch = vec![prompt("Define RAII"), prompt("One sentence on lifetimes"), prompt("Explain Send vs Sync")];
-  let results = client.chat_completion_batch(batch).await?;
+  let results = client.chat_completion_batch(batch, None).await?;
   for (i, r) in results.iter().enumerate() {
-    if let Some(c) = r.choices.first() { /* println!("{}: {}", i, c.message_text()); */ }
+    if let Ok(response) = r {
+        if let Some(c) = response.choices.first() { 
+            println!("{}: {}", i, c.message.content.as_text()); 
+        }
+    }
   }
   Ok(())
 }
