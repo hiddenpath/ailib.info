@@ -13,7 +13,7 @@ This guide explains how to include `ai-lib` in your Cargo project with opt-in fe
 
 ```toml
 [dependencies]
-ai-lib = "0.3.2"
+ai-lib = "0.3.3"
 tokio = { version = "1", features = ["full"] }
 ```
 
@@ -23,7 +23,7 @@ tokio = { version = "1", features = ["full"] }
 
 ```toml
 [dependencies]
-ai-lib = { version = "0.3.2", features = ["resilience", "streaming"] }
+ai-lib = { version = "0.3.3", features = ["resilience", "streaming"] }
 ```
 
 ### Feature Aliases (for ergonomics)
@@ -47,7 +47,7 @@ These aliases are additive; they do not add new code, only enable existing granu
 
 ```toml
 [dependencies]
-ai-lib = { version = "0.3.2", features = [
+ai-lib = { version = "0.3.3", features = [
   "resilience",
   "transport",
   "streaming"

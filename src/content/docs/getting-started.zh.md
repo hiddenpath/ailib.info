@@ -15,7 +15,7 @@ ai-lib为17+个AI提供商提供统一的Rust接口。本指南将在几分钟�
 
 ```toml
 [dependencies]
-ai-lib = "0.3.2"
+ai-lib = "0.3.3"
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 ```

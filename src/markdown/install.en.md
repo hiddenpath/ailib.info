@@ -4,7 +4,7 @@ Add the dependency, then use the unified API to call any supported provider imme
 
 ```toml
 [dependencies]
-ai-lib = "0.3.2"
+ai-lib = "0.3.3"
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 ```

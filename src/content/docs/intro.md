@@ -9,7 +9,7 @@ description: Overview of ai-lib (Rust unified AI SDK) goals and capabilities.
 
 ai-lib is a production-grade Rust crate providing a unified, reliability-focused multi‑provider AI SDK. It eliminates the complexity of integrating with multiple AI providers by offering a single, consistent interface.
 
-> Announcement: v0.3.2 released — enhanced reliability features, improved streaming performance, and enterprise-ready architecture. For advanced enterprise capabilities, explore [ai-lib-pro](/docs/enterprise-pro) with advanced routing, observability, security, and cost management features.
+> Announcement: v0.3.3 released — improved developer ergonomics (root-level imports, feature aliases) and updated docs/site. For advanced enterprise capabilities, explore [ai-lib-pro](/docs/enterprise-pro) with advanced routing, observability, security, and cost management features.
 
 ## Goals
 

@@ -13,7 +13,7 @@ status: stable
 
 ```toml
 [dependencies]
-ai-lib = "0.3.2"
+ai-lib = "0.3.3"
 tokio = { version = "1", features = ["full"] }
 ```
 
@@ -23,7 +23,7 @@ tokio = { version = "1", features = ["full"] }
 
 ```toml
 [dependencies]
-ai-lib = { version = "0.3.2", features = ["resilience", "streaming"] }
+ai-lib = { version = "0.3.3", features = ["resilience", "streaming"] }
 ```
 
 ### 友好别名（提高易用性）
@@ -47,7 +47,7 @@ ai-lib = { version = "0.3.2", features = ["resilience", "streaming"] }
 
 ```toml
 [dependencies]
-ai-lib = { version = "0.3.2", features = [
+ai-lib = { version = "0.3.3", features = [
   "resilience",
   "transport",
   "streaming"
