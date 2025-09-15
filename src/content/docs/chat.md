@@ -12,17 +12,16 @@ This section shows core APIs: `chat_completion`, streaming variants, cancellatio
 ## Basic Chat Completion
 
 ```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::Content;
+use ai_lib::prelude::*;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), AiLibError> {
   let client = AiClient::new(Provider::OpenAI)?;
   let req = ChatCompletionRequest::new(
     "gpt-4o".to_string(),
     vec![Message { 
         role: Role::User, 
-        content: Content::Text("Summarize Rust ownership succinctly.".to_string()), 
+        content: Content::new_text("Summarize Rust ownership succinctly.".to_string()), 
         function_call: None 
     }]
   );
@@ -39,18 +38,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 Method assumed: `chat_completion_stream(request)` returning an async stream of `Result<ChatCompletionChunk, AiLibError>`.
 
 ```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::Content;
+use ai_lib::prelude::*;
 use futures::StreamExt; // if using futures stream
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), AiLibError> {
   let client = AiClient::new(Provider::Groq)?;
   let req = ChatCompletionRequest::new(
     "llama3-8b-8192".to_string(),
     vec![Message { 
         role: Role::User, 
-        content: Content::Text("Stream a haiku about concurrency.".to_string()), 
+        content: Content::new_text("Stream a haiku about concurrency.".to_string()), 
         function_call: None 
     }]
   );
@@ -76,19 +74,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 Assumed helper: `chat_completion_stream_with_cancel(req)` → `(impl Stream, CancelHandle)`.
 
 ```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::Content;
+use ai_lib::prelude::*;
 use futures::StreamExt;
 use tokio::time::{sleep, Duration};
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), AiLibError> {
   let client = AiClient::new(Provider::OpenAI)?;
   let req = ChatCompletionRequest::new(
     "gpt-4o".to_string(),
     vec![Message { 
         role: Role::User, 
-        content: Content::Text("Explain borrow checker slowly.".to_string()), 
+        content: Content::new_text("Explain borrow checker slowly.".to_string()), 
         function_call: None 
     }]
   );
@@ -124,14 +121,14 @@ fn prompt(p: &str) -> ChatCompletionRequest {
     "gpt-4o".to_string(),
     vec![Message { 
         role: Role::User, 
-        content: Content::Text(p.to_string()), 
+        content: Content::new_text(p.to_string()), 
         function_call: None 
     }]
   )
 }
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), AiLibError> {
   let client = AiClient::new(Provider::OpenAI)?;
   let batch = vec![prompt("Define RAII"), prompt("One sentence on lifetimes"), prompt("Explain Send vs Sync")];
   let results = client.chat_completion_batch(batch, None).await?;

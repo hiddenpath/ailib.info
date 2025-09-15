@@ -59,7 +59,7 @@ let request = ChatCompletionRequest::new(
     "qwen-qwq-32b".to_string(),
     vec![Message {
         role: Role::User,
-        content: Content::Text("解决这个数学问题：2x + 3 = 11".to_string()),
+        content: Content::new_text("解决这个数学问题：2x + 3 = 11".to_string()),
         function_call: None,
     }],
 )
@@ -77,7 +77,7 @@ let request = ChatCompletionRequest::new(
     "qwen-qwq-32b".to_string(),
     vec![Message {
         role: Role::User,
-        content: Content::Text("解释光合作用的工作原理，并展示你的推理过程".to_string()),
+        content: Content::new_text("解释光合作用的工作原理，并展示你的推理过程".to_string()),
         function_call: None,
     }],
 );
@@ -110,11 +110,11 @@ let request = ChatCompletionRequest::new(
     "qwen-qwq-32b".to_string(),
     vec![Message {
         role: Role::System,
-        content: Content::Text("你是一个推理助手。请始终以有效的JSON格式回复，包含你的推理过程和最终答案。".to_string()),
+        content: Content::new_text("你是一个推理助手。请始终以有效的JSON格式回复，包含你的推理过程和最终答案。".to_string()),
         function_call: None,
     }, Message {
         role: Role::User,
-        content: Content::Text("法国的首都是什么？为什么它很重要？请提供你的推理过程。".to_string()),
+        content: Content::new_text("法国的首都是什么？为什么它很重要？请提供你的推理过程。".to_string()),
         function_call: None,
     }],
 );
@@ -138,7 +138,7 @@ let mut request = ChatCompletionRequest::new(
     "qwen-qwq-32b".to_string(),
     vec![Message {
         role: Role::User,
-        content: Content::Text("解决这个复杂问题：x² + 5x + 6 = 0".to_string()),
+        content: Content::new_text("解决这个复杂问题：x² + 5x + 6 = 0".to_string()),
         function_call: None,
     }],
 );

@@ -23,7 +23,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = AiClient::new(Provider::OpenAI)?;
     let req = ChatCompletionRequest::new(
         "gpt-4o".to_string(),
-        vec![Message { role: Role::User, content: Content::Text("Write a long poem about Rust lifetimes".to_string()), function_call: None }]
+        vec![Message { role: Role::User, content: Content::new_text("Write a long poem about Rust lifetimes".to_string()), function_call: None }]
     );
     let (mut stream, handle) = client.chat_completion_stream_with_cancel(req).await?;
     let res = timeout(Duration::from_millis(500), async {
@@ -48,7 +48,7 @@ use tokio::task;
 fn prompt(q: &str) -> ChatCompletionRequest {
     ChatCompletionRequest::new(
         "gpt-4o".to_string(),
-        vec![Message { role: Role::User, content: Content::Text(q.to_string()), function_call: None }]
+        vec![Message { role: Role::User, content: Content::new_text(q.to_string()), function_call: None }]
     )
 }
 
@@ -201,7 +201,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         "qwen-qwq-32b".to_string(),
         vec![Message {
             role: Role::User,
-            content: Content::Text("Solve this math problem: A class has 30 students, 60% are girls and 40% are boys. If 25% of girls wear glasses and 20% of boys wear glasses, how many students in total wear glasses?".to_string()),
+            content: Content::new_text("Solve this math problem: A class has 30 students, 60% are girls and 40% are boys. If 25% of girls wear glasses and 20% of boys wear glasses, how many students in total wear glasses?".to_string()),
             function_call: None,
         }],
     )
@@ -241,7 +241,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         "qwen-qwq-32b".to_string(),
         vec![Message {
             role: Role::User,
-            content: Content::Text("Explain quantum computing principles with step-by-step reasoning".to_string()),
+            content: Content::new_text("Explain quantum computing principles with step-by-step reasoning".to_string()),
             function_call: None,
         }],
     );

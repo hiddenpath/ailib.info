@@ -14,11 +14,10 @@ ai-lib provides unified function calling across all supported providers. This al
 Define tools using the `Tool` struct and attach them to your chat requests:
 
 ```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role, Tool, FunctionCallPolicy};
-use ai_lib::Content;
+use ai_lib::prelude::*;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), AiLibError> {
     let client = AiClient::new(Provider::OpenAI)?;
 
     // Define a weather tool
@@ -42,7 +41,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         client.default_chat_model(),
         vec![Message {
             role: Role::User,
-            content: Content::Text("What's the weather like in Paris?".to_string()),
+            content: Content::new_text("What's the weather like in Paris?".to_string()),
             function_call: None,
         }]
     )
@@ -114,7 +113,7 @@ if let Some(choice) = resp.choices.first() {
                     vec![
                         Message {
                             role: Role::User,
-                            content: Content::Text("What's the weather in Paris?".to_string()),
+                            content: Content::new_text("What's the weather in Paris?".to_string()),
                             function_call: None,
                         },
                         choice.message.clone(),
@@ -232,7 +231,7 @@ async fn execute_tool_call(function_call: &FunctionCall) -> serde_json::Value {
 // Use in your conversation loop
 let mut conversation = vec![Message {
     role: Role::User,
-    content: Content::Text("What's the weather in Tokyo and any tech news?".to_string()),
+    content: Content::new_text("What's the weather in Tokyo and any tech news?".to_string()),
     function_call: None,
 }];
 

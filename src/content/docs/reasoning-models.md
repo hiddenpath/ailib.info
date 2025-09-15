@@ -59,7 +59,7 @@ let request = ChatCompletionRequest::new(
     "qwen-qwq-32b".to_string(),
     vec![Message {
         role: Role::User,
-        content: Content::Text("Solve this math problem: 2x + 3 = 11".to_string()),
+        content: Content::new_text("Solve this math problem: 2x + 3 = 11".to_string()),
         function_call: None,
     }],
 )
@@ -77,7 +77,7 @@ let request = ChatCompletionRequest::new(
     "qwen-qwq-32b".to_string(),
     vec![Message {
         role: Role::User,
-        content: Content::Text("Explain how photosynthesis works and show your reasoning process".to_string()),
+        content: Content::new_text("Explain how photosynthesis works and show your reasoning process".to_string()),
         function_call: None,
     }],
 );
@@ -110,11 +110,11 @@ let request = ChatCompletionRequest::new(
     "qwen-qwq-32b".to_string(),
     vec![Message {
         role: Role::System,
-        content: Content::Text("You are a reasoning assistant. Always respond with valid JSON format containing your reasoning process and final answer.".to_string()),
+        content: Content::new_text("You are a reasoning assistant. Always respond with valid JSON format containing your reasoning process and final answer.".to_string()),
         function_call: None,
     }, Message {
         role: Role::User,
-        content: Content::Text("What is the capital of France and why is it important? Please provide your reasoning process.".to_string()),
+        content: Content::new_text("What is the capital of France and why is it important? Please provide your reasoning process.".to_string()),
         function_call: None,
     }],
 );
@@ -138,7 +138,7 @@ let mut request = ChatCompletionRequest::new(
     "qwen-qwq-32b".to_string(),
     vec![Message {
         role: Role::User,
-        content: Content::Text("Solve this complex math problem: x² + 5x + 6 = 0".to_string()),
+        content: Content::new_text("Solve this complex math problem: x² + 5x + 6 = 0".to_string()),
         function_call: None,
     }],
 );

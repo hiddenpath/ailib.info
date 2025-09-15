@@ -7,7 +7,7 @@ description: 支持的AI提供商及其功能的完整列表。
 
 # 支持的提供商
 
-ai-lib通过统一接口支持17+个AI提供商。每个提供商都通过环境变量配置，并提供一致的API访问。
+ai-lib通过统一接口支持20+个AI提供商。每个提供商都通过环境变量配置，并提供一致的API访问。
 
 ## 提供商分类
 
@@ -24,6 +24,8 @@ ai-lib通过统一接口支持17+个AI提供商。每个提供商都通过环境
 | **DeepSeek** | ✅ | ✅ | ❌ | ✅ | 推理导向模型 |
 | **Ollama** | ✅ | ✅ | 变化 | 变化 | 本地/隔离部署 |
 | **xAI Grok** | ✅ | ✅ | ❌ | ✅ | 实时导向 |
+| **OpenRouter** | ✅ | ✅ | 变化 | 变化 | OpenAI 兼容网关，provider/model 路由 |
+| **Replicate** | ✅ | ✅ | 变化 | 变化 | 托管开源模型 |
 
 ### 中文生态提供商
 专门针对中文语言和企业需求：
@@ -45,6 +47,10 @@ ai-lib通过统一接口支持17+个AI提供商。每个提供商都通过环境
 | **Mistral** | ✅ | ✅ | 部分 | ✅ | 欧洲模型，轻量级 |
 | **Cohere** | ✅ | ✅ | 有限 | ✅ | Command模型，RAG优化 |
 | **Qwen** | ✅ | ✅ | ✅ | ✅ | 阿里巴巴的多语言模型 |
+| **Perplexity** | ✅ | ✅ | 有限 | ✅ | 搜索增强对话 |
+| **AI21** | ✅ | ✅ | 有限 | ✅ | Jurassic 系列 |
+| **智谱AI (GLM)** | ✅ | ✅ | ✅ | ✅ | 国产 GLM 系列 |
+| **MiniMax** | ✅ | ✅ | ✅ | ✅ | 国产多模态 |
 
 ## 环境变量
 
@@ -73,6 +79,12 @@ export TOGETHERAI_API_KEY=your_together_key
 export DEEPSEEK_API_KEY=your_deepseek_key
 export QWEN_API_KEY=your_qwen_key
 export XAI_API_KEY=your_xai_key
+export OPENROUTER_API_KEY=your_openrouter_key
+export REPLICATE_API_TOKEN=your_replicate_token
+export PERPLEXITY_API_KEY=your_perplexity_key
+export AI21_API_KEY=your_ai21_key
+export ZHIPU_API_KEY=your_zhipu_key
+export MINIMAX_API_KEY=your_minimax_key
 
 # Ollama（本地）
 export OLLAMA_BASE_URL=http://localhost:11434

@@ -335,7 +335,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         "qwen-qwq-32b".to_string(),
         vec![Message {
             role: Role::User,
-            content: Content::Text("解决这个数学问题：一个班级有30个学生，60%是女生，40%是男生。如果25%的女生戴眼镜，20%的男生戴眼镜，总共有多少学生戴眼镜？".to_string()),
+            content: Content::new_text("解决这个数学问题：一个班级有30个学生，60%是女生，40%是男生。如果25%的女生戴眼镜，20%的男生戴眼镜，总共有多少学生戴眼镜？".to_string()),
             function_call: None,
         }],
     )
@@ -375,7 +375,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         "qwen-qwq-32b".to_string(),
         vec![Message {
             role: Role::User,
-            content: Content::Text("解释量子计算原理，并提供步骤化推理".to_string()),
+            content: Content::new_text("解释量子计算原理，并提供步骤化推理".to_string()),
             function_call: None,
         }],
     );

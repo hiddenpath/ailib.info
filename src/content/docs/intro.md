@@ -9,11 +9,11 @@ description: Overview of ai-lib (Rust unified AI SDK) goals and capabilities.
 
 ai-lib is a production-grade Rust crate providing a unified, reliability-focused multi‑provider AI SDK. It eliminates the complexity of integrating with multiple AI providers by offering a single, consistent interface.
 
-> Announcement: v0.3.3 released — improved developer ergonomics (root-level imports, feature aliases) and updated docs/site. For advanced enterprise capabilities, explore [ai-lib-pro](/docs/enterprise-pro) with advanced routing, observability, security, and cost management features.
+> Announcement: v0.3.4 released — provider failover support, major provider expansion, enhanced multimodal content creation, and new import system. For advanced enterprise capabilities, explore [ai-lib-pro](/docs/enterprise-pro) with advanced routing, observability, security, and cost management features.
 
 ## Goals
 
-- **Reduce integration cost** across 17+ AI providers
+- **Reduce integration cost** across 20+ AI providers
 - **Improve success rate & tail latency** via built-in reliability primitives
 - **Offer consistent streaming & function calling** semantics across all providers
 - **Remain vendor-neutral and extensible** with pluggable transport and metrics
@@ -32,22 +32,21 @@ ai-lib is a production-grade Rust crate providing a unified, reliability-focused
 
 ## Supported Providers
 
-ai-lib supports 17+ AI providers including OpenAI, Groq, Anthropic, Gemini, Mistral, Cohere, Azure OpenAI, Ollama, DeepSeek, Qwen, Baidu Wenxin, Tencent Hunyuan, iFlytek Spark, Moonshot Kimi, HuggingFace, TogetherAI, and xAI Grok.
+ai-lib supports 20+ AI providers including OpenAI, Groq, Anthropic, Gemini, Mistral, Cohere, Azure OpenAI, Ollama, DeepSeek, Qwen, Baidu Wenxin, Tencent Hunyuan, iFlytek Spark, Moonshot Kimi, HuggingFace, TogetherAI, xAI Grok, OpenRouter, Replicate, Perplexity, AI21, ZhipuAI, and MiniMax.
 
 ## Quick Start
 
 ```rust
-use ai_lib::{AiClient, Provider, Message, Role, ChatCompletionRequest};
-use ai_lib::Content;
+use ai_lib::prelude::*;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), AiLibError> {
     let client = AiClient::new(Provider::Groq)?;
     let req = ChatCompletionRequest::new(
         client.default_chat_model(),
         vec![Message {
             role: Role::User,
-            content: Content::Text("Hello, world!".to_string()),
+            content: Content::new_text("Hello, world!".to_string()),
             function_call: None,
         }]
     );

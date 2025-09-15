@@ -7,7 +7,7 @@ description: Complete list of supported AI providers and their capabilities.
 
 # Supported Providers
 
-ai-lib supports 17+ AI providers through a unified interface. Each provider is configured via environment variables and offers consistent API access. For enterprise environments requiring advanced provider management, routing, and analytics, see [ai-lib-pro](/docs/enterprise-pro).
+ai-lib supports 20+ AI providers through a unified interface. Each provider is configured via environment variables and offers consistent API access. For enterprise environments requiring advanced provider management, routing, and analytics, see [ai-lib-pro](/docs/enterprise-pro).
 
 ## Provider Categories
 
@@ -24,6 +24,8 @@ These providers use a unified configuration system for easy setup and optimal pe
 | **DeepSeek** | ✅ | ✅ | ❌ | ✅ | Reasoning-focused models |
 | **Ollama** | ✅ | ✅ | Varies | Varies | Local/airgapped deployment |
 | **xAI Grok** | ✅ | ✅ | ❌ | ✅ | Real-time oriented |
+| **OpenRouter** | ✅ | ✅ | Varies | Varies | OpenAI-compatible gateway, provider/model routing |
+| **Replicate** | ✅ | ✅ | Varies | Varies | Hosted open-source models |
 
 ### Chinese Ecosystem Providers
 Specialized for Chinese language and enterprise needs:
@@ -45,6 +47,10 @@ These providers have custom integration logic with high-performance direct HTTP 
 | **Mistral** | ✅ | ✅ | Partial | ✅ | European models, lightweight |
 | **Cohere** | ✅ | ✅ | Limited | ✅ | Command models, RAG optimized |
 | **Qwen** | ✅ | ✅ | ✅ | ✅ | Alibaba's multilingual models |
+| **Perplexity** | ✅ | ✅ | Limited | ✅ | Search-augmented conversations |
+| **AI21** | ✅ | ✅ | Limited | ✅ | Jurassic series |
+| **ZhipuAI (GLM)** | ✅ | ✅ | ✅ | ✅ | Chinese GLM series |
+| **MiniMax** | ✅ | ✅ | ✅ | ✅ | Chinese multimodal |
 
 ## Environment Variables
 
@@ -73,6 +79,12 @@ export TOGETHERAI_API_KEY=your_together_key
 export DEEPSEEK_API_KEY=your_deepseek_key
 export QWEN_API_KEY=your_qwen_key
 export XAI_API_KEY=your_xai_key
+export OPENROUTER_API_KEY=your_openrouter_key
+export REPLICATE_API_TOKEN=your_replicate_token
+export PERPLEXITY_API_KEY=your_perplexity_key
+export AI21_API_KEY=your_ai21_key
+export ZHIPU_API_KEY=your_zhipu_key
+export MINIMAX_API_KEY=your_minimax_key
 
 # Ollama (local)
 export OLLAMA_BASE_URL=http://localhost:11434

@@ -12,17 +12,16 @@ status: stable
 ## 基本聊天完成
 
 ```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::Content;
+use ai_lib::prelude::*;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), AiLibError> {
     let client = AiClient::new(Provider::OpenAI)?;
     let req = ChatCompletionRequest::new(
         "gpt-4o".to_string(),
         vec![Message { 
             role: Role::User, 
-            content: Content::Text("简洁地总结Rust所有权。".to_string()), 
+            content: Content::new_text("简洁地总结Rust所有权。".to_string()), 
             function_call: None 
         }]
     );
@@ -39,18 +38,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 方法假设：`chat_completion_stream(request)`返回`Result<ChatCompletionChunk, AiLibError>`的异步流。
 
 ```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::Content;
+use ai_lib::prelude::*;
 use futures::StreamExt;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), AiLibError> {
     let client = AiClient::new(Provider::Groq)?;
     let req = ChatCompletionRequest::new(
         "llama3-8b-8192".to_string(),
         vec![Message { 
             role: Role::User, 
-            content: Content::Text("流式输出一首关于并发的俳句。".to_string()), 
+            content: Content::new_text("流式输出一首关于并发的俳句。".to_string()), 
             function_call: None 
         }]
     );
@@ -79,19 +77,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 假设助手：`chat_completion_stream_with_cancel(req)` → `(impl Stream, CancelHandle)`。
 
 ```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role};
-use ai_lib::Content;
+use ai_lib::prelude::*;
 use futures::StreamExt;
 use tokio::time::{sleep, Duration};
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), AiLibError> {
     let client = AiClient::new(Provider::OpenAI)?;
     let req = ChatCompletionRequest::new(
         "gpt-4o".to_string(),
         vec![Message { 
             role: Role::User, 
-            content: Content::Text("慢慢解释借用检查器。".to_string()), 
+            content: Content::new_text("慢慢解释借用检查器。".to_string()), 
             function_call: None 
         }]
     );
@@ -127,14 +124,14 @@ fn prompt(p: &str) -> ChatCompletionRequest {
         "gpt-4o".to_string(),
         vec![Message { 
             role: Role::User, 
-            content: Content::Text(p.to_string()), 
+            content: Content::new_text(p.to_string()), 
             function_call: None 
         }]
     )
 }
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), AiLibError> {
     let client = AiClient::new(Provider::OpenAI)?;
     let batch = vec![
         prompt("定义RAII"), 
@@ -186,7 +183,7 @@ use ai_lib::types::common::Content;
 // 文本消息
 let text_msg = Message {
     role: Role::User,
-    content: Content::Text("描述这张图片".to_string()),
+    content: Content::new_text("描述这张图片".to_string()),
     function_call: None,
 };
 

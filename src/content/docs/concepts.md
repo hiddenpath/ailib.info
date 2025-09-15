@@ -19,14 +19,14 @@ use ai_lib::{Message, Role, Content};
 // Create a user message with text content
 let user_msg = Message {
     role: Role::User,
-    content: Content::Text("Hello, world!".to_string()),
+    content: Content::new_text("Hello, world!".to_string()),
     function_call: None,
 };
 
 // Create a system message
 let system_msg = Message {
     role: Role::System,
-    content: Content::Text("You are a helpful assistant.".to_string()),
+    content: Content::new_text("You are a helpful assistant.".to_string()),
     function_call: None,
 };
 ```

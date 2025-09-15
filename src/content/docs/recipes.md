@@ -18,7 +18,7 @@ use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Content};
 async fn simple_chat_loop(client: &AiClient) -> Result<(), Box<dyn std::error::Error>> {
     let mut messages = vec![Message {
         role: Role::System,
-        content: Content::Text("You are a helpful assistant.".to_string()),
+        content: Content::new_text("You are a helpful assistant.".to_string()),
     }];
     
     loop {
@@ -27,7 +27,7 @@ async fn simple_chat_loop(client: &AiClient) -> Result<(), Box<dyn std::error::E
         
         messages.push(Message {
             role: Role::User,
-            content: Content::Text(user_input),
+            content: Content::new_text(user_input),
         });
         
         let request = ChatCompletionRequest {
@@ -42,7 +42,7 @@ async fn simple_chat_loop(client: &AiClient) -> Result<(), Box<dyn std::error::E
         println!("Assistant: {}", assistant_message);
         messages.push(Message {
             role: Role::Assistant,
-            content: Content::Text(assistant_message),
+            content: Content::new_text(assistant_message),
         });
     }
     
@@ -60,7 +60,7 @@ async fn streaming_chat(client: &AiClient) -> Result<(), Box<dyn std::error::Err
         model: "gpt-4o".to_string(),
         messages: vec![Message {
             role: Role::User,
-            content: Content::Text("Tell me a story".to_string()),
+            content: Content::new_text("Tell me a story".to_string()),
         }],
         stream: Some(true),
         ..Default::default()
@@ -110,7 +110,7 @@ use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Content, Tool, 
 async fn tool_calling_loop(client: &AiClient) -> Result<(), Box<dyn std::error::Error>> {
     let mut messages = vec![Message {
         role: Role::System,
-        content: Content::Text("You are a helpful assistant with access to tools.".to_string()),
+        content: Content::new_text("You are a helpful assistant with access to tools.".to_string()),
     }];
     
     let tools = vec![
@@ -133,7 +133,7 @@ async fn tool_calling_loop(client: &AiClient) -> Result<(), Box<dyn std::error::
         
         messages.push(Message {
             role: Role::User,
-            content: Content::Text(user_input),
+            content: Content::new_text(user_input),
         });
         
         let request = ChatCompletionRequest {
@@ -152,7 +152,7 @@ async fn tool_calling_loop(client: &AiClient) -> Result<(), Box<dyn std::error::
                 let result = execute_tool(&tool_call).await?;
                 messages.push(Message {
                     role: Role::Tool,
-                    content: Content::Text(result),
+                    content: Content::new_text(result),
                 });
             }
         } else {
@@ -160,7 +160,7 @@ async fn tool_calling_loop(client: &AiClient) -> Result<(), Box<dyn std::error::
             println!("Assistant: {}", assistant_message);
             messages.push(Message {
                 role: Role::Assistant,
-                content: Content::Text(assistant_message),
+                content: Content::new_text(assistant_message),
             });
         }
     }
@@ -182,7 +182,7 @@ async fn multimodal_chat(client: &AiClient, image_path: &str) -> Result<(), Box<
         messages: vec![
             Message {
                 role: Role::User,
-                content: Content::Text("What do you see in this image?".to_string()),
+                content: Content::new_text("What do you see in this image?".to_string()),
             },
             Message {
                 role: Role::User,

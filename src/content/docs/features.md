@@ -13,7 +13,7 @@ This guide explains how to include `ai-lib` in your Cargo project with opt-in fe
 
 ```toml
 [dependencies]
-ai-lib = "0.3.3"
+ai-lib = "0.3.4"
 tokio = { version = "1", features = ["full"] }
 ```
 
@@ -23,7 +23,7 @@ tokio = { version = "1", features = ["full"] }
 
 ```toml
 [dependencies]
-ai-lib = { version = "0.3.3", features = ["resilience", "streaming"] }
+ai-lib = { version = "0.3.4", features = ["resilience", "streaming"] }
 ```
 
 ### Feature Aliases (for ergonomics)
@@ -36,6 +36,10 @@ ai-lib = { version = "0.3.3", features = ["resilience", "streaming"] }
 
 These aliases are additive; they do not add new code, only enable existing granular features.
 
+### New: Basic Failover (OSS)
+
+Since v0.3.x, `AiClient::with_failover(Vec<Provider>)` enables automatic provider switching on retryable errors (network, timeout, rate limit, 5xx). When used with `routing_mvp`, model selection is preserved during failover.
+
 ## Suggested Combos
 
 - Minimal app: no features (add only when needed)
@@ -47,7 +51,7 @@ These aliases are additive; they do not add new code, only enable existing granu
 
 ```toml
 [dependencies]
-ai-lib = { version = "0.3.3", features = [
+ai-lib = { version = "0.3.4", features = [
   "resilience",
   "transport",
   "streaming"
@@ -59,6 +63,10 @@ ai-lib = { version = "0.3.3", features = [
 Prefer root imports for developer ergonomics:
 
 ```rust
+// Recommended for applications
+use ai_lib::prelude::*;
+
+// Or explicit imports for library development
 use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role, Content};
 use ai_lib::{Tool, FunctionCallPolicy};
 ```

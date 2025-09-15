@@ -14,11 +14,10 @@ ai-lib为所有支持的提供商提供统一的函数调用。这允许你的AI
 使用`Tool`结构体定义工具并将其附加到聊天请求：
 
 ```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Role, Tool, FunctionCallPolicy};
-use ai_lib::Content;
+use ai_lib::prelude::*;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), AiLibError> {
     let client = AiClient::new(Provider::OpenAI)?;
 
     // 定义天气工具
@@ -42,7 +41,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         client.default_chat_model(),
         vec![Message {
             role: Role::User,
-            content: Content::Text("巴黎的天气怎么样？".to_string()),
+            content: Content::new_text("巴黎的天气怎么样？".to_string()),
             function_call: None,
         }]
     )
@@ -114,7 +113,7 @@ if let Some(choice) = resp.choices.first() {
                     vec![
                         Message {
                             role: Role::User,
-                            content: Content::Text("巴黎的天气怎么样？".to_string()),
+                            content: Content::new_text("巴黎的天气怎么样？".to_string()),
                             function_call: None,
                         },
                         choice.message.clone(),
@@ -232,7 +231,7 @@ async fn execute_tool_call(function_call: &FunctionCall) -> serde_json::Value {
 // 在你的对话循环中使用
 let mut conversation = vec![Message {
     role: Role::User,
-    content: Content::Text("东京的天气和科技新闻怎么样？".to_string()),
+    content: Content::new_text("东京的天气和科技新闻怎么样？".to_string()),
     function_call: None,
 }];
 

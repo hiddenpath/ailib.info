@@ -281,6 +281,20 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".md"] };
+"features.md": {
+	id: "features.md";
+  slug: "features";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"features.zh.md": {
+	id: "features.zh.md";
+  slug: "featureszh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
 "functions.md": {
 	id: "functions.md";
   slug: "functions";
@@ -309,6 +323,20 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".md"] };
+"import-patterns.md": {
+	id: "import-patterns.md";
+  slug: "import-patterns";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"import-patterns.zh.md": {
+	id: "import-patterns.zh.md";
+  slug: "import-patternszh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
 "intro.md": {
 	id: "intro.md";
   slug: "intro";
@@ -333,6 +361,34 @@ declare module 'astro:content' {
 "news-030.zh.md": {
 	id: "news-030.zh.md";
   slug: "news-030zh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"news-033.md": {
+	id: "news-033.md";
+  slug: "news-033";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"news-033.zh.md": {
+	id: "news-033.zh.md";
+  slug: "news-033zh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"news-034.md": {
+	id: "news-034.md";
+  slug: "news-034";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"news-034.zh.md": {
+	id: "news-034.zh.md";
+  slug: "news-034zh";
   body: string;
   collection: "docs";
   data: InferEntrySchema<"docs">

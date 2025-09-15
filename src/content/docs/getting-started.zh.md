@@ -15,7 +15,7 @@ ai-lib为17+个AI提供商提供统一的Rust接口。本指南将在几分钟�
 
 ```toml
 [dependencies]
-ai-lib = "0.3.3"
+ai-lib = "0.3.4"
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 ```
@@ -25,11 +25,10 @@ futures = "0.3"
 最简单的开始方式是进行一个简单的聊天请求：
 
 ```rust
-use ai_lib::{AiClient, Provider, Message, Role, ChatCompletionRequest};
-use ai_lib::Content;
+use ai_lib::prelude::*;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), AiLibError> {
     // 选择你的AI提供商
     let client = AiClient::new(Provider::Groq)?;
 

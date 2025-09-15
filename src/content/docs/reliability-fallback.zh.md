@@ -19,6 +19,19 @@ status: stable
 
 第一个成功会短路链。与竞争结合以减少尾延迟。
 
+## 基础故障转移（OSS）
+
+`AiClient::with_failover(Vec<Provider>)` 提供轻量的提供商级故障转移：当出现可重试错误（网络、超时、限流、5xx）时，按顺序尝试备用 Provider。与 `routing_mvp` 配合时，已选择的模型会在故障转移过程中被保留。
+
+```rust
+use ai_lib::{AiClient, Provider};
+
+let client = AiClient::new(Provider::OpenAI)?
+    .with_failover(vec![Provider::Anthropic, Provider::Groq]);
+```
+
+> 注：高级带权重/成本与 SLO 感知的策略在 `ai-lib-pro` 中提供。
+
 ## 回退链实现
 
 回退链是一种重要的可靠性模式，当主提供商失败时自动切换到备用提供商。

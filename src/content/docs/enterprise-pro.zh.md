@@ -30,11 +30,13 @@ ai-lib-pro 是 ai-lib 的商业企业版本，为生产环境、大规模部署�
 - 粘性会话保持用户上下文
 - 基于负载的动态模型扩展
 
-**健康监控**
+**健康监控与故障转移**
 - 自定义健康检查端点和指标
 - 可配置策略的自动故障转移
 - 性能基线和趋势分析
 - 实时健康仪表板
+
+> 注：开源版 ai-lib 提供基础的 `with_failover(Vec<Provider>)` 方法，仅在出现可重试错误（网络/超时/限流/5xx）时按顺序尝试备用 Provider。高级加权失败转移、SLO/成本感知策略由 ai-lib-pro 提供。
 
 ```rust
 use ai_lib_pro::{AdvancedRouter, RoutingPolicy, HealthMonitor};
@@ -44,6 +46,15 @@ let router = AdvancedRouter::new()
     .with_health_monitor(HealthMonitor::new())
     .with_sticky_sessions(true)
     .build()?;
+```
+
+```rust
+/// Open-source ai-lib (OSS) 基础故障转移示例
+use ai_lib::{AiClient, Provider};
+
+let client = AiClient::new(Provider::OpenAI)?
+    .with_failover(vec![Provider::Anthropic, Provider::Groq]);
+// 当 OpenAI 出现网络/超时/限流/5xx 时，将按顺序尝试 Anthropic → Groq。
 ```
 
 ### 📊 增强的可观测性与监控

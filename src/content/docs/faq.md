@@ -8,7 +8,7 @@ order: 90
 
 ## Is this production ready?
 
-Yes, ai-lib has reached production readiness (v0.3.3). Core functionality is fully implemented:
+Yes, ai-lib has reached production readiness (v0.3.4). Core functionality is fully implemented:
 
 - **Complete reliability primitives**: Retry, circuit breaker, rate limiting, timeout control
 - **Interceptor system**: Pluggable middleware pipeline with custom interceptor support

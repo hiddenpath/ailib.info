@@ -15,7 +15,7 @@ Add ai-lib to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-ai-lib = "0.3.3"
+ai-lib = "0.3.4"
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 ```
@@ -25,11 +25,10 @@ futures = "0.3"
 The fastest way to get started is with a simple chat request:
 
 ```rust
-use ai_lib::{AiClient, Provider, Message, Role, ChatCompletionRequest};
-use ai_lib::Content;
+use ai_lib::prelude::*;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<(), AiLibError> {
     // Select your AI provider
     let client = AiClient::new(Provider::Groq)?;
 
