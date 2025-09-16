@@ -24,8 +24,8 @@ ai-lib通过统一接口支持20+个AI提供商。每个提供商都通过环境
 | **DeepSeek** | ✅ | ✅ | ❌ | ✅ | 推理导向模型 |
 | **Ollama** | ✅ | ✅ | 变化 | 变化 | 本地/隔离部署 |
 | **xAI Grok** | ✅ | ✅ | ❌ | ✅ | 实时导向 |
-| **OpenRouter** | ✅ | ✅ | 变化 | 变化 | OpenAI 兼容网关，provider/model 路由 |
-| **Replicate** | ✅ | ✅ | 变化 | 变化 | 托管开源模型 |
+| **OpenRouter** | ✅ | ✅ | 变化 | 变化 | 统一网关，支持多提供商模型路由 |
+| **Replicate** | ✅ | ✅ | 变化 | 变化 | 托管开源模型网关 |
 
 ### 中文生态提供商
 专门针对中文语言和企业需求：
@@ -133,6 +133,44 @@ let array = ModelArray::new("production")
         healthy: true,
     });
 ```
+
+## 网关型提供商
+
+网关型提供商通过统一接口提供多个AI模型的访问，简化了多提供商管理：
+
+### OpenRouter
+- **特点**：统一网关，支持20+个AI提供商
+- **模型命名**：使用`provider/model`格式（如`openai/gpt-4o`、`anthropic/claude-3-5-sonnet`）
+- **优势**：统一API、成本优化、模型比较
+- **使用示例**：
+```rust
+use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Content};
+
+let client = AiClient::new(Provider::OpenRouter)?;
+let req = ChatCompletionRequest::new(
+    "openai/gpt-4o-mini".to_string(), // 注意使用provider前缀
+    vec![Message::user(Content::new_text("你好！"))]
+);
+```
+
+### Replicate
+- **特点**：托管开源模型平台
+- **模型命名**：使用`provider/model`格式（如`meta/llama-2-7b-chat`）
+- **优势**：开源模型、按需计费、易于部署
+- **使用示例**：
+```rust
+let client = AiClient::new(Provider::Replicate)?;
+let req = ChatCompletionRequest::new(
+    "meta/llama-2-7b-chat".to_string(), // 使用provider前缀
+    vec![Message::user(Content::new_text("解释Rust所有权"))]
+);
+```
+
+### 网关使用注意事项
+- **模型命名**：网关平台需要使用`provider/model`格式，而直接提供商使用原始模型名
+- **API密钥**：网关通常只需要一个API密钥，无需管理多个提供商密钥
+- **延迟**：网关会增加一个网络跳转，可能略微增加延迟
+- **成本**：网关可能提供统一的计费和管理界面
 
 ## 提供商特定说明
 

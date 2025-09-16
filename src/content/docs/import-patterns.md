@@ -295,3 +295,5 @@ With the new import structure, your IDE's auto-completion will guide you to the 
 - [Module Tree and Import Patterns](https://docs.rs/ai-lib/0.3.4/ai_lib/) - Detailed module structure guide
 - [API Reference](https://docs.rs/ai-lib/0.3.4) - Complete API documentation
 - [Examples](https://github.com/hiddenpath/ai-lib/tree/main/examples) - Practical usage examples
+
+

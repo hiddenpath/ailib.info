@@ -11,6 +11,7 @@ status: stable
 
 ## 基本聊天完成
 
+### 直接提供商
 ```rust
 use ai_lib::prelude::*;
 
@@ -21,7 +22,32 @@ async fn main() -> Result<(), AiLibError> {
         "gpt-4o".to_string(),
         vec![Message { 
             role: Role::User, 
-            content: Content::new_text("简洁地总结Rust所有权。".to_string()), 
+            content: Content::from_text("简洁地总结Rust所有权。".to_string()), 
+            function_call: None 
+        }]
+    );
+    let resp = client.chat_completion(req).await?;
+    if let Some(first) = resp.choices.first() {
+        println!("回答: {}", first.message.content.as_text());
+    }
+    Ok(())
+}
+```
+
+### 网关型提供商
+使用OpenRouter等网关时，需要使用`provider/model`格式的模型名：
+
+```rust
+use ai_lib::prelude::*;
+
+#[tokio::main]
+async fn main() -> Result<(), AiLibError> {
+    let client = AiClient::new(Provider::OpenRouter)?;
+    let req = ChatCompletionRequest::new(
+        "openai/gpt-4o-mini".to_string(), // 注意使用provider前缀
+        vec![Message { 
+            role: Role::User, 
+            content: Content::from_text("简洁地总结Rust所有权。".to_string()), 
             function_call: None 
         }]
     );
@@ -48,7 +74,7 @@ async fn main() -> Result<(), AiLibError> {
         "llama3-8b-8192".to_string(),
         vec![Message { 
             role: Role::User, 
-            content: Content::new_text("流式输出一首关于并发的俳句。".to_string()), 
+            content: Content::from_text("流式输出一首关于并发的俳句。".to_string()), 
             function_call: None 
         }]
     );
@@ -88,7 +114,7 @@ async fn main() -> Result<(), AiLibError> {
         "gpt-4o".to_string(),
         vec![Message { 
             role: Role::User, 
-            content: Content::new_text("慢慢解释借用检查器。".to_string()), 
+            content: Content::from_text("慢慢解释借用检查器。".to_string()), 
             function_call: None 
         }]
     );
@@ -124,7 +150,7 @@ fn prompt(p: &str) -> ChatCompletionRequest {
         "gpt-4o".to_string(),
         vec![Message { 
             role: Role::User, 
-            content: Content::new_text(p.to_string()), 
+            content: Content::from_text(p.to_string()), 
             function_call: None 
         }]
     )
@@ -177,34 +203,47 @@ async fn main() -> Result<(), AiLibError> {
 ai-lib支持文本、图像和音频内容：
 
 ```rust
-use ai_lib::{Message, Role};
-use ai_lib::types::common::Content;
+use ai_lib::prelude::*;
 
 // 文本消息
 let text_msg = Message {
     role: Role::User,
-    content: Content::new_text("描述这张图片".to_string()),
+    content: Content::from_text("描述这张图片".to_string()),
     function_call: None,
 };
 
-// 图像消息
+// 图像消息（从文件）
 let image_msg = Message {
     role: Role::User,
-    content: Content::Image {
-        url: Some("https://example.com/image.jpg".to_string()),
-        mime: Some("image/jpeg".to_string()),
-        name: Some("example.jpg".to_string()),
-    },
+    content: Content::from_image_file("path/to/image.jpg"),
     function_call: None,
 };
 
-// 音频消息
+// 图像消息（从URL）
+let image_url_msg = Message {
+    role: Role::User,
+    content: Content::new_image(
+        Some("https://example.com/image.jpg".to_string()),
+        Some("image/jpeg".to_string()),
+        Some("image.jpg".to_string()),
+    ),
+    function_call: None,
+};
+
+// 音频消息（从文件）
 let audio_msg = Message {
     role: Role::User,
-    content: Content::Audio {
-        url: Some("https://example.com/audio.mp3".to_string()),
-        mime: Some("audio/mpeg".to_string()),
-    },
+    content: Content::from_audio_file("path/to/audio.mp3"),
+    function_call: None,
+};
+
+// 音频消息（从URL）
+let audio_url_msg = Message {
+    role: Role::User,
+    content: Content::new_audio(
+        Some("https://example.com/audio.mp3".to_string()),
+        Some("audio/mpeg".to_string()),
+    ),
     function_call: None,
 };
 ```

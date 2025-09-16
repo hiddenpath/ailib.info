@@ -11,6 +11,7 @@ This section shows core APIs: `chat_completion`, streaming variants, cancellatio
 
 ## Basic Chat Completion
 
+### Direct Providers
 ```rust
 use ai_lib::prelude::*;
 
@@ -21,7 +22,32 @@ async fn main() -> Result<(), AiLibError> {
     "gpt-4o".to_string(),
     vec![Message { 
         role: Role::User, 
-        content: Content::new_text("Summarize Rust ownership succinctly.".to_string()), 
+        content: Content::from_text("Summarize Rust ownership succinctly.".to_string()), 
+        function_call: None 
+    }]
+  );
+  let resp = client.chat_completion(req).await?;
+  if let Some(first) = resp.choices.first() {
+    println!("Answer: {}", first.message.content.as_text());
+  }
+  Ok(())
+}
+```
+
+### Gateway Providers
+When using gateways like OpenRouter, use `provider/model` format for model names:
+
+```rust
+use ai_lib::prelude::*;
+
+#[tokio::main]
+async fn main() -> Result<(), AiLibError> {
+  let client = AiClient::new(Provider::OpenRouter)?;
+  let req = ChatCompletionRequest::new(
+    "openai/gpt-4o-mini".to_string(), // Note the provider prefix
+    vec![Message { 
+        role: Role::User, 
+        content: Content::from_text("Summarize Rust ownership succinctly.".to_string()), 
         function_call: None 
     }]
   );
@@ -48,7 +74,7 @@ async fn main() -> Result<(), AiLibError> {
     "llama3-8b-8192".to_string(),
     vec![Message { 
         role: Role::User, 
-        content: Content::new_text("Stream a haiku about concurrency.".to_string()), 
+        content: Content::from_text("Stream a haiku about concurrency.".to_string()), 
         function_call: None 
     }]
   );
@@ -85,7 +111,7 @@ async fn main() -> Result<(), AiLibError> {
     "gpt-4o".to_string(),
     vec![Message { 
         role: Role::User, 
-        content: Content::new_text("Explain borrow checker slowly.".to_string()), 
+        content: Content::from_text("Explain borrow checker slowly.".to_string()), 
         function_call: None 
     }]
   );
@@ -121,7 +147,7 @@ fn prompt(p: &str) -> ChatCompletionRequest {
     "gpt-4o".to_string(),
     vec![Message { 
         role: Role::User, 
-        content: Content::new_text(p.to_string()), 
+        content: Content::from_text(p.to_string()), 
         function_call: None 
     }]
   )
@@ -164,6 +190,117 @@ Some crates expose ergonomic shortcuts like `quick_chat_text(model, prompt)` ret
 let models = client.list_models().await?;
 for model in models { 
     println!("{}", model); 
+}
+```
+
+## Multimodal Content
+
+ai-lib supports text, image, and audio content:
+
+```rust
+use ai_lib::prelude::*;
+
+// Text message
+let text_msg = Message {
+    role: Role::User,
+    content: Content::from_text("Describe this image".to_string()),
+    function_call: None,
+};
+
+// Image message (from file)
+let image_msg = Message {
+    role: Role::User,
+    content: Content::from_image_file("path/to/image.jpg"),
+    function_call: None,
+};
+
+// Image message (from URL)
+let image_url_msg = Message {
+    role: Role::User,
+    content: Content::new_image(
+        Some("https://example.com/image.jpg".to_string()),
+        Some("image/jpeg".to_string()),
+        Some("image.jpg".to_string()),
+    ),
+    function_call: None,
+};
+
+// Audio message (from file)
+let audio_msg = Message {
+    role: Role::User,
+    content: Content::from_audio_file("path/to/audio.mp3"),
+    function_call: None,
+};
+
+// Audio message (from URL)
+let audio_url_msg = Message {
+    role: Role::User,
+    content: Content::new_audio(
+        Some("https://example.com/audio.mp3".to_string()),
+        Some("audio/mpeg".to_string()),
+    ),
+    function_call: None,
+};
+```
+
+## Error Handling
+
+Handle different types of errors:
+
+```rust
+match client.chat_completion(req).await {
+    Ok(response) => {
+        if let Some(first) = response.choices.first() {
+            println!("Success: {}", first.message.content.as_text());
+        }
+    }
+    Err(e) if e.is_retryable() => {
+        // Handle retryable errors (network, rate limits)
+        println!("Retryable error: {}", e);
+        // Implement retry logic
+    }
+    Err(e) => {
+        // Handle permanent errors (auth, invalid requests)
+        println!("Permanent error: {}", e);
+    }
+}
+```
+
+## Performance Optimization
+
+### Connection Pool Configuration
+
+```rust
+use ai_lib::{AiClient, Provider, ConnectionOptions};
+
+let client = AiClient::with_options(
+    Provider::Groq,
+    ConnectionOptions {
+        // Configure connection pool size
+        pool_size: Some(16),
+        // Set idle timeout
+        idle_timeout: Some(Duration::from_secs(30)),
+        ..Default::default()
+    }
+)?;
+```
+
+### Concurrency Control
+
+```rust
+use tokio::sync::Semaphore;
+
+let semaphore = Arc::new(Semaphore::new(10)); // Limit concurrency to 10
+
+for request in requests {
+    let permit = semaphore.clone().acquire_owned().await?;
+    let client = client.clone();
+    
+    tokio::spawn(async move {
+        let _permit = permit;
+        let result = client.chat_completion(request).await;
+        // Handle result
+    });
 }
 ```
 
