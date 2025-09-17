@@ -23,9 +23,10 @@ Please include: use case summary, expected traffic/latency targets, compliance r
 ## Scope
 
 Included:
-- ai-lib/ai-lib-pro integration & best practices
-- Production incident triage; performance and reliability tuning
-- Configuration, deployment, and security guidance
+- ai-lib/ai-lib-pro integration & best practices including dashboard API setup
+- Production incident triage with real-time monitoring and performance tuning
+- Configuration, deployment, and security guidance including RBAC and user management
+- Dashboard and analytics implementation with cost optimization strategies
 
 Excluded:
 - Unrelated third‑party or hardware issues

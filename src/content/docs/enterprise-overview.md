@@ -65,9 +65,10 @@ Focus: reliability, portability, security. Abstract vendor differences while ena
 - Basic observability hooks
 
 ### Advanced Enterprise Features (ai-lib-pro)
-- **Advanced Routing**: Policy-driven routing, health monitoring, automatic failover
-- **Enterprise Observability**: Structured logging, distributed tracing, custom metrics
-- **Security & Compliance**: RBAC, SSO, audit trails, GDPR/SOC2 compliance
-- **Cost Management**: Centralized pricing, budget controls, cost analytics
-- **Configuration Management**: Hot-reload, secret management, environment-specific configs
-- **Advanced Analytics**: Usage patterns, performance optimization, predictive analytics
+- **Intelligent Routing**: Multi-dimensional scoring, health monitoring, sticky sessions, automatic failover
+- **Real-time Dashboard API**: Live system metrics, user analytics, cost tracking, model performance monitoring
+- **Enterprise Observability**: Structured event logging, distributed tracing, custom KPIs, alert management
+- **Advanced Security**: RBAC with request context extraction, SSO integration, comprehensive audit trails
+- **Cost Intelligence**: Real-time cost calculation, budget enforcement, cost optimization recommendations
+- **Configuration Excellence**: Hot-reload capabilities, secret rotation, environment-specific validation
+- **User Management**: Multi-tenant quota enforcement, usage tracking, billing integration
