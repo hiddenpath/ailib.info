@@ -1,6 +1,6 @@
 ---
 title: 发布 v0.4.0
-group: 动态
+group: 新闻
 order: 0
 status: stable
 ---
