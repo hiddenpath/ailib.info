@@ -36,20 +36,21 @@ ai-lib = { version = "0.4.0", features = ["resilience", "streaming"] }
 
 These aliases are additive; they do not add new code, only enable existing granular features.
 
-### New: Strategy Builders (OSS)
+### Strategy Builders (OSS)
 
-Compose `FailoverProvider` / `RoundRobinProvider` via `RoutingStrategyBuilder`:
+Compose routing strategies at build time using strategy builders:
 
 ```rust
-use ai_lib::provider::{RoutingStrategyBuilder, GroqBuilder, AnthropicBuilder, OpenAiBuilder};
+use ai_lib::{AiClientBuilder, Provider};
 
-let strategy = RoutingStrategyBuilder::new()
-    .with_provider(GroqBuilder::new().build_provider()?)
-    .with_provider(AnthropicBuilder::new().build_provider()?)
-    .build_failover()?;
+// Failover chain: Primary → Secondary → Tertiary
+let client = AiClientBuilder::new(Provider::OpenAI)
+    .with_failover_chain(vec![Provider::Anthropic, Provider::Groq])?
+    .build()?;
 
-let client = OpenAiBuilder::new()
-    .with_strategy(Box::new(strategy))
+// Round-robin load distribution
+let client = AiClientBuilder::new(Provider::OpenAI)
+    .with_round_robin_chain(vec![Provider::Groq, Provider::Mistral])?
     .build()?;
 ```
 

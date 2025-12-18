@@ -7,54 +7,97 @@ status: stable
 
 # 智能路由（稳定）
 
-基于多端点 `ModelArray` 与负载策略进行模型选择，内置最小健康检查与指标。
+使用策略构建器组合路由策略，实现负载均衡、故障转移和智能提供商选择。
 
-## 基本用法（routing_mvp）
+## 策略构建器（routing_mvp）
+
+在运行时之前预先组合路由策略：
 
 ```rust
-use ai_lib::{AiClientBuilder, ChatCompletionRequest, Message, Provider, Role};
-use ai_lib::Content;
-use ai_lib::provider::models::{ModelArray, ModelEndpoint, LoadBalancingStrategy};
+use ai_lib::{AiClientBuilder, ChatCompletionRequest, Message, Provider, Role, Content};
 
-// 1) 构建 ModelArray（多端点）
-let mut array = ModelArray::new("prod").with_strategy(LoadBalancingStrategy::RoundRobin);
-array.add_endpoint(ModelEndpoint {
-    name: "groq-70b".to_string(),
-    model_name: "llama-3.3-70b-versatile".to_string(),
-    url: "https://api.groq.com".to_string(),
-    weight: 1.0,
-    healthy: true,
-    connection_count: 0,
-});
+#[tokio::main]
+async fn main() -> Result<(), AiLibError> {
+    // 跨提供商的轮询负载分配
+    let client = AiClientBuilder::new(Provider::OpenAI)
+        .with_round_robin_chain(vec![Provider::Groq, Provider::Mistral])?
+        .build()?;
 
-// 2) 通过 Builder 注入路由数组
-let client = AiClientBuilder::new(Provider::Groq)
-    .with_routing_array(array)
+    let req = ChatCompletionRequest::new(
+        "gpt-4".to_string(), // 模型由选定的提供商解析
+        vec![Message {
+            role: Role::User,
+            content: Content::Text("解释量子计算".to_string()),
+            function_call: None
+        }]
+    );
+
+    let resp = client.chat_completion(req).await?;
+    println!("响应来自: {}", resp.model);
+    Ok(())
+}
+```
+
+## 故障转移链
+
+创建有序的故障转移序列以实现高可用性：
+
+```rust
+use ai_lib::{AiClientBuilder, Provider};
+
+// 主 → 备 → 第三优先级故障转移链
+let client = AiClientBuilder::new(Provider::OpenAI)
+    .with_failover_chain(vec![Provider::Anthropic, Provider::Groq])?
     .build()?;
 
-// 3) 使用占位模型 "__route__" 触发路由选择
-let req = ChatCompletionRequest::new(
-    "__route__".to_string(),
-    vec![Message { role: Role::User, content: Content::new_text("打个招呼"), function_call: None }]
-);
-let resp = client.chat_completion(req).await?;
-println!("已选择模型: {}", resp.model);
+// 如果 OpenAI 失败，自动尝试 Anthropic，然后是 Groq
+let resp = client.chat_completion(request).await?;
 ```
 
 ## 健康检查与指标
 
-- 最小健康检查：选择端点时，客户端会在使用前探测 `{base_url}`（或 OpenAI 兼容路径 `{base_url}/models`）。
-- 路由指标（启用 `routing_mvp` 时）：
-  - `routing_mvp.request`
-  - `routing_mvp.selected`
-  - `routing_mvp.health_fail`
-  - `routing_mvp.fallback_default`
-  - `routing_mvp.no_endpoint`
-  - `routing_mvp.missing_array`
+策略构建器包含内置的健康验证：
+
+- **端点健康**：在选择前使用基础 URL 探测验证提供商端点
+- **自动回退**：发生故障时无缝切换到健康的提供商
+- **连接池化**：跨提供商链的智能连接管理
+
+### 路由指标（routing_mvp 特性）
+
+启用时收集全面的路由遥测数据：
+
+- `routing_mvp.request` - 路由请求总数
+- `routing_mvp.selected` - 成功提供商选择
+- `routing_mvp.health_fail` - 健康检查失败
+- `routing_mvp.fallback_default` - 回退到默认提供商
+- `routing_mvp.no_endpoint` - 无可用健康端点
+- `routing_mvp.strategy_fail` - 策略组合失败
+
+## 高级用法
+
+### 自定义提供商注入
+
+将策略构建器与自定义 OpenAI 兼容提供商结合：
+
+```rust
+use ai_lib::provider::builders::CustomProviderBuilder;
+
+let custom_provider = CustomProviderBuilder::new("my-gateway")
+    .with_base_url("https://custom.ai.gateway/v1")
+    .with_api_key_env("CUSTOM_GATEWAY_KEY")
+    .with_default_chat_model("gpt-4-turbo")
+    .build_provider()?;
+
+let client = AiClientBuilder::new(Provider::OpenAI)
+    .with_strategy(custom_provider)
+    .build()?;
+```
 
 ## 说明
 
-- 当前为 MVP 形态：支持轮询/权重/最小健康检查；高级自适应策略与反馈闭环可在企业版演进。
+- 策略构建器在客户端构建时组合路由逻辑，而非运行时
+- 链中的所有提供商必须健康才能获得最佳性能
+- 高级路由策略（成本感知、延迟基础）可在 ai-lib-pro 中使用
 
 ## 下一步
 

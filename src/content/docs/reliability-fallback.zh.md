@@ -7,93 +7,61 @@ status: stable
 
 # 回退链（稳定）
 
-定义模型/提供商的有序列表。在错误或策略匹配时，前进到下一个。伪代码：
-
-```rust
-// let chain = FallbackChain::new()
-//     .primary("gpt-4o")
-//     .on_timeout("claude-3-haiku")
-//     .always("mistral-medium");
-// let client = AiClientBuilder::new(Provider::OpenAI).fallback(chain).build()?;
-```
-
-第一个成功会短路链。与竞争结合以减少尾延迟。
+定义有序的故障转移序列，在失败时自动前进到下一个提供商。第一个成功会短路整个链。
 
 ## 策略构建器（OSS）
 
-通过 `RoutingStrategyBuilder` 与厂商 Builder 组合故障转移链：
+在构建时组合确定性的故障转移链：
 
 ```rust
-use ai_lib::provider::{RoutingStrategyBuilder, GroqBuilder, AnthropicBuilder, OpenAiBuilder};
+use ai_lib::{AiClientBuilder, Provider};
 
-let strategy = RoutingStrategyBuilder::new()
-    .with_provider(GroqBuilder::new().build_provider()?)
-    .with_provider(AnthropicBuilder::new().build_provider()?)
-    .build_failover()?;
+#[tokio::main]
+async fn main() -> Result<(), AiLibError> {
+    // 主 → 备 → 第三优先级故障转移链
+    let client = AiClientBuilder::new(Provider::OpenAI)
+        .with_failover_chain(vec![Provider::Anthropic, Provider::Groq])?
+        .build()?;
 
-let client = OpenAiBuilder::new()
-    .with_strategy(Box::new(strategy))
+    let request = ChatCompletionRequest::new(
+        "gpt-4".to_string(),
+        vec![Message::user("解释量子计算")]
+    );
+
+    // 自动尝试 OpenAI，然后 Anthropic，最后 Groq（如果失败）
+    let response = client.chat_completion(request).await?;
+    println!("响应: {}", response.choices[0].message.content.as_text());
+    Ok(())
+}
+```
+
+## 行为特性
+
+- **有序执行**：按照指定顺序尝试提供商
+- **短路机制**：第一个成功的响应立即返回
+- **错误传递**：仅在链中所有提供商都失败时才返回错误
+- **健康验证**：不健康的提供商会被自动跳过
+
+## 高级用法
+
+与自定义提供商结合以实现完全控制：
+
+```rust
+use ai_lib::provider::builders::CustomProviderBuilder;
+
+// 混合标准提供商与自定义端点
+let custom = CustomProviderBuilder::new("backup-gateway")
+    .with_base_url("https://backup.ai.gateway/v1")
+    .with_api_key_env("BACKUP_API_KEY")
+    .build_provider()?;
+
+let client = AiClientBuilder::new(Provider::OpenAI)
+    .with_strategy(custom)
+    .with_failover_chain(vec![Provider::Anthropic])?
     .build()?;
 ```
 
 > 注：带权重/成本与 SLO 感知策略在 `ai-lib-pro` 中提供。
-
-## 回退链实现
-
-回退链是一种重要的可靠性模式，当主提供商失败时自动切换到备用提供商。
-
-### 基本配置
-
-```rust
-use ai_lib::reliability::FallbackChain;
-
-let chain = FallbackChain::new()
-    .primary("gpt-4o")
-    .on_timeout("claude-3-haiku")
-    .on_error("mistral-medium")
-    .always("gpt-3.5-turbo");
-
-let client = AiClientBuilder::new(Provider::OpenAI)
-    .fallback(chain)
-    .build()?;
-```
-
-### 条件回退
-
-```rust
-let chain = FallbackChain::new()
-    .primary("gpt-4o")
-    .on_condition(|error| matches!(error, AiLibError::RateLimitExceeded(_)))
-    .fallback("claude-3-haiku")
-    .on_condition(|error| matches!(error, AiLibError::TimeoutError(_)))
-    .fallback("mistral-medium")
-    .always("gpt-3.5-turbo");
-```
-
-### 使用示例
-
-```rust
-use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Content};
-
-async fn resilient_chat(
-    client: &AiClient,
-    request: ChatCompletionRequest,
-) -> Result<String, Box<dyn std::error::Error>> {
-    let mut last_error = None;
-    
-    for provider in client.fallback_chain() {
-        match provider.chat_completion(request.clone()).await {
-            Ok(response) => return Ok(response.first_text()?),
-            Err(error) => {
-                last_error = Some(error);
-                continue;
-            }
-        }
-    }
-    
-    Err(last_error.unwrap_or("All providers failed".into()))
-}
-```
 
 ## 下一步
 

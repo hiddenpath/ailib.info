@@ -70,17 +70,17 @@ let client = AiClient::with_options(
 
 ### 2. Provider Adapters
 
-Two types of provider adapters:
+All providers now implement the `ChatProvider` trait for consistent behavior:
 
-**Config-Driven Providers** (Groq, Anthropic, etc.):
-- Use unified configuration system
-- Automatic API key detection
-- Consistent error handling
+**Generic Adapters** (Config-driven):
+- Unified configuration system for OpenAI-compatible providers
+- Automatic API key detection and model resolution
+- Consistent error handling and retry logic
 
-**Independent Adapters** (OpenAI, Gemini, etc.):
-- Custom integration logic
-- Provider-specific optimizations
-- Advanced feature support
+**Independent Adapters** (Custom logic):
+- Provider-specific optimizations and features
+- Advanced capabilities like function calling and streaming
+- Direct integration with provider APIs
 
 ### 3. Transport Layer
 
