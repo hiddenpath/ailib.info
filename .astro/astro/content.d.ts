@@ -561,6 +561,20 @@ declare module 'astro:content' {
   collection: "docs";
   data: InferEntrySchema<"docs">
 } & { render(): Render[".md"] };
+"upgrade-040.md": {
+	id: "upgrade-040.md";
+  slug: "upgrade-040";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"upgrade-040.zh.md": {
+	id: "upgrade-040.zh.md";
+  slug: "upgrade-040zh";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
 };
 
 	};
