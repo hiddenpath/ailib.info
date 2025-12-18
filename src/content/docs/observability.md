@@ -30,9 +30,10 @@ use ai_lib::metrics::{Metrics, Timer};
 metrics.incr_counter("ai_requests_total", 1).await;
 
 // Latency histogram
-let timer = metrics.start_timer("ai_request_duration").await;
-// ... execute request ...
-timer.stop();
+if let Some(timer) = metrics.start_timer("ai_request_duration").await {
+    // ... execute request ...
+    timer.stop();
+}
 
 // Error tracking
 metrics.incr_counter("ai_errors_total", 1).await;
@@ -47,6 +48,7 @@ Built-in error monitoring with configurable thresholds and alerting:
 
 ```rust
 use ai_lib::error_handling::monitoring::{ErrorMonitor, ErrorThresholds};
+use ai_lib::error_handling::ErrorContext;
 
 let thresholds = ErrorThresholds {
     error_rate_threshold: 0.1, // 10% error rate
@@ -55,6 +57,7 @@ let thresholds = ErrorThresholds {
 };
 
 let monitor = ErrorMonitor::new(metrics, thresholds);
+let context = ErrorContext::default();
 monitor.record_error(&error, &context).await;
 ```
 

@@ -143,7 +143,6 @@ let client = AiClient::with_options(
     ConnectionOptions {
         proxy: Some("http://corporate-proxy:8080".into()),
         timeout: Some(Duration::from_secs(30)),
-        pool_size: Some(16),
         ..Default::default()
     }
 )?;

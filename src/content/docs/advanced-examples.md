@@ -248,8 +248,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     
     // Add reasoning configuration
     request = request
-        .with_provider_specific("reasoning_format", serde_json::Value::String("parsed".to_string()))
-        .with_provider_specific("reasoning_effort", serde_json::Value::String("high".to_string()));
+        .with_extension("reasoning_format", serde_json::Value::String("parsed".to_string()))
+        .with_extension("reasoning_effort", serde_json::Value::String("high".to_string()));
 
     let mut stream = client.chat_completion_stream(request).await?;
     

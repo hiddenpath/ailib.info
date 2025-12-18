@@ -9,7 +9,7 @@ description: ai-lib（Rust统一AI SDK）的目标和功能概述。
 
 ai-lib是一个生产级的Rust库，提供统一、注重可靠性的多提供商AI SDK。它通过提供单一、一致的接口，消除了与多个AI提供商集成的复杂性。
 
-> 通知：v0.3.4 已发布 —— 提供商故障转移支持、主要提供商扩展、增强多模态内容创建和新导入系统。如需企业能力，请探索[ai-lib-pro](/docs/enterprise-pro)：高级路由、可观测性、安全与成本管理。
+> 通知：v0.4.0 已发布 —— Trait Shift 1.0 演进，统一 `ChatProvider` 架构，以及增强的客户端能力。如需企业能力，请探索[ai-lib-pro](/docs/enterprise-pro)。
 
 ## 目标
 

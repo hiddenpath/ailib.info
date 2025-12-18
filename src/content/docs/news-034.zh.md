@@ -9,7 +9,7 @@ status: stable
 
 亮点：
 
-- **提供商故障转移支持**：新的 `with_failover(Vec<Provider>)` 方法支持在可重试错误时自动切换提供商
+- **提供商故障转移支持**：v0.3.x 引入 `AiClient::with_failover(Vec<Provider>)`。自 1.0 起，请使用 `RoutingStrategyBuilder` 组合 `FailoverProvider`（示例见下）。
 - **提供商大幅扩展**：新增 6 个 AI 提供商，包括 OpenRouter、Replicate、智谱AI、MiniMax、Perplexity 和 AI21
 - **增强多模态内容**：便捷的 `Content::from_image_file()` 和 `Content::from_audio_file()` 方法，支持自动文件处理
 - **新导入系统**：完整的模块树重构，提供 `prelude` 以获得更好的易用性和显式顶层导出
@@ -17,12 +17,19 @@ status: stable
 
 ## 新功能
 
-### 提供商故障转移
+### 策略化故障转移
 ```rust
 use ai_lib::prelude::*;
+use ai_lib::provider::{RoutingStrategyBuilder, GroqBuilder, AnthropicBuilder, OpenAiBuilder};
 
-let client = AiClient::new(Provider::OpenAI)?
-    .with_failover(vec![Provider::Anthropic, Provider::Groq]);
+let strategy = RoutingStrategyBuilder::new()
+    .with_provider(GroqBuilder::new().build_provider()?)
+    .with_provider(AnthropicBuilder::new().build_provider()?)
+    .build_failover()?;
+
+let client = OpenAiBuilder::new()
+    .with_strategy(Box::new(strategy))
+    .build()?;
 ```
 
 ### 多模态内容创建

@@ -15,7 +15,7 @@ Add ai-lib to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-ai-lib = "0.3.4"
+ai-lib = "0.4.0"
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 ```
@@ -91,17 +91,17 @@ ai-lib supports function calling with a unified interface:
 ```rust
 use ai_lib::{Tool, FunctionCallPolicy};
 
-let tool = Tool::new_json(
-    "get_weather",
-    Some("Get current weather information"),
-    serde_json::json!({
+let tool = Tool {
+    name: "get_weather".to_string(),
+    description: Some("Get current weather information".to_string()),
+    parameters: Some(serde_json::json!({
         "type": "object",
         "properties": {
             "location": {"type": "string", "description": "City name"}
         },
         "required": ["location"]
-    })
-);
+    }))
+};
 
 let req = ChatCompletionRequest::new(model, messages)
     .with_functions(vec![tool])

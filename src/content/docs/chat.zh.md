@@ -22,7 +22,7 @@ async fn main() -> Result<(), AiLibError> {
         "gpt-4o".to_string(),
         vec![Message { 
             role: Role::User, 
-            content: Content::from_text("简洁地总结Rust所有权。".to_string()), 
+            content: Content::new_text("简洁地总结Rust所有权。".to_string()), 
             function_call: None 
         }]
     );
@@ -47,7 +47,7 @@ async fn main() -> Result<(), AiLibError> {
         "openai/gpt-4o-mini".to_string(), // 注意使用provider前缀
         vec![Message { 
             role: Role::User, 
-            content: Content::from_text("简洁地总结Rust所有权。".to_string()), 
+            content: Content::new_text("简洁地总结Rust所有权。".to_string()), 
             function_call: None 
         }]
     );
@@ -74,7 +74,7 @@ async fn main() -> Result<(), AiLibError> {
         "llama3-8b-8192".to_string(),
         vec![Message { 
             role: Role::User, 
-            content: Content::from_text("流式输出一首关于并发的俳句。".to_string()), 
+            content: Content::new_text("流式输出一首关于并发的俳句。".to_string()), 
             function_call: None 
         }]
     );
@@ -114,7 +114,7 @@ async fn main() -> Result<(), AiLibError> {
         "gpt-4o".to_string(),
         vec![Message { 
             role: Role::User, 
-            content: Content::from_text("慢慢解释借用检查器。".to_string()), 
+            content: Content::new_text("慢慢解释借用检查器。".to_string()), 
             function_call: None 
         }]
     );
@@ -150,7 +150,7 @@ fn prompt(p: &str) -> ChatCompletionRequest {
         "gpt-4o".to_string(),
         vec![Message { 
             role: Role::User, 
-            content: Content::from_text(p.to_string()), 
+            content: Content::new_text(p.to_string()), 
             function_call: None 
         }]
     )
@@ -208,7 +208,7 @@ use ai_lib::prelude::*;
 // 文本消息
 let text_msg = Message {
     role: Role::User,
-    content: Content::from_text("描述这张图片".to_string()),
+    content: Content::new_text("描述这张图片".to_string()),
     function_call: None,
 };
 
@@ -277,14 +277,15 @@ match client.chat_completion(req).await {
 
 ```rust
 use ai_lib::{AiClient, Provider, ConnectionOptions};
+use std::time::Duration;
 
 let client = AiClient::with_options(
     Provider::Groq,
     ConnectionOptions {
-        // 配置连接池大小
-        pool_size: Some(16),
-        // 设置空闲超时
-        idle_timeout: Some(Duration::from_secs(30)),
+        // 配置超时
+        timeout: Some(Duration::from_secs(30)),
+        // 设置自定义代理
+        proxy: Some("http://proxy.example.com:8080".to_string()),
         ..Default::default()
     }
 )?;

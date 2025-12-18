@@ -37,7 +37,7 @@ ai-lib-pro 是 ai-lib 的商业企业版本，为生产环境、大规模部署�
 - P95延迟跟踪和成本效率指标的实时性能监控
 - 提供系统指标、用户分析和模型性能数据的实时仪表板API
 
-> 注：开源版 ai-lib 提供基础的 `with_failover(Vec<Provider>)` 方法，仅在出现可重试错误（网络/超时/限流/5xx）时按顺序尝试备用 Provider。高级加权失败转移、SLO/成本感知策略由 ai-lib-pro 提供。
+> 注：开源版 ai-lib 提供 `RoutingStrategyBuilder` + `FailoverProvider` 组合的基础策略（在可重试错误出现时按顺序切换）。高级带权/成本、SLO 感知策略由 ai-lib-pro 提供。
 
 ```rust
 use ai_lib_pro::{AdvancedRouter, RoutingPolicy, HealthMonitor};
@@ -50,12 +50,18 @@ let router = AdvancedRouter::new()
 ```
 
 ```rust
-/// Open-source ai-lib (OSS) 基础故障转移示例
-use ai_lib::{AiClient, Provider};
+/// Open-source ai-lib (OSS) 策略化故障转移示例
+use ai_lib::provider::{RoutingStrategyBuilder, GroqBuilder, AnthropicBuilder, OpenAiBuilder};
 
-let client = AiClient::new(Provider::OpenAI)?
-    .with_failover(vec![Provider::Anthropic, Provider::Groq]);
-// 当 OpenAI 出现网络/超时/限流/5xx 时，将按顺序尝试 Anthropic → Groq。
+let strategy = RoutingStrategyBuilder::new()
+    .with_provider(GroqBuilder::new().build_provider()?)
+    .with_provider(AnthropicBuilder::new().build_provider()?)
+    .build_failover()?;
+
+let client = OpenAiBuilder::new()
+    .with_strategy(Box::new(strategy))
+    .build()?;
+// 当 OpenAI 出现网络/超时/限流/5xx 时，将按顺序尝试 Groq → Anthropic。
 ```
 
 ### 📊 增强的可观测性与监控

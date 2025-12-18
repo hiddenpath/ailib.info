@@ -13,7 +13,7 @@ This guide explains how to include `ai-lib` in your Cargo project with opt-in fe
 
 ```toml
 [dependencies]
-ai-lib = "0.3.4"
+ai-lib = "0.4.0"
 tokio = { version = "1", features = ["full"] }
 ```
 
@@ -23,7 +23,7 @@ tokio = { version = "1", features = ["full"] }
 
 ```toml
 [dependencies]
-ai-lib = { version = "0.3.4", features = ["resilience", "streaming"] }
+ai-lib = { version = "0.4.0", features = ["resilience", "streaming"] }
 ```
 
 ### Feature Aliases (for ergonomics)
@@ -36,9 +36,22 @@ ai-lib = { version = "0.3.4", features = ["resilience", "streaming"] }
 
 These aliases are additive; they do not add new code, only enable existing granular features.
 
-### New: Basic Failover (OSS)
+### New: Strategy Builders (OSS)
 
-Since v0.3.x, `AiClient::with_failover(Vec<Provider>)` enables automatic provider switching on retryable errors (network, timeout, rate limit, 5xx). When used with `routing_mvp`, model selection is preserved during failover.
+Compose `FailoverProvider` / `RoundRobinProvider` via `RoutingStrategyBuilder`:
+
+```rust
+use ai_lib::provider::{RoutingStrategyBuilder, GroqBuilder, AnthropicBuilder, OpenAiBuilder};
+
+let strategy = RoutingStrategyBuilder::new()
+    .with_provider(GroqBuilder::new().build_provider()?)
+    .with_provider(AnthropicBuilder::new().build_provider()?)
+    .build_failover()?;
+
+let client = OpenAiBuilder::new()
+    .with_strategy(Box::new(strategy))
+    .build()?;
+```
 
 ## Suggested Combos
 
@@ -51,7 +64,7 @@ Since v0.3.x, `AiClient::with_failover(Vec<Provider>)` enables automatic provide
 
 ```toml
 [dependencies]
-ai-lib = { version = "0.3.4", features = [
+ai-lib = { version = "0.4.0", features = [
   "resilience",
   "transport",
   "streaming"

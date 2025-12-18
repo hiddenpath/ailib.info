@@ -145,10 +145,10 @@ let mut request = ChatCompletionRequest::new(
 
 // 添加 Groq 特定的推理参数
 request = request
-    .with_provider_specific("reasoning_format", serde_json::Value::String("parsed".to_string()))
-    .with_provider_specific("reasoning_effort", serde_json::Value::String("high".to_string()))
-    .with_provider_specific("parallel_tool_calls", serde_json::Value::Bool(true))
-    .with_provider_specific("service_tier", serde_json::Value::String("flex".to_string()));
+    .with_extension("reasoning_format", serde_json::Value::String("parsed".to_string()))
+    .with_extension("reasoning_effort", serde_json::Value::String("high".to_string()))
+    .with_extension("parallel_tool_calls", serde_json::Value::Bool(true))
+    .with_extension("service_tier", serde_json::Value::String("flex".to_string()));
 
 let response = client.chat_completion(request).await?;
 ```

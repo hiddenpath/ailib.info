@@ -16,19 +16,14 @@ The `Message` struct unifies conversation roles and content across all providers
 ```rust
 use ai_lib::{Message, Role, Content};
 
-// Create a user message with text content
-let user_msg = Message {
-    role: Role::User,
-    content: Content::new_text("Hello, world!".to_string()),
-    function_call: None,
-};
+// Create a user message with text content (convenience method)
+let user_msg = Message::user("Hello, world!");
+
+// Or use custom content (images, audio, etc.)
+let user_msg_with_content = Message::user_with_content(Content::new_text("Hello, world!"));
 
 // Create a system message
-let system_msg = Message {
-    role: Role::System,
-    content: Content::new_text("You are a helpful assistant.".to_string()),
-    function_call: None,
-};
+let system_msg = Message::system("You are a helpful assistant.");
 ```
 
 The `Content` enum supports multiple modalities:
@@ -36,6 +31,15 @@ The `Content` enum supports multiple modalities:
 - **Image**: Image references with URL, MIME type, and optional name
 - **Audio**: Audio content with URL and MIME type
 - **Json**: Structured JSON data for function calls
+
+## ChatProvider Trait
+
+The `ChatProvider` trait is the core abstraction that all providers implement. It defines the standard interface for:
+- `chat`: Unary chat completion
+- `stream`: Streaming chat completion
+- `batch`: Batch processing
+- `list_models`: Fetching available models
+- `get_model_info`: Retrieving model details
 
 ## Provider & Model Management
 
@@ -123,7 +127,7 @@ Comprehensive error classification:
 
 ```rust
 match client.chat_completion(req).await {
-    Ok(response) => println!("Success: {}", response.choices[0].message.content.as_text()),
+    Ok(response) => println!("Success: {}", response.first_text()?),
     Err(e) if e.is_retryable() => {
         // Handle retryable errors (network, rate limits)
         println!("Retryable error: {}", e);

@@ -148,13 +148,20 @@ let messages = vec![
 
 ```rust
 use ai_lib::prelude::*;
+use ai_lib::provider::{RoutingStrategyBuilder, AnthropicBuilder, GroqBuilder, OpenAiBuilder};
 
 // 单个提供商
 let client = AiClient::new(Provider::OpenAI)?;
 
-// 带故障转移
-let client = AiClient::new(Provider::OpenAI)?
-    .with_failover(vec![Provider::Anthropic, Provider::Groq]);
+// 策略化故障转移
+let strategy = RoutingStrategyBuilder::new()
+    .with_provider(GroqBuilder::new().build_provider()?)
+    .with_provider(AnthropicBuilder::new().build_provider()?)
+    .build_failover()?;
+
+let client = OpenAiBuilder::new()
+    .with_strategy(Box::new(strategy))
+    .build()?;
 ```
 
 ### 可用提供商
@@ -292,6 +299,6 @@ let content = Content::from_image_file("path/to/image.png");
 
 ## 进一步阅读
 
-- [模块树和导入模式](https://docs.rs/ai-lib/0.3.4/ai_lib/) - 详细模块结构指南
-- [API 参考](https://docs.rs/ai-lib/0.3.4) - 完整 API 文档
+- [模块树和导入模式](https://docs.rs/ai-lib/0.4.0/ai_lib/) - 详细模块结构指南
+- [API 参考](https://docs.rs/ai-lib/0.4.0) - 完整 API 文档
 - [示例](https://github.com/hiddenpath/ai-lib/tree/main/examples) - 实际使用示例

@@ -4,7 +4,7 @@
 
 ```toml
 [dependencies]
-ai-lib = "0.3.4"
+ai-lib = "0.4.0"
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 ```

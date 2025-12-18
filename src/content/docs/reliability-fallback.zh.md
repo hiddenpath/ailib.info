@@ -19,18 +19,24 @@ status: stable
 
 第一个成功会短路链。与竞争结合以减少尾延迟。
 
-## 基础故障转移（OSS）
+## 策略构建器（OSS）
 
-`AiClient::with_failover(Vec<Provider>)` 提供轻量的提供商级故障转移：当出现可重试错误（网络、超时、限流、5xx）时，按顺序尝试备用 Provider。与 `routing_mvp` 配合时，已选择的模型会在故障转移过程中被保留。
+通过 `RoutingStrategyBuilder` 与厂商 Builder 组合故障转移链：
 
 ```rust
-use ai_lib::{AiClient, Provider};
+use ai_lib::provider::{RoutingStrategyBuilder, GroqBuilder, AnthropicBuilder, OpenAiBuilder};
 
-let client = AiClient::new(Provider::OpenAI)?
-    .with_failover(vec![Provider::Anthropic, Provider::Groq]);
+let strategy = RoutingStrategyBuilder::new()
+    .with_provider(GroqBuilder::new().build_provider()?)
+    .with_provider(AnthropicBuilder::new().build_provider()?)
+    .build_failover()?;
+
+let client = OpenAiBuilder::new()
+    .with_strategy(Box::new(strategy))
+    .build()?;
 ```
 
-> 注：高级带权重/成本与 SLO 感知的策略在 `ai-lib-pro` 中提供。
+> 注：带权重/成本与 SLO 感知策略在 `ai-lib-pro` 中提供。
 
 ## 回退链实现
 

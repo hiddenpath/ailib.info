@@ -148,13 +148,20 @@ let messages = vec![
 
 ```rust
 use ai_lib::prelude::*;
+use ai_lib::provider::{RoutingStrategyBuilder, AnthropicBuilder, GroqBuilder, OpenAiBuilder};
 
 // Single provider
 let client = AiClient::new(Provider::OpenAI)?;
 
-// With failover
-let client = AiClient::new(Provider::OpenAI)?
-    .with_failover(vec![Provider::Anthropic, Provider::Groq]);
+// Strategy-based failover
+let strategy = RoutingStrategyBuilder::new()
+    .with_provider(GroqBuilder::new().build_provider()?)
+    .with_provider(AnthropicBuilder::new().build_provider()?)
+    .build_failover()?;
+
+let client = OpenAiBuilder::new()
+    .with_strategy(Box::new(strategy))
+    .build()?;
 ```
 
 ### Available Providers
@@ -292,9 +299,14 @@ With the new import structure, your IDE's auto-completion will guide you to the 
 
 ## Further Reading
 
-- [Module Tree and Import Patterns](https://docs.rs/ai-lib/0.3.4/ai_lib/) - Detailed module structure guide
-- [API Reference](https://docs.rs/ai-lib/0.3.4) - Complete API documentation
+- [Module Tree and Import Patterns](https://docs.rs/ai-lib/0.4.0/ai_lib/) - Detailed module structure guide
+- [API Reference](https://docs.rs/ai-lib/0.4.0) - Complete API documentation
 - [Examples](https://github.com/hiddenpath/ai-lib/tree/main/examples) - Practical usage examples
+
+
+
+
+
 
 
 

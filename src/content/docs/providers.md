@@ -118,20 +118,20 @@ Each provider offers different models with varying capabilities:
 // Get default model for provider
 let default_model = client.default_chat_model();
 
-// Check model capabilities
-let capabilities = client.model_capabilities(&model_name);
+// Use model arrays for load balancing (requires routing_mvp feature)
+#[cfg(feature = "routing_mvp")]
+{
+    use ai_lib::{ModelArray, LoadBalancingStrategy};
 
-// Use model arrays for load balancing
-use ai_lib::{ModelArray, LoadBalancingStrategy};
-
-let array = ModelArray::new("production")
-    .with_strategy(LoadBalancingStrategy::HealthBased)
-    .add_endpoint(ModelEndpoint {
-        name: "groq-1".into(),
-        url: "https://api.groq.com".into(),
-        weight: 1.0,
-        healthy: true,
-    });
+    let array = ModelArray::new("production")
+        .with_strategy(LoadBalancingStrategy::HealthBased)
+        .add_endpoint(ModelEndpoint {
+            name: "groq-1".into(),
+            url: "https://api.groq.com".into(),
+            weight: 1.0,
+            healthy: true,
+        });
+}
 ```
 
 ## Provider-Specific Notes
@@ -169,6 +169,200 @@ For production environments with multiple providers, consider ai-lib-pro's advan
 - **Cost Optimization**: Provider cost analysis and automatic cost-based routing
 - **Failover Management**: Automatic failover with configurable policies
 - **Usage Analytics**: Detailed provider usage patterns and optimization insights
+
+## Provider Constants Reference
+
+This section provides a complete reference of all supported providers, their enum constants, default models, and environment variable requirements. Use this as a quick reference when integrating ai-lib into your applications.
+
+### Provider Enum Constants
+
+All providers are defined in the `Provider` enum:
+
+```rust
+use ai_lib::Provider;
+
+// Config-driven providers
+Provider::Groq
+Provider::XaiGrok
+Provider::Ollama
+Provider::DeepSeek
+Provider::Anthropic
+Provider::AzureOpenAI
+Provider::HuggingFace
+Provider::TogetherAI
+Provider::OpenRouter
+Provider::Replicate
+
+// Chinese ecosystem providers
+Provider::BaiduWenxin
+Provider::TencentHunyuan
+Provider::IflytekSpark
+Provider::Moonshot
+Provider::ZhipuAI
+Provider::MiniMax
+
+// Independent adapter providers
+Provider::OpenAI
+Provider::Qwen
+Provider::Gemini
+Provider::Mistral
+Provider::Cohere
+Provider::Perplexity
+Provider::AI21
+```
+
+### Default Models
+
+Each provider has a default chat model and optional multimodal model:
+
+| Provider | Default Chat Model | Default Multimodal Model |
+|----------|-------------------|-------------------------|
+| `Groq` | `llama-3.1-8b-instant` | - |
+| `XaiGrok` | `grok-beta` | - |
+| `Ollama` | `llama3-8b` | - |
+| `DeepSeek` | `deepseek-chat` | - |
+| `Anthropic` | `claude-3-5-sonnet-20241022` | `claude-3-5-sonnet-20241022` |
+| `AzureOpenAI` | `gpt-35-turbo` | `gpt-4o` |
+| `HuggingFace` | `microsoft/DialoGPT-medium` | - |
+| `TogetherAI` | `meta-llama/Llama-3-8b-chat-hf` | - |
+| `OpenRouter` | `openai/gpt-3.5-turbo` | `openai/gpt-4o` |
+| `Replicate` | `meta/llama-2-7b-chat` | `meta/llama-2-7b-chat` |
+| `BaiduWenxin` | `ernie-3.5` | - |
+| `TencentHunyuan` | `hunyuan-standard` | - |
+| `IflytekSpark` | `spark-v3.0` | - |
+| `Moonshot` | `moonshot-v1-8k` | - |
+| `ZhipuAI` | `glm-4` | `glm-4v` |
+| `MiniMax` | `abab6.5-chat` | `abab6.5-chat` |
+| `OpenAI` | `gpt-3.5-turbo` | `gpt-4o` |
+| `Qwen` | `qwen-turbo` | - |
+| `Gemini` | `gemini-1.5-flash` | `gemini-1.5-flash` |
+| `Mistral` | `mistral-small` | - |
+| `Cohere` | `command-r` | `command-r-plus` |
+| `Perplexity` | `llama-3.1-sonar-small-128k-online` | `llama-3.1-sonar-small-128k-online` |
+| `AI21` | `j2-ultra` | `j2-ultra` |
+
+### Environment Variables
+
+Each provider requires specific environment variables for authentication:
+
+| Provider | Environment Variable | Description |
+|----------|---------------------|-------------|
+| `Groq` | `GROQ_API_KEY` | Groq API key |
+| `XaiGrok` | `GROK_API_KEY` | xAI Grok API key |
+| `Ollama` | `OLLAMA_BASE_URL` | Ollama server URL (default: `http://localhost:11434`) |
+| `DeepSeek` | `DEEPSEEK_API_KEY` | DeepSeek API key |
+| `Anthropic` | `ANTHROPIC_API_KEY` | Anthropic API key |
+| `AzureOpenAI` | `AZURE_OPENAI_API_KEY`<br>`AZURE_OPENAI_ENDPOINT` | Azure OpenAI API key and endpoint |
+| `HuggingFace` | `HUGGINGFACE_API_KEY` | HuggingFace API token |
+| `TogetherAI` | `TOGETHER_API_KEY` | TogetherAI API key |
+| `OpenRouter` | `OPENROUTER_API_KEY` | OpenRouter API key |
+| `Replicate` | `REPLICATE_API_TOKEN` | Replicate API token |
+| `BaiduWenxin` | `BAIDU_WENXIN_API_KEY`<br>`BAIDU_WENXIN_SECRET_KEY` | Baidu Wenxin API credentials |
+| `TencentHunyuan` | `TENCENT_HUNYUAN_SECRET_ID`<br>`TENCENT_HUNYUAN_SECRET_KEY` | Tencent Hunyuan credentials |
+| `IflytekSpark` | `IFLYTEK_APP_ID`<br>`IFLYTEK_API_KEY` | iFlytek Spark credentials |
+| `Moonshot` | `MOONSHOT_API_KEY` | Moonshot API key |
+| `ZhipuAI` | `ZHIPU_API_KEY` | ZhipuAI API key |
+| `MiniMax` | `MINIMAX_API_KEY` | MiniMax API key |
+| `OpenAI` | `OPENAI_API_KEY` | OpenAI API key |
+| `Qwen` | `DASHSCOPE_API_KEY` | Alibaba DashScope API key |
+| `Gemini` | `GEMINI_API_KEY` | Google Gemini API key |
+| `Mistral` | `MISTRAL_API_KEY` | Mistral API key |
+| `Cohere` | `COHERE_API_KEY` | Cohere API key |
+| `Perplexity` | `PERPLEXITY_API_KEY` | Perplexity API key |
+| `AI21` | `AI21_API_KEY` | AI21 API key |
+
+### Provider Capabilities Matrix
+
+| Provider | Chat | Streaming | Multimodal | Function Calling | Notes |
+|----------|------|-----------|------------|------------------|-------|
+| `Groq` | ✅ | ✅ | ❌ | ✅ | Ultra-low latency, Llama models |
+| `XaiGrok` | ✅ | ✅ | ❌ | ✅ | Real-time oriented |
+| `Ollama` | ✅ | ✅ | Varies | Varies | Local/airgapped deployment |
+| `DeepSeek` | ✅ | ✅ | ❌ | ✅ | Reasoning-focused models |
+| `Anthropic` | ✅ | ✅ | ✅ | ✅ | Claude 3, strong reasoning |
+| `AzureOpenAI` | ✅ | ✅ | ✅ | ✅ | Enterprise OpenAI with compliance |
+| `HuggingFace` | ✅ | ✅ | Varies | Varies | Community models, varies by model |
+| `TogetherAI` | ✅ | ✅ | Varies | Varies | Cost-efficient, open models |
+| `OpenRouter` | ✅ | ✅ | Varies | Varies | OpenAI-compatible gateway, provider/model routing |
+| `Replicate` | ✅ | ✅ | Varies | Varies | Hosted open-source models |
+| `BaiduWenxin` | ✅ | ✅ | ✅ | ✅ | Enterprise Chinese AI |
+| `TencentHunyuan` | ✅ | ✅ | ✅ | ✅ | Cloud integration |
+| `IflytekSpark` | ✅ | ✅ | ✅ | ✅ | Voice + multimodal |
+| `Moonshot` | ✅ | ✅ | ✅ | ✅ | Long context models |
+| `ZhipuAI` | ✅ | ✅ | ✅ | ✅ | Chinese GLM series |
+| `MiniMax` | ✅ | ✅ | ✅ | ✅ | Chinese multimodal |
+| `OpenAI` | ✅ | ✅ | ✅ | ✅ | GPT-4, GPT-3.5, broad model set |
+| `Qwen` | ✅ | ✅ | ✅ | ✅ | Alibaba's multilingual models |
+| `Gemini` | ✅ | ✅ | ✅ | ✅ | Native multimodal, Gemini Pro |
+| `Mistral` | ✅ | ✅ | Partial | ✅ | European models, lightweight |
+| `Cohere` | ✅ | ✅ | Limited | ✅ | Command models, RAG optimized |
+| `Perplexity` | ✅ | ✅ | Limited | ✅ | Search-augmented conversations |
+| `AI21` | ✅ | ✅ | Limited | ✅ | Jurassic series |
+
+## Feature Flags Reference
+
+ai-lib uses Cargo feature flags to enable optional functionality. Use these flags in your `Cargo.toml`:
+
+### Core Features
+
+```toml
+[dependencies.ai-lib]
+version = "0.4.0"
+features = [
+    # Enable interceptor pipeline (retry, rate limiters, circuit breaker)
+    "interceptors",
+    # Enable unified reqwest client factory/shared transport settings
+    "unified_transport",
+    # Enable unified SSE parser for streaming
+    "unified_sse",
+    # Enable minimal cost accounting metrics
+    "cost_metrics",
+    # Enable strategy-based routing MVP
+    "routing_mvp",
+    # Enable observability interfaces (Tracer, AuditSink)
+    "observability",
+    # Enable config hot-reload traits
+    "config_hot_reload",
+]
+```
+
+### Convenience Aliases
+
+```toml
+# Enable streaming support (equivalent to "unified_sse")
+features = ["streaming"]
+
+# Enable transport layer (equivalent to "unified_transport")
+features = ["transport"]
+
+# Enable resilience features (equivalent to "interceptors")
+features = ["resilience"]
+
+# Enable hot reload (equivalent to "config_hot_reload")
+features = ["hot_reload"]
+
+# Enable all features
+features = ["all"]
+```
+
+### Recommended Feature Combinations
+
+| Use Case | Recommended Features |
+|----------|---------------------|
+| **Basic Chat** | None (default) |
+| **Streaming** | `["streaming"]` |
+| **Production App** | `["resilience", "transport", "streaming"]` |
+| **Enterprise** | `["resilience", "transport", "streaming", "observability"]` |
+| **Dynamic Config** | `["resilience", "transport", "streaming", "hot_reload"]` |
+| **Everything** | `["all"]` |
+
+### Feature Dependencies
+
+- `streaming` → enables `unified_sse`
+- `transport` → enables `unified_transport`
+- `resilience` → enables `interceptors`
+- `hot_reload` → enables `config_hot_reload`
+- `all` → enables all core features
 
 ## Next Steps
 

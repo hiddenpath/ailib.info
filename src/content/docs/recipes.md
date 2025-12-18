@@ -86,19 +86,20 @@ async fn streaming_chat(client: &AiClient) -> Result<(), Box<dyn std::error::Err
 ```rust
 use ai_lib::{AiClient, Provider, ChatCompletionRequest, Message, Content};
 
-async fn resilient_chat(client: &AiClient, request: ChatCompletionRequest) -> Result<String, Box<dyn std::error::Error>> {
+async fn resilient_chat(request: ChatCompletionRequest) -> Result<String, Box<dyn std::error::Error>> {
     let providers = [Provider::OpenAI, Provider::Anthropic, Provider::Mistral];
-    
+
     for provider in &providers {
-        match client.with_provider(*provider).chat_completion(request.clone()).await {
-            Ok(response) => return Ok(response.first_text()?),
+        let client = AiClient::new(*provider)?;
+        match client.chat_completion(request.clone()).await {
+            Ok(response) => return Ok(response.first_text()?.to_string()),
             Err(error) => {
                 eprintln!("Provider {:?} failed: {}", provider, error);
                 continue;
             }
         }
     }
-    
+
     Err("All providers failed".into())
 }
 ```
@@ -114,16 +115,16 @@ async fn tool_calling_loop(client: &AiClient) -> Result<(), Box<dyn std::error::
     }];
     
     let tools = vec![
-        Tool::Function {
+        Tool {
             name: "get_weather".to_string(),
             description: Some("Get current weather for a location".to_string()),
-            parameters: serde_json::json!({
+            parameters: Some(serde_json::json!({
                 "type": "object",
                 "properties": {
                     "location": {"type": "string", "description": "City name"}
                 },
                 "required": ["location"]
-            }),
+            })),
         }
     ];
     
@@ -145,23 +146,30 @@ async fn tool_calling_loop(client: &AiClient) -> Result<(), Box<dyn std::error::
         };
         
         let response = client.chat_completion(request).await?;
-        
+
         // Handle function calls
-        if let Some(tool_calls) = response.tool_calls {
-            for tool_call in tool_calls {
-                let result = execute_tool(&tool_call).await?;
+        if let Some(choice) = response.choices.first() {
+            if let Some(function_call) = &choice.message.function_call {
+                let result = execute_tool(function_call).await?;
                 messages.push(Message {
-                    role: Role::Tool,
+                    role: Role::Assistant,
+                    content: Content::new_text("".to_string()),
+                    function_call: Some(function_call.clone()),
+                });
+                messages.push(Message {
+                    role: Role::Assistant, // Tool results come from assistant
                     content: Content::new_text(result),
+                    function_call: None,
+                });
+            } else {
+                let assistant_message = response.first_text()?.to_string();
+                println!("Assistant: {}", assistant_message);
+                messages.push(Message {
+                    role: Role::Assistant,
+                    content: Content::new_text(assistant_message),
+                    function_call: None,
                 });
             }
-        } else {
-            let assistant_message = response.first_text()?;
-            println!("Assistant: {}", assistant_message);
-            messages.push(Message {
-                role: Role::Assistant,
-                content: Content::new_text(assistant_message),
-            });
         }
     }
     
@@ -177,23 +185,24 @@ async fn multimodal_chat(client: &AiClient, image_path: &str) -> Result<(), Box<
     let image_data = std::fs::read(image_path)?;
     let image_base64 = base64::encode(&image_data);
     
-    let request = ChatCompletionRequest {
-        model: "gpt-4o".to_string(),
-        messages: vec![
-            Message {
-                role: Role::User,
-                content: Content::new_text("What do you see in this image?".to_string()),
-            },
-            Message {
-                role: Role::User,
-                content: Content::Image {
-                    url: format!("data:image/jpeg;base64,{}", image_base64),
-                    detail: Some("high".to_string()),
+        let request = ChatCompletionRequest {
+            model: "gpt-4o".to_string(),
+            messages: vec![
+                Message {
+                    role: Role::User,
+                    content: Content::new_text("What do you see in this image?".to_string()),
                 },
-            },
-        ],
-        ..Default::default()
-    };
+                Message {
+                    role: Role::User,
+                    content: Content::Image {
+                        url: Some(format!("data:image/jpeg;base64,{}", image_base64)),
+                        mime: Some("image/jpeg".to_string()),
+                        name: Some("image.jpg".to_string()),
+                    },
+                },
+            ],
+            ..Default::default()
+        };
     
     let response = client.chat_completion(request).await?;
     println!("Assistant: {}", response.first_text()?);

@@ -285,11 +285,16 @@ match client.chat_completion(req).await {
 ### 连接池配置
 
 ```rust
+use ai_lib::{AiClient, Provider, ConnectionOptions};
+use std::time::Duration;
+
 let client = AiClient::with_options(
     Provider::OpenAI,
     ConnectionOptions {
-        pool_size: Some(32),
-        idle_timeout: Some(Duration::from_secs(60)),
+        // 配置超时
+        timeout: Some(Duration::from_secs(60)),
+        // 配置代理
+        proxy: Some("http://internal-proxy:8080".to_string()),
         ..Default::default()
     }
 )?;

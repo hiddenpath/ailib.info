@@ -16,15 +16,14 @@ description: Rust库中的基本抽象概念。
 ```rust
 use ai_lib::{Message, Role, Content};
 
-// 创建包含文本内容的用户消息
-let user_msg = Message::user(Content::new_text("你好，世界！"));
+// 创建包含文本内容的用户消息（简便方法）
+let user_msg = Message::user("你好，世界！");
+
+// 或使用自定义内容（图片、音频等）
+let user_msg_with_content = Message::user_with_content(Content::new_text("你好，世界！"));
 
 // 创建系统消息
-let system_msg = Message {
-    role: Role::System,
-    content: Content::new_text("你是一个有用的助手。"),
-    function_call: None,
-};
+let system_msg = Message::system("你是一个有用的助手。");
 ```
 
 `Content`枚举支持多种模态：
@@ -32,6 +31,15 @@ let system_msg = Message {
 - **Image**：图像引用，包含URL、MIME类型和可选名称
 - **Audio**：音频内容，包含URL和MIME类型
 - **Json**：用于函数调用的结构化JSON数据
+
+## ChatProvider Trait
+
+`ChatProvider` trait 是所有提供商实现的核心抽象。它定义了以下标准接口：
+- `chat`: 单次聊天完成
+- `stream`: 流式聊天完成
+- `batch`: 批处理
+- `list_models`: 获取可用模型
+- `get_model_info`: 检索模型详情
 
 ## 提供商和模型管理
 

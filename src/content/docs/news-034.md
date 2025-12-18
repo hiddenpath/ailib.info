@@ -9,7 +9,7 @@ status: stable
 
 Highlights:
 
-- **Provider Failover Support**: New `with_failover(Vec<Provider>)` method enables automatic provider switching on retryable errors
+- **Provider Failover Support**: v0.3.x introduced `AiClient::with_failover(Vec<Provider>)`. In 1.0+, compose the same behavior via `RoutingStrategyBuilder` (see below).
 - **Major Provider Expansion**: Added 6 new AI providers including OpenRouter, Replicate, ZhipuAI, MiniMax, Perplexity, and AI21
 - **Enhanced Multimodal Content**: Convenient `Content::from_image_file()` and `Content::from_audio_file()` methods for automatic file processing
 - **New Import System**: Complete module tree restructuring with `prelude` for better ergonomics and explicit top-level exports
@@ -17,12 +17,19 @@ Highlights:
 
 ## New Features
 
-### Provider Failover
+### Provider Failover / Strategy Builders
 ```rust
 use ai_lib::prelude::*;
+use ai_lib::provider::{RoutingStrategyBuilder, GroqBuilder, AnthropicBuilder, OpenAiBuilder};
 
-let client = AiClient::new(Provider::OpenAI)?
-    .with_failover(vec![Provider::Anthropic, Provider::Groq]);
+let strategy = RoutingStrategyBuilder::new()
+    .with_provider(GroqBuilder::new().build_provider()?)
+    .with_provider(AnthropicBuilder::new().build_provider()?)
+    .build_failover()?;
+
+let client = OpenAiBuilder::new()
+    .with_strategy(Box::new(strategy))
+    .build()?;
 ```
 
 ### Multimodal Content Creation
@@ -113,6 +120,11 @@ ai-lib = "0.3.4"
 - **Additive release**: No breaking changes for existing code using public APIs
 - **Deprecation timeline**: Deprecated items will be removed before 1.0
 - **Migration support**: Comprehensive migration guide and examples provided
+
+
+
+
+
 
 
 

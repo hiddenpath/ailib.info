@@ -21,10 +21,10 @@ async fn main() -> Result<(), AiLibError> {
     let client = AiClient::new(Provider::OpenAI)?;
 
     // Define a weather tool
-    let weather_tool = Tool::new_json(
-        "get_weather",
-        Some("Get current weather information for a city"),
-        serde_json::json!({
+    let weather_tool = Tool {
+        name: "get_weather".to_string(),
+        description: Some("Get current weather information for a city".to_string()),
+        parameters: Some(serde_json::json!({
             "type": "object",
             "properties": {
                 "location": {
@@ -33,8 +33,8 @@ async fn main() -> Result<(), AiLibError> {
                 }
             },
             "required": ["location"]
-        })
-    );
+        }))
+    };
 
     // Create a chat request with tools
     let req = ChatCompletionRequest::new(

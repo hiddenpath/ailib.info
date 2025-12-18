@@ -121,14 +121,15 @@ let client = AiClient::with_model_array(array)?;
 use ai_lib::{AiClient, Provider, ConnectionOptions};
 use std::time::Duration;
 
+// 配置超时
 let client = AiClient::with_options(
     Provider::OpenAI,
     ConnectionOptions {
-        max_retries: Some(3),
-        retry_delay: Some(Duration::from_millis(1000)),
+        timeout: Some(Duration::from_secs(30)),
         ..Default::default()
     }
 )?;
+```
 ```
 
 ### 超时配置

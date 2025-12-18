@@ -13,7 +13,7 @@ status: stable
 
 ```toml
 [dependencies]
-ai-lib = "0.3.4"
+ai-lib = "0.4.0"
 tokio = { version = "1", features = ["full"] }
 ```
 
@@ -23,7 +23,7 @@ tokio = { version = "1", features = ["full"] }
 
 ```toml
 [dependencies]
-ai-lib = { version = "0.3.4", features = ["resilience", "streaming"] }
+ai-lib = { version = "0.4.0", features = ["resilience", "streaming"] }
 ```
 
 ### 友好别名（提高易用性）
@@ -34,9 +34,22 @@ ai-lib = { version = "0.3.4", features = ["resilience", "streaming"] }
 - hot_reload → 启用 `config_hot_reload`（配置提供者/监听接口）
 - all → 打开大多数 OSS 特性：`interceptors`、`unified_transport`、`unified_sse`、`cost_metrics`、`routing_mvp`、`observability`、`config_hot_reload`
 
-### 新增：基础故障转移（OSS）
+### 新增：策略构建器（OSS）
 
-自 v0.3.x 起，`AiClient::with_failover(Vec<Provider>)` 可在网络/超时/限流/5xx 等可重试错误发生时，按照给定顺序切换到备用 Provider。与 `routing_mvp` 搭配时，会保留模型选择。
+通过 `RoutingStrategyBuilder` 组合 `FailoverProvider` / `RoundRobinProvider`：
+
+```rust
+use ai_lib::provider::{RoutingStrategyBuilder, GroqBuilder, AnthropicBuilder, OpenAiBuilder};
+
+let strategy = RoutingStrategyBuilder::new()
+    .with_provider(GroqBuilder::new().build_provider()?)
+    .with_provider(AnthropicBuilder::new().build_provider()?)
+    .build_failover()?;
+
+let client = OpenAiBuilder::new()
+    .with_strategy(Box::new(strategy))
+    .build()?;
+```
 
 这些别名只是聚合启用粒度特性，本身不增加额外代码。
 
@@ -51,7 +64,7 @@ ai-lib = { version = "0.3.4", features = ["resilience", "streaming"] }
 
 ```toml
 [dependencies]
-ai-lib = { version = "0.3.4", features = [
+ai-lib = { version = "0.4.0", features = [
   "resilience",
   "transport",
   "streaming"

@@ -22,7 +22,7 @@ async fn main() -> Result<(), AiLibError> {
     "gpt-4o".to_string(),
     vec![Message { 
         role: Role::User, 
-        content: Content::from_text("Summarize Rust ownership succinctly.".to_string()), 
+        content: Content::new_text("Summarize Rust ownership succinctly.".to_string()), 
         function_call: None 
     }]
   );
@@ -47,7 +47,7 @@ async fn main() -> Result<(), AiLibError> {
     "openai/gpt-4o-mini".to_string(), // Note the provider prefix
     vec![Message { 
         role: Role::User, 
-        content: Content::from_text("Summarize Rust ownership succinctly.".to_string()), 
+        content: Content::new_text("Summarize Rust ownership succinctly.".to_string()), 
         function_call: None 
     }]
   );
@@ -74,7 +74,7 @@ async fn main() -> Result<(), AiLibError> {
     "llama3-8b-8192".to_string(),
     vec![Message { 
         role: Role::User, 
-        content: Content::from_text("Stream a haiku about concurrency.".to_string()), 
+        content: Content::new_text("Stream a haiku about concurrency.".to_string()), 
         function_call: None 
     }]
   );
@@ -111,7 +111,7 @@ async fn main() -> Result<(), AiLibError> {
     "gpt-4o".to_string(),
     vec![Message { 
         role: Role::User, 
-        content: Content::from_text("Explain borrow checker slowly.".to_string()), 
+        content: Content::new_text("Explain borrow checker slowly.".to_string()), 
         function_call: None 
     }]
   );
@@ -147,7 +147,7 @@ fn prompt(p: &str) -> ChatCompletionRequest {
     "gpt-4o".to_string(),
     vec![Message { 
         role: Role::User, 
-        content: Content::from_text(p.to_string()), 
+        content: Content::new_text(p.to_string()), 
         function_call: None 
     }]
   )
@@ -203,7 +203,7 @@ use ai_lib::prelude::*;
 // Text message
 let text_msg = Message {
     role: Role::User,
-    content: Content::from_text("Describe this image".to_string()),
+    content: Content::new_text("Describe this image"),
     function_call: None,
 };
 
@@ -272,14 +272,15 @@ match client.chat_completion(req).await {
 
 ```rust
 use ai_lib::{AiClient, Provider, ConnectionOptions};
+use std::time::Duration;
 
 let client = AiClient::with_options(
     Provider::Groq,
     ConnectionOptions {
-        // Configure connection pool size
-        pool_size: Some(16),
-        // Set idle timeout
-        idle_timeout: Some(Duration::from_secs(30)),
+        // Configure timeout
+        timeout: Some(Duration::from_secs(30)),
+        // Set custom proxy
+        proxy: Some("http://proxy.example.com:8080".to_string()),
         ..Default::default()
     }
 )?;
