@@ -80,6 +80,6 @@ futures = "0.3"
 
 ## 文档
 
-- [升级指南](/docs/UPGRADE_0.4.0.md) - 从 0.3.x 迁移到 0.4.0
+- [升级指南](/docs/upgrade-040/) - 从 0.3.x 迁移到 0.4.0
 - [API 参考](https://docs.rs/ai-lib/0.4.0) - 完整 API 文档
 - [示例](https://github.com/hiddenpath/ai-lib/tree/main/examples) - 实用示例
