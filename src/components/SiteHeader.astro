@@ -10,18 +10,21 @@ const isZh = locale === 'zh';
       <span class="brand-text">Ailib</span>
     </a>
     <nav class="nav-actions">
-      <a href={isZh ? '/zh/docs/intro' : '/docs/intro'} class="nav-link dev-ref-btn">
-        {isZh ? '开发者参考' : 'Developer Reference'}
+      <a href={isZh ? '/zh/protocol/' : '/protocol/'} class="nav-link">
+        Protocol
       </a>
-      <a href={isZh ? '/zh/#contact' : '/#contact'} class="nav-link">
-        {isZh ? '联系' : 'Contact'}
+      <a href={isZh ? '/zh/rust/' : '/rust/'} class="nav-link">
+        Rust
+      </a>
+      <a href={isZh ? '/zh/python/' : '/python/'} class="nav-link">
+        Python
       </a>
       <div class="lang-switch-top">
-        {isZh ? <a href="/">English</a> : <a href="/zh/">中文</a>}
+        {isZh ? <a href="/">EN</a> : <a href="/zh/">中文</a>}
       </div>
       <a
         class="gh"
-        href="https://github.com/hiddenpath/ai-lib"
+        href="https://github.com/hiddenpath/ai-protocol"
         target="_blank"
         rel="noopener"
         aria-label="GitHub">★</a

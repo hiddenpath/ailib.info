@@ -1,0 +1,387 @@
+---
+import '../../styles/global.css';
+import SiteHeader from '../../components/SiteHeader.astro';
+import Footer from '../../components/Footer.astro';
+import BuildMeta from '../../components/BuildMeta.astro';
+
+const locale = 'en';
+const isZh = locale === 'zh';
+const providerCount = 30;
+const heroDescEn = 'Data-driven declarative runtime specification for normalizing AI models. Unified interfaces for 30+ providers.';
+const heroDescZh = '数据驱动的声明式运行时规范，统一 AI 模型交互。支持 30+ 提供商的统一接口。';
+const heroDesc = isZh ? heroDescZh : heroDescEn;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>AI-Protocol Specification | ailib.info</title>
+    <meta name="description" content="AI-Protocol: Data-driven declarative runtime specification for AI models." />
+    <meta property="og:title" content="AI-Protocol Specification" />
+    <meta property="og:description" content="Unified AI model interaction with 30+ providers." />
+    <meta property="og:image" content="/og-image.png" />
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+  <body>
+    <SiteHeader locale={locale} />
+
+    <main class="protocol-page">
+      <section class="page-hero">
+        <div class="container">
+          <span class="version-badge">v0.4.0</span>
+          <h1>AI-Protocol</h1>
+          <p class="hero-description">{heroDesc}</p>
+
+          <div class="cta-group">
+            <a href="https://github.com/hiddenpath/ai-protocol" target="_blank" class="btn primary">
+              GitHub Repository
+            </a>
+            <a href="/protocol/docs/" class="btn secondary">
+              Documentation
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="features">
+        <div class="container">
+          <h2 class="section-title">Key Features</h2>
+
+          <div class="feature-grid">
+            <div class="feature">
+              <div class="feature-icon">📋</div>
+              <h3>Declarative Config</h3>
+              <p>Define models with YAML/JSON, no hardcoding</p>
+            </div>
+
+            <div class="feature">
+              <div class="feature-icon">🔗</div>
+              <h3>Provider Abstraction</h3>
+              <p>Unified interface for 30+ AI providers</p>
+            </div>
+
+            <div class="feature">
+              <div class="feature-icon">🔢</div>
+              <h3>Data-State Rulebook</h3>
+              <p>Data-based operators, not hardcoded logic</p>
+            </div>
+
+            <div class="feature">
+              <div class="feature-icon">🌐</div>
+              <h3>Global Coverage</h3>
+              <p>Support for global and China-region providers</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="architecture">
+        <div class="container">
+          <h2 class="section-title">Architecture Layers</h2>
+
+          <div class="layers-diagram">
+            <div class="layer layer-app">Application</div>
+            <div class="layer-arrow">↓</div>
+            <div class="layer layer-runtime">Runtime (ai-lib-rust / ai-lib-python)</div>
+            <div class="layer-arrow">↓</div>
+            <div class="layer layer-protocol">AI-Protocol (Spec)</div>
+            <div class="layer-arrow">↓</div>
+            <div class="layer layer-providers">AI Providers (30+)</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats">
+        <div class="container">
+          <h2 class="section-title">Coverage</h2>
+
+          <div class="stats-grid">
+            <div class="stat">
+              <div class="number">{providerCount}+</div>
+              <div class="label">Supported Providers</div>
+            </div>
+            <div class="stat">
+              <div class="number">2</div>
+              <div class="label">Official Runtimes</div>
+            </div>
+            <div class="stat">
+              <div class="number">48k+</div>
+              <div class="label">Documentation Words</div>
+            </div>
+            <div class="stat">
+              <div class="number">5</div>
+              <div class="label">Example Configs</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="providers">
+        <div class="container">
+          <h2 class="section-title">Popular Providers</h2>
+
+          <div class="provider-tags">
+            <span class="provider-tag">OpenAI</span>
+            <span class="provider-tag">Anthropic</span>
+            <span class="provider-tag">Groq</span>
+            <span class="provider-tag">Gemini</span>
+            <span class="provider-tag">Mistral</span>
+            <span class="provider-tag">通义千问</span>
+            <span class="provider-tag">智谱</span>
+            <span class="provider-tag">百川</span>
+            <span class="provider-tag">月之暗面</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="resources">
+        <div class="container">
+          <h2 class="section-title">Quick Links</h2>
+
+          <ul class="link-list">
+            <li><a href="https://github.com/hiddenpath/ai-protocol/tree/main/docs" target="_blank">Complete Protocol Documentation</a></li>
+            <li><a href="https://github.com/hiddenpath/ai-protocol/tree/main/examples" target="_blank">Example Configurations</a></li>
+            <li><a href="https://github.com/hiddenpath/ai-protocol/blob/main/README.md" target="_blank">Full README</a></li>
+            <li><a href="https://github.com/hiddenpath/ai-protocol/releases" target="_blank">Release Notes</a></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <Footer locale={locale} />
+    <BuildMeta />
+  </body>
+</html>
+
+<style>
+  .protocol-page {
+    padding-top: 80px;
+  }
+
+  .page-hero {
+    padding: 80px 0;
+    text-align: center;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  }
+
+  .page-hero h1 {
+    font-size: 48px;
+    font-weight: 600;
+    margin: 24px 0 16px 0;
+    color: #0f172a;
+  }
+
+  .page-hero .hero-description {
+    font-size: 18px;
+    color: #64748b;
+    max-width: 720px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+  .version-badge {
+    display: inline-block;
+    background: #3b82f6;
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .cta-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .btn.primary {
+    background: #0a2540;
+    color: white;
+    border: none;
+  }
+
+  .btn.secondary {
+    background: white;
+    color: #0a2540;
+    border: 2px solid #e2e8f0;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .section-title {
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 0 48px 0;
+    color: #0f172a;
+  }
+
+  .features,
+  .architecture,
+  .stats,
+  .providers,
+  .resources {
+    padding: 80px 0;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 32px;
+  }
+
+  .feature {
+    text-align: center;
+    padding: 24px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .feature-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+
+  .feature h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+  }
+
+  .feature p {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .layers-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .layer {
+    width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .layer-app {
+    background: #f1f5f9;
+  }
+
+  .layer-runtime {
+    background: #dbeafe;
+  }
+
+  .layer-protocol {
+    background: #ede9fe;
+  }
+
+  .layer-providers {
+    background: #d1fae5;
+  }
+
+  .layer-arrow {
+    font-size: 24px;
+    color: #94a3b8;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 32px;
+    text-align: center;
+  }
+
+  .stat .number {
+    font-size: 48px;
+    font-weight: 600;
+    color: #3b82f6;
+    margin-bottom: 8px;
+  }
+
+  .stat .label {
+    color: #64748b;
+    font-size: 16px;
+  }
+
+  .provider-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .provider-tag {
+    background: #f0f9ff;
+    color: #0369a1;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .link-list {
+    max-width: 600px;
+    margin: 0 auto;
+    list-style: none;
+    padding: 0;
+  }
+
+  .link-list li {
+    margin: 16px 0;
+  }
+
+  .link-list a {
+    display: block;
+    padding: 16px 24px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    color: #0f172a;
+    text-decoration: none;
+  }
+
+  .link-list a:hover {
+    border-color: #3b82f6;
+  }
+
+  @media (max-width: 768px) {
+    .page-hero h1 {
+      font-size: 36px;
+    }
+
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

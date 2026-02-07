@@ -1,0 +1,497 @@
+---
+import '../../styles/global.css';
+import SiteHeader from '../../components/SiteHeader.astro';
+import Footer from '../../components/Footer.astro';
+import BuildMeta from '../../components/BuildMeta.astro';
+
+const locale = 'en';
+const isZh = locale === 'zh';
+const version = '0.5.0';
+const parity = 95;
+const heroDescEn = 'Production-ready Python implementation with ' + parity + '% feature parity. Ideal for ML/data science teams.';
+const heroDescZh = '生产级的 Python 实现，95% 功能完整。非常适合 ML/数据科学团队。';
+const heroDesc = isZh ? heroDescZh : heroDescEn;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ai-lib-python | Official Python AI SDK</title>
+    <meta name="description" content="ai-lib-python: Official Python runtime for AI-Protocol" />
+    <meta property="og:title" content="ai-lib-python | Python AI SDK" />
+    <meta property="og:description" content="Official Python Runtime for AI-Protocol" />
+    <meta property="og:image" content="/og-image-zh.png" />
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+  <body>
+    <SiteHeader locale={locale} />
+
+    <main class="python-page">
+      <section class="page-hero">
+        <div class="container">
+          <span class="version-badge">v{version} Published</span>
+          <span class="pypi-badge">🐍 PyPI</span>
+          <h1>ai-lib-python</h1>
+          <p class="subtitle">Official Python Runtime for AI-Protocol</p>
+          <p class="hero-description">{heroDesc}</p>
+
+          <div class="cta-group">
+            <a href="https://pypi.org/project/ai-lib-python/" target="_blank" class="btn primary">
+              PyPI Package
+            </a>
+            <a href="https://github.com/hiddenpath/ai-lib-python" target="_blank" class="btn secondary">
+              GitHub Repository
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="highlights">
+        <div class="container">
+          <div class="highlights-grid">
+            <div class="highlight">
+              <div class="highlight-value">{parity}%</div>
+              <div class="highlight-label">Feature Parity</div>
+            </div>
+            <div class="highlight">
+              <div class="highlight-value">PyPI</div>
+              <div class="highlight-label">Published</div>
+            </div>
+            <div class="highlight">
+              <div class="highlight-value">Async</div>
+              <div class="highlight-label">Async Support</div>
+            </div>
+            <div class="highlight">
+              <div class="highlight-value">6</div>
+              <div class="highlight-label">Routing Strategies</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="features">
+        <div class="container">
+          <h2 class="section-title">Key Features</h2>
+
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="feature-header">Type-Safe</div>
+              <p>Pydantic v2 for runtime type checking with full type safety</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-header">Async Support</div>
+              <p>Full async/await support with httpx for non-blocking I/O</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-header">Easy Integration</div>
+              <p>Works seamlessly with FastAPI, Jupyter, and ML pipelines</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-header">Model Routing</div>
+              <p>6 built-in routing strategies: round-robin, weighted, health-based</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-header">Caching & Telemetry</div>
+              <p>OpenTelemetry ready with plugin system and caching support</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-header">Jupyter Ready</div>
+              <p>Dedicated Jupyter integration and notebook support</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="quickstart">
+        <div class="container">
+          <h2 class="section-title">Quick Install</h2>
+
+          <div class="code-block">
+            <pre><code># Basic installation
+pip install ai-lib-python
+
+# With all features
+pip install ai-lib-python[full]</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="parity">
+        <div class="container">
+          <h2 class="section-title">Feature Parity</h2>
+
+          <div class="comparison">
+            <div class="bar-label">Rust SDK</div>
+            <div class="bar-container">
+              <div class="bar rust" style="width: 100%;"></div>
+              <div class="bar-text">100%</div>
+            </div>
+
+            <div class="bar-label">Python SDK</div>
+            <div class="bar-container">
+              <div class="bar python" style="width: 95%;"></div>
+              <div class="bar-text">95%</div>
+            </div>
+          </div>
+
+          <p class="parity-note">
+            Python SDK implements 95% of Rust SDK core features, covering most production use cases.
+          </p>
+        </div>
+      </section>
+
+      <section class="resources">
+        <div class="container">
+          <h2 class="section-title">Resources</h2>
+          <ul class="link-list">
+            <li><a href="https://github.com/hiddenpath/ai-lib-python" target="_blank">Full README on GitHub</a></li>
+            <li><a href="https://pypi.org/project/ai-lib-python/" target="_blank">PyPI Package Page</a></li>
+            <li><a href="/python/features/">Feature Guide</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="usecases">
+        <div class="container">
+          <h2 class="section-title">Use Cases</h2>
+
+          <div class="use-cards">
+            <div class="use-card">
+              <div class="use-icon">🔬</div>
+              <h3>Data Science / ML</h3>
+              <p>Jupyter notebooks, data pipelines, and experiments</p>
+            </div>
+            <div class="use-card">
+              <div class="use-icon">🚀</div>
+              <h3>Rapid Prototyping</h3>
+              <p>Validate ideas and iterate on MVPs quickly</p>
+            </div>
+            <div class="use-card">
+              <div class="use-icon">🏢</div>
+              <h3>Enterprise Python</h3>
+              <p>Seamless integration with existing Python ecosystem</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta">
+        <div class="container" class="container">
+          <h2>Get Started with ai-lib-python</h2>
+          <a href="/python/quick-start/" class="btn large btn-primary">Start Now</a>
+        </div>
+      </section>
+    </main>
+
+    <Footer locale={locale} />
+    <BuildMeta />
+  </body>
+</html>
+
+<style>
+  .python-page {
+    padding-top: 80px;
+  }
+
+  .page-hero {
+    padding: 80px 0;
+    text-align: center;
+    background: linear-gradient(180deg, #fef3c7 0%, #ffffff 100%);
+  }
+
+  .page-hero h1 {
+    font-size: 48px;
+    font-weight: 600;
+    margin: 24px 0 16px 0;
+    color: #0f172a;
+  }
+
+  .page-hero .subtitle {
+    font-size: 24px;
+    color: #eab308;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+  }
+
+  .page-hero .hero-description {
+    font-size: 18px;
+    color: #64748b;
+    max-width: 720px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+  .version-badge,
+  .pypi-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 4px;
+  }
+
+  .version-badge {
+    background: #eab308;
+    color: #0a2540;
+  }
+
+  .pypi-badge {
+    background: #3776ab;
+    color: white;
+  }
+
+  .cta-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .btn.primary {
+    background: #3776ab;
+    color: white;
+    border: none;
+  }
+
+  .btn.secondary,
+  .btn-outline {
+    background: white;
+    color: #0a2540;
+    border: 2px solid #e2e8f0;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .section-title {
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 0 48px 0;
+    color: #0f172a;
+  }
+
+  .highlights,
+  .features,
+  .quickstart,
+  .parity,
+  .resources,
+  .usecases,
+  .cta {
+    padding: 80px 0;
+  }
+
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+  }
+
+  .highlight {
+    text-align: center;
+    padding: 24px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .highlight-value {
+    font-size: 36px;
+    font-weight: 600;
+    color: #eab308;
+    margin-bottom: 8px;
+  }
+
+  .highlight-label {
+    color: #64748b;
+    font-size: 14px;
+  }
+
+  .feature-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+  }
+
+  .feature-item {
+    padding: 24px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .feature-header {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #0f172a;
+  }
+
+  .feature-item p {
+    color: #64748b;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .code-block {
+    background: #1e293b;
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .code-block pre {
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #e2e8f0;
+  }
+
+  .comparison {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .bar-label {
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #0f172a;
+  }
+
+  .bar-container {
+    background: #e2e8f0;
+    border-radius: 20px;
+    height: 32px;
+    margin-bottom: 24px;
+  }
+
+  .bar {
+    height: 100%;
+    border-radius: 20px;
+    padding-left: 16px;
+    display: flex;
+    align-items: center;
+  }
+
+  .bar.rust {
+    background: linear-gradient(90deg, #e76f51 0%, #f4a261 100%);
+  }
+
+  .bar.python {
+    background: linear-gradient(90deg, #3776ab 0%, #4c8cbf 100%);
+    color: white;
+  }
+
+  .bar-text {
+    margin-left: 8px;
+    font-weight: 600;
+    color: #0f172a;
+  }
+
+  .parity-note {
+    text-align: center;
+    color: #64748b;
+    margin-top: 24px;
+  }
+
+  .link-list {
+    max-width: 600px;
+    margin: 0 auto;
+    list-style: none;
+    padding: 0;
+  }
+
+  .link-list li {
+    margin: 12px 0;
+  }
+
+  .link-list a {
+    display: block;
+    padding: 16px 24px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    color: #0f172a;
+  }
+
+  .use-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .use-card {
+    padding: 24px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+  }
+
+  .use-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+
+  .use-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: #0f172a;
+  }
+
+  .use-card p {
+    color: #64748b;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .cta {
+    text-align: center;
+    background: #fef3c7;
+  }
+
+  .cta h2 {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0 0 24px 0;
+    color: #0f172a;
+  }
+
+  .btn.large {
+    display: inline-block;
+    background: #3776ab;
+    color: white;
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .page-hero h1 {
+      font-size: 36px;
+    }
+
+    .feature-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

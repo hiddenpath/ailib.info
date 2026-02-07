@@ -1,93 +1,174 @@
 ---
 const { locale = 'en' } = Astro.props;
 const isZh = locale === 'zh';
-// Provider metadata (using Google favicon service for consistent PNG output)
-const providers = [
-  { name: 'OpenAI', domain: 'openai.com' },
-  { name: 'Groq', domain: 'groq.com' },
-  { name: 'Anthropic', domain: 'anthropic.com' },
-  { name: 'Gemini', domain: 'gemini.google.com' },
-  { name: 'Mistral', domain: 'mistral.ai' },
-  { name: 'Cohere', domain: 'cohere.com' },
-  { name: 'OpenRouter', domain: 'openrouter.ai' },
-  { name: 'Replicate', domain: 'replicate.com' },
-  { name: 'ZhipuAI', domain: 'zhipuai.cn' },
-  { name: 'MiniMax', domain: 'minimax.chat' },
-  { name: 'Perplexity', domain: 'perplexity.ai' },
-  { name: 'AI21', domain: 'ai21.com' },
-  { name: 'HuggingFace', domain: 'huggingface.co' },
-  { name: 'TogetherAI', domain: 'together.ai' },
-  { name: 'DeepSeek', domain: 'deepseek.com' },
-  { name: 'Qwen', domain: 'qwen.ai' },
-  { name: 'Baidu Wenxin', domain: 'baidu.com' },
-  { name: 'Tencent Hunyuan', domain: 'hunyuan.tencent.com' },
-  { name: 'iFlytek Spark', domain: 'xfyun.cn' },
-  { name: 'Moonshot Kimi', domain: 'moonshot.cn' },
-  { name: 'Azure OpenAI', domain: 'azure.microsoft.com' },
-  { name: 'Ollama', domain: 'ollama.com' },
-  { name: 'xAI Grok', domain: 'x.ai' },
-];
+
+// Providers organized by category
+const providersByCategory = {
+  global: [
+    { name: 'OpenAI', domain: 'openai.com' },
+    { name: 'Anthropic', domain: 'anthropic.com' },
+    { name: 'Groq', domain: 'groq.com' },
+    { name: 'Gemini', domain: 'gemini.google.com' },
+    { name: 'Mistral', domain: 'mistral.ai' },
+    { name: 'Cohere', domain: 'cohere.com' },
+    { name: 'OpenRouter', domain: 'openrouter.ai' },
+    { name: 'Replicate', domain: 'replicate.com' },
+    { name: 'TogetherAI', domain: 'together.ai' },
+    { name: 'Perplexity', domain: 'perplexity.ai' },
+    { name: 'AI21', domain: 'ai21.com' },
+    { name: 'HuggingFace', domain: 'huggingface.co' },
+    { name: 'DeepSeek', domain: 'deepseek.com' },
+    { name: 'xAI Grok', domain: 'x.ai' },
+    { name: 'Azure OpenAI', domain: 'azure.microsoft.com' },
+  ],
+  china: [
+    { name: 'ZhipuAI', domain: 'zhipuai.cn' },
+    { name: 'MiniMax', domain: 'minimax.chat' },
+    { name: 'Qwen', domain: 'qwen.ai' },
+    { name: 'Moonshot Kimi', domain: 'moonshot.cn' },
+    { name: 'Baidu Wenxin', domain: 'baidu.com' },
+    { name: 'Tencent Hunyuan', domain: 'hunyuan.tencent.com' },
+    { name: 'iFlytek Spark', domain: 'xfyun.cn' },
+    { name: 'Baichuan', domain: 'baichuan-ai.com' },
+    { name: 'SenseNova', domain: 'sensechat.com' },
+  ],
+  local: [
+    { name: 'Ollama', domain: 'ollama.com' },
+    { name: 'vLLM', domain: 'vllm.ai' },
+    { name: 'LlamaCpp', domain: 'llama-cpp-python.readthedocs.io' },
+    { name: 'LocalAI', domain: 'localai.io' },
+  ]
+};
+
+const totalProviders = Object.values(providersByCategory).reduce((sum, arr) => sum + arr.length, 0);
 ---
 
-<section>
-  <h2>{isZh ? '支持的提供商' : 'Supported Providers'}</h2>
-  <p class="dim" style="max-width:740px;">
-    {
-      isZh ? (
-        <>
-          统一枚举 <code>Provider</code>，无需为不同 API 分别写适配器；本地 + 云可混合（例如 Ollama
-          + OpenAI）。
-        </>
-      ) : (
-        <>
-          A single <code>Provider</code> enum eliminates branching by vendor; mix local and cloud
-          (e.g. Ollama + OpenAI) effortlessly.
-        </>
-      )
-    }
-  </p>
-  <div class="providers-grid">
-    {
-      providers.map((p) => {
-        const favicon = `https://www.google.com/s2/favicons?sz=64&domain=${p.domain}`;
-        return (
-          <div class="provider-item">
-            <img
-              src={favicon}
-              alt={`${p.name} favicon`}
-              loading="lazy"
-              width="28"
-              height="28"
-              onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'text-fallback',textContent:' '+this.alt.charAt(0)}));"
-            />
-            <span class="label">{p.name}</span>
+<section class="providers-section">
+  <div class="container">
+    <h2>{isZh ? `支持的提供商` : 'Supported Providers'}</h2>
+    <p class="subtitle">
+      {isZh
+        ? `30+ AI 提供商，全球覆盖，统一接口`
+        : `${totalProviders} AI providers, global coverage, unified interface`}
+    </p>
+
+    {Object.entries(providersByCategory).map(([category, providers]) => {
+      const categoryInfo = {
+        global: {
+          name: isZh ? '全球提供商 🌍' : 'Global Providers 🌍',
+          desc: isZh ? '国际主流 AI 服务商' : 'Leading international AI providers'
+        },
+        china: {
+          name: isZh ? '中国区提供商 🇨🇳' : 'China Region 🇨🇳',
+          desc: isZh ? '国内领先的 AI 服务商' : 'Leading China-region AI providers'
+        },
+        local: {
+          name: isZh ? '本地和自托管 🏠' : 'Local & Self-hosted 🏠',
+          desc: isZh ? '本地运行和自定义模型' : 'Self-hosted and custom models'
+        }
+      };
+
+      const info = categoryInfo[category as keyof typeof categoryInfo];
+
+      return (
+        <div class={`category-section ${category}`}>
+          <h3 class="category-title">{info.name}</h3>
+          <p class="category-desc">{info.desc}</p>
+
+          <div class="providers-grid">
+            {providers.map((p) => {
+              const favicon = `https://www.google.com/s2/favicons?sz=64&domain=${p.domain}`;
+              return (
+                <div class="provider-item">
+                  <img
+                    src={favicon}
+                    alt={`${p.name} favicon`}
+                    loading="lazy"
+                    width="28"
+                    height="28"
+                    onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'text-fallback',textContent:' '+this.alt.charAt(0)}));"
+                  />
+                  <span class="label">{p.name}</span>
+                </div>
+              );
+            })}
           </div>
-        );
-      })
-    }
+        </div>
+      );
+    })}
+
+    <div class="view-all">
+      <a href="/protocol/providers/">
+        {isZh ? '查看完整的 Provider 列表 →' : 'View full provider list →'}
+      </a>
+    </div>
   </div>
 </section>
 
 <style>
+  .providers-section {
+    padding: 80px 0;
+  }
+
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .providers-section h2 {
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 0 12px 0;
+    color: var(--color-primary, #0a2540);
+  }
+
+  .subtitle {
+    text-align: center;
+    color: #64748b;
+    font-size: 18px;
+    margin-bottom: 60px;
+  }
+
+  .category-section {
+    margin-bottom: 60px;
+  }
+
+  .category-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: var(--color-primary, #0a2540);
+  }
+
+  .category-desc {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
   .providers-grid {
     display: grid;
-    gap: 18px;
-    margin-top: 30px;
+    gap: 12px;
   }
-  @media (min-width: 600px) {
+
+  @media (min-width: 640px) {
     .providers-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
+
   @media (min-width: 900px) {
     .providers-grid {
       grid-template-columns: repeat(5, minmax(0, 1fr));
     }
   }
+
   .provider-item {
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    background: var(--bg-alt, #f8fafc);
+    border: 1px solid var(--border, #e2e8f0);
+    border-radius: 8px;
     padding: 10px 12px;
     display: flex;
     align-items: center;
@@ -95,7 +176,14 @@ const providers = [
     min-height: 50px;
     position: relative;
     overflow: hidden;
+    transition: all 0.2s;
   }
+
+  .provider-item:hover {
+    border-color: var(--accent, #3b82f6);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+  }
+
   .provider-item img {
     width: 28px;
     height: 28px;
@@ -103,22 +191,45 @@ const providers = [
     flex-shrink: 0;
     display: block;
   }
+
   .provider-item .text-fallback {
     font-weight: 600;
     font-size: 16px;
     line-height: 1;
-    color: var(--text);
+    color: var(--text, #0f172a);
   }
+
   .provider-item .label {
     font-size: 13px;
     font-weight: 600;
     line-height: 1.2;
   }
-  .provider-item:hover {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 1px var(--accent-glow);
+
+  .view-all {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid #e2e8f0;
   }
-  .provider-item img {
-    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35));
+
+  .view-all a {
+    color: var(--accent, #3b82f6);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  .view-all a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .providers-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .category-title {
+      font-size: 20px;
+    }
   }
 </style>

@@ -4,46 +4,61 @@ const isZh = locale === 'zh';
 const items = isZh
   ? [
       {
-        t: '多提供商统一',
-        d: '单一抽象覆盖 OpenAI / Groq / Anthropic / Gemini / Mistral / Cohere 等。',
+        t: '协议驱动设计',
+        d: '一切逻辑皆算子，一切配置皆协议。用声明式配置将提供商与代码解耦。',
       },
-      { t: '多模态内容', d: '便捷的图像和音频内容创建，支持 `Content::from_image_file()` 和 `Content::from_audio_file()`。' },
-      { t: '一致的流式与增量', d: '标准增量格式，隐藏底层 SSE 差异。' },
-      { t: '推理大模型', d: '内置支持 Groq Qwen、DeepSeek R1 等推理大模型，提供结构化输出。' },
-      { t: '可靠性原语', d: '重试 / 超时 / 分类错误 / 代理 / 连接池。' },
-      { t: '模型策略', d: '性能 / 成本 / 健康 / 加权路由。' },
-      { t: '低开销', d: 'SDK 层额外延迟 ~0.6–0.9ms（基准方法透明）。' },
-      { t: '渐进式复杂度', d: '从 quick_chat 到自定义传输/指标按需扩展。' },
-      { t: '企业级功能', d: 'ai-lib-pro 提供高级路由、可观测性、安全性和成本管理功能。' },
+      {
+        t: '多运行时支持',
+        d: '选择 Rust 追求性能，或选择 Python 追求灵活。两者共享统一规范。',
+      },
+      {
+        t: '广泛提供商支持',
+        d: '30+ AI 提供商，包括全球和中国地区的服务，通过统一接口访问。',
+      },
+      {
+        t: '生产级可靠性',
+        d: '内置重试、速率限制、熔断器等企业级功能。',
+      },
+      {
+        t: '类型安全',
+        d: 'Rust 编译时检查 + Python Pydantic 运行时验证。',
+      },
+      {
+        t: '可观测性',
+        d: 'OpenTelemetry 集成，完整的指标和追踪支持。',
+      },
     ]
   : [
       {
-        t: 'Unified Providers',
-        d: 'One abstraction spans OpenAI, Groq, Anthropic, Gemini, Mistral, Cohere, etc.',
-      },
-      { t: 'Multimodal Content', d: 'Easy image and audio content creation with `Content::from_image_file()` and `Content::from_audio_file()`.' },
-      { t: 'Consistent Streaming', d: 'Standard incremental deltas; hides raw SSE differences.' },
-      { t: 'Reasoning Models', d: 'Built-in support for Groq Qwen, DeepSeek R1, and other reasoning models with structured output.' },
-      {
-        t: 'Reliability Primitives',
-        d: 'Retries, timeout, error typing, proxy control, connection pooling.',
-      },
-      { t: 'Model Strategy', d: 'Performance / cost / health / weighted routing out of the box.' },
-      { t: 'Low Overhead', d: 'Adds ~0.6–0.9ms per request (transparent methodology).' },
-      {
-        t: 'Progressive Complexity',
-        d: 'Scale from quick_chat to custom transports & metrics gradually.',
+        t: 'Protocol-Driven',
+        d: 'All logic is operators, all configuration is protocol. Decouple providers from code with declarative configuration.',
       },
       {
-        t: 'Enterprise Features',
-        d: 'ai-lib-pro provides advanced routing, observability, security, and cost management.',
+        t: 'Multi-Runtime',
+        d: 'Choose Rust for performance or Python for flexibility. Both share the same unified specification.',
+      },
+      {
+        t: 'Extensive Provider Support',
+        d: '30+ AI providers, including global and China-region services, accessible through a unified interface.',
+      },
+      {
+        t: 'Production-Grade Reliability',
+        d: 'Built-in retry, rate limiting, circuit breaker, and other enterprise-grade features.',
+      },
+      {
+        t: 'Type-Safe',
+        d: 'Rust compile-time checks + Python Pydantic runtime validation.',
+      },
+      {
+        t: 'Observability',
+        d: 'OpenTelemetry integration with comprehensive metrics and tracing.',
       },
     ];
 ---
 
-<section>
-  <h2>{isZh ? '核心价值' : 'Core Value'}</h2>
-  <div class="cards cols-3" style="margin-top:34px;">
+<section class="value-props">
+  <h2>{isZh ? '核心价值' : 'Core Values'}</h2>
+  <div class="cards">
     {
       items.map((i) => (
         <div class="card">
@@ -56,3 +71,53 @@ const items = isZh
     }
   </div>
 </section>
+
+<style>
+  .value-props {
+    padding: 80px 0;
+  }
+
+  .value-props h2 {
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 0 48px 0;
+  }
+
+  .cards {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+
+  .card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.2s;
+  }
+
+  .card:hover {
+    border-color: var(--accent, #3b82f6);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: var(--color-primary, #0a2540);
+  }
+
+  .card p {
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  @media (min-width: 768px) {
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

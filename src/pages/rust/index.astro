@@ -1,0 +1,148 @@
+---
+import '../../styles/global.css';
+import SiteHeader from '../../components/SiteHeader.astro';
+import Footer from '../../components/Footer.astro';
+import BuildMeta from '../../components/BuildMeta.astro';
+
+const locale = 'en';
+const isZh = locale === 'zh';
+const version = '0.6.6';
+const heroDescEn = 'Reference implementation of AI-Protocol with 14 architectural layers. Built for systems programming.';
+const heroDescZh = 'AI-Protocol 的参考实现，14 层架构设计。';
+const heroDesc = isZh ? heroDescZh : heroDescEn;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ai-lib-rust | High-Performance AI SDK for Rust</title>
+    <meta name="description" content="ai-lib-rust: High-performance AI SDK for Rust" />
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+  <body>
+    <SiteHeader locale={locale} />
+
+    <main class="rust-page">
+      <section class="page-hero">
+        <div class="container">
+          <span class="version-badge">v{version}</span>
+          <h1>ai-lib-rust</h1>
+          <p class="hero-description">{heroDesc}</p>
+
+          <div class="cta-group">
+            <a href="https://github.com/hiddenpath/ai-lib-rust" target="_blank">GitHub Repository</a>
+            <a href="/rust/quick-start/">Quick Start</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="highlights">
+        <div class="container">
+          <div class="grid">
+            <div class="item">
+              <div class="value">&lt;1ms</div>
+              <div class="label">Overhead</div>
+            </div>
+            <div class="item">
+              <div class="value">14</div>
+              <div class="label">Layers</div>
+            </div>
+            <div class="item">
+              <div class="value">30+</div>
+              <div class="label">Providers</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="features">
+        <div class="container">
+          <h2>Why Rust?</h2>
+          <div class="list">
+            <div class="item">High Performance - Minimal overhead, type-safe</div>
+            <div class="item">Compile-time Safety - Prevent runtime errors</div>
+            <div class="item">Built-in Resilience - Retry, rate limit, circuit breaker</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer locale={locale} />
+    <BuildMeta />
+  </body>
+</html>
+
+<style>
+  .page-hero {
+    padding: 80px 20px;
+    text-align: center;
+    background: #fff7ed;
+  }
+
+  .page-hero h1 {
+    font-size: 48px;
+    font-weight: 600;
+    margin: 24px 0;
+  }
+
+  .hero-description {
+    font-size: 18px;
+    color: #64748b;
+    max-width: 720px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+  .version-badge {
+    display: inline-block;
+    background: #e76f51;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .cta-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .highlights,
+  .features {
+    padding: 80px 0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+    text-align: center;
+  }
+
+  .item .value {
+    font-size: 36px;
+    font-weight: 600;
+    color: #e76f51;
+    margin-bottom: 8px;
+  }
+
+  .item .label {
+    color: #64748b;
+    font-size: 14px;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+</style>

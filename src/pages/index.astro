@@ -3,34 +3,31 @@ import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import Hero from '../components/Hero.astro';
 import ValueProps from '../components/ValueProps.astro';
-// import Install from '../components/Install.astro';  // 旧的删除
+import ProjectCard from '../components/ProjectCard.astro';
 import Providers from '../components/Providers.astro';
 import Performance from '../components/Performance.astro';
 import Architecture from '../components/Architecture.astro';
-import Support from '../components/Support.astro';
 import FAQ from '../components/FAQ.astro';
 import Footer from '../components/Footer.astro';
 import BuildMeta from '../components/BuildMeta.astro';
 
-// 引入 Markdown 版本
-import InstallMD from '../markdown/install.en.md';
-
 const locale = 'en';
+const isZh = locale === 'zh';
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>ai-lib – Unified Multi-Provider AI SDK for Rust</title>
+    <title>AI-Protocol Ecosystem | Unified Multi-Runtime AI SDK</title>
     <meta
       name="description"
-      content="One Rust SDK for OpenAI, Groq, Anthropic, Gemini, Mistral, Cohere & more. Unified streaming, reliability, model strategy & observability with minimal overhead."
+      content="AI-Protocol ecosystem: One specification, multiple runtimes. Unified AI model interaction for Protocol, Rust, and Python implementations."
     />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta property="og:title" content="ai-lib – Unified AI SDK for Rust" />
+    <meta property="og:title" content="AI-Protocol Ecosystem | Unified Multi-Runtime AI SDK" />
     <meta
       property="og:description"
-      content="Unified multi-provider AI SDK for Rust: streaming, reliability, model strategy, under 1ms overhead."
+      content="AI-Protocol ecosystem: One specification, multiple runtimes. Unified AI model interaction for Protocol, Rust, and Python."
     />
     <meta property="og:image" content="/og-image.png" />
     <link rel="icon" href="/favicon.svg" />
@@ -39,15 +36,181 @@ const locale = 'en';
     <SiteHeader locale={locale} />
     <Hero locale={locale} />
     <ValueProps locale={locale} />
-    <section id="quickstart">
-      <InstallMD />
+
+    <!-- Three Projects Cards -->
+    <section class="projects-section">
+      <div class="container">
+        <h2 class="section-title">{isZh ? '三核心项目' : 'Core Projects'}</h2>
+        <div class="projects-grid">
+          <ProjectCard
+            locale={locale}
+            project="protocol"
+            version="0.4.0"
+            title="AI-Protocol"
+            titleZh="AI-Protocol 协议"
+            description="Specification for unified AI model interaction with declarative configuration and operator-based processing."
+            descriptionZh="统一 AI 模型交互规范定义，声明式配置和算子式处理架构。"
+            features="30+ Providers, Operator-based, Declarative Config"
+            featuresZh="30+ 提供商, 算子式架构, 声明式配置"
+            link="/protocol/"
+            icon="/icons/protocol.svg"
+          />
+          <ProjectCard
+            locale={locale}
+            project="rust"
+            version="0.6.6"
+            title="ai-lib-rust"
+            titleZh="ai-lib-rust 运行时"
+            description="High-performance Rust implementation with 14 architectural layers, type safety, and <1ms overhead."
+            descriptionZh="高性能 Rust 实现，14 层架构设计，类型安全，<1ms 开销。"
+            features="Type-safe, <1ms overhead, Enterprise-grade"
+            featuresZh="类型安全, <1ms 开销, 企业级可靠性"
+            link="/rust/"
+            icon="/icons/rust.svg"
+          />
+          <ProjectCard
+            locale={locale}
+            project="python"
+            version="0.5.0"
+            title="ai-lib-python"
+            titleZh="ai-lib-python 运行时"
+            description="Official Python runtime with 95% feature parity, Pydantic v2 type safety, and async support."
+            descriptionZh="官方 Python 运行时，95% 功能完整，Pydantic v2 类型安全，异步支持。"
+            features="PyPI published, Jupyter integration, 96% complete"
+            featuresZh="PyPI 已发布, Jupyter 集成, 96% 功能完整"
+            link="/python/"
+            icon="/icons/python.svg"
+          />
+        </div>
+      </div>
     </section>
+
+    <!-- Runtime Comparison -->
+    <section class="comparison-section">
+      <div class="container">
+        <h2 class="section-title">{isZh ? '运行时对比' : 'Runtime Comparison'}</h2>
+        <p class="section-subtitle">{isZh ? '选择合适的运行时' : 'Choose the right runtime'}</p>
+
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>AI-Protocol</th>
+              <th>Rust SDK</th>
+              <th>Python SDK</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Type System</td>
+              <td>YAML/JSON Schema</td>
+              <td>Compile-time check</td>
+              <td>Runtime type check</td>
+            </tr>
+            <tr>
+              <td>Performance</td>
+              <td>N/A</td>
+              <td><1ms overhead</td>
+              <td>~10-50ms</td>
+            </tr>
+            <tr>
+              <td>Ecosystem</td>
+              <td>30+ Providers</td>
+              <td>Crates.io</td>
+              <td>PyPI</td>
+            </tr>
+            <tr>
+              <td>Ideal For</td>
+              <td>Protocol implementers</td>
+              <td>Systems programming</td>
+              <td>ML/Data Science</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <Providers locale={locale} />
     <Performance locale={locale} />
     <Architecture locale={locale} />
-    <Support locale={locale} />
     <FAQ locale={locale} />
     <Footer locale={locale} />
     <BuildMeta />
   </body>
 </html>
+
+<style>
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .projects-section,
+  .comparison-section {
+    padding: 60px 0;
+  }
+
+  .section-title {
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 0 16px 0;
+    color: var(--color-primary, #0a2540);
+  }
+
+  .section-subtitle {
+    font-size: 18px;
+    text-align: center;
+    color: #64748b;
+    margin: 0 0 40px 0;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .comparison-table th {
+    background: #f8fafc;
+    font-weight: 600;
+    color: var(--color-primary, #0a2540);
+  }
+
+  .comparison-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .comparison-table tbody tr:hover {
+    background: #f8fafc;
+  }
+
+  @media (max-width: 768px) {
+    .comparison-table th,
+    .comparison-table td {
+      padding: 12px 8px;
+      font-size: 14px;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

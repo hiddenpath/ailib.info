@@ -1,0 +1,165 @@
+---
+interface Props {
+  locale?: 'en' | 'zh';
+  project: 'protocol' | 'rust' | 'python';
+  version: string;
+  title: string;
+  titleZh?: string;
+  description: string;
+  descriptionZh?: string;
+  features: string;
+  featuresZh?: string;
+  link: string;
+  icon: string;
+}
+
+const {
+  locale = 'en',
+  project,
+  version,
+  title,
+  titleZh,
+  description,
+  descriptionZh,
+  features,
+  featuresZh,
+  link,
+  icon
+} = Astro.props;
+
+const isZh = locale === 'zh';
+const displayTitle = isZh && titleZh ? titleZh : title;
+const displayDesc = isZh && descriptionZh ? descriptionZh : description;
+const displayFeatures = isZh && featuresZh ? featuresZh : features;
+
+// Split features by 、 (Chinese comma) or , (English comma)
+const featureList = displayFeatures.split(isZh ? '、' : ',').map(f => f.trim()).filter(f => f);
+---
+
+<div class={`project-card ${project}`}>
+  <div class="card-header">
+    <div class="icon-wrapper">
+      <span class="project-logo">{project === 'protocol' ? '📘' : project === 'rust' ? '🦀' : '🐍'}</span>
+    </div>
+    <div class="header-content">
+      <h3 class="project-title">{displayTitle}</h3>
+      <span class="version-badge">v{version}</span>
+    </div>
+  </div>
+
+  <p class="description">{displayDesc}</p>
+
+  <div class="features">
+    {featureList.map(feature => (
+      <span class="feature-tag">{feature}</span>
+    ))}
+  </div>
+
+  <a href={link} class="card-cta">
+    {isZh ? '了解更多 →' : 'Learn more →'}
+  </a>
+</div>
+
+<style>
+  .project-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    background: white;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    border-color: var(--color-accent, #3b82f6);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .icon-wrapper {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .project-logo {
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .header-content {
+    flex: 1;
+  }
+
+  .project-title {
+    margin: 0 0 4px 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .version-badge {
+    display: inline-block;
+    background: #f1f5f9;
+    color: #64748b;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .description {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+    flex: 1;
+  }
+
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .feature-tag {
+    background: #f0f9ff;
+    color: #0369a1;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .card-cta {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-accent, #3b82f6);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+
+  .card-cta:hover {
+    color: var(--color-accent-hover, #2563eb);
+  }
+
+  @media (max-width: 640px) {
+    .project-card {
+      padding: 20px;
+    }
+  }
+</style>
