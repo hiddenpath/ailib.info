@@ -171,5 +171,4 @@ If you're still unsure, try both! The APIs are designed to be similar, and you c
 - [ai-lib-rust Documentation](/rust/)
 - [ai-lib-python Documentation](/python/)
 - [AI-Protocol Specification](/protocol/)
-- [Performance Benchmarks](TODO)
 - [Example Projects](/examples/)

@@ -1,5 +1,4 @@
 ---
-import '../../styles/global.css';
 import SiteHeader from '../../components/SiteHeader.astro';
 import Hero from '../../components/Hero.astro';
 import ValueProps from '../../components/ValueProps.astro';
@@ -12,9 +11,10 @@ import Footer from '../../components/Footer.astro';
 import BuildMeta from '../../components/BuildMeta.astro';
 
 const locale = 'zh';
+const isZh = locale === 'zh';
 ---
 
-<html lang="zh-CN">
+<html lang="zh-CN" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <title>AI-Protocol 生态系统 | 统一多运行时 AI SDK</title>
@@ -24,15 +24,118 @@ const locale = 'zh';
     <meta property="og:description" content="统一 AI 模型交互：一个规范，多个运行时。" />
     <meta property="og:image" content="/og-image-zh.png" />
     <link rel="icon" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Outfit', sans-serif;
+      }
+    </style>
   </head>
-  <body>
+  <body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
     <SiteHeader locale={locale} />
     <Hero locale={locale} />
     <ValueProps locale={locale} />
 
-    <section class="projects-section" style="padding: 80px 0;">
-      <div class="container">
-        <h2 class="section-title" style="font-size: 32px; font-weight: 600; text-align: center;">三核心项目</h2>
+    <!-- Three Projects Cards -->
+    <section class="py-24 bg-slate-50 dark:bg-slate-900/50">
+      <div class="container mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">三核心项目</h2>
+          <div class="h-1.5 w-20 bg-blue-600 rounded-full mx-auto mb-6"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <ProjectCard
+            locale={locale}
+            project="protocol"
+            version="0.5.0"
+            title="AI-Protocol"
+            titleZh="AI-Protocol 协议"
+            description="Specification for unified AI model interaction with declarative configuration and operator-based processing."
+            descriptionZh="统一 AI 模型交互规范定义，声明式配置和算子式处理架构。"
+            features="30+ Providers, Operator-based, Declarative Config"
+            featuresZh="30+ 提供商, 算子式架构, 声明式配置"
+            link="/protocol/"
+            icon="/icons/protocol.svg"
+          />
+          <ProjectCard
+            locale={locale}
+            project="rust"
+            version="0.6.6"
+            title="ai-lib-rust"
+            titleZh="ai-lib-rust 运行时"
+            description="High-performance Rust implementation with 14 architectural layers, type safety, and <1ms overhead."
+            descriptionZh="高性能 Rust 实现，14 层架构设计，类型安全，<1ms 开销。"
+            features="Type-safe, <1ms overhead, Enterprise-grade"
+            featuresZh="类型安全, <1ms 开销, 企业级可靠性"
+            link="/rust/"
+            icon="/icons/rust.svg"
+          />
+          <ProjectCard
+            locale={locale}
+            project="python"
+            version="0.5.0"
+            title="ai-lib-python"
+            titleZh="ai-lib-python 运行时"
+            description="Official Python runtime with 95% feature parity, Pydantic v2 type safety, and async support."
+            descriptionZh="官方 Python 运行时，95% 功能完整，Pydantic v2 类型安全，异步支持。"
+            features="PyPI published, Jupyter integration, 96% complete"
+            featuresZh="PyPI 已发布, Jupyter 集成, 96% 功能完整"
+            link="/python/"
+            icon="/icons/python.svg"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Runtime Comparison -->
+    <section class="py-24">
+      <div class="container mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">运行时对比</h2>
+          <p class="text-xl text-slate-600 dark:text-slate-400">选择合适的运行时</p>
+        </div>
+
+        <div class="overflow-x-auto rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800">
+          <table class="w-full text-left border-collapse bg-white dark:bg-slate-900">
+            <thead>
+              <tr class="bg-slate-50 dark:bg-slate-800/50">
+                <th class="p-6 font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-800">Feature</th>
+                <th class="p-6 font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-800">AI-Protocol</th>
+                <th class="p-6 font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-800">Rust SDK</th>
+                <th class="p-6 font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-800">Python SDK</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+              <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                <td class="p-6 font-medium text-slate-900 dark:text-white">Type System</td>
+                <td class="p-6 text-slate-600 dark:text-slate-400">YAML/JSON Schema</td>
+                <td class="p-6 text-slate-600 dark:text-slate-400"><span class="px-2 py-1 rounded bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-sm">Compile-time</span></td>
+                <td class="p-6 text-slate-600 dark:text-slate-400"><span class="px-2 py-1 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm">Runtime (Pydantic)</span></td>
+              </tr>
+              <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                <td class="p-6 font-medium text-slate-900 dark:text-white">Performance</td>
+                <td class="p-6 text-slate-600 dark:text-slate-400">N/A</td>
+                <td class="p-6 text-slate-600 dark:text-slate-400 font-mono text-sm tracking-tight"><span class="text-blue-600 dark:text-blue-400 font-bold">&lt; 1ms</span> overhead</td>
+                <td class="p-6 text-slate-600 dark:text-slate-400 font-mono text-sm tracking-tight">10-50ms</td>
+              </tr>
+              <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                <td class="p-6 font-medium text-slate-900 dark:text-white">Distribution</td>
+                <td class="p-6 text-slate-600 dark:text-slate-400">GitHub Assets</td>
+                <td class="p-6 text-slate-600 dark:text-slate-400">Crates.io</td>
+                <td class="p-6 text-slate-600 dark:text-slate-400">PyPI</td>
+              </tr>
+              <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                <td class="p-6 font-medium text-slate-900 dark:text-white">Ideal For</td>
+                <td class="p-6 text-slate-600 dark:text-slate-400 italic">Specification & Standards</td>
+                <td class="p-6 text-slate-600 dark:text-slate-400 italic">Systems & High-Perf</td>
+                <td class="p-6 text-slate-600 dark:text-slate-400 italic">ML, Data & Prototyping</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 
@@ -40,15 +143,8 @@ const locale = 'zh';
     <Performance locale={locale} />
     <Architecture locale={locale} />
     <FAQ locale={locale} />
-    <Footer locale={locale} />
-    <BuildMeta />
   </body>
-</html>
 
-<style>
-  .container {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-</style>
+  <Footer locale={locale} />
+  <BuildMeta />
+</html>

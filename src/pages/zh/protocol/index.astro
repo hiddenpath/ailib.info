@@ -1,25 +1,23 @@
 ---
-import '../../styles/global.css';
-import SiteHeader from '../../components/SiteHeader.astro';
-import Footer from '../../components/Footer.astro';
-import BuildMeta from '../../components/BuildMeta.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import Footer from '../../../components/Footer.astro';
+import BuildMeta from '../../../components/BuildMeta.astro';
 
-const locale = 'en';
+const locale = 'zh';
 const isZh = locale === 'zh';
-const providerCount = 30;
 const heroDescEn = 'Data-driven declarative runtime specification for normalizing AI models. Unified interfaces for 30+ providers.';
 const heroDescZh = '数据驱动的声明式运行时规范，统一 AI 模型交互。支持 30+ 提供商的统一接口。';
 const heroDesc = isZh ? heroDescZh : heroDescEn;
 ---
 
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
-    <title>AI-Protocol Specification | ailib.info</title>
-    <meta name="description" content="AI-Protocol: Data-driven declarative runtime specification for AI models." />
-    <meta property="og:title" content="AI-Protocol Specification" />
-    <meta property="og:description" content="Unified AI model interaction with 30+ providers." />
-    <meta property="og:image" content="/og-image.png" />
+    <title>AI-Protocol 规范 | ailib.info</title>
+    <meta name="description" content="AI-Protocol: 数据驱动的声明式运行时规范，用于统一 AI 模型交互。" />
+    <meta property="og:title" content="AI-Protocol 规范" />
+    <meta property="og:description" content="统一 AI 模型交互，支持 30+ 提供商。" />
+    <meta property="og:image" content="/og-image-zh.png" />
     <link rel="icon" href="/favicon.svg" />
   </head>
   <body>
@@ -34,10 +32,10 @@ const heroDesc = isZh ? heroDescZh : heroDescEn;
 
           <div class="cta-group">
             <a href="https://github.com/hiddenpath/ai-protocol" target="_blank" class="btn primary">
-              GitHub Repository
+              GitHub 仓库
             </a>
             <a href="/protocol/docs/" class="btn secondary">
-              Documentation
+              文档
             </a>
           </div>
         </div>
@@ -45,31 +43,31 @@ const heroDesc = isZh ? heroDescZh : heroDescEn;
 
       <section class="features">
         <div class="container">
-          <h2 class="section-title">Key Features</h2>
+          <h2 class="section-title">核心特性</h2>
 
           <div class="feature-grid">
             <div class="feature">
               <div class="feature-icon">📋</div>
-              <h3>Declarative Config</h3>
-              <p>Define models with YAML/JSON, no hardcoding</p>
+              <h3>声明式配置</h3>
+              <p>使用 YAML/JSON 定义模型，无需硬编码</p>
             </div>
 
             <div class="feature">
               <div class="feature-icon">🔗</div>
-              <h3>Provider Abstraction</h3>
-              <p>Unified interface for 30+ AI providers</p>
+              <h3>提供商抽象</h3>
+              <p>统一接口支持 30+ AI 提供商</p>
             </div>
 
             <div class="feature">
               <div class="feature-icon">🔢</div>
-              <h3>Data-State Rulebook</h3>
-              <p>Data-based operators, not hardcoded logic</p>
+              <h3>数据状态规则</h3>
+              <p>基于数据的算子，而非硬编码逻辑</p>
             </div>
 
             <div class="feature">
               <div class="feature-icon">🌐</div>
-              <h3>Global Coverage</h3>
-              <p>Support for global and China-region providers</p>
+              <h3>全球覆盖</h3>
+              <p>支持全球和中国地区提供商</p>
             </div>
           </div>
         </div>
@@ -77,40 +75,40 @@ const heroDesc = isZh ? heroDescZh : heroDescEn;
 
       <section class="architecture">
         <div class="container">
-          <h2 class="section-title">Architecture Layers</h2>
+          <h2 class="section-title">架构层级</h2>
 
           <div class="layers-diagram">
-            <div class="layer layer-app">Application</div>
+            <div class="layer layer-app">应用程序</div>
             <div class="layer-arrow">↓</div>
-            <div class="layer layer-runtime">Runtime (ai-lib-rust / ai-lib-python)</div>
+            <div class="layer layer-runtime">运行时 (ai-lib-rust / ai-lib-python)</div>
             <div class="layer-arrow">↓</div>
-            <div class="layer layer-protocol">AI-Protocol (Spec)</div>
+            <div class="layer layer-protocol">AI-Protocol (规范)</div>
             <div class="layer-arrow">↓</div>
-            <div class="layer layer-providers">AI Providers (30+)</div>
+            <div class="layer layer-providers">AI 提供商 (30+)</div>
           </div>
         </div>
       </section>
 
       <section class="stats">
         <div class="container">
-          <h2 class="section-title">Coverage</h2>
+          <h2 class="section-title">覆盖范围</h2>
 
           <div class="stats-grid">
             <div class="stat">
-              <div class="number">{providerCount}+</div>
-              <div class="label">Supported Providers</div>
+              <div class="number">30+</div>
+              <div class="label">支持的提供商</div>
             </div>
             <div class="stat">
               <div class="number">2</div>
-              <div class="label">Official Runtimes</div>
+              <div class="label">官方运行时</div>
             </div>
             <div class="stat">
               <div class="number">48k+</div>
-              <div class="label">Documentation Words</div>
+              <div class="label">文档字数</div>
             </div>
             <div class="stat">
               <div class="number">5</div>
-              <div class="label">Example Configs</div>
+              <div class="label">示例配置</div>
             </div>
           </div>
         </div>
@@ -118,7 +116,7 @@ const heroDesc = isZh ? heroDescZh : heroDescEn;
 
       <section class="providers">
         <div class="container">
-          <h2 class="section-title">Popular Providers</h2>
+          <h2 class="section-title">热门提供商</h2>
 
           <div class="provider-tags">
             <span class="provider-tag">OpenAI</span>
@@ -136,13 +134,13 @@ const heroDesc = isZh ? heroDescZh : heroDescEn;
 
       <section class="resources">
         <div class="container">
-          <h2 class="section-title">Quick Links</h2>
+          <h2 class="section-title">快速链接</h2>
 
           <ul class="link-list">
-            <li><a href="https://github.com/hiddenpath/ai-protocol/tree/main/docs" target="_blank">Complete Protocol Documentation</a></li>
-            <li><a href="https://github.com/hiddenpath/ai-protocol/tree/main/examples" target="_blank">Example Configurations</a></li>
-            <li><a href="https://github.com/hiddenpath/ai-protocol/blob/main/README.md" target="_blank">Full README</a></li>
-            <li><a href="https://github.com/hiddenpath/ai-protocol/releases" target="_blank">Release Notes</a></li>
+            <li><a href="https://github.com/hiddenpath/ai-protocol/tree/main/docs" target="_blank">完整的协议文档</a></li>
+            <li><a href="https://github.com/hiddenpath/ai-protocol/tree/main/examples" target="_blank">示例配置</a></li>
+            <li><a href="https://github.com/hiddenpath/ai-protocol/blob/main/README.md" target="_blank">完整 README</a></li>
+            <li><a href="https://github.com/hiddenpath/ai-protocol/releases" target="_blank">发布说明</a></li>
           </ul>
         </div>
       </section>
