@@ -129,5 +129,5 @@ print(f"Rate remaining: {signals.rate_remaining}")
 
 ## Next Steps
 
-- **[Advanced Features](/docs/python/advanced/)** — Telemetry, routing, plugins
-- **[AiClient API](/docs/python/client/)** — Client usage
+- **[Advanced Features](/python/advanced/)** — Telemetry, routing, plugins
+- **[AiClient API](/python/client/)** — Client usage

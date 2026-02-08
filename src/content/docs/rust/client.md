@@ -152,6 +152,6 @@ match client.chat().user("Hello").execute().await {
 
 ## Next Steps
 
-- **[Streaming Pipeline](/docs/rust/streaming/)** — How the pipeline processes streams
-- **[Resilience](/docs/rust/resilience/)** — Reliability patterns
-- **[Advanced Features](/docs/rust/advanced/)** — Embeddings, cache, plugins
+- **[Streaming Pipeline](/rust/streaming/)** — How the pipeline processes streams
+- **[Resilience](/rust/resilience/)** — Reliability patterns
+- **[Advanced Features](/rust/advanced/)** — Embeddings, cache, plugins

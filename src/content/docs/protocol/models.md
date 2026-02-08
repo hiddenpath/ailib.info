@@ -106,5 +106,5 @@ verification:
 
 ## Next Steps
 
-- **[Contributing Providers](/docs/protocol/contributing/)** — Add new providers and models
-- **[Quick Start](/docs/quickstart/)** — Start using models with the runtimes
+- **[Contributing Providers](/protocol/contributing/)** — Add new providers and models
+- **[Quick Start](/quickstart/)** — Start using models with the runtimes

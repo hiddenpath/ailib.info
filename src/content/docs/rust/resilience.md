@@ -91,5 +91,5 @@ let inflight = client.current_inflight();
 
 ## Next Steps
 
-- **[Advanced Features](/docs/rust/advanced/)** — Embeddings, cache, plugins
-- **[AiClient API](/docs/rust/client/)** — Client usage
+- **[Advanced Features](/rust/advanced/)** — Embeddings, cache, plugins
+- **[AiClient API](/rust/client/)** — Client usage

@@ -89,5 +89,5 @@ The pipeline also includes resilience operators:
 
 ## Next Steps
 
-- **[Resilience](/docs/rust/resilience/)** — Circuit breaker, rate limiter
-- **[Advanced Features](/docs/rust/advanced/)** — Embeddings, cache, batch
+- **[Resilience](/rust/resilience/)** — Circuit breaker, rate limiter
+- **[Advanced Features](/rust/advanced/)** — Embeddings, cache, batch

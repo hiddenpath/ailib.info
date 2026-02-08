@@ -88,6 +88,6 @@ They operate at different layers and can be used together.
 
 ## Next Steps
 
-- **[AI-Protocol Overview](/docs/protocol/overview/)** — Deep dive into the specification
-- **[Rust SDK](/docs/rust/overview/)** — Explore the Rust runtime
-- **[Python SDK](/docs/python/overview/)** — Explore the Python runtime
+- **[AI-Protocol Overview](/protocol/overview/)** — Deep dive into the specification
+- **[Rust SDK](/rust/overview/)** — Explore the Rust runtime
+- **[Python SDK](/python/overview/)** — Explore the Python runtime

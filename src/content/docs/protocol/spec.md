@@ -102,5 +102,5 @@ Providers are categorized into API families to prevent request/response format c
 
 ## Next Steps
 
-- **[Provider Manifests](/docs/protocol/providers/)** — How provider configs work
-- **[Model Registry](/docs/protocol/models/)** — Model configuration details
+- **[Provider Manifests](/protocol/providers/)** — How provider configs work
+- **[Model Registry](/protocol/models/)** — Model configuration details

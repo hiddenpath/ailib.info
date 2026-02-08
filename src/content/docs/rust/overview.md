@@ -92,7 +92,7 @@ Optional features enabled via Cargo:
 
 ## Next Steps
 
-- **[Quick Start](/docs/rust/quickstart/)** — Get running in minutes
-- **[AiClient API](/docs/rust/client/)** — Client usage details
-- **[Streaming Pipeline](/docs/rust/streaming/)** — Pipeline deep dive
-- **[Resilience](/docs/rust/resilience/)** — Reliability patterns
+- **[Quick Start](/rust/quickstart/)** — Get running in minutes
+- **[AiClient API](/rust/client/)** — Client usage details
+- **[Streaming Pipeline](/rust/streaming/)** — Pipeline deep dive
+- **[Resilience](/rust/resilience/)** — Reliability patterns

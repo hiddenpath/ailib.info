@@ -90,7 +90,7 @@ Requires **Python 3.10+**.
 
 ## Next Steps
 
-- **[Quick Start](/docs/python/quickstart/)** — Get running fast
-- **[AiClient API](/docs/python/client/)** — Detailed API guide
-- **[Streaming Pipeline](/docs/python/streaming/)** — Pipeline internals
-- **[Resilience](/docs/python/resilience/)** — Reliability patterns
+- **[Quick Start](/python/quickstart/)** — Get running fast
+- **[AiClient API](/python/client/)** — Detailed API guide
+- **[Streaming Pipeline](/python/streaming/)** — Pipeline internals
+- **[Resilience](/python/resilience/)** — Reliability patterns

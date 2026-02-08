@@ -157,6 +157,6 @@ except AiLibError as e:
 
 ## Next Steps
 
-- **[Streaming Pipeline](/docs/python/streaming/)** — Pipeline internals
-- **[Resilience](/docs/python/resilience/)** — Reliability patterns
-- **[Advanced Features](/docs/python/advanced/)** — Telemetry, routing, plugins
+- **[Streaming Pipeline](/python/streaming/)** — Pipeline internals
+- **[Resilience](/python/resilience/)** — Reliability patterns
+- **[Advanced Features](/python/advanced/)** — Telemetry, routing, plugins

@@ -52,8 +52,8 @@ Developer-friendly runtime. Full async/await support, Pydantic v2 type safety, p
 
 ## Next Steps
 
-- **[Quick Start](/docs/quickstart/)** — Get up and running in minutes
-- **[Ecosystem Architecture](/docs/ecosystem/)** — Understand how the pieces fit together
-- **[AI-Protocol](/docs/protocol/overview/)** — Dive into the specification
-- **[Rust SDK](/docs/rust/overview/)** — Start with Rust
-- **[Python SDK](/docs/python/overview/)** — Start with Python
+- **[Quick Start](/quickstart/)** — Get up and running in minutes
+- **[Ecosystem Architecture](/ecosystem/)** — Understand how the pieces fit together
+- **[AI-Protocol](/protocol/overview/)** — Dive into the specification
+- **[Rust SDK](/rust/overview/)** — Start with Rust
+- **[Python SDK](/python/overview/)** — Start with Python

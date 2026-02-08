@@ -127,7 +127,7 @@ AI-Protocol uses layered versioning:
 
 ## Next Steps
 
-- **[Specification Details](/docs/protocol/spec/)** — Core spec deep dive
-- **[Provider Manifests](/docs/protocol/providers/)** — How manifests work
-- **[Model Registry](/docs/protocol/models/)** — Model configuration
-- **[Contributing Providers](/docs/protocol/contributing/)** — Add a new provider
+- **[Specification Details](/protocol/spec/)** — Core spec deep dive
+- **[Provider Manifests](/protocol/providers/)** — How manifests work
+- **[Model Registry](/protocol/models/)** — Model configuration
+- **[Contributing Providers](/protocol/contributing/)** — Add a new provider

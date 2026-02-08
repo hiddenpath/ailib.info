@@ -136,5 +136,5 @@ capabilities:
 
 ## Next Steps
 
-- **[Model Registry](/docs/protocol/models/)** — How models are configured
-- **[Contributing Providers](/docs/protocol/contributing/)** — Add a new provider
+- **[Model Registry](/protocol/models/)** — How models are configured
+- **[Contributing Providers](/protocol/contributing/)** — Add a new provider

@@ -97,5 +97,5 @@ async for event in client.chat().user("...").stream(cancel_token=token):
 
 ## Next Steps
 
-- **[Resilience](/docs/python/resilience/)** — Reliability patterns
-- **[Advanced Features](/docs/python/advanced/)** — Telemetry, routing, plugins
+- **[Resilience](/python/resilience/)** — Reliability patterns
+- **[Advanced Features](/python/advanced/)** — Telemetry, routing, plugins

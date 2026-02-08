@@ -138,7 +138,7 @@ client = await AiClient.create("qwen/qwen-plus")
 
 ## Next Steps
 
-- **[AiClient API](/docs/python/client/)** — Full API reference
-- **[Streaming Pipeline](/docs/python/streaming/)** — How streaming works
-- **[Resilience](/docs/python/resilience/)** — Circuit breaker, rate limiting
-- **[Advanced Features](/docs/python/advanced/)** — Telemetry, routing, plugins
+- **[AiClient API](/python/client/)** — Full API reference
+- **[Streaming Pipeline](/python/streaming/)** — How streaming works
+- **[Resilience](/python/resilience/)** — Circuit breaker, rate limiting
+- **[Advanced Features](/python/advanced/)** — Telemetry, routing, plugins

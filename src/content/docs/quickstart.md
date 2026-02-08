@@ -130,8 +130,8 @@ No code changes needed. The protocol manifest handles endpoint, auth, parameter 
 
 ## Next Steps
 
-- **[Ecosystem Architecture](/docs/ecosystem/)** — How the pieces fit together
-- **[Chat Completions Guide](/docs/guides/chat/)** — Detailed chat API usage
-- **[Function Calling](/docs/guides/tools/)** — Tool use and function calling
-- **[Rust SDK Details](/docs/rust/overview/)** — Deep dive into Rust
-- **[Python SDK Details](/docs/python/overview/)** — Deep dive into Python
+- **[Ecosystem Architecture](/ecosystem/)** — How the pieces fit together
+- **[Chat Completions Guide](/guides/chat/)** — Detailed chat API usage
+- **[Function Calling](/guides/tools/)** — Tool use and function calling
+- **[Rust SDK Details](/rust/overview/)** — Deep dive into Rust
+- **[Python SDK Details](/python/overview/)** — Deep dive into Python

@@ -154,7 +154,7 @@ println!("Latency: {}ms", stats.latency_ms);
 
 ## Next Steps
 
-- **[AiClient API](/docs/rust/client/)** — Detailed API reference
-- **[Streaming Pipeline](/docs/rust/streaming/)** — How streaming works
-- **[Resilience](/docs/rust/resilience/)** — Circuit breaker, rate limiting
-- **[Advanced Features](/docs/rust/advanced/)** — Embeddings, cache, plugins
+- **[AiClient API](/rust/client/)** — Detailed API reference
+- **[Streaming Pipeline](/rust/streaming/)** — How streaming works
+- **[Resilience](/rust/resilience/)** — Circuit breaker, rate limiting
+- **[Advanced Features](/rust/advanced/)** — Embeddings, cache, plugins
