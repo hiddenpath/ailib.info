@@ -11,24 +11,40 @@ ai-lib follows a layered architecture that separates concerns and enables extens
 
 ## High-Level Architecture
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Your Application                         │
-└───────────────▲─────────────────────────▲───────────────────┘
-                │                         │
-        High-Level API             Advanced Controls
-                │                         │
-        AiClient / Builder   ←  Model Mgmt / Metrics / Batch / Tools
-                │
-        ┌────────── Unified Abstraction Layer ────────────┐
-        │  Provider Adapters (Hybrid: Config + Independent)│
-        └──────┬────────────┬────────────┬────────────────┘
-               │            │            │
-        OpenAI / Groq   Gemini / Mistral  Ollama / Regional / Others
-               │
-        Transport (HTTP + Streaming + Retry + Proxy + Timeout)
-               │
-        Common Types (Request / Messages / Content / Tools / Errors)
+```mermaid
+flowchart TB
+    subgraph Apps["Your Applications"]
+        App["Web/CLI/Service"]
+    end
+
+    subgraph Facade["Public Facade"]
+        Client["AiClient / Builder"]
+    end
+
+    subgraph Logic["Core Logic"]
+        direction LR
+        Registry["Model Registry"]
+        Config["Config Mgmt"]
+        Scaling["Metrics / Batch / Tools"]
+    end
+
+    subgraph Adapters["Provider Adapters"]
+        OpenAI["OpenAI / Groq"]
+        Gemini["Gemini / Mistral"]
+        Vendor["Other Vendors"]
+    end
+
+    subgraph Transport["Transport Layer"]
+        direction TB
+        Retry["Retry / Circuit Breaker / Rate Limit"]
+        HTTP["HTTP Execution (reqwest)"]
+    end
+
+    App --> Client
+    Client --> Registry & Config & Scaling
+    Registry & Config --> Adapters
+    Adapters --> Retry
+    Retry --> HTTP
 ```
 
 ## Module Structure
@@ -93,10 +109,7 @@ use ai_lib::transport::{HttpTransport, DynHttpTransport};
 let transport = HttpTransport::new()?;
 
 // Custom transport implementation
-struct CustomTransport;
-impl DynHttpTransport for CustomTransport {
-    // Custom implementation
-}
+let transport = CustomTransport::new();
 ```
 
 **Performance Optimizations:**
@@ -157,62 +170,6 @@ let array = ModelArray::new("production")
 4. **Tool Execution**: Execute external functions
 5. **Result Integration**: Feed results back to model
 
-## Extensibility Points
-
-### Custom Transport
-
-Implement `DynHttpTransport` for custom HTTP handling:
-
-```rust
-use ai_lib::transport::DynHttpTransport;
-
-struct CustomTransport;
-
-#[async_trait]
-impl DynHttpTransport for CustomTransport {
-    async fn post(&self, url: &str, body: &[u8]) -> Result<Vec<u8>, TransportError> {
-        // Custom HTTP implementation
-    }
-}
-```
-
-### Custom Metrics
-
-Implement `Metrics` trait for observability:
-
-```rust
-use ai_lib::metrics::{Metrics, Timer};
-
-struct PrometheusMetrics;
-
-#[async_trait]
-impl Metrics for PrometheusMetrics {
-    async fn incr_counter(&self, name: &str, value: u64) {
-        // Prometheus counter implementation
-    }
-    
-    async fn start_timer(&self, name: &str) -> Option<Box<dyn Timer + Send>> {
-        // Prometheus timer implementation
-    }
-}
-```
-
-### Custom Model Manager
-
-Implement custom model selection strategies:
-
-```rust
-use ai_lib::provider::models::{ModelSelectionStrategy, ModelInfo};
-
-struct CustomStrategy;
-
-impl ModelSelectionStrategy for CustomStrategy {
-    fn select_model(&self, models: &[ModelInfo]) -> Option<&ModelInfo> {
-        // Custom selection logic
-    }
-}
-```
-
 ## Design Principles
 
 1. **Unified Interface**: Same API across all providers
@@ -221,14 +178,6 @@ impl ModelSelectionStrategy for CustomStrategy {
 4. **Reliability**: Built-in retry, circuit breaker, and error handling
 5. **Performance**: Direct HTTP client integration, minimal abstraction overhead
 6. **Type Safety**: Strong typing throughout the API
-
-## Future Enhancements
-
-- **Caching Layer**: Request/response caching
-- **WebSocket Support**: Native WebSocket streaming
-- **GraphQL Interface**: GraphQL API surface
-- **Plugin System**: Dynamic plugin loading
-- **Configuration Hot-reload**: Runtime configuration updates
 
 ## Next Steps
 

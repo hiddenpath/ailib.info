@@ -1,0 +1,79 @@
+/* Custom styles for Starlight theme */
+
+/* Color customization for AI-Protocol branding */
+:root {
+  --sl-color-accent-low: #1e3a5f;
+  --sl-color-accent: #3b82f6;
+  --sl-color-accent-high: #60a5fa;
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #eceef2;
+  --sl-color-gray-2: #c0c2c7;
+  --sl-color-gray-3: #888b96;
+  --sl-color-gray-4: #545861;
+  --sl-color-gray-5: #353841;
+  --sl-color-gray-6: #24272f;
+  --sl-color-black: #0a0c10;
+}
+
+/* Dark mode (default for developer docs) */
+:root[data-theme='dark'] {
+  --sl-color-bg: #0d1117;
+  --sl-color-bg-nav: #161b22;
+  --sl-color-bg-sidebar: #0d1117;
+  --sl-color-hairline-light: #30363d;
+  --sl-color-hairline: #30363d;
+}
+
+/* Light mode */
+:root[data-theme='light'] {
+  --sl-color-bg: #ffffff;
+  --sl-color-bg-nav: #f6f8fa;
+  --sl-color-bg-sidebar: #f6f8fa;
+}
+
+/* Custom heading styles */
+.sl-markdown-content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.sl-markdown-content h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  border-bottom: 1px solid var(--sl-color-hairline);
+  padding-bottom: 0.5rem;
+}
+
+/* Code block styling */
+.sl-markdown-content pre {
+  border-radius: 8px;
+  border: 1px solid var(--sl-color-hairline);
+}
+
+/* Accent color badges for different runtimes */
+.runtime-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.runtime-badge.rust {
+  background: rgba(249, 115, 22, 0.15);
+  color: #f97316;
+}
+
+.runtime-badge.python {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.runtime-badge.protocol {
+  background: rgba(139, 92, 246, 0.15);
+  color: #8b5cf6;
+}

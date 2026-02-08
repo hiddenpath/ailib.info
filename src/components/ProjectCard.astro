@@ -34,132 +34,41 @@ const displayFeatures = isZh && featuresZh ? featuresZh : features;
 
 // Split features by 、 (Chinese comma) or , (English comma)
 const featureList = displayFeatures.split(isZh ? '、' : ',').map(f => f.trim()).filter(f => f);
+
+const projectColors = {
+  protocol: 'from-blue-500 to-indigo-600',
+  rust: 'from-orange-500 to-red-600',
+  python: 'from-blue-400 to-sky-600'
+};
 ---
 
-<div class={`project-card ${project}`}>
-  <div class="card-header">
-    <div class="icon-wrapper">
-      <span class="project-logo">{project === 'protocol' ? '📘' : project === 'rust' ? '🦀' : '🐍'}</span>
+<div class="group relative flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-1">
+  <div class="flex items-center gap-4 mb-6">
+    <div class={`w-14 h-14 rounded-xl bg-gradient-to-br ${projectColors[project]} flex items-center justify-center text-3xl shadow-lg shadow-current/20`}>
+      {project === 'protocol' ? '📘' : project === 'rust' ? '🦀' : '🐍'}
     </div>
-    <div class="header-content">
-      <h3 class="project-title">{displayTitle}</h3>
-      <span class="version-badge">v{version}</span>
+    <div class="flex-1">
+      <h3 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">{displayTitle}</h3>
+      <span class="inline-block bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-bold px-2 py-1 rounded-md mt-1">v{version}</span>
     </div>
   </div>
 
-  <p class="description">{displayDesc}</p>
+  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-8 flex-1">
+    {displayDesc}
+  </p>
 
-  <div class="features">
+  <div class="flex flex-wrap gap-2 mb-8">
     {featureList.map(feature => (
-      <span class="feature-tag">{feature}</span>
+      <span class="px-3 py-1 bg-slate-50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-400 text-xs font-medium rounded-lg border border-slate-100 dark:border-slate-700/50">
+        {feature}
+      </span>
     ))}
   </div>
 
-  <a href={link} class="card-cta">
-    {isZh ? '了解更多 →' : 'Learn more →'}
+  <a href={link} class="inline-flex items-center font-bold text-sm text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform">
+    {isZh ? '了解更多' : 'Learn more'}
+    <svg class="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+    </svg>
   </a>
 </div>
-
-<style>
-  .project-card {
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 24px;
-    background: white;
-    transition: all 0.2s;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .project-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
-    border-color: var(--color-accent, #3b82f6);
-  }
-
-  .card-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 16px;
-  }
-
-  .icon-wrapper {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .project-logo {
-    font-size: 24px;
-    line-height: 1;
-  }
-
-  .header-content {
-    flex: 1;
-  }
-
-  .project-title {
-    margin: 0 0 4px 0;
-    font-size: 18px;
-    font-weight: 600;
-  }
-
-  .version-badge {
-    display: inline-block;
-    background: #f1f5f9;
-    color: #64748b;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 500;
-  }
-
-  .description {
-    color: #64748b;
-    font-size: 14px;
-    line-height: 1.6;
-    margin: 0 0 16px 0;
-    flex: 1;
-  }
-
-  .features {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-
-  .feature-tag {
-    background: #f0f9ff;
-    color: #0369a1;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 500;
-  }
-
-  .card-cta {
-    display: inline-flex;
-    align-items: center;
-    color: var(--color-accent, #3b82f6);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 14px;
-    transition: color 0.2s;
-  }
-
-  .card-cta:hover {
-    color: var(--color-accent-hover, #2563eb);
-  }
-
-  @media (max-width: 640px) {
-    .project-card {
-      padding: 20px;
-    }
-  }
-</style>

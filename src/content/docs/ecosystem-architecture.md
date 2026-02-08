@@ -2,135 +2,132 @@
 title: Ecosystem Architecture
 group: introduction
 order: 1
+description: Visual guide to the AI-Protocol ecosystem architecture
 ---
 
 # AI-Protocol Ecosystem Architecture
 
-## Overview
+This document provides visual architecture diagrams and detailed explanations of how the AI-Protocol ecosystem components interact.
 
-The AI-Protocol ecosystem provides a unified approach to interacting with AI models across multiple providers and programming languages. It consists of three core components:
+## Ecosystem Overview
 
-1. **AI-Protocol** - The specification layer that defines how to interact with AI models
-2. **ai-lib-rust** - High-performance Rust implementation
-3. **ai-lib-python** - Official Python implementation
+```mermaid
+flowchart TB
+    subgraph Apps["Your Applications"]
+        App1["Web App"]
+        App2["CLI Tool"]
+        App3["ML Pipeline"]
+    end
 
-## Layered Architecture
+    subgraph Runtimes["Runtime Implementations"]
+        Rust["<b>ai-lib-rust</b><br/>v0.6.6<br/>High Performance"]
+        Python["<b>ai-lib-python</b><br/>v0.5.0<br/>ML Focused"]
+    end
 
+    subgraph Protocol["AI-Protocol Specification"]
+        Manifests["Provider Manifests"]
+        Models["Model Registry"]
+        Operators["Operator System"]
+    end
+
+    subgraph Providers["30+ AI Providers"]
+        Global["Global: OpenAI, Anthropic, Groq, Gemini"]
+        China["China: Qwen, DeepSeek, Zhipu, Moonshot"]
+        Local["Local: Ollama, vLLM, LocalAI"]
+    end
+
+    Apps --> Runtimes
+    Runtimes --> Protocol
+    Protocol --> Providers
+
+    style Rust fill:#f97316,color:#fff
+    style Python fill:#22c55e,color:#fff
+    style Protocol fill:#8b5cf6,color:#fff
 ```
-┌────────────────────────────────────┐
-│         Application Layer          │  ← Your code
-├────────────────────────────────────┤
-│   Runtime Implementations         │
-│   ├─ ai-lib-rust (v0.6.6)         │  ← Choose Rust for performance
-│   └─ ai-lib-python (v0.5.0)       │  ← Choose Python for flexibility
-├────────────────────────────────────┤
-│         AI-Protocol                │  ← v0.4.0 Specification
-│   - Provider Abstraction          │
-│   - Data-State Rulebook           │
-│   - Operator-Based Processing     │
-├────────────────────────────────────┤
-│   AI Providers (30+)              │  ← OpenAI, Groq, Anthropic, etc.
-└────────────────────────────────────┘
+
+## Runtime Architecture Comparison
+
+```mermaid
+graph LR
+    subgraph ai-lib-rust["ai-lib-rust (14 Layers)"]
+        direction TB
+        R1["Protocol Layer"]
+        R2["Manifest Loader"]
+        R3["Model Registry"]
+        R4["Pipeline Engine"]
+        R5["Interceptors"]
+        R6["Retry/Circuit Breaker"]
+        R7["Rate Limiter"]
+        R8["Request Builder"]
+        R9["Transport (HTTP)"]
+        R1 --> R2 --> R3 --> R4 --> R5 --> R6 --> R7 --> R8 --> R9
+    end
+
+    subgraph ai-lib-python["ai-lib-python (7 Layers)"]
+        direction TB
+        P1["Protocol Layer"]
+        P2["Client Interface"]
+        P3["Provider Adapters"]
+        P4["Retry Logic"]
+        P5["Transport (httpx)"]
+        P1 --> P2 --> P3 --> P4 --> P5
+    end
+
+    style ai-lib-rust fill:#1e293b,color:#fff
+    style ai-lib-python fill:#1e3a2f,color:#fff
 ```
 
-## Core Principles
+## Request Flow
 
-### 1. Protocol-Driven Design
+```mermaid
+sequenceDiagram
+    participant App as Application
+    participant RT as Runtime
+    participant Proto as Protocol
+    participant Prov as Provider API
 
-Every interaction with AI models is defined by the AI-Protocol specification. This means:
+    App->>RT: chat.complete(model, messages)
+    RT->>Proto: Validate & Route
+    Proto->>Proto: Select Provider
+    Proto->>RT: Provider Config
+    RT->>Prov: HTTP Request
+    Prov-->>RT: Response
+    RT->>Proto: Parse Response
+    Proto-->>RT: Normalized Data
+    RT-->>App: Unified Response
+```
 
-- **No hard-coded provider logic**: All provider-specific behavior is configured through manifests
-- **Declarative configuration**: YAML/JSON files define models, parameters, and routing
-- **Version-stable**: Protocol changes are versioned, allowing runtimes to track compatibility
+## Provider Support Matrix
 
-### 2. Multi-Runtime Support
+| Category | Providers | Status |
+|----------|-----------|--------|
+| **Global Tier 1** | OpenAI, Anthropic, Gemini | ✅ Full |
+| **Global Tier 2** | Groq, Mistral, Cohere, Perplexity | ✅ Full |
+| **China Region** | Qwen, DeepSeek, Zhipu, Moonshot | ✅ Full |
+| **Self-Hosted** | Ollama, vLLM, LocalAI | ✅ Full |
+| **Specialized** | Together, Fireworks, DeepInfra | ✅ Full |
 
-Different programming languages have different strengths:
+## Key Design Principles
 
-- **Rust Runtime**: Built for systems programming, embedded devices, and high-performance use cases
-  - <1ms overhead
-  - Compile-time type safety
-  - 14 architectural layers
+### 1. Protocol-First
+All behavior is defined by the protocol specification, not hard-coded in runtimes.
 
-- **Python Runtime**: Built for data science, ML, and rapid prototyping
-  - 95% feature parity with Rust
-  - Pydantic v2 type validation
-  - Seamless Jupyter integration
+### 2. Zero Lock-In
+Switch providers without code changes - just update configuration.
 
-### 3. Provider Agnostic
+### 3. Type Safety
+Both runtimes provide strong typing:
+- **Rust**: Compile-time guarantees
+- **Python**: Pydantic v2 runtime validation
 
-A single protocol supports 30+ AI providers:
-
-**Global Providers**:
-- OpenAI, Anthropic, Groq, Gemini, Mistral, Cohere
-- And 9+ more
-
-**China Region**:
-- 通义千问, 智谱, 百川, 月之暗面
-- And 5+ more
-
-**Local & Self-Hosted**:
-- Ollama, vLLM, LocalAI
-
-## Key Components
-
-### AI-Protocol Specification
-
-The protocol defines:
-
-- **Provider Manifests**: How to discover and configure providers
-- **Model Registries**: How models are catalogued and selected
-- **Request/Response Schemas**: Standardized formats for all interactions
-- **Operator System**: Data transformation and processing operators
-- **Routing Rules**: How to select providers and models based on criteria
-
-### Runtime Implementations
-
-Each runtime implements the protocol with language-specific optimizations:
-
-#### ai-lib-rust
-- **14 Architectural Layers**: From protocol parsing to HTTP transport
-- **Zero-Cost Abstractions**: Compile-time optimizations
-- **Async-First**: Built on tokio for non-blocking I/O
-- **Enterprise Features**: Built-in retry, rate limiting, circuit breaker
-
-#### ai-lib-python
-- **Pydantic v2**: Runtime type validation
-- **httpx**: Async HTTP client
-- **Plugin System**: Extensible architecture
-- **Telemetry**: OpenTelemetry integration
-
-## Data Flow
-
-1. **Application Code** calls runtime API
-2. **Runtime** validates request and applies protocol rules
-3. **Protocol Layer** selects provider based on routing rules
-4. **Transport Layer** sends HTTP request to selected provider
-5. **Provider** processes request and returns response
-6. **Runtime** transforms response using protocol parsers
-7. **Application Code** receives standardized response
-
-## Comparison with Other Approaches
-
-| Approach | Provider Lock-in | Type Safety | Multi-Lingual | Performance |
-|----------|-----------------|-------------|---------------|-------------|
-| **Direct SDK** | High | Varies | Low | Optimized |
-| **Wrapper Library** | Medium | Low | Medium | Good |
-| **AI-Protocol** | None | High | High | Excellent |
-
-## Future Roadmap
-
-- **Additional Runtimes**: Java, Go, JavaScript planned
-- **Enhanced Operators**: More data transformation capabilities
-- **Improved Routing**: AI-powered model selection
-- **Community Providers**: Easy provider contribution process
+### 4. Performance
+- **Rust**: <1ms overhead, zero-copy parsing
+- **Python**: Async-first, connection pooling
 
 ## Getting Started
 
-Choose your runtime based on your needs:
+Choose your path:
 
-- **Performance-Critical**: Use [ai-lib-rust](/rust/)
-- **ML/Data Science**: Use [ai-lib-python](/python/)
-- **Protocol Implementation**: See [AI-Protocol](/protocol/)
-
-For detailed documentation, see the [official AI-Protocol docs](https://github.com/hiddenpath/ai-protocol/tree/main/docs).
+- 🦀 **Rust developers**: [Get Started with ai-lib-rust](/rust/quick-start/)
+- 🐍 **Python developers**: [Get Started with ai-lib-python](/python/quick-start/)
+- 📋 **Protocol implementers**: [View AI-Protocol Spec](/protocol/)

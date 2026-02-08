@@ -36,3 +36,14 @@ Thumbs.db
 .server/
 .astro/
 .vercel
+
+# Internal Working Documents (As requested by Director)
+*_plan.md
+*_report.md
+IMPLEMENTATION.md
+REFACTOR_PLAN.md
+REFACTOR_REPORT.md
+ARCHITECTURE.md
+FINAL_REFAC_REPORT.md
+.tools/
+.gemini/

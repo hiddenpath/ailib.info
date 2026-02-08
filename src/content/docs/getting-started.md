@@ -15,7 +15,7 @@ Add ai-lib to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-ai-lib = "0.4.0"
+ai-lib = "0.5.0"
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 ```
