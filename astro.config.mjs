@@ -2,80 +2,74 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import tailwind from '@astrojs/tailwind';
 
-// https://astro.build/config
 export default defineConfig({
   site: 'https://ailib.info',
   integrations: [
     starlight({
-      title: 'AI-Protocol Ecosystem',
+      title: 'AI-Lib',
       logo: {
         src: './src/assets/logo.svg',
       },
       social: [
-        { icon: 'github', label: 'GitHub', href: 'https://github.com/hiddenpath/ai-protocol' },
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/hiddenpath' },
       ],
       editLink: {
         baseUrl: 'https://github.com/hiddenpath/ailib.info/edit/main/',
       },
       sidebar: [
         {
-          label: 'Start Here',
-          translations: { 'zh-CN': '快速开始' },
+          label: 'Getting Started',
+          translations: { 'zh-CN': '快速入门' },
           items: [
             { label: 'Introduction', slug: 'intro' },
-            { label: 'Getting Started', slug: 'getting-started' },
-            { label: 'Ecosystem Architecture', slug: 'ecosystem-architecture' },
+            { label: 'Quick Start', slug: 'quickstart' },
+            { label: 'Ecosystem Architecture', slug: 'ecosystem' },
           ],
         },
         {
-          label: 'Core Concepts',
-          translations: { 'zh-CN': '核心概念' },
+          label: 'AI-Protocol',
+          translations: { 'zh-CN': 'AI-Protocol 协议' },
           items: [
-            { label: 'Concepts', slug: 'concepts' },
-            { label: 'Architecture', slug: 'architecture' },
-            { label: 'Providers', slug: 'providers' },
+            { label: 'Overview', slug: 'protocol/overview' },
+            { label: 'Specification', slug: 'protocol/spec' },
+            { label: 'Provider Manifests', slug: 'protocol/providers' },
+            { label: 'Model Registry', slug: 'protocol/models' },
+            { label: 'Contributing Providers', slug: 'protocol/contributing' },
+          ],
+        },
+        {
+          label: 'Rust SDK',
+          translations: { 'zh-CN': 'Rust SDK' },
+          items: [
+            { label: 'Overview', slug: 'rust/overview' },
+            { label: 'Quick Start', slug: 'rust/quickstart' },
+            { label: 'AiClient API', slug: 'rust/client' },
+            { label: 'Streaming Pipeline', slug: 'rust/streaming' },
+            { label: 'Resilience', slug: 'rust/resilience' },
+            { label: 'Advanced Features', slug: 'rust/advanced' },
+          ],
+        },
+        {
+          label: 'Python SDK',
+          translations: { 'zh-CN': 'Python SDK' },
+          items: [
+            { label: 'Overview', slug: 'python/overview' },
+            { label: 'Quick Start', slug: 'python/quickstart' },
+            { label: 'AiClient API', slug: 'python/client' },
+            { label: 'Streaming Pipeline', slug: 'python/streaming' },
+            { label: 'Resilience', slug: 'python/resilience' },
+            { label: 'Advanced Features', slug: 'python/advanced' },
           ],
         },
         {
           label: 'Developer Guides',
           translations: { 'zh-CN': '开发者指南' },
           items: [
-            { label: 'Chat Completions', slug: 'chat' },
-            { label: 'Function Calling', slug: 'functions' },
-            { label: 'Reasoning Models', slug: 'reasoning-models' },
-            { label: 'Observability', slug: 'observability' },
-          ],
-        },
-        {
-          label: 'Reliability',
-          translations: { 'zh-CN': '可靠性' },
-          items: [
-            { label: 'Overview', slug: 'reliability-overview' },
-            { label: 'Retry Strategies', slug: 'reliability-retry' },
-            { label: 'Fallback', slug: 'reliability-fallback' },
-            { label: 'Routing', slug: 'reliability-routing' },
-            { label: 'Circuit Breaker', slug: 'reliability-circuit' },
-          ],
-        },
-        {
-          label: 'Advanced',
-          translations: { 'zh-CN': '高级主题' },
-          items: [
-            { label: 'Recipes', slug: 'recipes' },
-            { label: 'Import Patterns', slug: 'import-patterns' },
-            { label: 'Extension', slug: 'extension' },
-            { label: 'Runtime Selection', slug: 'runtime-selection' },
-          ],
-        },
-        {
-          label: 'Release Notes',
-          translations: { 'zh-CN': '版本发布' },
-          items: [
-            { label: 'v0.4.0', slug: 'news-040' },
-            { label: 'v0.3.4', slug: 'news-034' },
-            { label: 'v0.3.3', slug: 'news-033' },
-            { label: 'v0.3.0', slug: 'news-030' },
-            { label: 'Upgrade to v0.4.0', slug: 'upgrade-040' },
+            { label: 'Chat Completions', slug: 'guides/chat' },
+            { label: 'Function Calling', slug: 'guides/tools' },
+            { label: 'Reasoning Models', slug: 'guides/reasoning' },
+            { label: 'Multimodal', slug: 'guides/multimodal' },
+            { label: 'Observability', slug: 'guides/observability' },
           ],
         },
       ],

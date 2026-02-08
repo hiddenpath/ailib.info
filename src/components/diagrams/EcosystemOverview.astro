@@ -1,0 +1,170 @@
+---
+const { locale = 'en' } = Astro.props;
+const isZh = locale === 'zh';
+---
+
+<div class="w-full overflow-x-auto">
+  <svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-4xl mx-auto" style="min-width: 600px;">
+    <defs>
+      <linearGradient id="grad-protocol" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.9" />
+        <stop offset="100%" style="stop-color:#a78bfa;stop-opacity:0.9" />
+      </linearGradient>
+      <linearGradient id="grad-rust" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#f97316;stop-opacity:0.9" />
+        <stop offset="100%" style="stop-color:#fb923c;stop-opacity:0.9" />
+      </linearGradient>
+      <linearGradient id="grad-python" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.9" />
+        <stop offset="100%" style="stop-color:#34d399;stop-opacity:0.9" />
+      </linearGradient>
+      <linearGradient id="grad-app" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.9" />
+        <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:0.9" />
+      </linearGradient>
+      <filter id="shadow">
+        <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(0,0,0,0.3)" />
+      </filter>
+      <marker id="arrow" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 3.5 L 0 7 z" fill="#64748b" />
+      </marker>
+    </defs>
+
+    <!-- Background -->
+    <rect width="900" height="520" rx="16" fill="#0f172a" opacity="0.5" />
+
+    <!-- Title -->
+    <text x="450" y="38" text-anchor="middle" fill="#e2e8f0" font-size="16" font-weight="700" font-family="Inter, system-ui, sans-serif">
+      {isZh ? 'AI-Lib 生态系统架构' : 'AI-Lib Ecosystem Architecture'}
+    </text>
+
+    <!-- Layer Labels -->
+    <text x="30" y="90" fill="#64748b" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif" text-anchor="start" transform="rotate(-90, 30, 130)">
+      {isZh ? '应用层' : 'APPLICATION'}
+    </text>
+    <text x="30" y="248" fill="#64748b" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif" text-anchor="start" transform="rotate(-90, 30, 300)">
+      {isZh ? '运行时层' : 'RUNTIME'}
+    </text>
+    <text x="30" y="420" fill="#64748b" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif" text-anchor="start" transform="rotate(-90, 30, 460)">
+      {isZh ? '协议层' : 'PROTOCOL'}
+    </text>
+
+    <!-- Layer separators -->
+    <line x1="60" y1="160" x2="870" y2="160" stroke="#334155" stroke-width="1" stroke-dasharray="6,4" />
+    <line x1="60" y1="340" x2="870" y2="340" stroke="#334155" stroke-width="1" stroke-dasharray="6,4" />
+
+    <!-- Application Layer -->
+    <g filter="url(#shadow)">
+      <rect x="130" y="65" width="200" height="75" rx="10" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" />
+      <text x="230" y="95" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="600" font-family="Inter, system-ui, sans-serif">{isZh ? 'Web 应用 / API 服务' : 'Web Apps / API Services'}</text>
+      <text x="230" y="115" text-anchor="middle" fill="#64748b" font-size="10" font-family="Inter, system-ui, sans-serif">Rust / Python</text>
+      <text x="230" y="130" text-anchor="middle" fill="#475569" font-size="9" font-family="Inter, system-ui, sans-serif">{isZh ? '你的应用代码' : 'Your application code'}</text>
+    </g>
+    <g filter="url(#shadow)">
+      <rect x="380" y="65" width="200" height="75" rx="10" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" />
+      <text x="480" y="95" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="600" font-family="Inter, system-ui, sans-serif">{isZh ? 'AI 智能体' : 'AI Agents'}</text>
+      <text x="480" y="115" text-anchor="middle" fill="#64748b" font-size="10" font-family="Inter, system-ui, sans-serif">{isZh ? '多轮对话 / 工具调用' : 'Multi-turn / Tool Calling'}</text>
+    </g>
+    <g filter="url(#shadow)">
+      <rect x="630" y="65" width="200" height="75" rx="10" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" />
+      <text x="730" y="95" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="600" font-family="Inter, system-ui, sans-serif">{isZh ? 'CLI 工具' : 'CLI Tools'}</text>
+      <text x="730" y="115" text-anchor="middle" fill="#64748b" font-size="10" font-family="Inter, system-ui, sans-serif">{isZh ? '批处理 / 数据管道' : 'Batch / Data Pipelines'}</text>
+    </g>
+
+    <!-- Arrows from App to Runtime -->
+    <line x1="230" y1="140" x2="300" y2="190" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+    <line x1="480" y1="140" x2="450" y2="190" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+    <line x1="480" y1="140" x2="600" y2="190" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+    <line x1="730" y1="140" x2="650" y2="190" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+
+    <!-- Runtime Layer: Rust -->
+    <g filter="url(#shadow)">
+      <rect x="130" y="185" width="340" height="135" rx="12" fill="#1e293b" stroke="#f97316" stroke-width="2" />
+      <rect x="130" y="185" width="340" height="32" rx="12" fill="url(#grad-rust)" />
+      <rect x="130" y="205" width="340" height="12" fill="url(#grad-rust)" />
+      <text x="300" y="206" text-anchor="middle" fill="white" font-size="13" font-weight="700" font-family="Inter, system-ui, sans-serif">ai-lib-rust v0.6.6</text>
+
+      <!-- Internal modules -->
+      <rect x="145" y="228" width="95" height="28" rx="4" fill="#f97316" opacity="0.1" stroke="#f97316" stroke-width="0.5" />
+      <text x="192" y="246" text-anchor="middle" fill="#fb923c" font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">AiClient</text>
+
+      <rect x="250" y="228" width="95" height="28" rx="4" fill="#f97316" opacity="0.1" stroke="#f97316" stroke-width="0.5" />
+      <text x="297" y="246" text-anchor="middle" fill="#fb923c" font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">Pipeline</text>
+
+      <rect x="355" y="228" width="100" height="28" rx="4" fill="#f97316" opacity="0.1" stroke="#f97316" stroke-width="0.5" />
+      <text x="405" y="246" text-anchor="middle" fill="#fb923c" font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">Transport</text>
+
+      <rect x="145" y="264" width="95" height="28" rx="4" fill="#f97316" opacity="0.1" stroke="#f97316" stroke-width="0.5" />
+      <text x="192" y="282" text-anchor="middle" fill="#fb923c" font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">Resilience</text>
+
+      <rect x="250" y="264" width="95" height="28" rx="4" fill="#f97316" opacity="0.1" stroke="#f97316" stroke-width="0.5" />
+      <text x="297" y="282" text-anchor="middle" fill="#fb923c" font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">Embeddings</text>
+
+      <rect x="355" y="264" width="100" height="28" rx="4" fill="#f97316" opacity="0.1" stroke="#f97316" stroke-width="0.5" />
+      <text x="405" y="282" text-anchor="middle" fill="#fb923c" font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">Cache / Batch</text>
+
+      <text x="300" y="308" text-anchor="middle" fill="#64748b" font-size="9" font-family="Inter, system-ui, sans-serif">Crates.io &middot; tokio + reqwest &middot; &lt;1ms overhead</text>
+    </g>
+
+    <!-- Runtime Layer: Python -->
+    <g filter="url(#shadow)">
+      <rect x="500" y="185" width="340" height="135" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="2" />
+      <rect x="500" y="185" width="340" height="32" rx="12" fill="url(#grad-python)" />
+      <rect x="500" y="205" width="340" height="12" fill="url(#grad-python)" />
+      <text x="670" y="206" text-anchor="middle" fill="white" font-size="13" font-weight="700" font-family="Inter, system-ui, sans-serif">ai-lib-python v0.5.0</text>
+
+      <!-- Internal modules -->
+      <rect x="515" y="228" width="95" height="28" rx="4" fill="#10b981" opacity="0.1" stroke="#10b981" stroke-width="0.5" />
+      <text x="562" y="246" text-anchor="middle" fill="#34d399" font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">AiClient</text>
+
+      <rect x="620" y="228" width="95" height="28" rx="4" fill="#10b981" opacity="0.1" stroke="#10b981" stroke-width="0.5" />
+      <text x="667" y="246" text-anchor="middle" fill="#34d399" font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">Pipeline</text>
+
+      <rect x="725" y="228" width="100" height="28" rx="4" fill="#10b981" opacity="0.1" stroke="#10b981" stroke-width="0.5" />
+      <text x="775" y="246" text-anchor="middle" fill="#34d399" font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">Transport</text>
+
+      <rect x="515" y="264" width="95" height="28" rx="4" fill="#10b981" opacity="0.1" stroke="#10b981" stroke-width="0.5" />
+      <text x="562" y="282" text-anchor="middle" fill="#34d399" font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">Resilience</text>
+
+      <rect x="620" y="264" width="95" height="28" rx="4" fill="#10b981" opacity="0.1" stroke="#10b981" stroke-width="0.5" />
+      <text x="667" y="282" text-anchor="middle" fill="#34d399" font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">Telemetry</text>
+
+      <rect x="725" y="264" width="100" height="28" rx="4" fill="#10b981" opacity="0.1" stroke="#10b981" stroke-width="0.5" />
+      <text x="775" y="282" text-anchor="middle" fill="#34d399" font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">Routing</text>
+
+      <text x="670" y="308" text-anchor="middle" fill="#64748b" font-size="9" font-family="Inter, system-ui, sans-serif">PyPI &middot; httpx + Pydantic v2 &middot; async/await</text>
+    </g>
+
+    <!-- Arrows from Runtime to Protocol -->
+    <line x1="300" y1="320" x2="350" y2="370" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+    <line x1="670" y1="320" x2="620" y2="370" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+    <text x="450" y="355" text-anchor="middle" fill="#475569" font-size="9" font-family="Inter, system-ui, sans-serif">{isZh ? '加载协议清单' : 'Load Manifests'}</text>
+
+    <!-- Protocol Layer -->
+    <g filter="url(#shadow)">
+      <rect x="180" y="365" width="540" height="130" rx="12" fill="#1e293b" stroke="#8b5cf6" stroke-width="2" />
+      <rect x="180" y="365" width="540" height="32" rx="12" fill="url(#grad-protocol)" />
+      <rect x="180" y="385" width="540" height="12" fill="url(#grad-protocol)" />
+      <text x="450" y="386" text-anchor="middle" fill="white" font-size="13" font-weight="700" font-family="Inter, system-ui, sans-serif">AI-Protocol v1.5</text>
+
+      <!-- Internal modules -->
+      <rect x="198" y="408" width="120" height="35" rx="6" fill="#8b5cf6" opacity="0.1" stroke="#8b5cf6" stroke-width="0.5" />
+      <text x="258" y="422" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif">spec.yaml</text>
+      <text x="258" y="436" text-anchor="middle" fill="#64748b" font-size="8" font-family="Inter, system-ui, sans-serif">{isZh ? '核心规范' : 'Core Specification'}</text>
+
+      <rect x="330" y="408" width="150" height="35" rx="6" fill="#8b5cf6" opacity="0.1" stroke="#8b5cf6" stroke-width="0.5" />
+      <text x="405" y="422" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif">providers/*.yaml</text>
+      <text x="405" y="436" text-anchor="middle" fill="#64748b" font-size="8" font-family="Inter, system-ui, sans-serif">{isZh ? '30+ 服务商清单' : '30+ Provider Manifests'}</text>
+
+      <rect x="492" y="408" width="120" height="35" rx="6" fill="#8b5cf6" opacity="0.1" stroke="#8b5cf6" stroke-width="0.5" />
+      <text x="552" y="422" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif">models/*.yaml</text>
+      <text x="552" y="436" text-anchor="middle" fill="#64748b" font-size="8" font-family="Inter, system-ui, sans-serif">{isZh ? '模型注册表' : 'Model Registry'}</text>
+
+      <rect x="624" y="408" width="82" height="35" rx="6" fill="#8b5cf6" opacity="0.1" stroke="#8b5cf6" stroke-width="0.5" />
+      <text x="665" y="422" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif">schemas/</text>
+      <text x="665" y="436" text-anchor="middle" fill="#64748b" font-size="8" font-family="Inter, system-ui, sans-serif">JSON Schema</text>
+
+      <text x="450" y="480" text-anchor="middle" fill="#64748b" font-size="9" font-family="Inter, system-ui, sans-serif">{isZh ? 'YAML 定义 → JSON 编译 → 运行时消费 · 无供应商锁定' : 'YAML definitions → JSON compilation → Runtime consumption · Vendor neutral'}</text>
+    </g>
+  </svg>
+</div>

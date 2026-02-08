@@ -1,0 +1,126 @@
+---
+const { locale = 'en', variant = 'rust' } = Astro.props;
+const isZh = locale === 'zh';
+const isRust = variant === 'rust';
+
+const color = isRust ? '#f97316' : '#10b981';
+const colorLight = isRust ? '#fb923c' : '#34d399';
+const colorDim = isRust ? 'rgba(249,115,22,0.1)' : 'rgba(16,185,129,0.1)';
+const title = isRust ? 'ai-lib-rust Runtime Architecture' : 'ai-lib-python Runtime Architecture';
+const titleZh = isRust ? 'ai-lib-rust 运行时架构' : 'ai-lib-python 运行时架构';
+---
+
+<div class="w-full overflow-x-auto">
+  <svg viewBox="0 0 760 480" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-3xl mx-auto" style="min-width: 500px;">
+    <defs>
+      <marker id={`arrow-${variant}`} viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 3.5 L 0 7 z" fill="#64748b" />
+      </marker>
+      <filter id={`shadow-${variant}`}>
+        <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.3)" />
+      </filter>
+    </defs>
+
+    <rect width="760" height="480" rx="12" fill="#0f172a" opacity="0.5" />
+
+    <text x="380" y="32" text-anchor="middle" fill="#e2e8f0" font-size="15" font-weight="700" font-family="Inter, system-ui, sans-serif">
+      {isZh ? titleZh : title}
+    </text>
+
+    <!-- Layer 1: Client -->
+    <g filter={`url(#shadow-${variant})`}>
+      <rect x="60" y="50" width="640" height="60" rx="8" fill="#1e293b" stroke={color} stroke-width="1.5" />
+      <text x="100" y="75" fill={colorLight} font-size="12" font-weight="700" font-family="Inter, system-ui, sans-serif">{isZh ? '客户端层' : 'Client Layer'}</text>
+      <text x="100" y="95" fill="#64748b" font-size="10" font-family="Inter, system-ui, sans-serif">
+        AiClient &middot; {isRust ? 'AiClientBuilder' : 'AiClientBuilder'} &middot; ChatRequestBuilder &middot; ChatResponse
+      </text>
+    </g>
+
+    <!-- Arrow -->
+    <line x1="380" y1="110" x2="380" y2="130" stroke="#64748b" stroke-width="1.5" marker-end={`url(#arrow-${variant})`} />
+
+    <!-- Layer 2: Policy -->
+    <g filter={`url(#shadow-${variant})`}>
+      <rect x="60" y="130" width="640" height="55" rx="8" fill="#1e293b" stroke={color} stroke-width="1" opacity="0.8" />
+      <text x="100" y="155" fill={colorLight} font-size="12" font-weight="700" font-family="Inter, system-ui, sans-serif">{isZh ? '策略引擎' : 'Policy Engine'}</text>
+      <text x="100" y="172" fill="#64748b" font-size="10" font-family="Inter, system-ui, sans-serif">
+        {isRust ? 'Preflight &middot; Validation &middot; ErrorClassification &middot; Signals' : 'PreflightChecker &middot; SignalsSnapshot &middot; FallbackChain'}
+      </text>
+    </g>
+
+    <!-- Arrow -->
+    <line x1="380" y1="185" x2="380" y2="205" stroke="#64748b" stroke-width="1.5" marker-end={`url(#arrow-${variant})`} />
+
+    <!-- Layer 3: Protocol -->
+    <g filter={`url(#shadow-${variant})`}>
+      <rect x="60" y="205" width="310" height="55" rx="8" fill="#1e293b" stroke="#8b5cf6" stroke-width="1" />
+      <text x="100" y="230" fill="#a78bfa" font-size="12" font-weight="700" font-family="Inter, system-ui, sans-serif">{isZh ? '协议层' : 'Protocol Layer'}</text>
+      <text x="100" y="247" fill="#64748b" font-size="10" font-family="Inter, system-ui, sans-serif">
+        ProtocolLoader &middot; Manifest &middot; Validator
+      </text>
+    </g>
+
+    <!-- Layer 3b: Resilience -->
+    <g filter={`url(#shadow-${variant})`}>
+      <rect x="390" y="205" width="310" height="55" rx="8" fill="#1e293b" stroke={color} stroke-width="1" opacity="0.8" />
+      <text x="425" y="230" fill={colorLight} font-size="12" font-weight="700" font-family="Inter, system-ui, sans-serif">{isZh ? '弹性层' : 'Resilience Layer'}</text>
+      <text x="425" y="247" fill="#64748b" font-size="10" font-family="Inter, system-ui, sans-serif">
+        CircuitBreaker &middot; RateLimiter &middot; Retry
+      </text>
+    </g>
+
+    <!-- Arrow -->
+    <line x1="380" y1="260" x2="380" y2="280" stroke="#64748b" stroke-width="1.5" marker-end={`url(#arrow-${variant})`} />
+
+    <!-- Layer 4: Pipeline -->
+    <g filter={`url(#shadow-${variant})`}>
+      <rect x="60" y="280" width="640" height="75" rx="8" fill="#1e293b" stroke={color} stroke-width="1.5" />
+      <text x="100" y="305" fill={colorLight} font-size="12" font-weight="700" font-family="Inter, system-ui, sans-serif">{isZh ? '流式管道' : 'Streaming Pipeline'}</text>
+
+      <!-- Pipeline stages -->
+      <rect x="85" y="315" width="85" height="26" rx="4" fill={colorDim} stroke={color} stroke-width="0.5" />
+      <text x="127" y="332" text-anchor="middle" fill={colorLight} font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">Decoder</text>
+
+      <text x="180" y="332" fill="#475569" font-size="12" font-family="Inter, system-ui, sans-serif">&rarr;</text>
+
+      <rect x="195" y="315" width="85" height="26" rx="4" fill={colorDim} stroke={color} stroke-width="0.5" />
+      <text x="237" y="332" text-anchor="middle" fill={colorLight} font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">Selector</text>
+
+      <text x="290" y="332" fill="#475569" font-size="12" font-family="Inter, system-ui, sans-serif">&rarr;</text>
+
+      <rect x="305" y="315" width="105" height="26" rx="4" fill={colorDim} stroke={color} stroke-width="0.5" />
+      <text x="357" y="332" text-anchor="middle" fill={colorLight} font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">Accumulator</text>
+
+      <text x="420" y="332" fill="#475569" font-size="12" font-family="Inter, system-ui, sans-serif">&rarr;</text>
+
+      <rect x="435" y="315" width="85" height="26" rx="4" fill={colorDim} stroke={color} stroke-width="0.5" />
+      <text x="477" y="332" text-anchor="middle" fill={colorLight} font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">FanOut</text>
+
+      <text x="530" y="332" fill="#475569" font-size="12" font-family="Inter, system-ui, sans-serif">&rarr;</text>
+
+      <rect x="545" y="315" width="105" height="26" rx="4" fill={colorDim} stroke={color} stroke-width="0.5" />
+      <text x="597" y="332" text-anchor="middle" fill={colorLight} font-size="9" font-weight="500" font-family="Inter, system-ui, sans-serif">EventMapper</text>
+    </g>
+
+    <!-- Arrow -->
+    <line x1="380" y1="355" x2="380" y2="375" stroke="#64748b" stroke-width="1.5" marker-end={`url(#arrow-${variant})`} />
+
+    <!-- Layer 5: Transport -->
+    <g filter={`url(#shadow-${variant})`}>
+      <rect x="60" y="375" width="640" height="55" rx="8" fill="#1e293b" stroke={color} stroke-width="1" opacity="0.8" />
+      <text x="100" y="400" fill={colorLight} font-size="12" font-weight="700" font-family="Inter, system-ui, sans-serif">{isZh ? '传输层' : 'Transport Layer'}</text>
+      <text x="100" y="417" fill="#64748b" font-size="10" font-family="Inter, system-ui, sans-serif">
+        {isRust ? 'HttpTransport (reqwest) &middot; Auth &middot; Middleware' : 'HttpTransport (httpx) &middot; Auth &middot; Connection Pool'}
+      </text>
+    </g>
+
+    <!-- Arrow -->
+    <line x1="380" y1="430" x2="380" y2="446" stroke="#64748b" stroke-width="1.5" marker-end={`url(#arrow-${variant})`} />
+
+    <!-- Bottom: Providers -->
+    <rect x="160" y="448" width="440" height="24" rx="12" fill="#1e293b" stroke="#475569" stroke-width="1" />
+    <text x="380" y="464" text-anchor="middle" fill="#64748b" font-size="10" font-weight="500" font-family="Inter, system-ui, sans-serif">
+      OpenAI &middot; Anthropic &middot; Gemini &middot; DeepSeek &middot; Qwen &middot; 30+ {isZh ? '服务商' : 'Providers'}
+    </text>
+  </svg>
+</div>

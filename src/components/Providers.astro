@@ -2,124 +2,100 @@
 const { locale = 'en' } = Astro.props;
 const isZh = locale === 'zh';
 
-// Providers organized by category
-const providersByCategory = {
-  global: [
-    { name: 'OpenAI', domain: 'openai.com' },
-    { name: 'Anthropic', domain: 'anthropic.com' },
-    { name: 'Groq', domain: 'groq.com' },
-    { name: 'Gemini', domain: 'gemini.google.com' },
-    { name: 'Mistral', domain: 'mistral.ai' },
-    { name: 'Cohere', domain: 'cohere.com' },
-    { name: 'OpenRouter', domain: 'openrouter.ai' },
-    { name: 'Replicate', domain: 'replicate.com' },
-    { name: 'TogetherAI', domain: 'together.ai' },
-    { name: 'Perplexity', domain: 'perplexity.ai' },
-    { name: 'AI21', domain: 'ai21.com' },
-    { name: 'HuggingFace', domain: 'huggingface.co' },
-    { name: 'DeepSeek', domain: 'deepseek.com' },
-    { name: 'xAI Grok', domain: 'x.ai' },
-    { name: 'Azure OpenAI', domain: 'azure.microsoft.com' },
-  ],
-  china: [
-    { name: 'ZhipuAI', domain: 'zhipuai.cn' },
-    { name: 'MiniMax', domain: 'minimax.chat' },
-    { name: 'Qwen', domain: 'qwen.ai' },
-    { name: 'Moonshot Kimi', domain: 'moonshot.cn' },
-    { name: 'Baidu Wenxin', domain: 'baidu.com' },
-    { name: 'Tencent Hunyuan', domain: 'hunyuan.tencent.com' },
-    { name: 'iFlytek Spark', domain: 'xfyun.cn' },
-    { name: 'Baichuan', domain: 'baichuan-ai.com' },
-    { name: 'SenseNova', domain: 'sensechat.com' },
-  ],
-  local: [
-    { name: 'Ollama', domain: 'ollama.com' },
-    { name: 'vLLM', domain: 'vllm.ai' },
-    { name: 'LlamaCpp', domain: 'llama-cpp-python.readthedocs.io' },
-    { name: 'LocalAI', domain: 'localai.io' },
-  ]
-};
+const globalProviders = [
+  { name: 'OpenAI', icon: '/icons/openai.svg' },
+  { name: 'Anthropic', icon: '/icons/anthropic.svg' },
+  { name: 'Google Gemini', icon: '/icons/gemini.svg' },
+  { name: 'Groq', icon: '/icons/groq.svg' },
+  { name: 'Mistral', icon: '/icons/mistral.svg' },
+  { name: 'Cohere', icon: '/icons/cohere.svg' },
+  { name: 'Azure OpenAI', icon: '/icons/azure.svg' },
+  { name: 'Together AI', icon: '/icons/togetherai.svg' },
+  { name: 'Hugging Face', icon: '/icons/huggingface.svg' },
+  { name: 'Grok', icon: '/icons/grok.svg' },
+  { name: 'Ollama', icon: '/icons/ollama.svg' },
+  { name: 'DeepInfra', icon: null },
+  { name: 'OpenRouter', icon: null },
+  { name: 'NVIDIA', icon: null },
+  { name: 'Fireworks', icon: null },
+  { name: 'Replicate', icon: null },
+  { name: 'AI21 Labs', icon: null },
+  { name: 'Cerebras', icon: null },
+  { name: 'Perplexity', icon: null },
+  { name: 'Lepton AI', icon: null },
+];
 
-const totalProviders = Object.values(providersByCategory).reduce((sum, arr) => sum + arr.length, 0);
+const chinaProviders = [
+  { name: 'DeepSeek', icon: '/icons/deepseek.svg' },
+  { name: 'Qwen', icon: '/icons/qwen.svg' },
+  { name: 'Doubao', icon: null },
+  { name: 'Zhipu GLM', icon: null },
+  { name: 'Baidu ERNIE', icon: '/icons/baidu.svg' },
+  { name: 'Tencent Hunyuan', icon: '/icons/hunyuan.svg' },
+  { name: 'iFlytek Spark', icon: '/icons/iflytek.svg' },
+  { name: 'Moonshot', icon: '/icons/kimi.svg' },
+  { name: 'MiniMax', icon: null },
+  { name: 'Baichuan', icon: null },
+  { name: 'Yi / 01.AI', icon: null },
+  { name: 'SiliconFlow', icon: null },
+  { name: 'SenseNova', icon: null },
+  { name: 'Tiangong', icon: null },
+];
 ---
 
-<section class="py-24 bg-slate-50 dark:bg-slate-900/50">
-  <div class="container mx-auto px-6">
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">
-        {isZh ? `支持的提供商` : 'Supported Providers'}
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
+        {isZh ? '支持 30+ AI 服务商' : '30+ AI Providers Supported'}
       </h2>
-      <p class="text-xl text-slate-600 dark:text-slate-400">
+      <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
         {isZh
-          ? `30+ AI 提供商，全球覆盖，统一接口`
-          : `${totalProviders} AI providers, global coverage, unified interface`}
+          ? '通过协议配置驱动，无需任何硬编码即可接入全球和中国区主流 AI 服务商'
+          : 'All driven by protocol configuration — zero hardcoded logic for any provider'}
       </p>
     </div>
 
-    <div class="space-y-16">
-      {Object.entries(providersByCategory).map(([category, providers]) => {
-        const categoryInfo = {
-          global: {
-            name: isZh ? '全球提供商 🌍' : 'Global Providers 🌍',
-            desc: isZh ? '国际主流 AI 服务商' : 'Leading international AI providers'
-          },
-          china: {
-            name: isZh ? '中国区提供商 🇨🇳' : 'China Region 🇨🇳',
-            desc: isZh ? '国内领先的 AI 服务商' : 'Leading China-region AI providers'
-          },
-          local: {
-            name: isZh ? '本地和自托管 🏠' : 'Local & Self-hosted 🏠',
-            desc: isZh ? '本地运行和自定义模型' : 'Self-hosted and custom models'
-          }
-        };
-
-        const info = categoryInfo[category as keyof typeof categoryInfo];
-
-        return (
-          <div>
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-slate-200 dark:border-slate-800">
-              <div>
-                <h3 class="text-2xl font-bold text-slate-900 dark:text-white">{info.name}</h3>
-                <p class="text-slate-500 dark:text-slate-400 mt-1">{info.desc}</p>
+    <!-- Global Providers -->
+    <div class="mb-10">
+      <h3 class="text-sm font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-4">
+        {isZh ? '全球服务商' : 'Global Providers'}
+      </h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3">
+        {globalProviders.map(p => (
+          <div class="flex items-center gap-3 px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--bg-alt)] hover:border-[var(--border-light)] transition-colors">
+            {p.icon ? (
+              <img src={p.icon} alt={p.name} class="w-5 h-5 flex-shrink-0" />
+            ) : (
+              <div class="w-5 h-5 rounded bg-[var(--accent)]/20 flex items-center justify-center text-xs font-bold text-[var(--accent)] flex-shrink-0">
+                {p.name.charAt(0)}
               </div>
-            </div>
-
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-              {providers.map((p) => {
-                const favicon = `https://www.google.com/s2/favicons?sz=64&domain=${p.domain}`;
-                return (
-                  <div class="group flex items-center p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition-all hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/5 hover:-translate-y-0.5">
-                    <div class="w-8 h-8 rounded-lg bg-slate-50 dark:bg-slate-800 p-1 mr-3 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/30 transition-colors">
-                      <img
-                        src={favicon}
-                        alt={`${p.name} favicon`}
-                        loading="lazy"
-                        class="w-full h-full object-contain"
-                        onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-                      />
-                      <span class="hidden w-full h-full items-center justify-center text-xs font-bold text-slate-400">
-                        {p.name.charAt(0)}
-                      </span>
-                    </div>
-                    <span class="text-sm font-semibold text-slate-700 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                      {p.name}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
+            )}
+            <span class="text-sm font-medium text-[var(--text)] truncate">{p.name}</span>
           </div>
-        );
-      })}
+        ))}
+      </div>
     </div>
 
-    <div class="mt-20 pt-12 text-center border-t border-slate-200 dark:border-slate-800">
-      <a href="/protocol/providers/" class="inline-flex items-center px-6 py-3 rounded-full bg-blue-600 text-white font-bold transition-all hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-500/20 active:scale-95">
-        {isZh ? '查看完整的 Provider 列表' : 'View full provider list'}
-        <svg class="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-      </a>
+    <!-- China Region Providers -->
+    <div>
+      <h3 class="text-sm font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-4">
+        {isZh ? '中国区服务商' : 'China Region'}
+      </h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3">
+        {chinaProviders.map(p => (
+          <div class="flex items-center gap-3 px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--bg-alt)] hover:border-[var(--border-light)] transition-colors">
+            {p.icon ? (
+              <img src={p.icon} alt={p.name} class="w-5 h-5 flex-shrink-0" />
+            ) : (
+              <div class="w-5 h-5 rounded bg-emerald-500/20 flex items-center justify-center text-xs font-bold text-emerald-400 flex-shrink-0">
+                {p.name.charAt(0)}
+              </div>
+            )}
+            <span class="text-sm font-medium text-[var(--text)] truncate">{p.name}</span>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 </section>

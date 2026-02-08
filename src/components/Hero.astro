@@ -2,88 +2,100 @@
 const { locale = 'en' } = Astro.props;
 const isZh = locale === 'zh';
 
-const heroContent = {
+const content = {
   en: {
-    badge: 'Ecosystem v0.5.0',
-    title: 'AI-Protocol Ecosystem',
-    subtitle: 'One specification, multiple runtimes.',
-    description: 'Unified AI model interaction across Protocol, Rust, and Python.',
-    ctas: [
-      { text: '★ Protocol Spec', link: 'https://github.com/hiddenpath/ai-protocol', primary: true },
-      { text: 'Rust Runtime', link: '/rust/quick-start/', primary: false },
-      { text: 'Python Runtime', link: '/python/quick-start/', primary: false },
+    badge: 'Open Source Ecosystem',
+    title: 'One Protocol,',
+    titleHighlight: 'Every AI Provider.',
+    subtitle: 'AI-Lib is an open-source ecosystem that standardizes AI model interactions. One specification drives Rust and Python runtimes — supporting 30+ providers without a single line of hardcoded logic.',
+    cta1: 'Get Started',
+    cta2: 'View on GitHub',
+    stats: [
+      { value: '30+', label: 'AI Providers' },
+      { value: '3', label: 'Projects' },
+      { value: '0', label: 'Hardcoded Logic' },
+      { value: '2', label: 'Runtimes' },
     ],
-    footer: 'Dual-licensed MIT/Apache-2.0 · Protocol-driven design · Vendor neutral'
   },
   zh: {
-    badge: '生态发布 v0.5.0',
-    title: 'AI-Protocol 生态系统',
-    subtitle: '一个规范，多个运行时。',
-    description: '统一的 AI 模型交互方式，支持协议层、Rust 和 Python 实现。',
-    ctas: [
-      { text: '★ 协议文档', link: 'https://github.com/hiddenpath/ai-protocol', primary: true },
-      { text: 'Rust 运行时', link: '/rust/quick-start/', primary: false },
-      { text: 'Python 运行时', link: '/python/quick-start/', primary: false },
+    badge: '开源生态系统',
+    title: '一套协议，',
+    titleHighlight: '统一所有 AI 服务商。',
+    subtitle: 'AI-Lib 是一个开源生态系统，标准化 AI 模型交互方式。一套规范驱动 Rust 和 Python 运行时——支持 30+ 服务商，零硬编码逻辑。',
+    cta1: '快速开始',
+    cta2: '查看 GitHub',
+    stats: [
+      { value: '30+', label: 'AI 服务商' },
+      { value: '3', label: '核心项目' },
+      { value: '0', label: '硬编码逻辑' },
+      { value: '2', label: '语言运行时' },
     ],
-    footer: '双许可证 MIT/Apache-2.0 · 协议驱动设计 · 无供应商锁定'
-  }
+  },
 };
 
-const content = isZh ? heroContent.zh : heroContent.en;
+const c = isZh ? content.zh : content.en;
 ---
 
-<section class="relative pt-32 pb-20 overflow-hidden">
-  <!-- Dynamic Background Decorations -->
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.1),transparent_50%)]"></div>
-  
-  <div class="container mx-auto px-6 relative z-10">
+<section class="relative overflow-hidden pt-16 pb-20 md:pt-24 md:pb-28">
+  <!-- Background decoration -->
+  <div class="absolute inset-0 -z-10">
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
+    <div class="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-1/2 w-72 h-72 bg-emerald-500/5 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="container">
     <div class="max-w-4xl">
-      <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 mb-6 border border-blue-200 dark:border-blue-800">
-        <span class="relative flex h-2 w-2 mr-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-        </span>
-        {content.badge}
-      </span>
-
-      <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 dark:text-white mb-6 leading-[1.1]">
-        {content.title}
-        <span class="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 mt-2">
-          {content.subtitle}
-        </span>
-      </h1>
-
-      <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl leading-relaxed">
-        {content.description}
-      </p>
-
-      <div class="flex flex-wrap gap-4 mb-8">
-        {content.ctas.map((cta) => (
-          <a
-            href={cta.link}
-            target={cta.link.startsWith('http') ? '_blank' : undefined}
-            rel={cta.link.startsWith('http') ? 'noopener' : undefined}
-            class={`px-8 py-4 rounded-xl font-semibold transition-all duration-200 transform hover:-translate-y-0.5 active:scale-95 flex items-center shadow-lg hover:shadow-xl ${
-              cta.primary 
-                ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-500/25' 
-                : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/50 shadow-slate-200/20 dark:shadow-none'
-            }`}
-          >
-            {cta.text}
-            {cta.primary && (
-              <svg class="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            )}
-          </a>
-        ))}
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-[var(--accent)]/10 text-[var(--accent)] border border-[var(--accent)]/20 mb-8">
+        <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse"></span>
+        {c.badge}
       </div>
 
-      <div class="flex items-center text-sm text-slate-500 dark:text-slate-500 font-medium">
-        <svg class="w-5 h-5 mr-2 text-blue-500/50" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-        </svg>
-        {content.footer}
+      <!-- Title -->
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-[1.05]">
+        <span class="text-[var(--text)]">{c.title}</span>
+        <br />
+        <span class="gradient-text">{c.titleHighlight}</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-lg md:text-xl text-[var(--text-dim)] max-w-2xl mb-10 leading-relaxed">
+        {c.subtitle}
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-wrap gap-4 mb-16">
+        <a
+          href="/docs/intro/"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:brightness-110 transition-all shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:no-underline"
+        >
+          {c.cta1}
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </a>
+        <a
+          href="https://github.com/hiddenpath"
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--bg-alt)] text-[var(--text)] font-semibold rounded-lg border border-[var(--border)] hover:border-[var(--border-light)] transition-all hover:no-underline"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          {c.cta2}
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {c.stats.map(stat => (
+          <div class="text-center md:text-left">
+            <div class="text-3xl md:text-4xl font-extrabold gradient-text mb-1">{stat.value}</div>
+            <div class="text-sm text-[var(--text-muted)] font-medium">{stat.label}</div>
+          </div>
+        ))}
       </div>
     </div>
   </div>

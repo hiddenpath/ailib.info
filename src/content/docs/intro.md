@@ -1,59 +1,59 @@
 ---
 title: Introduction
-group: Overview
-order: 10
-description: Overview of ai-lib (Rust unified AI SDK) goals and capabilities.
+description: Overview of the AI-Lib ecosystem — AI-Protocol specification and its Rust and Python runtime implementations.
 ---
 
-# Introduction
+# Welcome to AI-Lib
 
-ai-lib is a production-grade Rust crate providing a unified, reliability-focused multi‑provider AI SDK. It eliminates the complexity of integrating with multiple AI providers by offering a single, consistent interface.
+**AI-Lib** is an open-source ecosystem that standardizes how applications interact with AI models. Instead of writing provider-specific code for each AI service, you use a single unified API — and protocol configuration handles the rest.
 
-> Announcement: v0.5.0 released — Complete Starlight migration, premium Tailwind design, and Mermaid architecture diagrams. For advanced enterprise capabilities, explore [ai-lib-pro](/docs/enterprise-pro).
+## The Core Idea
 
-## Goals
+> **All logic is operators, all configuration is protocol.**
 
-- **Reduce integration cost** across 20+ AI providers
-- **Improve success rate & tail latency** via built-in reliability primitives
-- **Offer consistent streaming & function calling** semantics across all providers
-- **Remain vendor-neutral and extensible** with pluggable transport and metrics
+Traditional AI SDKs embed provider-specific logic in code: different HTTP endpoints, different parameter names, different streaming formats, different error codes. When you switch providers, you rewrite code.
+
+AI-Lib takes a different approach:
+
+- **AI-Protocol** defines how to talk to each provider in YAML manifests
+- **Runtime implementations** (Rust, Python) read these manifests and execute requests
+- **Zero hardcoded logic** — no `if provider == "openai"` branches anywhere
+
+## Three Projects, One Ecosystem
+
+| Project | Role | Language | Distribution |
+|---------|------|----------|-------------|
+| **[AI-Protocol](/protocol/)** | Specification layer | YAML/JSON | GitHub |
+| **[ai-lib-rust](/rust/)** | Runtime implementation | Rust | [Crates.io](https://crates.io/crates/ai-lib) |
+| **[ai-lib-python](/python/)** | Runtime implementation | Python | [PyPI](https://pypi.org/project/ai-lib-python/) |
+
+### AI-Protocol (Specification)
+
+The foundation. YAML manifests describe 30+ AI providers: their endpoints, authentication, parameter mappings, streaming decoder configurations, error classification rules, and capabilities. JSON Schema validates everything.
+
+### ai-lib-rust (Rust Runtime)
+
+High-performance runtime. Operator-based streaming pipeline processes responses through composable stages (Decoder → Selector → Accumulator → EventMapper). Built-in resilience with circuit breaker, rate limiter, and backpressure. Published on Crates.io.
+
+### ai-lib-python (Python Runtime)
+
+Developer-friendly runtime. Full async/await support, Pydantic v2 type safety, production-grade telemetry (OpenTelemetry + Prometheus), and intelligent model routing. Published on PyPI.
 
 ## Key Features
 
-- **Unified API** for chat completions across all supported providers
-- **Streaming support** with consistent delta handling (SSE + emulated fallback)
-- **Function calling** with normalized tool schemas and policies
-- **Multimodal content** support (text, images, audio) where providers support it
-- **Reliability primitives**: retry with exponential backoff, circuit breaker, rate limiting
-- **Model management**: performance-based selection, load balancing, health monitoring
-- **Batch processing** with configurable concurrency limits
-- **Observability hooks** for custom metrics and monitoring integration
-- **Progressive configuration** from environment variables to explicit builder patterns
+- **30+ providers** — OpenAI, Anthropic, Gemini, DeepSeek, Qwen, and many more
+- **Unified streaming** — Same `StreamingEvent` types regardless of provider
+- **Protocol-driven** — All behavior defined in YAML, not code
+- **Hot-reload** — Update provider configs without restarting
+- **Resilience** — Circuit breaker, rate limiting, retry, fallback
+- **Tool calling** — Unified function calling across providers
+- **Embeddings** — Vector operations and similarity search
+- **Type safety** — Compile-time (Rust) and runtime (Pydantic) validation
 
-## Supported Providers
+## Next Steps
 
-ai-lib supports 20+ AI providers including OpenAI, Groq, Anthropic, Gemini, Mistral, Cohere, Azure OpenAI, Ollama, DeepSeek, Qwen, Baidu Wenxin, Tencent Hunyuan, iFlytek Spark, Moonshot Kimi, HuggingFace, TogetherAI, xAI Grok, OpenRouter, Replicate, Perplexity, AI21, ZhipuAI, and MiniMax.
-
-## Quick Start
-
-```rust
-use ai_lib::prelude::*;
-
-#[tokio::main]
-async fn main() -> Result<(), AiLibError> {
-    let client = AiClient::new(Provider::Groq)?;
-    let req = ChatCompletionRequest::new(
-        client.default_chat_model(),
-        vec![Message {
-            role: Role::User,
-            content: Content::new_text("Hello, world!".to_string()),
-            function_call: None,
-        }]
-    );
-    let resp = client.chat_completion(req).await?;
-    println!("Answer: {}", resp.choices[0].message.content.as_text());
-    Ok(())
-}
-```
-
-Next: Read [Getting Started](/docs/getting-started), then see [Features & Optional Modules](/docs/features), and explore [Advanced Examples](/docs/advanced-examples).
+- **[Quick Start](/docs/quickstart/)** — Get up and running in minutes
+- **[Ecosystem Architecture](/docs/ecosystem/)** — Understand how the pieces fit together
+- **[AI-Protocol](/docs/protocol/overview/)** — Dive into the specification
+- **[Rust SDK](/docs/rust/overview/)** — Start with Rust
+- **[Python SDK](/docs/python/overview/)** — Start with Python

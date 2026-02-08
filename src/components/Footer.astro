@@ -1,63 +1,72 @@
 ---
 const { locale = 'en' } = Astro.props;
 const isZh = locale === 'zh';
+
+const year = new Date().getFullYear();
 ---
 
-<footer>
-  <div class="footer-grid">
-    <div>
-      <h3 style="margin-top:0;">AI-Protocol Ecosystem</h3>
-      <p class="dim" style="margin-top:8px; font-size:14px;">
-        {
-          isZh ? (
-            <>统一 AI 协议规范：一个协议，多种运行时。</>
-          ) : (
-            <>Unified AI-Protocol规范：一个协议，多种运行时。</>
-          )
-        }
+<footer class="border-t border-[var(--border)] bg-[var(--bg-alt)]">
+  <div class="container py-16">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+      <!-- Brand -->
+      <div class="md:col-span-1">
+        <div class="flex items-center gap-2 mb-4">
+          <img src="/favicon.svg" alt="AI-Lib" class="w-7 h-7" />
+          <span class="font-bold text-lg text-[var(--text)]">AI-Lib</span>
+        </div>
+        <p class="text-sm text-[var(--text-dim)] leading-relaxed">
+          {isZh
+            ? '开源 AI 模型交互标准化生态系统。一套协议，多种运行时。'
+            : 'Open-source ecosystem for standardized AI model interactions. One protocol, multiple runtimes.'}
+        </p>
+      </div>
+
+      <!-- Projects -->
+      <div>
+        <h4 class="text-sm font-semibold text-[var(--text)] uppercase tracking-wider mb-4">
+          {isZh ? '项目' : 'Projects'}
+        </h4>
+        <ul class="space-y-2.5">
+          <li><a href="/protocol/" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">AI-Protocol</a></li>
+          <li><a href="/rust/" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">Rust SDK</a></li>
+          <li><a href="/python/" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">Python SDK</a></li>
+        </ul>
+      </div>
+
+      <!-- Documentation -->
+      <div>
+        <h4 class="text-sm font-semibold text-[var(--text)] uppercase tracking-wider mb-4">
+          {isZh ? '文档' : 'Documentation'}
+        </h4>
+        <ul class="space-y-2.5">
+          <li><a href="/docs/intro/" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">{isZh ? '入门指南' : 'Getting Started'}</a></li>
+          <li><a href="/docs/protocol/overview/" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">{isZh ? '协议规范' : 'Protocol Spec'}</a></li>
+          <li><a href="/docs/guides/chat/" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">{isZh ? '开发者指南' : 'Developer Guides'}</a></li>
+        </ul>
+      </div>
+
+      <!-- Community -->
+      <div>
+        <h4 class="text-sm font-semibold text-[var(--text)] uppercase tracking-wider mb-4">
+          {isZh ? '社区' : 'Community'}
+        </h4>
+        <ul class="space-y-2.5">
+          <li><a href="https://github.com/hiddenpath/ai-protocol" target="_blank" rel="noopener" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">GitHub - Protocol</a></li>
+          <li><a href="https://github.com/hiddenpath/ai-lib-rust" target="_blank" rel="noopener" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">GitHub - Rust</a></li>
+          <li><a href="https://github.com/hiddenpath/ai-lib-python" target="_blank" rel="noopener" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">GitHub - Python</a></li>
+          <li><a href="https://crates.io/crates/ai-lib" target="_blank" rel="noopener" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">Crates.io</a></li>
+          <li><a href="https://pypi.org/project/ai-lib-python/" target="_blank" rel="noopener" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">PyPI</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-[var(--border)] flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-xs text-[var(--text-muted)]">
+        &copy; {year} AI-Lib Contributors. Dual-licensed under MIT and Apache 2.0.
       </p>
-      <p style="margin-top:14px; font-size:12px;" class="dim">
-        MIT / Apache-2.0 · © {new Date().getFullYear()}
+      <p class="text-xs text-[var(--text-muted)]">
+        Built with <a href="https://astro.build" target="_blank" rel="noopener" class="hover:text-[var(--text-dim)]">Astro</a> + <a href="https://starlight.astro.build" target="_blank" rel="noopener" class="hover:text-[var(--text-dim)]">Starlight</a>
       </p>
-    </div>
-    <div>
-      <h4>{isZh ? '项目' : 'Projects'}</h4>
-      <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.7;">
-        <li><a href="/protocol/">Protocol</a></li>
-        <li><a href="/rust/">ai-lib-rust</a></li>
-        <li><a href="/python/">ai-lib-python</a></li>
-        <li><a href="https://github.com/hiddenpath/ai-protocol" target="_blank">GitHub</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>{isZh ? '资源' : 'Resources'}</h4>
-      <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.7;">
-        <li>
-          <a href="/protocol/docs/">{isZh ? '协议文档' : 'Protocol Docs'}</a>
-        </li>
-        <li>
-          <a href="/protocol/providers/">{isZh ? '提供商列表' : 'Providers'}</a>
-        </li>
-        <li>
-          <a href="https://github.com/hiddenpath/ai-protocol/tree/main/examples" target="_blank">
-            Examples
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div>
-      <h4>{isZh ? '快速开始' : 'Quick Start'}</h4>
-      <ul style="list-style:none; padding:0; margin:0; font-size:14px; line-height:1.7;">
-        <li>
-          <a href="/rust/quick-start/">{isZh ? 'Rust 入门' : 'Rust Guide'}</a>
-        </li>
-        <li>
-          <a href="/python/quick-start/">{isZh ? 'Python 入门' : 'Python Guide'}</a>
-        </li>
-        <li>
-          <a href="/python/features/">{isZh ? 'Python 特性' : 'Python Features'}</a>
-        </li>
-      </ul>
     </div>
   </div>
 </footer>

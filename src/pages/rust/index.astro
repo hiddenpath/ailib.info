@@ -2,147 +2,202 @@
 import '../../styles/global.css';
 import SiteHeader from '../../components/SiteHeader.astro';
 import Footer from '../../components/Footer.astro';
-import BuildMeta from '../../components/BuildMeta.astro';
+import RuntimeArch from '../../components/diagrams/RuntimeArch.astro';
 
 const locale = 'en';
-const isZh = locale === 'zh';
-const version = '0.6.6';
-const heroDescEn = 'Reference implementation of AI-Protocol with 14 architectural layers. Built for systems programming.';
-const heroDescZh = 'AI-Protocol 的参考实现，14 层架构设计。';
-const heroDesc = isZh ? heroDescZh : heroDescEn;
 ---
 
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
-    <title>ai-lib-rust | High-Performance AI SDK for Rust</title>
-    <meta name="description" content="ai-lib-rust: High-performance AI SDK for Rust" />
+    <title>ai-lib-rust | High-Performance Rust Runtime for AI-Protocol</title>
+    <meta name="description" content="ai-lib-rust is the high-performance Rust runtime for AI-Protocol. Operator-based streaming pipeline, compile-time safety, sub-millisecond overhead." />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" href="/favicon.svg" />
   </head>
   <body>
     <SiteHeader locale={locale} />
 
-    <main class="rust-page">
-      <section class="page-hero">
+    <main>
+      <!-- Hero -->
+      <section class="relative pt-16 pb-20 overflow-hidden">
+        <div class="absolute inset-0 -z-10">
+          <div class="absolute top-0 right-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 left-1/3 w-80 h-80 bg-red-500/5 rounded-full blur-3xl"></div>
+        </div>
         <div class="container">
-          <span class="version-badge">v{version}</span>
-          <h1>ai-lib-rust</h1>
-          <p class="hero-description">{heroDesc}</p>
+          <div class="max-w-4xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-6">
+              v0.6.6 &middot; Crates.io
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.05]">
+              <span class="gradient-text-rust">Rust Runtime</span>
+              <br />
+              <span class="text-[var(--text)]">for AI-Protocol.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-[var(--text-dim)] max-w-2xl mb-8 leading-relaxed">
+              High-performance, protocol-driven AI client. Zero hardcoded provider logic, operator-based streaming pipeline, compile-time type safety, and sub-millisecond overhead.
+            </p>
+            <div class="flex flex-wrap gap-4 mb-8">
+              <a href="/docs/rust/quickstart/" class="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-all hover:no-underline">Quick Start</a>
+              <a href="https://github.com/hiddenpath/ai-lib-rust" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline">GitHub</a>
+              <a href="https://crates.io/crates/ai-lib" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline">Crates.io</a>
+            </div>
 
-          <div class="cta-group">
-            <a href="https://github.com/hiddenpath/ai-lib-rust" target="_blank">GitHub Repository</a>
-            <a href="/rust/quick-start/">Quick Start</a>
+            <!-- Quick install -->
+            <div class="bg-[#0d1117] border border-[var(--border)] rounded-lg p-4 max-w-lg">
+              <div class="text-xs text-[var(--text-muted)] mb-2 font-mono">Cargo.toml</div>
+              <code class="text-sm text-orange-300 font-mono">ai-lib = "0.6.6"</code>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="highlights">
+      <!-- Key Features -->
+      <section class="section-alt">
         <div class="container">
-          <div class="grid">
-            <div class="item">
-              <div class="value">&lt;1ms</div>
-              <div class="label">Overhead</div>
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">Key Features</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Operator-Based Pipeline</h3>
+              <p class="text-sm text-[var(--text-dim)]">Streaming responses flow through composable operators: Decoder &rarr; Selector &rarr; Accumulator &rarr; FanOut &rarr; EventMapper. Each stage is protocol-configured.</p>
             </div>
-            <div class="item">
-              <div class="value">14</div>
-              <div class="label">Layers</div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Protocol Loading</h3>
+              <p class="text-sm text-[var(--text-dim)]">Loads provider manifests from local files, environment variables, or GitHub fallback. Supports hot-reload via file watching. Zero restart needed for config updates.</p>
             </div>
-            <div class="item">
-              <div class="value">30+</div>
-              <div class="label">Providers</div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Resilience Patterns</h3>
+              <p class="text-sm text-[var(--text-dim)]">Built-in circuit breaker, token bucket rate limiter, exponential backoff retry, and max-inflight backpressure. All configurable via environment variables.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Embeddings & Vectors</h3>
+              <p class="text-sm text-[var(--text-dim)]">EmbeddingClient with vector operations — cosine similarity, Euclidean distance, dot product. Build semantic search and RAG applications natively.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Cache & Batch</h3>
+              <p class="text-sm text-[var(--text-dim)]">Response caching with TTL (memory backend). Batch execution with configurable concurrency, timeout, and multiple processing strategies.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Plugin System</h3>
+              <p class="text-sm text-[var(--text-dim)]">Extensible plugin architecture with hooks and middleware chain. Add custom behavior without modifying core code. Guardrails for content filtering and PII detection.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="features">
+      <!-- Code Example -->
+      <section class="section">
         <div class="container">
-          <h2>Why Rust?</h2>
-          <div class="list">
-            <div class="item">High Performance - Minimal overhead, type-safe</div>
-            <div class="item">Compile-time Safety - Prevent runtime errors</div>
-            <div class="item">Built-in Resilience - Retry, rate limit, circuit breaker</div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            <div>
+              <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Simple, Unified API</h2>
+              <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
+                The same code works across all 30+ providers. Just change the model identifier — the protocol manifest handles everything else: endpoint, auth, parameter mapping, streaming format.
+              </p>
+              <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
+                The builder pattern provides a fluent API for request construction. Stream results arrive as unified <code>StreamingEvent</code> types regardless of the underlying provider.
+              </p>
+            </div>
+            <div>
+              <pre class="text-sm !bg-[#0d1117] !border-orange-500/20"><code class="language-rust"><span style="color:#ff7b72">use</span> ai_lib::{'{'}AiClient, Message, StreamingEvent{'}'};
+
+<span style="color:#8b949e">// Works with ANY provider — protocol-driven</span>
+<span style="color:#ff7b72">let</span> client = AiClient::from_model(
+    <span style="color:#a5d6ff">"anthropic/claude-3-5-sonnet"</span>
+).<span style="color:#ff7b72">await</span>?;
+
+<span style="color:#8b949e">// Builder pattern for chat requests</span>
+<span style="color:#ff7b72">let</span> <span style="color:#ff7b72">mut</span> stream = client.chat()
+    .user(<span style="color:#a5d6ff">"Explain AI-Protocol"</span>)
+    .temperature(<span style="color:#79c0ff">0.7</span>)
+    .max_tokens(<span style="color:#79c0ff">1000</span>)
+    .stream()
+    .execute_stream()
+    .<span style="color:#ff7b72">await</span>?;
+
+<span style="color:#8b949e">// Unified streaming events</span>
+<span style="color:#ff7b72">while let</span> Some(event) = stream.next().<span style="color:#ff7b72">await</span> {'{'}
+    <span style="color:#ff7b72">match</span> event? {'{'}
+        StreamingEvent::ContentDelta {'{'} text, .. {'}'}
+            => print!(<span style="color:#a5d6ff">"{'{'}text{'}'}"</span>),
+        StreamingEvent::StreamEnd {'{'} stats, .. {'}'}
+            => println!(<span style="color:#a5d6ff">"\nTokens: {'{'}{'}'}"</span>,
+                stats.total_tokens),
+        _ => {'{'}{'}'} <span style="color:#8b949e">// ToolCall, Metadata, etc.</span>
+    {'}'}
+{'}'}</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture -->
+      <section class="section-alt">
+        <div class="container">
+          <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Internal Architecture</h2>
+            <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
+              Five layers from user-facing API to HTTP transport. The streaming pipeline is the heart of the system.
+            </p>
+          </div>
+          <RuntimeArch locale={locale} variant="rust" />
+        </div>
+      </section>
+
+      <!-- Module Overview -->
+      <section class="section">
+        <div class="container">
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">Module Overview</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">client/</h3>
+              <p class="text-sm text-[var(--text-dim)]">AiClient, AiClientBuilder, ChatRequestBuilder, execution logic, policy engine, preflight checks, error classification, CallStats, CancelHandle.</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">protocol/</h3>
+              <p class="text-sm text-[var(--text-dim)]">ProtocolLoader (local/URL/GitHub), JSON Schema validator, ProtocolManifest structure, UnifiedRequest compilation, config types.</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">pipeline/</h3>
+              <p class="text-sm text-[var(--text-dim)]">Decoder (SSE, JSON Lines), Selector (JSONPath), Accumulator (tool calls), FanOut (multi-candidate), EventMapper (unified events), Retry and Fallback operators.</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">transport/</h3>
+              <p class="text-sm text-[var(--text-dim)]">HttpTransport (reqwest), API key resolution (keyring + env vars), proxy/timeout configuration, middleware support.</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">resilience/</h3>
+              <p class="text-sm text-[var(--text-dim)]">Circuit breaker (open/half-open/closed), token bucket rate limiter, max-inflight semaphore backpressure.</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">embeddings/</h3>
+              <p class="text-sm text-[var(--text-dim)]">EmbeddingClient, EmbeddingClientBuilder, vector operations (cosine similarity, Euclidean distance, dot product).</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">cache/ + batch/</h3>
+              <p class="text-sm text-[var(--text-dim)]">CacheManager with TTL (MemoryCache, NullCache). BatchCollector and BatchExecutor with concurrency control and multiple strategies.</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">plugins/ + guardrails/</h3>
+              <p class="text-sm text-[var(--text-dim)]">Plugin trait, PluginRegistry, HookManager, middleware chain. Guardrails with keyword/pattern filters and PII detection.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="section-alt">
+        <div class="container text-center">
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Start Building with Rust</h2>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="/docs/rust/quickstart/" class="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-all hover:no-underline">Quick Start</a>
+            <a href="/docs/rust/overview/" class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline">Full Documentation</a>
           </div>
         </div>
       </section>
     </main>
 
     <Footer locale={locale} />
-    <BuildMeta />
   </body>
 </html>
-
-<style>
-  .page-hero {
-    padding: 80px 20px;
-    text-align: center;
-    background: #fff7ed;
-  }
-
-  .page-hero h1 {
-    font-size: 48px;
-    font-weight: 600;
-    margin: 24px 0;
-  }
-
-  .hero-description {
-    font-size: 18px;
-    color: #64748b;
-    max-width: 720px;
-    margin: 0 auto 32px;
-    line-height: 1.6;
-  }
-
-  .version-badge {
-    display: inline-block;
-    background: #e76f51;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 500;
-  }
-
-  .cta-group {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .container {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-
-  .highlights,
-  .features {
-    padding: 80px 0;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 24px;
-    text-align: center;
-  }
-
-  .item .value {
-    font-size: 36px;
-    font-weight: 600;
-    color: #e76f51;
-    margin-bottom: 8px;
-  }
-
-  .item .label {
-    color: #64748b;
-    font-size: 14px;
-  }
-
-  .list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-</style>

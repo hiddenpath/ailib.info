@@ -1,0 +1,113 @@
+---
+const { locale = 'en' } = Astro.props;
+const isZh = locale === 'zh';
+---
+
+<div class="w-full overflow-x-auto">
+  <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-3xl mx-auto" style="min-width: 500px;">
+    <defs>
+      <marker id="arrow-flow" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 3.5 L 0 7 z" fill="#3b82f6" />
+      </marker>
+      <marker id="arrow-flow-back" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 3.5 L 0 7 z" fill="#10b981" />
+      </marker>
+    </defs>
+
+    <rect width="800" height="300" rx="12" fill="#0f172a" opacity="0.5" />
+
+    <text x="400" y="28" text-anchor="middle" fill="#e2e8f0" font-size="14" font-weight="700" font-family="Inter, system-ui, sans-serif">
+      {isZh ? '请求-响应数据流' : 'Request-Response Data Flow'}
+    </text>
+
+    <!-- Request flow (top) -->
+    <text x="400" y="58" text-anchor="middle" fill="#3b82f6" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif">
+      {isZh ? '请求流' : 'REQUEST FLOW'} &rarr;
+    </text>
+
+    <!-- Nodes -->
+    <g>
+      <!-- User Request -->
+      <rect x="30" y="75" width="100" height="50" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" />
+      <text x="80" y="97" text-anchor="middle" fill="#93c5fd" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif">{isZh ? '用户请求' : 'User'}</text>
+      <text x="80" y="113" text-anchor="middle" fill="#64748b" font-size="8" font-family="Inter, system-ui, sans-serif">chat()</text>
+
+      <!-- AiClient -->
+      <rect x="165" y="75" width="100" height="50" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1" />
+      <text x="215" y="97" text-anchor="middle" fill="#93c5fd" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif">AiClient</text>
+      <text x="215" y="113" text-anchor="middle" fill="#64748b" font-size="8" font-family="Inter, system-ui, sans-serif">{isZh ? '统一请求' : 'UnifiedRequest'}</text>
+
+      <!-- Protocol -->
+      <rect x="300" y="75" width="120" height="50" rx="8" fill="#1e293b" stroke="#8b5cf6" stroke-width="1" />
+      <text x="360" y="97" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif">Protocol</text>
+      <text x="360" y="113" text-anchor="middle" fill="#64748b" font-size="8" font-family="Inter, system-ui, sans-serif">compile_request()</text>
+
+      <!-- Transport -->
+      <rect x="455" y="75" width="100" height="50" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1" />
+      <text x="505" y="97" text-anchor="middle" fill="#93c5fd" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif">Transport</text>
+      <text x="505" y="113" text-anchor="middle" fill="#64748b" font-size="8" font-family="Inter, system-ui, sans-serif">HTTP POST</text>
+
+      <!-- Provider -->
+      <rect x="590" y="75" width="100" height="50" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" />
+      <text x="640" y="97" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif">{isZh ? 'AI 服务商' : 'AI Provider'}</text>
+      <text x="640" y="113" text-anchor="middle" fill="#64748b" font-size="8" font-family="Inter, system-ui, sans-serif">OpenAI, etc.</text>
+    </g>
+
+    <!-- Request arrows -->
+    <line x1="130" y1="100" x2="163" y2="100" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-flow)" />
+    <line x1="265" y1="100" x2="298" y2="100" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-flow)" />
+    <line x1="420" y1="100" x2="453" y2="100" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-flow)" />
+    <line x1="555" y1="100" x2="588" y2="100" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-flow)" />
+
+    <!-- Response flow label -->
+    <text x="400" y="168" text-anchor="middle" fill="#10b981" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif">
+      &larr; {isZh ? '响应流 (SSE/JSON)' : 'RESPONSE FLOW (SSE/JSON)'}
+    </text>
+
+    <!-- Response nodes -->
+    <g>
+      <!-- Stream bytes -->
+      <rect x="590" y="185" width="100" height="50" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" />
+      <text x="640" y="207" text-anchor="middle" fill="#34d399" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif">{isZh ? '字节流' : 'Byte Stream'}</text>
+      <text x="640" y="223" text-anchor="middle" fill="#64748b" font-size="8" font-family="Inter, system-ui, sans-serif">SSE / NDJSON</text>
+
+      <!-- Decoder -->
+      <rect x="470" y="185" width="90" height="50" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1" />
+      <text x="515" y="207" text-anchor="middle" fill="#34d399" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif">Decoder</text>
+      <text x="515" y="223" text-anchor="middle" fill="#64748b" font-size="8" font-family="Inter, system-ui, sans-serif">{isZh ? '解码帧' : 'JSON Frames'}</text>
+
+      <!-- Pipeline -->
+      <rect x="310" y="185" width="130" height="50" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1" />
+      <text x="375" y="207" text-anchor="middle" fill="#34d399" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif">Pipeline</text>
+      <text x="375" y="223" text-anchor="middle" fill="#64748b" font-size="8" font-family="Inter, system-ui, sans-serif">Select &rarr; Accumulate &rarr; Map</text>
+
+      <!-- Events -->
+      <rect x="175" y="185" width="105" height="50" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1" />
+      <text x="227" y="207" text-anchor="middle" fill="#34d399" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif">EventMapper</text>
+      <text x="227" y="223" text-anchor="middle" fill="#64748b" font-size="8" font-family="Inter, system-ui, sans-serif">StreamingEvent</text>
+
+      <!-- User -->
+      <rect x="40" y="185" width="105" height="50" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" />
+      <text x="92" y="207" text-anchor="middle" fill="#34d399" font-size="10" font-weight="600" font-family="Inter, system-ui, sans-serif">{isZh ? '应用消费' : 'Application'}</text>
+      <text x="92" y="223" text-anchor="middle" fill="#64748b" font-size="8" font-family="Inter, system-ui, sans-serif">{isZh ? '统一事件' : 'Unified Events'}</text>
+    </g>
+
+    <!-- Response arrows -->
+    <line x1="590" y1="210" x2="562" y2="210" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-flow-back)" />
+    <line x1="470" y1="210" x2="442" y2="210" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-flow-back)" />
+    <line x1="310" y1="210" x2="282" y2="210" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-flow-back)" />
+    <line x1="175" y1="210" x2="147" y2="210" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-flow-back)" />
+
+    <!-- Legend -->
+    <text x="400" y="268" text-anchor="middle" fill="#475569" font-size="9" font-family="Inter, system-ui, sans-serif">
+      {isZh
+        ? '所有参数映射和事件规范化由协议清单驱动 — 零硬编码逻辑'
+        : 'All parameter mapping and event normalization driven by protocol manifests — zero hardcoded logic'}
+    </text>
+    <text x="400" y="285" text-anchor="middle" fill="#475569" font-size="9" font-family="Inter, system-ui, sans-serif">
+      {isZh
+        ? '统一事件类型: PartialContentDelta · ToolCallStarted · PartialToolCall · StreamEnd'
+        : 'Unified events: PartialContentDelta · ToolCallStarted · PartialToolCall · StreamEnd'}
+    </text>
+  </svg>
+</div>

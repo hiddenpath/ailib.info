@@ -1,10 +1,9 @@
-/* Custom styles for Starlight theme */
+/* Starlight custom theme overrides */
 
-/* Color customization for AI-Protocol branding */
 :root {
   --sl-color-accent-low: #1e3a5f;
   --sl-color-accent: #3b82f6;
-  --sl-color-accent-high: #60a5fa;
+  --sl-color-accent-high: #93c5fd;
   --sl-color-white: #ffffff;
   --sl-color-gray-1: #eceef2;
   --sl-color-gray-2: #c0c2c7;
@@ -12,68 +11,130 @@
   --sl-color-gray-4: #545861;
   --sl-color-gray-5: #353841;
   --sl-color-gray-6: #24272f;
-  --sl-color-black: #0a0c10;
+  --sl-color-black: #0b0d11;
+
+  --sl-font: 'Inter', system-ui, -apple-system, sans-serif;
+  --sl-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+
+  --sl-nav-height: 3.5rem;
+  --sl-sidebar-width: 18rem;
+  --sl-content-width: 50rem;
 }
 
-/* Dark mode (default for developer docs) */
+/* Dark mode overrides */
 :root[data-theme='dark'] {
-  --sl-color-bg: #0d1117;
-  --sl-color-bg-nav: #161b22;
-  --sl-color-bg-sidebar: #0d1117;
-  --sl-color-hairline-light: #30363d;
-  --sl-color-hairline: #30363d;
+  --sl-color-accent-low: #1e3a5f;
+  --sl-color-accent: #60a5fa;
+  --sl-color-accent-high: #bfdbfe;
 }
 
-/* Light mode */
-:root[data-theme='light'] {
-  --sl-color-bg: #ffffff;
-  --sl-color-bg-nav: #f6f8fa;
-  --sl-color-bg-sidebar: #f6f8fa;
-}
-
-/* Custom heading styles */
+/* Headings */
 .sl-markdown-content h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 800;
   letter-spacing: -0.02em;
 }
 
 .sl-markdown-content h2 {
-  font-size: 1.75rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   margin-top: 2.5rem;
-  border-bottom: 1px solid var(--sl-color-hairline);
   padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--sl-color-gray-5);
 }
 
-/* Code block styling */
+.sl-markdown-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Code blocks in docs */
 .sl-markdown-content pre {
   border-radius: 8px;
-  border: 1px solid var(--sl-color-hairline);
+  border: 1px solid var(--sl-color-gray-5);
 }
 
-/* Accent color badges for different runtimes */
-.runtime-badge {
+/* Sidebar styling */
+nav.sidebar .top-level > li > details > summary,
+nav.sidebar .top-level > li > a {
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Badge styles for runtime indicators */
+.badge-protocol {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.125rem 0.5rem;
-  border-radius: 4px;
+  padding: 2px 8px;
   font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.runtime-badge.rust {
-  background: rgba(249, 115, 22, 0.15);
-  color: #f97316;
-}
-
-.runtime-badge.python {
-  background: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
-}
-
-.runtime-badge.protocol {
+  font-weight: 600;
+  border-radius: 9999px;
   background: rgba(139, 92, 246, 0.15);
-  color: #8b5cf6;
+  color: #a78bfa;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.badge-rust {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  background: rgba(249, 115, 22, 0.15);
+  color: #fb923c;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.badge-python {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Aside/callout enhancements */
+.starlight-aside {
+  border-radius: 8px;
+}
+
+/* Table improvements */
+.sl-markdown-content table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.875rem;
+}
+
+.sl-markdown-content th {
+  background: var(--sl-color-gray-6);
+  font-weight: 600;
+  text-align: left;
+}
+
+.sl-markdown-content th,
+.sl-markdown-content td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--sl-color-gray-5);
+}
+
+.sl-markdown-content tr:hover {
+  background: var(--sl-color-gray-6);
+}
+
+/* Links in content */
+.sl-markdown-content a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.sl-markdown-content a:hover {
+  color: var(--sl-color-accent-high);
 }
