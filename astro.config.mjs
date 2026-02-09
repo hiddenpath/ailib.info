@@ -13,9 +13,6 @@ export default defineConfig({
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/hiddenpath' },
       ],
-      editLink: {
-        baseUrl: 'https://github.com/hiddenpath/ailib.info/edit/main/',
-      },
       sidebar: [
         {
           label: 'Getting Started',
