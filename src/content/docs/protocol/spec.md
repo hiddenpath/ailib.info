@@ -41,25 +41,28 @@ The specification defines unified streaming event types that runtimes emit:
 
 Provider manifests declare JSONPath-based rules that map provider-specific events to these standard types.
 
-## Error Classes
+## Error Classes (V2 Standard Codes)
 
-13 standard error types normalize provider-specific error responses:
+V2 defines 13 standardized error codes. Provider-specific errors are mapped to these codes for consistent handling across runtimes:
 
-| Error Class | Typical HTTP Status | Description |
-|-------------|-------------------|-------------|
-| `authentication` | 401 | Invalid or missing API key |
-| `permission` | 403 | Insufficient permissions |
-| `not_found` | 404 | Model or endpoint not found |
-| `rate_limited` | 429 | Rate limit exceeded |
-| `quota_exhausted` | 402 | Billing/quota limit reached |
-| `invalid_request` | 400 | Malformed request |
-| `context_length` | 400 | Context window exceeded |
-| `content_filter` | 400 | Content policy violation |
-| `overloaded` | 503/529 | Server overloaded |
-| `server_error` | 500 | Internal server error |
-| `timeout` | 408/504 | Request timeout |
-| `network` | — | Network connectivity issue |
-| `unknown` | — | Unclassified error |
+| Code | Name | Category | Retryable | Fallbackable |
+|------|------|----------|-----------|--------------|
+| E1001 | `invalid_request` | Client | No | No |
+| E1002 | `authentication` | Client | No | No |
+| E1003 | `permission_denied` | Client | No | No |
+| E1004 | `not_found` | Client | No | No |
+| E1005 | `request_too_large` | Client | No | Yes |
+| E2001 | `rate_limited` | Rate | Yes | Yes |
+| E2002 | `quota_exhausted` | Quota | No | Yes |
+| E3001 | `server_error` | Server | Yes | Yes |
+| E3002 | `overloaded` | Server | Yes | Yes |
+| E3003 | `timeout` | Server | Yes | Yes |
+| E4001 | `conflict` | Conflict | No | No |
+| E4002 | `cancelled` | Conflict | No | No |
+| E9999 | `unknown` | Unknown | No | Yes |
+
+- **Retryable** — Runtimes may retry the request (with backoff) for transient failures
+- **Fallbackable** — Runtimes may try an alternative provider or model in a fallback chain
 
 ## Retry Policies
 

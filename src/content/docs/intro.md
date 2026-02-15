@@ -21,11 +21,13 @@ AI-Lib takes a different approach:
 
 ## Three Projects, One Ecosystem
 
-| Project | Role | Language | Distribution |
-|---------|------|----------|-------------|
-| **[AI-Protocol](/protocol/)** | Specification layer | YAML/JSON | GitHub |
-| **[ai-lib-rust](/rust/)** | Runtime implementation | Rust | [Crates.io](https://crates.io/crates/ai-lib) |
-| **[ai-lib-python](/python/)** | Runtime implementation | Python | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| Project | Role | Language | Version | Distribution |
+|---------|------|----------|---------|---------------|
+| **[AI-Protocol](/protocol/)** | Specification layer | YAML/JSON | v0.5.0 | GitHub |
+| **[ai-lib-rust](/rust/)** | Runtime implementation | Rust | v0.7.1 | [Crates.io](https://crates.io/crates/ai-lib) |
+| **[ai-lib-python](/python/)** | Runtime implementation | Python | v0.6.0 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+
+The protocol v0.5.0 release introduces **V2 protocol features**: a three-layer architecture, standardized error codes, feature flags for capability extensions, and a compliance test suite ensuring identical behavior across runtimes.
 
 ### AI-Protocol (Specification)
 

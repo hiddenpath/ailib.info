@@ -28,7 +28,7 @@ const locale = 'en';
         <div class="container">
           <div class="max-w-4xl">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-6">
-              v0.5.0 &middot; PyPI
+              v0.6.0 &middot; PyPI
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.05]">
               <span class="gradient-text-python">Python Runtime</span>
@@ -36,7 +36,7 @@ const locale = 'en';
               <span class="text-[var(--text)]">for AI-Protocol.</span>
             </h1>
             <p class="text-lg md:text-xl text-[var(--text-dim)] max-w-2xl mb-8 leading-relaxed">
-              Developer-friendly, protocol-driven AI client. Full async support, Pydantic v2 type safety, production-grade telemetry, and smart model routing. Python 3.10+.
+              Developer-friendly, protocol-driven AI client. V2 standard error codes (13 codes), capability-based extras (8 extras + full), full async support, Pydantic v2 type safety, production-grade telemetry, and smart model routing. Python 3.10+.
             </p>
             <div class="flex flex-wrap gap-4 mb-8">
               <a href="/python/quickstart/" class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-all hover:no-underline">Quick Start</a>
@@ -57,6 +57,10 @@ const locale = 'en';
         <div class="container">
           <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">Key Features</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">V2 Error Codes & Capability Extras</h3>
+              <p class="text-sm text-[var(--text-dim)]">13 V2 standard error codes for consistent error handling. Capability-based extras: 8 optional extras plus a full extra for minimal or complete installs.</p>
+            </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="font-bold text-[var(--text)] mb-2">Async-First Design</h3>
               <p class="text-sm text-[var(--text-dim)]">Native async/await throughout. httpx-powered transport with connection pooling. CancellableStream for graceful stream termination.</p>
@@ -147,7 +151,7 @@ print(f<span style="color:#a5d6ff">"Latency: {'{'}stats.latency_ms{'}'}ms"</span
           <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">Module Overview</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="text-base font-bold text-emerald-400 mb-1 font-mono">client/</h3>
+              <h3 class="text-base font-bold text-emerald-400 mb-1 font-mono">client/ + errors/standard_codes/</h3>
               <p class="text-sm text-[var(--text-dim)]">AiClient, AiClientBuilder, ChatRequestBuilder, ChatResponse, CallStats, CancelToken, CancellableStream.</p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">

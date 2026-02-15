@@ -16,7 +16,7 @@ export default defineConfig({
       sidebar: [
         {
           label: 'Getting Started',
-          translations: { 'zh-CN': '快速入门' },
+          translations: { 'zh-CN': '快速入门', 'ja': 'はじめに', 'es': 'Inicio' },
           items: [
             { label: 'Introduction', slug: 'intro' },
             { label: 'Quick Start', slug: 'quickstart' },
@@ -25,7 +25,7 @@ export default defineConfig({
         },
         {
           label: 'AI-Protocol',
-          translations: { 'zh-CN': 'AI-Protocol 协议' },
+          translations: { 'zh-CN': 'AI-Protocol 协议', 'ja': 'AI-Protocol 仕様', 'es': 'AI-Protocol' },
           items: [
             { label: 'Overview', slug: 'protocol/overview' },
             { label: 'Specification', slug: 'protocol/spec' },
@@ -36,7 +36,7 @@ export default defineConfig({
         },
         {
           label: 'Rust SDK',
-          translations: { 'zh-CN': 'Rust SDK' },
+          translations: { 'zh-CN': 'Rust SDK', 'ja': 'Rust SDK', 'es': 'Rust SDK' },
           items: [
             { label: 'Overview', slug: 'rust/overview' },
             { label: 'Quick Start', slug: 'rust/quickstart' },
@@ -48,7 +48,7 @@ export default defineConfig({
         },
         {
           label: 'Python SDK',
-          translations: { 'zh-CN': 'Python SDK' },
+          translations: { 'zh-CN': 'Python SDK', 'ja': 'Python SDK', 'es': 'Python SDK' },
           items: [
             { label: 'Overview', slug: 'python/overview' },
             { label: 'Quick Start', slug: 'python/quickstart' },
@@ -60,7 +60,7 @@ export default defineConfig({
         },
         {
           label: 'Developer Guides',
-          translations: { 'zh-CN': '开发者指南' },
+          translations: { 'zh-CN': '开发者指南', 'ja': '開発者ガイド', 'es': 'Guías' },
           items: [
             { label: 'Chat Completions', slug: 'guides/chat' },
             { label: 'Function Calling', slug: 'guides/tools' },
@@ -78,6 +78,18 @@ export default defineConfig({
         root: {
           label: 'English',
           lang: 'en',
+        },
+        'zh-cn': {
+          label: '简体中文',
+          lang: 'zh-CN',
+        },
+        ja: {
+          label: '日本語',
+          lang: 'ja',
+        },
+        es: {
+          label: 'Español',
+          lang: 'es',
         },
       },
     }),

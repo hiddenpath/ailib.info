@@ -1,6 +1,6 @@
 ---
 title: Streaming Pipeline (Rust)
-description: Deep dive into the operator-based streaming pipeline in ai-lib-rust.
+description: Deep dive into the operator-based streaming pipeline in ai-lib-rust v0.7.1.
 ---
 
 # Streaming Pipeline

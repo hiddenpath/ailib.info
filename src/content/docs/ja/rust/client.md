@@ -1,0 +1,159 @@
+---
+title: AiClient API（Rust）
+description: ai-lib-rust v0.7.1 における AiClient、ChatRequestBuilder、レスポンス型の詳細ガイド。
+---
+
+# AiClient API
+
+## クライアントの作成
+
+### モデル識別子から
+
+```rust
+// プロトコルは自動的に読み込まれます
+let client = AiClient::from_model("anthropic/claude-3-5-sonnet").await?;
+```
+
+### ビルダーを使用
+
+```rust
+let client = AiClient::builder()
+    .model("openai/gpt-4o")
+    .protocol_dir("./ai-protocol")
+    .timeout(Duration::from_secs(60))
+    .build()
+    .await?;
+```
+
+## ChatRequestBuilder
+
+ビルダーパターンにより fluent API を提供します：
+
+```rust
+let response = client.chat()
+    // メッセージ
+    .system("You are a helpful assistant")
+    .user("Hello!")
+    .messages(vec![Message::user("Follow-up")])
+
+    // パラメータ
+    .temperature(0.7)
+    .max_tokens(1000)
+    .top_p(0.9)
+    .stop(vec!["END".into()])
+
+    // ツール
+    .tools(vec![weather_tool])
+    .tool_choice("auto")
+
+    // 実行
+    .execute()
+    .await?;
+```
+
+## レスポンス型
+
+### ChatResponse
+
+```rust
+pub struct ChatResponse {
+    pub content: String,         // レスポンステキスト
+    pub tool_calls: Vec<ToolCall>, // 関数呼び出し（ある場合）
+    pub finish_reason: String,    // レスポンス終了の理由
+    pub usage: Usage,             // トークン使用量
+}
+```
+
+### StreamingEvent
+
+```rust
+pub enum StreamingEvent {
+    ContentDelta { text: String, index: usize },
+    ThinkingDelta { text: String },
+    ToolCallStarted { id: String, name: String, index: usize },
+    PartialToolCall { id: String, arguments: String, index: usize },
+    ToolCallEnded { id: String, index: usize },
+    StreamEnd { finish_reason: Option<String>, usage: Option<Usage> },
+    Metadata { model: Option<String>, usage: Option<Usage> },
+}
+```
+
+### CallStats
+
+```rust
+pub struct CallStats {
+    pub total_tokens: u32,
+    pub prompt_tokens: u32,
+    pub completion_tokens: u32,
+    pub latency_ms: u64,
+    pub model: String,
+    pub provider: String,
+}
+```
+
+## 実行モード
+
+### 非ストリーミング
+
+```rust
+// シンプルなレスポンス
+let response = client.chat().user("Hello").execute().await?;
+
+// 統計付きレスポンス
+let (response, stats) = client.chat().user("Hello").execute_with_stats().await?;
+```
+
+### ストリーミング
+
+```rust
+let mut stream = client.chat()
+    .user("Hello")
+    .stream()
+    .execute_stream()
+    .await?;
+
+while let Some(event) = stream.next().await {
+    // 各 StreamingEvent を処理
+}
+```
+
+### ストリームキャンセル
+
+```rust
+let (mut stream, cancel_handle) = client.chat()
+    .user("Long task...")
+    .stream()
+    .execute_stream_cancellable()
+    .await?;
+
+// 別タスクからキャンセル
+tokio::spawn(async move {
+    tokio::time::sleep(Duration::from_secs(5)).await;
+    cancel_handle.cancel();
+});
+```
+
+## エラーハンドリング
+
+```rust
+use ai_lib::{Error, ErrorContext};
+
+match client.chat().user("Hello").execute().await {
+    Ok(response) => println!("{}", response.content),
+    Err(Error::Protocol(e)) => eprintln!("Protocol error: {e}"),
+    Err(Error::Transport(e)) => eprintln!("HTTP error: {e}"),
+    Err(Error::Remote(e)) => {
+        eprintln!("Provider error: {}", e.error_type);
+        // e.error_type は 13 の標準エラークラスのいずれか
+    }
+    Err(e) => eprintln!("Other error: {e}"),
+}
+```
+
+すべてのエラーは `ErrorContext` 経由で V2 標準エラーコードを保持します。プログラムによる処理には `error.context().standard_code` で `StandardErrorCode` enum（E1001–E9999）にアクセスしてください。
+
+## 次のステップ
+
+- **[ストリーミングパイプライン](/rust/streaming/)** — パイプラインがストリームを処理する方法
+- **[耐障害性](/rust/resilience/)** — 信頼性パターン
+- **[高度な機能](/rust/advanced/)** — 埋め込み、キャッシュ、プラグイン

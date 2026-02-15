@@ -18,7 +18,7 @@ Every piece of provider-specific behavior — endpoints, authentication, paramet
 ```
 ai-protocol/
 ├── v1/
-│   ├── spec.yaml          # Core specification (v1.1)
+│   ├── spec.yaml          # Core specification (v0.5.0)
 │   ├── providers/          # 30+ provider manifests
 │   │   ├── openai.yaml
 │   │   ├── anthropic.yaml
@@ -56,7 +56,7 @@ Each provider has a YAML manifest declaring everything a runtime needs:
 
 ```yaml
 id: anthropic
-protocol_version: "1.5"
+protocol_version: "0.5"
 endpoint:
   base_url: "https://api.anthropic.com/v1"
   chat_path: "/messages"
@@ -121,9 +121,37 @@ npm run build       # Compile YAML → JSON
 
 AI-Protocol uses layered versioning:
 
-1. **Spec version** (`v1/spec.yaml`) — Schema structure version (currently 1.1)
-2. **Protocol version** (in manifests) — Protocol features used (currently 1.5)
-3. **Release version** (`package.json`) — SemVer for the specification package
+1. **Spec version** (`v1/spec.yaml`) — Schema structure version (currently v0.5.0)
+2. **Protocol version** (in manifests) — Protocol features used (currently 0.5)
+3. **Release version** (`package.json`) — SemVer for the specification package (v0.5.0)
+
+## V2 Protocol Architecture
+
+Protocol v0.5.0 introduces the **V2 architecture** — a clean separation of concerns across layers and a concentric manifest model.
+
+### Three-Layer Pyramid
+
+- **L1 Core Protocol** — Message format, standard error codes (E1001–E9999), version declaration. All providers must implement this layer.
+- **L2 Capability Extensions** — Streaming, vision, tools. Each extension is controlled by feature flags; providers opt in per capability.
+- **L3 Environment Profile** — API keys, endpoints, retry policies. Environment-specific configuration that can be overridden without changing provider logic.
+
+### Concentric Circle Manifest Model
+
+- **Ring 1 Core Skeleton** (required) — Minimal fields for a valid manifest: endpoint, auth, parameter mappings
+- **Ring 2 Capability Mapping** (conditional) — Streaming config, tools mapping, vision params — present when the provider supports them
+- **Ring 3 Advanced Extensions** (optional) — Custom headers, rate limit headers, advanced retry policies
+
+### V2-Alpha Providers
+
+OpenAI, Anthropic, and Gemini are already available in **v2-alpha** format. These manifests use the Ring 1/2/3 structure and can be used alongside v1 manifests.
+
+### Standard Error Codes
+
+V2 defines 13 standardized error codes (E1001–E9999) across 5 categories: client errors (E1xxx), rate/quota (E2xxx), server (E3xxx), conflict/cancel (E4xxx), and unknown (E9999). See the [specification](/protocol/spec/) for the full code list.
+
+### Cross-Runtime Consistency
+
+A **compliance test suite** ensures identical behavior across Rust and Python runtimes. All V2 providers pass the same test matrix in both implementations.
 
 ## Next Steps
 

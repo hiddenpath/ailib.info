@@ -1,6 +1,6 @@
 ---
 title: AiClient API (Rust)
-description: Detailed guide to using AiClient, ChatRequestBuilder, and response types in ai-lib-rust.
+description: Detailed guide to using AiClient, ChatRequestBuilder, and response types in ai-lib-rust v0.7.1.
 ---
 
 # AiClient API
@@ -149,6 +149,8 @@ match client.chat().user("Hello").execute().await {
     Err(e) => eprintln!("Other error: {e}"),
 }
 ```
+
+All errors carry V2 standard error codes via `ErrorContext`. Use `error.context().standard_code` to access the `StandardErrorCode` enum (E1001–E9999) for programmatic handling.
 
 ## Next Steps
 

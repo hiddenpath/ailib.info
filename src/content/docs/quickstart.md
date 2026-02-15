@@ -18,7 +18,7 @@ Choose your runtime and start making AI calls in minutes.
 
 ```toml
 [dependencies]
-ai-lib = "0.6.6"
+ai-lib = "0.7"
 tokio = { version = "1", features = ["full"] }
 ```
 
@@ -70,7 +70,7 @@ cargo run
 ### 1. Install the package
 
 ```bash
-pip install ai-lib-python
+pip install ai-lib-python>=0.6.0
 ```
 
 ### 2. Set your API key

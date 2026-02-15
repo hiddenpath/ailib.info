@@ -11,10 +11,12 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-ai-lib = "0.6.6"
+ai-lib = { version = "0.7", features = ["full"] }
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 ```
+
+Use the `full` feature to enable all capabilities (embeddings, batch, guardrails, tokens, telemetry, routing_mvp, interceptors). Or specify only the features you need, e.g. `features = ["embeddings", "batch"]`.
 
 ## Set API Key
 

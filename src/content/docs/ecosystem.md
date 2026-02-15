@@ -5,7 +5,7 @@ description: How AI-Protocol, ai-lib-rust, and ai-lib-python work together as an
 
 # Ecosystem Architecture
 
-The AI-Lib ecosystem is built on a clean three-layer architecture where each layer has a distinct responsibility.
+The AI-Lib ecosystem is built on a clean three-layer architecture where each layer has a distinct responsibility. Current versions: **AI-Protocol v0.5.0**, **ai-lib-rust v0.7.1**, **ai-lib-python v0.6.0**.
 
 ## The Three Layers
 
@@ -76,6 +76,16 @@ Both runtimes search for protocol manifests in this order:
 4. **GitHub fallback** — Downloads from `hiddenpath/ai-protocol` repository
 
 This means you can start developing without any local setup — the runtimes will fetch manifests from GitHub automatically.
+
+## V2 Protocol Evolution
+
+The protocol v0.5.0 release introduces a **three-layer pyramid** architecture:
+
+- **L1 Core Protocol** — Message format, standard error codes (E1001–E9999), version declaration
+- **L2 Capability Extensions** — Streaming, vision, tools — each controlled by feature flags
+- **L3 Environment Profile** — API keys, endpoints, retry policies — environment-specific configuration
+
+The **compliance test suite** (42 test cases, 20/20 passing in both runtimes) ensures identical behavior across Rust and Python implementations.
 
 ## Relationship to MCP
 

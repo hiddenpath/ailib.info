@@ -9,6 +9,8 @@ Each AI provider in the ecosystem has a YAML manifest file (`v1/providers/<provi
 
 ## Supported Providers
 
+Provider manifests are available in two formats: **v1** (legacy) and **v2-alpha**. The v2-alpha format uses the Ring 1/2/3 concentric structure (Core Skeleton → Capability Mapping → Advanced Extensions). **OpenAI, Anthropic, and Gemini** are available in both v1 and v2-alpha formats.
+
 ### Global Providers
 
 OpenAI, Anthropic, Google Gemini, Groq, Mistral, Cohere, Perplexity, Together AI, DeepInfra, OpenRouter, Azure OpenAI, NVIDIA, Fireworks AI, Replicate, AI21 Labs, Cerebras, Lepton AI, Grok

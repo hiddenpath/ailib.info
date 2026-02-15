@@ -137,6 +137,8 @@ async for event in client.chat().user("Long task...").stream(cancel_token=token)
 
 ## Error Handling
 
+All errors expose V2 standard error codes via the `standard_code` property (ai-lib-python v0.6.0+):
+
 ```python
 from ai_lib_python.errors import (
     AiLibError, ProtocolError, TransportError, RemoteError
@@ -146,6 +148,7 @@ try:
     response = await client.chat().user("Hello").execute()
 except RemoteError as e:
     print(f"Provider error: {e.error_type}")  # Standard error class
+    print(f"Standard code: {e.standard_code}")  # V2 StandardErrorCode (e.g. E1001)
     print(f"HTTP status: {e.status_code}")
 except TransportError as e:
     print(f"Network error: {e}")

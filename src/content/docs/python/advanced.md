@@ -1,9 +1,47 @@
 ---
 title: Advanced Features (Python)
-description: Telemetry, model routing, embeddings, caching, plugins, and structured output in ai-lib-python.
+description: Telemetry, model routing, embeddings, caching, plugins, and structured output in ai-lib-python v0.6.0.
 ---
 
 # Advanced Features
+
+## Capability Extras
+
+Install optional features via pip extras (v0.6.0+):
+
+| Extra | Purpose |
+|-------|---------|
+| `vision` | Image processing (Pillow) |
+| `audio` | Audio processing (soundfile) |
+| `embeddings` | Embedding generation |
+| `structured` | Structured output / JSON mode |
+| `batch` | Batch processing |
+| `agentic` | Agent workflow support |
+| `telemetry` | OpenTelemetry integration |
+| `tokenizer` | Token counting (tiktoken) |
+| `full` | All features + watchdog + keyring |
+
+```bash
+pip install ai-lib-python[full]   # All features
+pip install ai-lib-python[vision,embeddings]   # Selected extras
+```
+
+## V2 Error Codes
+
+The `StandardErrorCode` type in `errors/standard_codes.py` provides protocol-aligned error classification:
+
+- **13 frozen dataclass codes** — E1001–E9999 range
+- **`from_http_status(status_code)`** — Map HTTP status codes to standard codes
+- **`from_name(name)`** — Look up code by string name
+- **Classification pipeline** — Use `retryable` and `fallbackable` properties for resilience decisions (retries, fallback chains)
+
+```python
+from ai_lib_python.errors.standard_codes import StandardErrorCode
+
+code = StandardErrorCode.from_http_status(429)
+print(code.retryable)   # True
+print(code.fallbackable)  # True
+```
 
 ## Production Telemetry
 

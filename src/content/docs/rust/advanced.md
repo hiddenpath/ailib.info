@@ -1,6 +1,6 @@
 ---
 title: Advanced Features (Rust)
-description: Embeddings, caching, batching, plugins, and guardrails in ai-lib-rust.
+description: Embeddings, caching, batching, plugins, guardrails, feature flags, structured output, and V2 error codes in ai-lib-rust v0.7.1.
 ---
 
 # Advanced Features

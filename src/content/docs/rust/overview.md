@@ -5,7 +5,16 @@ description: Architecture and design of ai-lib-rust — the high-performance Rus
 
 # Rust SDK Overview
 
-**ai-lib-rust** (v0.6.6) is the high-performance Rust runtime for the AI-Protocol specification. It implements a protocol-driven architecture where all provider behavior comes from configuration, not code.
+**ai-lib-rust** (v0.7.1) is the high-performance Rust runtime for the AI-Protocol specification. It implements a protocol-driven architecture where all provider behavior comes from configuration, not code.
+
+## V2 Protocol Alignment
+
+ai-lib-rust v0.7.1 aligns with the AI-Protocol V2 specification:
+
+- **Standard Error Codes**: 13-variant `StandardErrorCode` enum (E1001–E9999) integrated into all error paths
+- **Feature Flags**: 7 capability features (`embeddings`, `batch`, `guardrails`, `tokens`, `telemetry`, `routing_mvp`, `interceptors`) plus the `full` meta-feature
+- **Compliance Testing**: 20/20 cross-runtime test cases passing
+- **Structured Output**: JSON mode with schema validation
 
 ## Architecture
 
@@ -72,10 +81,15 @@ Production reliability patterns:
 
 ## Feature Flags
 
-Optional features enabled via Cargo:
+Optional features enabled via Cargo (use `full` to enable all):
 
 | Feature | What it enables |
 |---------|----------------|
+| `embeddings` | EmbeddingClient, vector operations |
+| `batch` | BatchCollector, BatchExecutor |
+| `guardrails` | Content filtering, PII detection |
+| `tokens` | Token counting, cost estimation |
+| `telemetry` | Advanced observability sinks |
 | `routing_mvp` | CustomModelManager, ModelArray, load balancing strategies |
 | `interceptors` | InterceptorPipeline for logging, metrics, audit |
 
