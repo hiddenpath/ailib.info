@@ -73,6 +73,32 @@ export default defineConfig({
       customCss: [
         './src/styles/custom.css',
       ],
+      head: [
+        {
+          tag: 'script',
+          content: `
+(function(){
+  var L=['zh-cn','ja','es'];
+  function run(){
+    var p=location.pathname,cur='';
+    for(var i=0;i<L.length;i++){if(p.startsWith('/'+L[i]+'/')||p==='/'+L[i]){cur=L[i];break;}}
+    if(!cur)return;
+    var pre='/'+cur;
+    document.querySelectorAll('a[href]').forEach(function(a){
+      var h=a.getAttribute('href');
+      if(!h||h.charAt(0)!=='/'||h.startsWith('//')
+        ||h.startsWith('http')||h.startsWith('#'))return;
+      for(var j=0;j<L.length;j++){if(h.startsWith('/'+L[j]+'/')||h==='/'+L[j])return;}
+      a.setAttribute('href',pre+h);
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}else{run();}
+  document.addEventListener('astro:page-load',run);
+  document.addEventListener('astro:after-swap',run);
+})();
+`,
+        },
+      ],
       defaultLocale: 'root',
       locales: {
         root: {
