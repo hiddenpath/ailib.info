@@ -5,14 +5,14 @@ description: Guía para usar completaciones de chat entre proveedores con los ti
 
 # Completaciones de chat
 
-Las completaciones de chat son la API principal para interactuar con los modelos de IA. Ambos tiempos de ejecución proporcionan una interfaz unificada que funciona con todos los más de 30 proveedores.
+Las completaciones de chat son la API principal para interactuar con los modelos de IA. Ambos tiempos de ejecución proporcionan una interfaz unificada que funciona con todos los más de 35 proveedores.
 
 ## Uso básico
 
 ### Rust
 
 ```rust
-let client = AiClient::from_model("openai/gpt-4o").await?;
+let client = AiClient::new("openai/gpt-4o").await?;
 
 let response = client.chat()
     .user("Hello, world!")
@@ -168,9 +168,9 @@ El mismo código funciona con todos los proveedores:
 
 ```rust
 // Just change the model identifier
-let client = AiClient::from_model("anthropic/claude-3-5-sonnet").await?;
-let client = AiClient::from_model("deepseek/deepseek-chat").await?;
-let client = AiClient::from_model("gemini/gemini-2.0-flash").await?;
+let client = AiClient::new("anthropic/claude-3-5-sonnet").await?;
+let client = AiClient::new("deepseek/deepseek-chat").await?;
+let client = AiClient::new("gemini/gemini-2.0-flash").await?;
 ```
 
 El manifiesto del protocolo maneja las URLs de endpoints, autenticación, mapeo de parámetros y diferencias de formato de streaming automáticamente.

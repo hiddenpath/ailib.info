@@ -21,7 +21,7 @@ AI-Lib supports multimodal inputs — text combined with images — through the 
 ```rust
 use ai_lib::{AiClient, Message, ContentBlock};
 
-let client = AiClient::from_model("openai/gpt-4o").await?;
+let client = AiClient::new("openai/gpt-4o").await?;
 
 let message = Message::user_with_content(vec![
     ContentBlock::Text("What's in this image?".into()),

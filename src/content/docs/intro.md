@@ -31,7 +31,7 @@ The protocol v0.5.0 release introduces **V2 protocol features**: a three-layer a
 
 ### AI-Protocol (Specification)
 
-The foundation. YAML manifests describe 30+ AI providers: their endpoints, authentication, parameter mappings, streaming decoder configurations, error classification rules, and capabilities. JSON Schema validates everything.
+The foundation. YAML manifests describe 35+ AI providers: their endpoints, authentication, parameter mappings, streaming decoder configurations, error classification rules, and capabilities. JSON Schema validates everything.
 
 ### ai-lib-rust (Rust Runtime)
 
@@ -43,7 +43,7 @@ Developer-friendly runtime. Full async/await support, Pydantic v2 type safety, p
 
 ## Key Features
 
-- **30+ providers** — OpenAI, Anthropic, Gemini, DeepSeek, Qwen, and many more
+- **35+ providers** — OpenAI, Anthropic, Gemini, DeepSeek, Qwen, and many more
 - **Unified streaming** — Same `StreamingEvent` types regardless of provider
 - **Protocol-driven** — All behavior defined in YAML, not code
 - **Hot-reload** — Update provider configs without restarting

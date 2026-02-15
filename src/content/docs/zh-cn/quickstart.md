@@ -37,7 +37,7 @@ use futures::StreamExt;
 #[tokio::main]
 async fn main() -> ai_lib::Result<()> {
     // Create client — protocol manifest is loaded automatically
-    let client = AiClient::from_model("anthropic/claude-3-5-sonnet").await?;
+    let client = AiClient::new("anthropic/claude-3-5-sonnet").await?;
 
     // Streaming chat
     let mut stream = client.chat()
@@ -114,9 +114,9 @@ AI-Lib 的魔力：只需修改一个字符串即可切换供应商。
 
 ```rust
 // Rust — just change the model ID
-let client = AiClient::from_model("openai/gpt-4o").await?;
-let client = AiClient::from_model("deepseek/deepseek-chat").await?;
-let client = AiClient::from_model("gemini/gemini-2.0-flash").await?;
+let client = AiClient::new("openai/gpt-4o").await?;
+let client = AiClient::new("deepseek/deepseek-chat").await?;
+let client = AiClient::new("gemini/gemini-2.0-flash").await?;
 ```
 
 ```python

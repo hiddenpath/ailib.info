@@ -37,7 +37,7 @@ use futures::StreamExt;
 #[tokio::main]
 async fn main() -> ai_lib::Result<()> {
     // クライアントを作成 — プロトコルマニフェストは自動的に読み込まれます
-    let client = AiClient::from_model("anthropic/claude-3-5-sonnet").await?;
+    let client = AiClient::new("anthropic/claude-3-5-sonnet").await?;
 
     // ストリーミングチャット
     let mut stream = client.chat()
@@ -114,9 +114,9 @@ AI-Lib の醍醐味：1 つの文字列を変更するだけでプロバイダ�
 
 ```rust
 // Rust — モデル ID を変更するだけ
-let client = AiClient::from_model("openai/gpt-4o").await?;
-let client = AiClient::from_model("deepseek/deepseek-chat").await?;
-let client = AiClient::from_model("gemini/gemini-2.0-flash").await?;
+let client = AiClient::new("openai/gpt-4o").await?;
+let client = AiClient::new("deepseek/deepseek-chat").await?;
+let client = AiClient::new("gemini/gemini-2.0-flash").await?;
 ```
 
 ```python

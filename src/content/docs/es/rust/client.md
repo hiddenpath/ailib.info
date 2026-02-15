@@ -11,7 +11,7 @@ description: Guía detallada para usar AiClient, ChatRequestBuilder y tipos de r
 
 ```rust
 // Automatic protocol loading
-let client = AiClient::from_model("anthropic/claude-3-5-sonnet").await?;
+let client = AiClient::new("anthropic/claude-3-5-sonnet").await?;
 ```
 
 ### Con el constructor
@@ -151,6 +151,65 @@ match client.chat().user("Hello").execute().await {
 ```
 
 Todos los errores incluyen códigos de error estándar V2 a través de `ErrorContext`. Use `error.context().standard_code` para acceder a la enumeración `StandardErrorCode` (E1001–E9999) para un manejo programático.
+
+## Operaciones por lotes
+
+Ejecute varias solicitudes de chat en paralelo:
+
+```rust
+// Execute multiple chat requests in parallel
+let results = client.chat_batch(requests, 5).await; // concurrency limit = 5
+
+// Smart batching with automatic concurrency tuning
+let results = client.chat_batch_smart(requests).await;
+```
+
+## Validación de solicitudes
+
+Valide una solicitud contra el manifiesto del protocolo antes de enviarla:
+
+```rust
+// Validate a request against the protocol manifest before sending
+client.validate_request(&request)?;
+```
+
+## Retroalimentación y observabilidad
+
+Reporte eventos de retroalimentación para RLHF y monitoreo, e inspeccione el estado de resiliencia:
+
+```rust
+// Report feedback events for RLHF / monitoring
+client.report_feedback(FeedbackEvent::Rating(RatingFeedback {
+    request_id: "req-123".into(),
+    rating: 5,
+    max_rating: 5,
+    category: None,
+    comment: Some("Great response".into()),
+    timestamp: chrono::Utc::now(),
+})).await?;
+
+// Get current resilience state
+let signals = client.signals().await;
+println!("Circuit: {:?}", signals.circuit_breaker);
+```
+
+## Configuración del constructor
+
+Use `AiClientBuilder` para configuración avanzada:
+
+```rust
+let client = AiClientBuilder::new()
+    .protocol_path("path/to/protocols".into())
+    .hot_reload(true)
+    .with_fallbacks(vec!["openai/gpt-4o".into()])
+    .feedback_sink(my_sink)
+    .max_inflight(10)
+    .circuit_breaker_default()
+    .rate_limit_rps(5.0)
+    .base_url_override("https://my-proxy.example.com")
+    .build("anthropic/claude-3-5-sonnet")
+    .await?;
+```
 
 ## Próximos pasos
 

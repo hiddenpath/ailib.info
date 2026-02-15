@@ -19,7 +19,7 @@ AI-Protocol 是一个**与供应商无关的规范**，用于标准化与 AI 模
 ai-protocol/
 ├── v1/
 │   ├── spec.yaml          # Core specification (v0.5.0)
-│   ├── providers/          # 30+ provider manifests
+│   ├── providers/          # 35+ provider manifests
 │   │   ├── openai.yaml
 │   │   ├── anthropic.yaml
 │   │   ├── gemini.yaml

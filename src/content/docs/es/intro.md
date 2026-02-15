@@ -31,7 +31,7 @@ La versión v0.5.0 del protocolo introduce las **funcionalidades del protocolo V
 
 ### AI-Protocol (Especificación)
 
-La base. Los manifiestos YAML describen más de 30 proveedores de IA: sus endpoints, autenticación, mapeo de parámetros, configuraciones de decodificador de streaming, reglas de clasificación de errores y capacidades. JSON Schema valida todo.
+La base. Los manifiestos YAML describen más de 35 proveedores de IA: sus endpoints, autenticación, mapeo de parámetros, configuraciones de decodificador de streaming, reglas de clasificación de errores y capacidades. JSON Schema valida todo.
 
 ### ai-lib-rust (Tiempo de ejecución Rust)
 
@@ -43,7 +43,7 @@ Tiempo de ejecución orientado al desarrollador. Soporte completo async/await, s
 
 ## Características principales
 
-- **Más de 30 proveedores** — OpenAI, Anthropic, Gemini, DeepSeek, Qwen y muchos más
+- **Más de 35 proveedores** — OpenAI, Anthropic, Gemini, DeepSeek, Qwen y muchos más
 - **Streaming unificado** — Mismos tipos `StreamingEvent` independientemente del proveedor
 - **Impulsado por protocolo** — Todo el comportamiento definido en YAML, no en código
 - **Recarga en caliente** — Actualice configuraciones de proveedores sin reiniciar

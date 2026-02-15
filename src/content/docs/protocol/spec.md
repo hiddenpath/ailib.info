@@ -48,18 +48,18 @@ V2 defines 13 standardized error codes. Provider-specific errors are mapped to t
 | Code | Name | Category | Retryable | Fallbackable |
 |------|------|----------|-----------|--------------|
 | E1001 | `invalid_request` | Client | No | No |
-| E1002 | `authentication` | Client | No | No |
+| E1002 | `authentication` | Client | No | Yes |
 | E1003 | `permission_denied` | Client | No | No |
 | E1004 | `not_found` | Client | No | No |
-| E1005 | `request_too_large` | Client | No | Yes |
+| E1005 | `request_too_large` | Client | No | No |
 | E2001 | `rate_limited` | Rate | Yes | Yes |
-| E2002 | `quota_exhausted` | Quota | No | Yes |
+| E2002 | `quota_exhausted` | Rate | No | Yes |
 | E3001 | `server_error` | Server | Yes | Yes |
 | E3002 | `overloaded` | Server | Yes | Yes |
 | E3003 | `timeout` | Server | Yes | Yes |
-| E4001 | `conflict` | Conflict | No | No |
-| E4002 | `cancelled` | Conflict | No | No |
-| E9999 | `unknown` | Unknown | No | Yes |
+| E4001 | `conflict` | Operational | Yes | No |
+| E4002 | `cancelled` | Operational | No | No |
+| E9999 | `unknown` | Unknown | No | No |
 
 - **Retryable** — Runtimes may retry the request (with backoff) for transient failures
 - **Fallbackable** — Runtimes may try an alternative provider or model in a fallback chain

@@ -18,7 +18,7 @@ use tracing_subscriber;
 tracing_subscriber::init();
 
 // All AI-Lib operations emit structured log events
-let client = AiClient::from_model("openai/gpt-4o").await?;
+let client = AiClient::new("openai/gpt-4o").await?;
 ```
 
 Log levels:

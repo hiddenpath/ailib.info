@@ -13,7 +13,7 @@ El ecosistema AI-Lib se basa en una arquitectura limpia de tres capas donde cada
 
 La capa de **especificación**. Los manifiestos YAML definen:
 
-- **Manifiestos de proveedores** (`providers/*.yaml`) — Endpoint, autenticación, mapeo de parámetros, decodificador de streaming, clasificación de errores para cada uno de los más de 30 proveedores
+- **Manifiestos de proveedores** (`providers/*.yaml`) — Endpoint, autenticación, mapeo de parámetros, decodificador de streaming, clasificación de errores para cada uno de los más de 35 proveedores
 - **Registro de modelos** (`models/*.yaml`) — Instancias de modelos con ventanas de contexto, capacidades y precios
 - **Especificación principal** (`spec.yaml`) — Parámetros estándar, eventos, tipos de error, políticas de reintento
 - **Esquemas** (`schemas/`) — Validación JSON Schema para toda la configuración

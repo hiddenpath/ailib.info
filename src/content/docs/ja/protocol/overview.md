@@ -19,7 +19,7 @@ AI-Protocol は、AI モデルとのやり取りを標準化する **プロバ�
 ai-protocol/
 ├── v1/
 │   ├── spec.yaml          # コア仕様（v0.5.0）
-│   ├── providers/          # 30 以上のプロバイダーマニフェスト
+│   ├── providers/          # 35 以上のプロバイダーマニフェスト
 │   │   ├── openai.yaml
 │   │   ├── anthropic.yaml
 │   │   ├── gemini.yaml

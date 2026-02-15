@@ -97,7 +97,7 @@ const locale = 'en';
             <div>
               <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Simple, Unified API</h2>
               <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
-                The same code works across all 30+ providers. Just change the model identifier — the protocol manifest handles everything else: endpoint, auth, parameter mapping, streaming format.
+                The same code works across all 35+ providers. Just change the model identifier — the protocol manifest handles everything else: endpoint, auth, parameter mapping, streaming format.
               </p>
               <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
                 The builder pattern provides a fluent API for request construction. Stream results arrive as unified <code>StreamingEvent</code> types regardless of the underlying provider.
@@ -107,7 +107,7 @@ const locale = 'en';
               <pre class="text-sm !bg-[#0d1117] !border-orange-500/20"><code class="language-rust"><span style="color:#ff7b72">use</span> ai_lib::{'{'}AiClient, Message, StreamingEvent{'}'};
 
 <span style="color:#8b949e">// Works with ANY provider — protocol-driven</span>
-<span style="color:#ff7b72">let</span> client = AiClient::from_model(
+<span style="color:#ff7b72">let</span> client = AiClient::new(
     <span style="color:#a5d6ff">"anthropic/claude-3-5-sonnet"</span>
 ).<span style="color:#ff7b72">await</span>?;
 

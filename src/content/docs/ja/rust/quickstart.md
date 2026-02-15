@@ -31,7 +31,7 @@ use ai_lib::{AiClient, Message};
 
 #[tokio::main]
 async fn main() -> ai_lib::Result<()> {
-    let client = AiClient::from_model("deepseek/deepseek-chat").await?;
+    let client = AiClient::new("deepseek/deepseek-chat").await?;
 
     let response = client.chat()
         .user("Explain quantum computing in simple terms")
@@ -53,7 +53,7 @@ use futures::StreamExt;
 
 #[tokio::main]
 async fn main() -> ai_lib::Result<()> {
-    let client = AiClient::from_model("deepseek/deepseek-chat").await?;
+    let client = AiClient::new("deepseek/deepseek-chat").await?;
 
     let mut stream = client.chat()
         .user("Write a haiku about Rust")
@@ -81,7 +81,7 @@ use futures::StreamExt;
 
 #[tokio::main]
 async fn main() -> ai_lib::Result<()> {
-    let client = AiClient::from_model("openai/gpt-4o").await?;
+    let client = AiClient::new("openai/gpt-4o").await?;
 
     let weather_tool = ToolDefinition {
         name: "get_weather".into(),
@@ -124,7 +124,7 @@ use ai_lib::{AiClient, Message, MessageRole};
 
 #[tokio::main]
 async fn main() -> ai_lib::Result<()> {
-    let client = AiClient::from_model("anthropic/claude-3-5-sonnet").await?;
+    let client = AiClient::new("anthropic/claude-3-5-sonnet").await?;
 
     let messages = vec![
         Message::system("You are a helpful coding assistant."),

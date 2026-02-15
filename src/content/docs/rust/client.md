@@ -11,7 +11,7 @@ description: Detailed guide to using AiClient, ChatRequestBuilder, and response 
 
 ```rust
 // Automatic protocol loading
-let client = AiClient::from_model("anthropic/claude-3-5-sonnet").await?;
+let client = AiClient::new("anthropic/claude-3-5-sonnet").await?;
 ```
 
 ### With Builder
@@ -151,6 +151,65 @@ match client.chat().user("Hello").execute().await {
 ```
 
 All errors carry V2 standard error codes via `ErrorContext`. Use `error.context().standard_code` to access the `StandardErrorCode` enum (E1001–E9999) for programmatic handling.
+
+## Batch Operations
+
+Execute multiple chat requests in parallel:
+
+```rust
+// Execute multiple chat requests in parallel
+let results = client.chat_batch(requests, 5).await; // concurrency limit = 5
+
+// Smart batching with automatic concurrency tuning
+let results = client.chat_batch_smart(requests).await;
+```
+
+## Request Validation
+
+Validate a request against the protocol manifest before sending:
+
+```rust
+// Validate a request against the protocol manifest before sending
+client.validate_request(&request)?;
+```
+
+## Feedback & Observability
+
+Report feedback events for RLHF and monitoring, and inspect resilience state:
+
+```rust
+// Report feedback events for RLHF / monitoring
+client.report_feedback(FeedbackEvent::Rating(RatingFeedback {
+    request_id: "req-123".into(),
+    rating: 5,
+    max_rating: 5,
+    category: None,
+    comment: Some("Great response".into()),
+    timestamp: chrono::Utc::now(),
+})).await?;
+
+// Get current resilience state
+let signals = client.signals().await;
+println!("Circuit: {:?}", signals.circuit_breaker);
+```
+
+## Builder Configuration
+
+Use `AiClientBuilder` for advanced configuration:
+
+```rust
+let client = AiClientBuilder::new()
+    .protocol_path("path/to/protocols".into())
+    .hot_reload(true)
+    .with_fallbacks(vec!["openai/gpt-4o".into()])
+    .feedback_sink(my_sink)
+    .max_inflight(10)
+    .circuit_breaker_default()
+    .rate_limit_rps(5.0)
+    .base_url_override("https://my-proxy.example.com")
+    .build("anthropic/claude-3-5-sonnet")
+    .await?;
+```
 
 ## Next Steps
 

@@ -13,7 +13,7 @@ The AI-Lib ecosystem is built on a clean three-layer architecture where each lay
 
 The **specification** layer. YAML manifests define:
 
-- **Provider manifests** (`providers/*.yaml`) — Endpoint, auth, parameter mappings, streaming decoder, error classification for each of 30+ providers
+- **Provider manifests** (`providers/*.yaml`) — Endpoint, auth, parameter mappings, streaming decoder, error classification for each of 35+ providers
 - **Model registry** (`models/*.yaml`) — Model instances with context windows, capabilities, pricing
 - **Core specification** (`spec.yaml`) — Standard parameters, events, error types, retry policies
 - **Schemas** (`schemas/`) — JSON Schema validation for all configuration

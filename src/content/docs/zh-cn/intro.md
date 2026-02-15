@@ -31,7 +31,7 @@ AI-Lib 采用了不同的方法：
 
 ### AI-Protocol（规范）
 
-基础层。YAML 清单描述了 30+ 个 AI 供应商：它们的端点、认证、参数映射、流式解码器配置、错误分类规则以及能力。JSON Schema 验证所有内容。
+基础层。YAML 清单描述了 35+ 个 AI 供应商：它们的端点、认证、参数映射、流式解码器配置、错误分类规则以及能力。JSON Schema 验证所有内容。
 
 ### ai-lib-rust（Rust 运行时）
 
@@ -43,7 +43,7 @@ AI-Lib 采用了不同的方法：
 
 ## 核心特性
 
-- **30+ 供应商** — OpenAI、Anthropic、Gemini、DeepSeek、Qwen 等
+- **35+ 供应商** — OpenAI、Anthropic、Gemini、DeepSeek、Qwen 等
 - **统一流式** — 无论供应商如何，都使用相同的 `StreamingEvent` 类型
 - **协议驱动** — 所有行为在 YAML 中定义，而非代码中
 - **热重载** — 更新供应商配置无需重启

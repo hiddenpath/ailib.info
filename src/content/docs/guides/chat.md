@@ -5,14 +5,14 @@ description: Guide to using chat completions across providers with AI-Lib runtim
 
 # Chat Completions
 
-Chat completions are the primary API for interacting with AI models. Both runtimes provide a unified interface that works across all 30+ providers.
+Chat completions are the primary API for interacting with AI models. Both runtimes provide a unified interface that works across all 35+ providers.
 
 ## Basic Usage
 
 ### Rust
 
 ```rust
-let client = AiClient::from_model("openai/gpt-4o").await?;
+let client = AiClient::new("openai/gpt-4o").await?;
 
 let response = client.chat()
     .user("Hello, world!")
@@ -168,9 +168,9 @@ The same code works across all providers:
 
 ```rust
 // Just change the model identifier
-let client = AiClient::from_model("anthropic/claude-3-5-sonnet").await?;
-let client = AiClient::from_model("deepseek/deepseek-chat").await?;
-let client = AiClient::from_model("gemini/gemini-2.0-flash").await?;
+let client = AiClient::new("anthropic/claude-3-5-sonnet").await?;
+let client = AiClient::new("deepseek/deepseek-chat").await?;
+let client = AiClient::new("gemini/gemini-2.0-flash").await?;
 ```
 
 The protocol manifest handles endpoint URLs, authentication, parameter mapping, and streaming format differences automatically.

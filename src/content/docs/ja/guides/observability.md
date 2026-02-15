@@ -18,7 +18,7 @@ use tracing_subscriber;
 tracing_subscriber::init();
 
 // すべての AI-Lib 操作が構造化ログイベントを発行
-let client = AiClient::from_model("openai/gpt-4o").await?;
+let client = AiClient::new("openai/gpt-4o").await?;
 ```
 
 ログレベル：

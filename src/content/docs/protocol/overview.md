@@ -19,7 +19,7 @@ Every piece of provider-specific behavior — endpoints, authentication, paramet
 ai-protocol/
 ├── v1/
 │   ├── spec.yaml          # Core specification (v0.5.0)
-│   ├── providers/          # 30+ provider manifests
+│   ├── providers/          # 35+ provider manifests
 │   │   ├── openai.yaml
 │   │   ├── anthropic.yaml
 │   │   ├── gemini.yaml
