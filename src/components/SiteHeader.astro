@@ -1,18 +1,29 @@
 ---
+import LanguagePicker from './LanguagePicker.astro';
+
 const { locale = 'en' } = Astro.props;
-const isZh = locale === 'zh';
+
+const navLabels: Record<string, Record<string, string>> = {
+  en:    { protocol: 'Protocol', rust: 'Rust SDK', python: 'Python SDK', docs: 'Docs' },
+  'zh-cn': { protocol: '协议',     rust: 'Rust SDK', python: 'Python SDK', docs: '文档' },
+  ja:    { protocol: 'プロトコル', rust: 'Rust SDK', python: 'Python SDK', docs: 'ドキュメント' },
+  es:    { protocol: 'Protocolo', rust: 'Rust SDK', python: 'Python SDK', docs: 'Docs' },
+};
+
+const t = navLabels[locale] || navLabels.en;
+const prefix = locale === 'en' ? '' : `/${locale}`;
 
 const nav = [
-  { label: isZh ? '协议' : 'Protocol', href: '/protocol/' },
-  { label: 'Rust SDK', href: '/rust/' },
-  { label: 'Python SDK', href: '/python/' },
-  { label: isZh ? '文档' : 'Docs', href: '/intro/' },
+  { label: t.protocol, href: `${prefix}/protocol/` },
+  { label: t.rust,     href: `${prefix}/rust/` },
+  { label: t.python,   href: `${prefix}/python/` },
+  { label: t.docs,     href: `${prefix}/intro/` },
 ];
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[var(--bg)]/80 border-b border-[var(--border)]">
   <div class="container flex items-center justify-between h-16">
-    <a href="/" class="flex items-center gap-3 text-[var(--text)] hover:no-underline group">
+    <a href={locale === 'en' ? '/' : `/${locale}/`} class="flex items-center gap-3 text-[var(--text)] hover:no-underline group">
       <img src="/favicon.svg" alt="AI-Lib" class="w-8 h-8" />
       <span class="font-bold text-lg tracking-tight">AI-Lib</span>
     </a>
@@ -29,6 +40,7 @@ const nav = [
     </nav>
 
     <div class="flex items-center gap-3">
+      <LanguagePicker />
       <a
         href="https://github.com/hiddenpath"
         target="_blank"

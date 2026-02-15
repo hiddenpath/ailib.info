@@ -1,0 +1,251 @@
+---
+import '../../styles/global.css';
+import SiteHeader from '../../components/SiteHeader.astro';
+import Hero from '../../components/Hero.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import Providers from '../../components/Providers.astro';
+import EcosystemOverview from '../../components/diagrams/EcosystemOverview.astro';
+import DataFlow from '../../components/diagrams/DataFlow.astro';
+import Footer from '../../components/Footer.astro';
+
+const locale = 'zh-cn';
+---
+
+<html lang="zh-CN" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <title>AI-Lib | 一个协议，所有 AI 服务商</title>
+    <meta name="description" content="AI-Lib 是一个开源生态系统，标准化 AI 模型交互方式。一套规范驱动 Rust 和 Python 运行时，支持 35+ 服务商。" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta property="og:title" content="AI-Lib | 一个协议，所有 AI 服务商" />
+    <meta property="og:description" content="开源 AI 模型交互标准化生态系统。一套协议，多种运行时。" />
+    <meta property="og:image" content="/og-image.png" />
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+  <body>
+    <SiteHeader locale={locale} />
+
+    <main>
+      <Hero locale={locale} />
+
+      <!-- Core Projects -->
+      <section class="section-alt">
+        <div class="container">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
+              三个项目，一个生态系统
+            </h2>
+            <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
+              规范层定义规则。两种运行时实现将规范付诸实践。
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <ProjectCard
+              locale={locale}
+              variant="protocol"
+              version="0.5.0"
+              title="AI-Protocol"
+              description="与供应商无关的规范。YAML 清单定义如何与每个 AI 服务商通信——零硬编码逻辑。"
+              features={['35+ 服务商清单', 'JSON Schema 验证', '流式事件规范化', '错误分类标准', '热重载配置']}
+              link="/zh-cn/protocol/"
+              github="https://github.com/hiddenpath/ai-protocol"
+            />
+            <ProjectCard
+              locale={locale}
+              variant="rust"
+              version="0.7.1"
+              title="ai-lib-rust"
+              description="高性能 Rust 运行时。V2 标准错误码、功能开关、基于算子的流式管道、编译时安全、亚毫秒级开销。"
+              features={['基于算子的管道', 'V2 标准错误码', '功能门控模块', '熔断器与限流器', '嵌入与缓存', '插件系统', '发布于 Crates.io']}
+              link="/zh-cn/rust/"
+              github="https://github.com/hiddenpath/ai-lib-rust"
+            />
+            <ProjectCard
+              locale={locale}
+              variant="python"
+              version="0.6.0"
+              title="ai-lib-python"
+              description="开发者友好的 Python 运行时。V2 标准错误码、按能力扩展、完整异步支持、Pydantic v2 类型、生产级遥测。"
+              features={['原生 async/await', 'V2 标准错误码', '按能力扩展', 'Pydantic v2 类型安全', 'OpenTelemetry 集成', '模型路由与负载均衡', '发布于 PyPI']}
+              link="/zh-cn/python/"
+              github="https://github.com/hiddenpath/ai-lib-python"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Core Philosophy -->
+      <section class="section">
+        <div class="container">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
+              协议驱动设计
+            </h2>
+            <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
+              「所有逻辑都是算子，所有配置都是协议。」每个服务商的行为都在 YAML 中声明——运行时不含任何硬编码的服务商逻辑。
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="p-6 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4">
+                <svg class="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-[var(--text)] mb-2">声明式配置</h3>
+              <p class="text-sm text-[var(--text-dim)]">
+                服务商端点、认证、参数映射、流式解码器和错误处理——均在 YAML 清单中声明，由 JSON Schema 验证。
+              </p>
+            </div>
+
+            <div class="p-6 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4">
+                <svg class="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-[var(--text)] mb-2">基于算子的管道</h3>
+              <p class="text-sm text-[var(--text-dim)]">
+                流式响应流经可组合算子：Decoder、Selector、Accumulator、FanOut、EventMapper。每个算子均由协议驱动。
+              </p>
+            </div>
+
+            <div class="p-6 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-4">
+                <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-[var(--text)] mb-2">热重载就绪</h3>
+              <p class="text-sm text-[var(--text-dim)]">
+                无需重启即可更新服务商配置。协议变更自动传播到运行时。通过配置而非代码添加新服务商。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture Overview -->
+      <section class="section-alt">
+        <div class="container">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
+              生态系统架构
+            </h2>
+            <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
+              三层协同工作——规范定义规则，运行时执行规则，应用消费统一接口。
+            </p>
+          </div>
+          <EcosystemOverview locale={locale} />
+        </div>
+      </section>
+
+      <!-- Data Flow -->
+      <section class="section">
+        <div class="container">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
+              工作原理
+            </h2>
+            <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
+              从用户请求到统一的流式事件——每一步都由协议驱动。
+            </p>
+          </div>
+          <DataFlow locale={locale} />
+        </div>
+      </section>
+
+      <!-- Runtime Comparison Table -->
+      <section class="section-alt">
+        <div class="container">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
+              选择你的运行时
+            </h2>
+            <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
+              同一协议，各有优势。选择适合你技术栈的运行时。
+            </p>
+          </div>
+
+          <div class="overflow-x-auto rounded-xl border border-[var(--border)]">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-[var(--bg-card)]">
+                  <th class="p-4 text-sm font-semibold text-[var(--text)] border-b border-[var(--border)]">能力</th>
+                  <th class="p-4 text-sm font-semibold text-purple-400 border-b border-[var(--border)]">AI-Protocol</th>
+                  <th class="p-4 text-sm font-semibold text-orange-400 border-b border-[var(--border)]">Rust SDK</th>
+                  <th class="p-4 text-sm font-semibold text-emerald-400 border-b border-[var(--border)]">Python SDK</th>
+                </tr>
+              </thead>
+              <tbody class="text-sm">
+                <tr class="border-b border-[var(--border)]">
+                  <td class="p-4 font-medium text-[var(--text)]">类型系统</td>
+                  <td class="p-4 text-[var(--text-dim)]">JSON Schema</td>
+                  <td class="p-4 text-[var(--text-dim)]">编译时（Rust）</td>
+                  <td class="p-4 text-[var(--text-dim)]">运行时（Pydantic v2）</td>
+                </tr>
+                <tr class="border-b border-[var(--border)]">
+                  <td class="p-4 font-medium text-[var(--text)]">流式</td>
+                  <td class="p-4 text-[var(--text-dim)]">SSE/NDJSON 规范</td>
+                  <td class="p-4 text-[var(--text-dim)]">tokio async streams</td>
+                  <td class="p-4 text-[var(--text-dim)]">async generators</td>
+                </tr>
+                <tr class="border-b border-[var(--border)]">
+                  <td class="p-4 font-medium text-[var(--text)]">弹性</td>
+                  <td class="p-4 text-[var(--text-dim)]">重试策略规范</td>
+                  <td class="p-4 text-[var(--text-dim)]">熔断器、限流器、背压</td>
+                  <td class="p-4 text-[var(--text-dim)]">ResilientExecutor 及所有模式</td>
+                </tr>
+                <tr class="border-b border-[var(--border)]">
+                  <td class="p-4 font-medium text-[var(--text)]">嵌入</td>
+                  <td class="p-4 text-[var(--text-dim)]">—</td>
+                  <td class="p-4 text-[var(--text-dim)]">向量运算、相似度</td>
+                  <td class="p-4 text-[var(--text-dim)]">向量运算、相似度</td>
+                </tr>
+                <tr class="border-b border-[var(--border)]">
+                  <td class="p-4 font-medium text-[var(--text)]">分发</td>
+                  <td class="p-4 text-[var(--text-dim)]">GitHub / npm</td>
+                  <td class="p-4 text-[var(--text-dim)]">Crates.io</td>
+                  <td class="p-4 text-[var(--text-dim)]">PyPI</td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-medium text-[var(--text)]">最适合</td>
+                  <td class="p-4 text-[var(--text-dim)] italic">规范与标准</td>
+                  <td class="p-4 text-[var(--text-dim)] italic">系统、性能关键</td>
+                  <td class="p-4 text-[var(--text-dim)] italic">ML、数据科学、原型开发</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Providers -->
+      <Providers locale={locale} />
+
+      <!-- CTA -->
+      <section class="section">
+        <div class="container">
+          <div class="text-center p-12 rounded-2xl border border-[var(--border)] bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-alt)]">
+            <h2 class="text-3xl font-bold text-[var(--text)] mb-4">准备好开始了吗？</h2>
+            <p class="text-lg text-[var(--text-dim)] mb-8 max-w-xl mx-auto">
+              阅读文档，选择你的运行时，从今天开始使用 35+ AI 服务商进行开发。
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+              <a href="/zh-cn/quickstart/" class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:brightness-110 transition-all hover:no-underline">
+                快速入门指南
+              </a>
+              <a href="/zh-cn/intro/" class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline">
+                阅读文档
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer locale={locale} />
+  </body>
+</html>

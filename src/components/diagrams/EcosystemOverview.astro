@@ -1,6 +1,6 @@
 ---
 const { locale = 'en' } = Astro.props;
-const isZh = locale === 'zh';
+const isZh = locale === 'zh' || locale === 'zh-cn';
 ---
 
 <div class="w-full overflow-x-auto">

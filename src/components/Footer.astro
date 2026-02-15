@@ -1,8 +1,16 @@
 ---
 const { locale = 'en' } = Astro.props;
-const isZh = locale === 'zh';
 
 const year = new Date().getFullYear();
+const prefix = locale === 'en' ? '' : `/${locale}`;
+
+const t: Record<string, Record<string, string>> = {
+  en:      { brand: 'Open-source ecosystem for standardized AI model interactions. One protocol, multiple runtimes.', projects: 'Projects', docs: 'Documentation', community: 'Community', started: 'Getting Started', spec: 'Protocol Spec', guides: 'Developer Guides' },
+  'zh-cn': { brand: '开源 AI 模型交互标准化生态系统。一套协议，多种运行时。', projects: '项目', docs: '文档', community: '社区', started: '入门指南', spec: '协议规范', guides: '开发者指南' },
+  ja:      { brand: 'AIモデルインタラクションを標準化するオープンソースエコシステム。一つのプロトコル、複数のランタイム。', projects: 'プロジェクト', docs: 'ドキュメント', community: 'コミュニティ', started: '入門ガイド', spec: 'プロトコル仕様', guides: '開発者ガイド' },
+  es:      { brand: 'Ecosistema de código abierto para interacciones estandarizadas con modelos de IA. Un protocolo, múltiples runtimes.', projects: 'Proyectos', docs: 'Documentación', community: 'Comunidad', started: 'Primeros pasos', spec: 'Especificación', guides: 'Guías para desarrolladores' },
+};
+const i = t[locale] || t.en;
 ---
 
 <footer class="border-t border-[var(--border)] bg-[var(--bg-alt)]">
@@ -15,40 +23,38 @@ const year = new Date().getFullYear();
           <span class="font-bold text-lg text-[var(--text)]">AI-Lib</span>
         </div>
         <p class="text-sm text-[var(--text-dim)] leading-relaxed">
-          {isZh
-            ? '开源 AI 模型交互标准化生态系统。一套协议，多种运行时。'
-            : 'Open-source ecosystem for standardized AI model interactions. One protocol, multiple runtimes.'}
+          {i.brand}
         </p>
       </div>
 
       <!-- Projects -->
       <div>
         <h4 class="text-sm font-semibold text-[var(--text)] uppercase tracking-wider mb-4">
-          {isZh ? '项目' : 'Projects'}
+          {i.projects}
         </h4>
         <ul class="space-y-2.5">
-          <li><a href="/protocol/" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">AI-Protocol</a></li>
-          <li><a href="/rust/" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">Rust SDK</a></li>
-          <li><a href="/python/" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">Python SDK</a></li>
+          <li><a href={`${prefix}/protocol/`} class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">AI-Protocol</a></li>
+          <li><a href={`${prefix}/rust/`} class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">Rust SDK</a></li>
+          <li><a href={`${prefix}/python/`} class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">Python SDK</a></li>
         </ul>
       </div>
 
       <!-- Documentation -->
       <div>
         <h4 class="text-sm font-semibold text-[var(--text)] uppercase tracking-wider mb-4">
-          {isZh ? '文档' : 'Documentation'}
+          {i.docs}
         </h4>
         <ul class="space-y-2.5">
-          <li><a href="/intro/" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">{isZh ? '入门指南' : 'Getting Started'}</a></li>
-          <li><a href="/protocol/overview/" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">{isZh ? '协议规范' : 'Protocol Spec'}</a></li>
-          <li><a href="/guides/chat/" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">{isZh ? '开发者指南' : 'Developer Guides'}</a></li>
+          <li><a href={`${prefix}/intro/`} class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">{i.started}</a></li>
+          <li><a href={`${prefix}/protocol/overview/`} class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">{i.spec}</a></li>
+          <li><a href={`${prefix}/guides/chat/`} class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">{i.guides}</a></li>
         </ul>
       </div>
 
       <!-- Community -->
       <div>
         <h4 class="text-sm font-semibold text-[var(--text)] uppercase tracking-wider mb-4">
-          {isZh ? '社区' : 'Community'}
+          {i.community}
         </h4>
         <ul class="space-y-2.5">
           <li><a href="https://github.com/hiddenpath/ai-protocol" target="_blank" rel="noopener" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">GitHub - Protocol</a></li>

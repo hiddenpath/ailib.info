@@ -1,0 +1,205 @@
+---
+import '../../../styles/global.css';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import Footer from '../../../components/Footer.astro';
+import EcosystemOverview from '../../../components/diagrams/EcosystemOverview.astro';
+
+const locale = 'es';
+---
+
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <title>AI-Protocol | Especificación de IA Independiente del Proveedor</title>
+    <meta name="description" content="AI-Protocol es una especificación independiente del proveedor que estandariza las interacciones con modelos de IA. 35+ proveedores, manifiestos YAML, validación JSON Schema." />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+  <body>
+    <SiteHeader locale={locale} />
+
+    <main>
+      <!-- Hero -->
+      <section class="relative pt-16 pb-20 overflow-hidden">
+        <div class="absolute inset-0 -z-10">
+          <div class="absolute top-0 left-1/3 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-pink-500/5 rounded-full blur-3xl"></div>
+        </div>
+        <div class="container">
+          <div class="max-w-4xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-6">
+              Especificación v0.5.0 &middot; 35+ Proveedores
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.05]">
+              <span class="text-[var(--text)]">La</span>
+              <span class="gradient-text-protocol"> Especificación</span>
+              <br />
+              <span class="text-[var(--text)]">Que Impulsa Todo.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-[var(--text-dim)] max-w-2xl mb-8 leading-relaxed">
+              AI-Protocol separa "qué hacer" de "cómo hacerlo". La especificación V2 utiliza una arquitectura de tres capas: Protocolo Principal &rarr; Extensiones de Capacidad &rarr; Perfil de Entorno. Los manifiestos de proveedores declaran endpoints, autenticación, mapeos de parámetros, decodificadores de streaming y manejo de errores — todo en YAML, todo validado por JSON Schema.
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <a href="/es/protocol/overview/" class="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-all hover:no-underline">
+                Leer la Documentación
+              </a>
+              <a href="https://github.com/hiddenpath/ai-protocol" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline">
+                Ver en GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- V2 Architecture -->
+      <section class="section">
+        <div class="container">
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-6 text-center">Arquitectura V2 de Tres Capas</h2>
+          <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto text-center mb-8">
+            V2 organiza la especificación en tres capas: <strong class="text-[var(--text)]">Protocolo Principal</strong> (chat base, streaming, errores) &rarr; <strong class="text-[var(--text)]">Extensiones de Capacidad</strong> (herramientas, visión, salida estructurada) &rarr; <strong class="text-[var(--text)]">Perfil de Entorno</strong> (configuración específica del proveedor). Los manifiestos V2-alpha están disponibles para OpenAI, Anthropic y Gemini.
+          </p>
+        </div>
+      </section>
+
+      <!-- What's in the Protocol -->
+      <section class="section-alt">
+        <div class="container">
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">Qué Contiene</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <div class="text-3xl font-extrabold gradient-text-protocol mb-2">spec.yaml</div>
+              <h3 class="font-bold text-[var(--text)] mb-2">Especificación Principal</h3>
+              <p class="text-sm text-[var(--text-dim)]">Define parámetros estándar (temperature, max_tokens), eventos de streaming (PartialContentDelta, ToolCallStarted), clases de error (13 tipos) y políticas de reintento.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <div class="text-3xl font-extrabold gradient-text-protocol mb-2">providers/</div>
+              <h3 class="font-bold text-[var(--text)] mb-2">35+ Manifiestos de Proveedores</h3>
+              <p class="text-sm text-[var(--text-dim)]">Cada archivo YAML declara el endpoint del proveedor, autenticación, mapeos de parámetros, configuración del decodificador SSE, clasificación de errores, cabeceras de límite de tasa y capacidades.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <div class="text-3xl font-extrabold gradient-text-protocol mb-2">models/</div>
+              <h3 class="font-bold text-[var(--text)] mb-2">Registro de Modelos</h3>
+              <p class="text-sm text-[var(--text-dim)]">Instancias de modelos con referencias a proveedores, ventanas de contexto, banderas de capacidad y precios por token. GPT, Claude, Gemini, DeepSeek, Qwen y más.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <div class="text-3xl font-extrabold gradient-text-protocol mb-2">schemas/</div>
+              <h3 class="font-bold text-[var(--text)] mb-2">Validación JSON Schema</h3>
+              <p class="text-sm text-[var(--text-dim)]">Las definiciones JSON Schema 2020-12 validan cada manifiesto. Los pipelines CI aseguran la corrección de la configuración. Cero sorpresas en tiempo de ejecución.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Provider Manifest Example -->
+      <section class="section">
+        <div class="container">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            <div>
+              <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Un Manifiesto de Proveedor</h2>
+              <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
+                Cada proveedor se describe mediante un manifiesto YAML. Declara todo lo que un runtime necesita para comunicarse con el proveedor — endpoint, autenticación, mapeo de parámetros, decodificador de streaming, manejo de errores y capacidades.
+              </p>
+              <p class="text-[var(--text-dim)] mb-4 leading-relaxed">
+                Los runtimes leen estos manifiestos y "compilan" las peticiones de usuario en llamadas HTTP específicas del proveedor. Sin ramas <code>if provider == "openai"</code> en ningún lugar.
+              </p>
+              <ul class="space-y-3">
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span class="text-sm text-[var(--text-dim)]"><strong class="text-[var(--text)]">Endpoint y Auth</strong> — URL base, protocolo, tokens bearer, cabeceras de API key</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span class="text-sm text-[var(--text-dim)]"><strong class="text-[var(--text)]">Mapeo de Parámetros</strong> — Nombres estándar a campos JSON específicos del proveedor</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span class="text-sm text-[var(--text-dim)]"><strong class="text-[var(--text)]">Decodificador de Streaming</strong> — Formato SSE/NDJSON, reglas de extracción de eventos JSONPath</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span class="text-sm text-[var(--text-dim)]"><strong class="text-[var(--text)]">Clasificación de Errores</strong> — Códigos de estado HTTP a 13 tipos de error estándar</span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <pre class="text-sm !bg-[#0d1117] !border-purple-500/20"><code class="language-yaml"><span style="color:#7ee787">id</span>: anthropic
+<span style="color:#7ee787">protocol_version</span>: <span style="color:#a5d6ff">"0.5.0"</span>
+<span style="color:#7ee787">endpoint</span>:
+  <span style="color:#7ee787">base_url</span>: <span style="color:#a5d6ff">"https://api.anthropic.com/v1"</span>
+  <span style="color:#7ee787">chat_path</span>: <span style="color:#a5d6ff">"/messages"</span>
+<span style="color:#7ee787">auth</span>:
+  <span style="color:#7ee787">type</span>: bearer
+  <span style="color:#7ee787">token_env</span>: <span style="color:#a5d6ff">"ANTHROPIC_API_KEY"</span>
+<span style="color:#7ee787">parameter_mappings</span>:
+  <span style="color:#7ee787">temperature</span>: <span style="color:#a5d6ff">"temperature"</span>
+  <span style="color:#7ee787">max_tokens</span>: <span style="color:#a5d6ff">"max_tokens"</span>
+  <span style="color:#7ee787">stream</span>: <span style="color:#a5d6ff">"stream"</span>
+<span style="color:#7ee787">streaming</span>:
+  <span style="color:#7ee787">decoder</span>:
+    <span style="color:#7ee787">format</span>: <span style="color:#a5d6ff">"anthropic_sse"</span>
+  <span style="color:#7ee787">event_map</span>:
+    - <span style="color:#7ee787">match</span>: <span style="color:#a5d6ff">"$.type == 'content_block_delta'"</span>
+      <span style="color:#7ee787">emit</span>: <span style="color:#a5d6ff">"PartialContentDelta"</span>
+<span style="color:#7ee787">error_classification</span>:
+  <span style="color:#7ee787">by_http_status</span>:
+    <span style="color:#a5d6ff">"429"</span>: <span style="color:#a5d6ff">"rate_limited"</span>
+    <span style="color:#a5d6ff">"401"</span>: <span style="color:#a5d6ff">"authentication"</span>
+<span style="color:#7ee787">capabilities</span>:
+  <span style="color:#7ee787">streaming</span>: true
+  <span style="color:#7ee787">tools</span>: true
+  <span style="color:#7ee787">vision</span>: true</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ecosystem Architecture -->
+      <section class="section-alt">
+        <div class="container">
+          <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Dónde Encaja el Protocolo</h2>
+            <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
+              AI-Protocol es la capa de fundamento. Los runtimes lo consumen. Las aplicaciones consumen runtimes.
+            </p>
+          </div>
+          <EcosystemOverview locale={locale} />
+        </div>
+      </section>
+
+      <!-- Supported Providers -->
+      <section class="section">
+        <div class="container">
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-4 text-center">Proveedores Soportados</h2>
+          <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto text-center mb-10">
+            Cada proveedor tiene un manifiesto YAML completo con endpoint, autenticación, mapeos de parámetros, decodificador de streaming, manejo de errores y banderas de capacidad.
+          </p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            {['OpenAI', 'Anthropic', 'Google Gemini', 'Groq', 'Mistral', 'DeepSeek', 'Qwen', 'Cohere', 'Azure OpenAI', 'Together AI', 'Perplexity', 'NVIDIA', 'Fireworks AI', 'Replicate', 'OpenRouter', 'DeepInfra', 'AI21 Labs', 'Cerebras', 'Lepton AI', 'Zhipu GLM', 'Doubao', 'Baidu ERNIE', 'Tencent Hunyuan', 'iFlytek Spark', 'Moonshot', 'MiniMax', 'Baichuan', 'Yi / 01.AI', 'SiliconFlow', 'SenseNova'].map(name => (
+              <div class="flex items-center gap-2 px-3 py-2.5 rounded-lg border border-[var(--border)] bg-[var(--bg-card)] text-sm text-[var(--text)]">
+                <div class="w-2 h-2 rounded-full bg-purple-400 flex-shrink-0"></div>
+                {name}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="section-alt">
+        <div class="container text-center">
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Explorar el Protocolo</h2>
+          <p class="text-lg text-[var(--text-dim)] mb-8 max-w-xl mx-auto">
+            Lee la especificación, explora los manifiestos de proveedores o contribuye con un nuevo proveedor.
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="/es/protocol/overview/" class="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-all hover:no-underline">Documentación</a>
+            <a href="/es/protocol/contributing/" class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline">Contribuir un Proveedor</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer locale={locale} />
+  </body>
+</html>

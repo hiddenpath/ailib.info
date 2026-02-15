@@ -101,6 +101,62 @@ nav.sidebar .top-level > li > a {
   border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
+/* ── Starlight language selector — blue accent ── */
+starlight-lang-select select,
+starlight-lang-select label select {
+  border: 1.5px solid #3b82f6 !important;
+  border-radius: 0.375rem !important;
+  padding: 0.25rem 0.5rem !important;
+}
+starlight-lang-select select:hover,
+starlight-lang-select select:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+starlight-lang-select .icon.label-icon {
+  color: #3b82f6 !important;
+}
+
+/* ── Starlight theme selector — amber accent, visually distinct ── */
+starlight-theme-select select,
+starlight-theme-select label select {
+  border: 1.5px solid #d97706 !important;
+  border-radius: 0.375rem !important;
+  padding: 0.25rem 0.5rem !important;
+}
+starlight-theme-select select:hover,
+starlight-theme-select select:focus {
+  border-color: #b45309 !important;
+  box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.2) !important;
+}
+starlight-theme-select .icon.label-icon {
+  color: #d97706 !important;
+}
+
+/* ── Dark mode: ensure text legibility inside both selects ── */
+:root[data-theme='dark'] starlight-lang-select select,
+:root[data-theme='dark'] starlight-theme-select select {
+  color: #eceef2 !important;
+  background-color: #24272f !important;
+}
+:root[data-theme='dark'] starlight-lang-select select option,
+:root[data-theme='dark'] starlight-theme-select select option {
+  color: #eceef2 !important;
+  background-color: #24272f !important;
+}
+
+/* ── Light mode: ensure text legibility inside both selects ── */
+:root[data-theme='light'] starlight-lang-select select,
+:root[data-theme='light'] starlight-theme-select select {
+  color: #1e293b !important;
+  background-color: #ffffff !important;
+}
+:root[data-theme='light'] starlight-lang-select select option,
+:root[data-theme='light'] starlight-theme-select select option {
+  color: #1e293b !important;
+  background-color: #ffffff !important;
+}
+
 /* Aside/callout enhancements */
 .starlight-aside {
   border-radius: 8px;

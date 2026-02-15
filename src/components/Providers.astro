@@ -1,6 +1,13 @@
 ---
 const { locale = 'en' } = Astro.props;
-const isZh = locale === 'zh';
+
+const t: Record<string, Record<string, string>> = {
+  en:      { title: '35+ AI Providers Supported', subtitle: 'All driven by protocol configuration — zero hardcoded logic for any provider', global: 'Global Providers', china: 'China Region' },
+  'zh-cn': { title: '支持 35+ AI 服务商', subtitle: '通过协议配置驱动，无需任何硬编码即可接入全球和中国区主流 AI 服务商', global: '全球服务商', china: '中国区服务商' },
+  ja:      { title: '35以上のAIプロバイダーに対応', subtitle: 'すべてプロトコル構成で駆動 — プロバイダーへのハードコードロジックはゼロ', global: 'グローバルプロバイダー', china: '中国リージョン' },
+  es:      { title: 'Más de 35 proveedores de IA', subtitle: 'Todo impulsado por configuración de protocolo — cero lógica hardcodeada', global: 'Proveedores globales', china: 'Región de China' },
+};
+const i = t[locale] || t.en;
 
 const globalProviders = [
   { name: 'OpenAI', icon: '/icons/openai.svg' },
@@ -47,19 +54,17 @@ const chinaProviders = [
   <div class="container">
     <div class="text-center mb-12">
       <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
-        {isZh ? '支持 35+ AI 服务商' : '35+ AI Providers Supported'}
+        {i.title}
       </h2>
       <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
-        {isZh
-          ? '通过协议配置驱动，无需任何硬编码即可接入全球和中国区主流 AI 服务商'
-          : 'All driven by protocol configuration — zero hardcoded logic for any provider'}
+        {i.subtitle}
       </p>
     </div>
 
     <!-- Global Providers -->
     <div class="mb-10">
       <h3 class="text-sm font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-4">
-        {isZh ? '全球服务商' : 'Global Providers'}
+        {i.global}
       </h3>
       <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3">
         {globalProviders.map(p => (
@@ -80,7 +85,7 @@ const chinaProviders = [
     <!-- China Region Providers -->
     <div>
       <h3 class="text-sm font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-4">
-        {isZh ? '中国区服务商' : 'China Region'}
+        {i.china}
       </h3>
       <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3">
         {chinaProviders.map(p => (

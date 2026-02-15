@@ -1,8 +1,7 @@
 ---
 const { locale = 'en' } = Astro.props;
-const isZh = locale === 'zh';
 
-const content = {
+const content: Record<string, any> = {
   en: {
     badge: 'Open Source Ecosystem',
     title: 'One Protocol,',
@@ -17,7 +16,7 @@ const content = {
       { value: '2', label: 'Runtimes' },
     ],
   },
-  zh: {
+  'zh-cn': {
     badge: '开源生态系统',
     title: '一套协议，',
     titleHighlight: '统一所有 AI 服务商。',
@@ -31,9 +30,38 @@ const content = {
       { value: '2', label: '语言运行时' },
     ],
   },
+  ja: {
+    badge: 'オープンソースエコシステム',
+    title: 'ワンプロトコル、',
+    titleHighlight: 'すべてのAIプロバイダー。',
+    subtitle: 'AI-Lib はAIモデルのインタラクションを標準化するオープンソースエコシステムです。一つの仕様が Rust と Python ランタイムを駆動し、35以上のプロバイダーをハードコードロジックゼロでサポートします。',
+    cta1: '始めましょう',
+    cta2: 'GitHub で見る',
+    stats: [
+      { value: '35+', label: 'AIプロバイダー' },
+      { value: '3', label: 'プロジェクト' },
+      { value: '0', label: 'ハードコード' },
+      { value: '2', label: 'ランタイム' },
+    ],
+  },
+  es: {
+    badge: 'Ecosistema de código abierto',
+    title: 'Un protocolo,',
+    titleHighlight: 'todos los proveedores de IA.',
+    subtitle: 'AI-Lib es un ecosistema de código abierto que estandariza las interacciones con modelos de IA. Una especificación impulsa los runtimes de Rust y Python — soportando más de 35 proveedores sin una sola línea de lógica hardcodeada.',
+    cta1: 'Comenzar',
+    cta2: 'Ver en GitHub',
+    stats: [
+      { value: '35+', label: 'Proveedores IA' },
+      { value: '3', label: 'Proyectos' },
+      { value: '0', label: 'Lógica hardcodeada' },
+      { value: '2', label: 'Runtimes' },
+    ],
+  },
 };
 
-const c = isZh ? content.zh : content.en;
+const c = content[locale] || content.en;
+const prefix = locale === 'en' ? '' : `/${locale}`;
 ---
 
 <section class="relative overflow-hidden pt-16 pb-20 md:pt-24 md:pb-28">
@@ -67,7 +95,7 @@ const c = isZh ? content.zh : content.en;
       <!-- CTAs -->
       <div class="flex flex-wrap gap-4 mb-16">
         <a
-          href="/intro/"
+          href={`${prefix}/intro/`}
           class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:brightness-110 transition-all shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:no-underline"
         >
           {c.cta1}

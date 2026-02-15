@@ -1,0 +1,166 @@
+---
+/**
+ * Language picker for custom (non-Starlight) pages.
+ * Swaps locale prefix in current path to navigate to the same page in another language.
+ */
+const locales = [
+  { code: '',      label: 'EN',    flag: '🇺🇸', lang: 'English' },
+  { code: 'zh-cn', label: '中文',  flag: '🇨🇳', lang: '简体中文' },
+  { code: 'ja',    label: '日本語', flag: '🇯🇵', lang: '日本語' },
+  { code: 'es',    label: 'ES',    flag: '🇪🇸', lang: 'Español' },
+];
+
+const localeCodes = locales.map(l => l.code).filter(Boolean);
+
+// Determine current locale from URL
+const pathname = Astro.url.pathname;
+const currentLocale = localeCodes.find(c => pathname.startsWith(`/${c}/`) || pathname === `/${c}`) || '';
+
+// Strip locale prefix to get the base path
+function getBasePath(path: string): string {
+  for (const code of localeCodes) {
+    if (path.startsWith(`/${code}/`)) return path.slice(`/${code}`.length);
+    if (path === `/${code}`) return '/';
+  }
+  return path;
+}
+
+// Build same-page path for target locale
+function buildLocalePath(localeCode: string): string {
+  const basePath = getBasePath(pathname);
+  if (localeCode === '') return basePath || '/';
+  return `/${localeCode}${basePath === '/' ? '/' : basePath}`;
+}
+
+const currentLabel = locales.find(l => l.code === currentLocale)?.label || 'EN';
+---
+
+<div class="lang-picker" data-lang-picker>
+  <button
+    class="lang-btn"
+    aria-label="Switch language"
+    aria-expanded="false"
+    type="button"
+  >
+    <svg class="lang-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M2 12h20"/>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+    <span class="lang-label">{currentLabel}</span>
+    <svg class="lang-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m6 9 6 6 6-6"/>
+    </svg>
+  </button>
+
+  <div class="lang-dropdown" data-lang-dropdown>
+    {locales.map(locale => (
+      <a
+        href={buildLocalePath(locale.code)}
+        class:list={['lang-option', { active: locale.code === currentLocale }]}
+      >
+        <span class="lang-option-flag">{locale.flag}</span>
+        <span class="lang-option-label">{locale.lang}</span>
+        {locale.code === currentLocale && (
+          <svg class="lang-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+          </svg>
+        )}
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .lang-picker {
+    position: relative;
+  }
+  .lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    background: transparent;
+    border: 1px solid var(--border, rgba(255,255,255,0.1));
+    border-radius: 8px;
+    color: var(--text-dim, #888b96);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .lang-btn:hover {
+    color: var(--text, #eceef2);
+    background: var(--bg-alt, rgba(255,255,255,0.05));
+    border-color: var(--text-dim, rgba(255,255,255,0.2));
+  }
+  .lang-icon { width: 16px; height: 16px; flex-shrink: 0; }
+  .lang-label { line-height: 1; }
+  .lang-chevron {
+    width: 14px; height: 14px; flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+  .lang-picker[data-open] .lang-chevron { transform: rotate(180deg); }
+  .lang-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    min-width: 160px;
+    background: var(--bg-card, #1a1d27);
+    border: 1px solid var(--border, rgba(255,255,255,0.1));
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    padding: 4px;
+    z-index: 100;
+    animation: dropIn 0.15s ease;
+  }
+  .lang-picker[data-open] .lang-dropdown { display: block; }
+  @keyframes dropIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .lang-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: var(--text-dim, #888b96);
+    text-decoration: none;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    transition: all 0.1s ease;
+  }
+  .lang-option:hover {
+    background: var(--bg-alt, rgba(255,255,255,0.05));
+    color: var(--text, #eceef2);
+    text-decoration: none;
+  }
+  .lang-option.active { color: var(--accent, #3b82f6); font-weight: 600; }
+  .lang-option-flag { font-size: 1rem; line-height: 1; }
+  .lang-option-label { flex: 1; }
+  .lang-check { width: 16px; height: 16px; color: var(--accent, #3b82f6); }
+</style>
+
+<script>
+  function initLangPickers() {
+    document.querySelectorAll('[data-lang-picker]').forEach(picker => {
+      const btn = picker.querySelector('.lang-btn');
+      if (!btn || (btn as any)._langInit) return;
+      (btn as any)._langInit = true;
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = picker.hasAttribute('data-open');
+        document.querySelectorAll('[data-lang-picker]').forEach(p => p.removeAttribute('data-open'));
+        if (!isOpen) picker.setAttribute('data-open', '');
+      });
+    });
+    document.addEventListener('click', () => {
+      document.querySelectorAll('[data-lang-picker]').forEach(p => p.removeAttribute('data-open'));
+    });
+  }
+  document.addEventListener('astro:page-load', initLangPickers);
+  document.addEventListener('DOMContentLoaded', initLangPickers);
+</script>

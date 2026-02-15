@@ -1,0 +1,207 @@
+---
+import '../../../styles/global.css';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import Footer from '../../../components/Footer.astro';
+import RuntimeArch from '../../../components/diagrams/RuntimeArch.astro';
+
+const locale = 'es';
+---
+
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <title>ai-lib-rust | Runtime Rust de Alto Rendimiento para AI-Protocol</title>
+    <meta name="description" content="ai-lib-rust es el runtime Rust de alto rendimiento para AI-Protocol. Pipeline de streaming basado en operadores, seguridad en tiempo de compilación, sobrecarga submilisegundo." />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+  <body>
+    <SiteHeader locale={locale} />
+
+    <main>
+      <!-- Hero -->
+      <section class="relative pt-16 pb-20 overflow-hidden">
+        <div class="absolute inset-0 -z-10">
+          <div class="absolute top-0 right-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 left-1/3 w-80 h-80 bg-red-500/5 rounded-full blur-3xl"></div>
+        </div>
+        <div class="container">
+          <div class="max-w-4xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-6">
+              v0.7.1 &middot; Crates.io
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.05]">
+              <span class="gradient-text-rust">Runtime Rust</span>
+              <br />
+              <span class="text-[var(--text)]">para AI-Protocol</span>
+            </h1>
+            <p class="text-lg md:text-xl text-[var(--text-dim)] max-w-2xl mb-8 leading-relaxed">
+              Cliente AI de alto rendimiento e impulsado por protocolo. Códigos de error V2 estándar (13 códigos), feature flags (7 características + meta-característica completa), cero lógica de proveedor hardcodeada, pipeline de streaming basado en operadores, seguridad de tipos en tiempo de compilación y sobrecarga submilisegundo.
+            </p>
+            <div class="flex flex-wrap gap-4 mb-8">
+              <a href="/es/rust/quickstart/" class="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-all hover:no-underline">Inicio rápido</a>
+              <a href="https://github.com/hiddenpath/ai-lib-rust" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline">GitHub</a>
+              <a href="https://crates.io/crates/ai-lib" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline">Crates.io</a>
+            </div>
+
+            <!-- Quick install -->
+            <div class="bg-[#0d1117] border border-[var(--border)] rounded-lg p-4 max-w-lg">
+              <div class="text-xs text-[var(--text-muted)] mb-2 font-mono">Cargo.toml</div>
+              <code class="text-sm text-orange-300 font-mono">ai-lib = "0.7.1"</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Features -->
+      <section class="section-alt">
+        <div class="container">
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">Características principales</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Códigos de error V2 y feature flags</h3>
+              <p class="text-sm text-[var(--text-dim)]">13 códigos de error estándar V2 para manejo consistente de errores entre proveedores. Módulos con feature-gate: 7 características opcionales más meta-característica completa para builds mínimos o completos.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Pipeline basado en operadores</h3>
+              <p class="text-sm text-[var(--text-dim)]">Las respuestas en streaming fluyen por operadores composables: Decoder &rarr; Selector &rarr; Accumulator &rarr; FanOut &rarr; EventMapper. Cada etapa está configurada por protocolo.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Carga de protocolo</h3>
+              <p class="text-sm text-[var(--text-dim)]">Carga manifiestos de proveedores desde archivos locales, variables de entorno o fallback de GitHub. Soporta hot-reload mediante vigilancia de archivos. Sin reinicio necesario para actualizaciones de configuración.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Patrones de resiliencia</h3>
+              <p class="text-sm text-[var(--text-dim)]">Circuit breaker integrado, limitador de tasa token bucket, reintento con backoff exponencial y backpressure max-inflight. Todo configurable mediante variables de entorno.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Embeddings y vectores</h3>
+              <p class="text-sm text-[var(--text-dim)]">EmbeddingClient con operaciones vectoriales: similitud coseno, distancia euclidiana, producto escalar. Construye búsqueda semántica y aplicaciones RAG nativamente.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Caché y batch</h3>
+              <p class="text-sm text-[var(--text-dim)]">Caché de respuestas con TTL (backend en memoria). Ejecución batch con concurrencia, timeout y múltiples estrategias de procesamiento configurables.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Sistema de plugins</h3>
+              <p class="text-sm text-[var(--text-dim)]">Arquitectura de plugins extensible con hooks y cadena de middleware. Añade comportamiento personalizado sin modificar el código núcleo. Guardrails para filtrado de contenido y detección de PII.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Code Example -->
+      <section class="section">
+        <div class="container">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            <div>
+              <h2 class="text-3xl font-bold text-[var(--text)] mb-4">API simple y unificada</h2>
+              <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
+                El mismo código funciona con los 35+ proveedores. Solo cambia el identificador del modelo — el manifiesto de protocolo maneja todo lo demás: endpoint, autenticación, mapeo de parámetros, formato de streaming.
+              </p>
+              <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
+                El patrón builder proporciona una API fluida para la construcción de peticiones. Los resultados en streaming llegan como tipos unificados <code>StreamingEvent</code> independientemente del proveedor subyacente.
+              </p>
+            </div>
+            <div>
+              <pre class="text-sm !bg-[#0d1117] !border-orange-500/20"><code class="language-rust"><span style="color:#ff7b72">use</span> ai_lib::{'{'}AiClient, Message, StreamingEvent{'}'};
+
+<span style="color:#8b949e">// Works with ANY provider — protocol-driven</span>
+<span style="color:#ff7b72">let</span> client = AiClient::new(
+    <span style="color:#a5d6ff">"anthropic/claude-3-5-sonnet"</span>
+).<span style="color:#ff7b72">await</span>?;
+
+<span style="color:#8b949e">// Builder pattern for chat requests</span>
+<span style="color:#ff7b72">let</span> <span style="color:#ff7b72">mut</span> stream = client.chat()
+    .user(<span style="color:#a5d6ff">"Explain AI-Protocol"</span>)
+    .temperature(<span style="color:#79c0ff">0.7</span>)
+    .max_tokens(<span style="color:#79c0ff">1000</span>)
+    .stream()
+    .execute_stream()
+    .<span style="color:#ff7b72">await</span>?;
+
+<span style="color:#8b949e">// Unified streaming events</span>
+<span style="color:#ff7b72">while let</span> Some(event) = stream.next().<span style="color:#ff7b72">await</span> {'{'}
+    <span style="color:#ff7b72">match</span> event? {'{'}
+        StreamingEvent::ContentDelta {'{'} text, .. {'}'}
+            => print!(<span style="color:#a5d6ff">"{'{'}text{'}'}"</span>),
+        StreamingEvent::StreamEnd {'{'} stats, .. {'}'}
+            => println!(<span style="color:#a5d6ff">"\nTokens: {'{'}{'}'}"</span>,
+                stats.total_tokens),
+        _ => {'{'}{'}'} <span style="color:#8b949e">// ToolCall, Metadata, etc.</span>
+    {'}'}
+{'}'}</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture -->
+      <section class="section-alt">
+        <div class="container">
+          <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Arquitectura interna</h2>
+            <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
+              Cinco capas desde la API de usuario hasta el transporte HTTP. El pipeline de streaming es el corazón del sistema.
+            </p>
+          </div>
+          <RuntimeArch locale={locale} variant="rust" />
+        </div>
+      </section>
+
+      <!-- Module Overview -->
+      <section class="section">
+        <div class="container">
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">Resumen de módulos</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">client/ + error_code/</h3>
+              <p class="text-sm text-[var(--text-dim)]">AiClient, AiClientBuilder, ChatRequestBuilder, lógica de ejecución, motor de políticas, preflight checks, clasificación de errores, CallStats, CancelHandle.</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">protocol/</h3>
+              <p class="text-sm text-[var(--text-dim)]">ProtocolLoader (local/URL/GitHub), validador JSON Schema, estructura ProtocolManifest, compilación UnifiedRequest, tipos de configuración.</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">pipeline/</h3>
+              <p class="text-sm text-[var(--text-dim)]">Decoder (SSE, JSON Lines), Selector (JSONPath), Accumulator (tool calls), FanOut (multi-candidato), EventMapper (eventos unificados), operadores Retry y Fallback.</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">transport/</h3>
+              <p class="text-sm text-[var(--text-dim)]">HttpTransport (reqwest), resolución de API key (keyring + env vars), configuración proxy/timeout, soporte de middleware.</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">resilience/</h3>
+              <p class="text-sm text-[var(--text-dim)]">Circuit breaker (open/half-open/closed), limitador de tasa token bucket, backpressure semáforo max-inflight.</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">embeddings/</h3>
+              <p class="text-sm text-[var(--text-dim)]">EmbeddingClient, EmbeddingClientBuilder, operaciones vectoriales (similitud coseno, distancia euclidiana, producto escalar).</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">cache/ + batch/</h3>
+              <p class="text-sm text-[var(--text-dim)]">CacheManager con TTL (MemoryCache, NullCache). BatchCollector y BatchExecutor con control de concurrencia y múltiples estrategias.</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">plugins/ + guardrails/ + structured/</h3>
+              <p class="text-sm text-[var(--text-dim)]">Plugin trait, PluginRegistry, HookManager, cadena de middleware. Guardrails con filtros keyword/pattern y detección de PII.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="section-alt">
+        <div class="container text-center">
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Empieza a construir con Rust</h2>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="/es/rust/quickstart/" class="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-all hover:no-underline">Inicio rápido</a>
+            <a href="/es/rust/overview/" class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline">Documentación completa</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer locale={locale} />
+  </body>
+</html>

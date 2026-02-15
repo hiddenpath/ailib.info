@@ -1,0 +1,251 @@
+---
+import '../../styles/global.css';
+import SiteHeader from '../../components/SiteHeader.astro';
+import Hero from '../../components/Hero.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import Providers from '../../components/Providers.astro';
+import EcosystemOverview from '../../components/diagrams/EcosystemOverview.astro';
+import DataFlow from '../../components/diagrams/DataFlow.astro';
+import Footer from '../../components/Footer.astro';
+
+const locale = 'es';
+---
+
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <title>AI-Lib | Un protocolo, todos los proveedores de IA</title>
+    <meta name="description" content="AI-Lib es un ecosistema de código abierto que estandariza las interacciones con modelos de IA. Una especificación impulsa los runtimes Rust y Python, soportando más de 35 proveedores." />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta property="og:title" content="AI-Lib | Un protocolo, todos los proveedores de IA" />
+    <meta property="og:description" content="Ecosistema de código abierto para interacciones con modelos de IA estandarizadas. Un protocolo, múltiples runtimes." />
+    <meta property="og:image" content="/og-image.png" />
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+  <body>
+    <SiteHeader locale={locale} />
+
+    <main>
+      <Hero locale={locale} />
+
+      <!-- Core Projects -->
+      <section class="section-alt">
+        <div class="container">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
+              3 proyectos, 1 ecosistema
+            </h2>
+            <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
+              Una capa de especificación define las reglas. Dos implementaciones de runtime las hacen realidad.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <ProjectCard
+              locale={locale}
+              variant="protocol"
+              version="0.5.0"
+              title="AI-Protocol"
+              description="La especificación independiente del proveedor. Los manifiestos YAML definen cómo comunicarse con cada proveedor de IA — sin lógica hardcodeada."
+              features={['Más de 35 manifiestos de proveedores', 'Validado con JSON Schema', 'Normalización de eventos en streaming', 'Estándar de clasificación de errores', 'Configuración recargable en caliente']}
+              link="/es/protocol/"
+              github="https://github.com/hiddenpath/ai-protocol"
+            />
+            <ProjectCard
+              locale={locale}
+              variant="rust"
+              version="0.7.1"
+              title="ai-lib-rust"
+              description="Runtime Rust de alto rendimiento. Códigos de error estándar V2, flags de características, pipeline de streaming basado en operadores, seguridad en tiempo de compilación y sobrecarga submilisegundo."
+              features={['Pipeline basado en operadores', 'Códigos de error estándar V2', 'Módulos con feature gates', 'Circuit breaker y rate limiter', 'Embeddings y caché', 'Sistema de plugins', 'Publicado en Crates.io']}
+              link="/es/rust/"
+              github="https://github.com/hiddenpath/ai-lib-rust"
+            />
+            <ProjectCard
+              locale={locale}
+              variant="python"
+              version="0.6.0"
+              title="ai-lib-python"
+              description="Runtime Python amigable para desarrolladores. Códigos de error estándar V2, extras por capacidad, soporte async completo, tipos Pydantic v2 y telemetría de producción."
+              features={['Async/await nativo', 'Códigos de error estándar V2', 'Extras por capacidad', 'Seguridad de tipos Pydantic v2', 'Integración OpenTelemetry', 'Enrutamiento y balanceo de carga de modelos', 'Publicado en PyPI']}
+              link="/es/python/"
+              github="https://github.com/hiddenpath/ai-lib-python"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Core Philosophy -->
+      <section class="section">
+        <div class="container">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
+              Diseño impulsado por protocolo
+            </h2>
+            <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
+              «Toda la lógica son operadores, toda la configuración es protocolo.» Todo el comportamiento del proveedor se declara en YAML — los runtimes contienen cero lógica hardcodeada de proveedores.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="p-6 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4">
+                <svg class="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-[var(--text)] mb-2">Configuración declarativa</h3>
+              <p class="text-sm text-[var(--text-dim)]">
+                Endpoints de proveedores, autenticación, mapeos de parámetros, decodificadores de streaming y manejo de errores — todo declarado en manifiestos YAML, validado por JSON Schema.
+              </p>
+            </div>
+
+            <div class="p-6 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4">
+                <svg class="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-[var(--text)] mb-2">Pipeline basado en operadores</h3>
+              <p class="text-sm text-[var(--text-dim)]">
+                Las respuestas en streaming fluyen por operadores componibles: Decoder, Selector, Accumulator, FanOut, EventMapper. Cada operador es impulsado por el protocolo.
+              </p>
+            </div>
+
+            <div class="p-6 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-4">
+                <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-[var(--text)] mb-2">Listo para recarga en caliente</h3>
+              <p class="text-sm text-[var(--text-dim)]">
+                Actualiza la configuración de proveedores sin reiniciar. Los cambios de protocolo se propagan automáticamente a los runtimes. Añade nuevos proveedores por configuración, no por código.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture Overview -->
+      <section class="section-alt">
+        <div class="container">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
+              Arquitectura del ecosistema
+            </h2>
+            <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
+              Tres capas trabajando juntas — la especificación define las reglas, los runtimes las ejecutan, las aplicaciones consumen interfaces unificadas.
+            </p>
+          </div>
+          <EcosystemOverview locale={locale} />
+        </div>
+      </section>
+
+      <!-- Data Flow -->
+      <section class="section">
+        <div class="container">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
+              Cómo funciona
+            </h2>
+            <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
+              Desde la petición del usuario hasta eventos de streaming unificados — cada paso es impulsado por el protocolo.
+            </p>
+          </div>
+          <DataFlow locale={locale} />
+        </div>
+      </section>
+
+      <!-- Runtime Comparison Table -->
+      <section class="section-alt">
+        <div class="container">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
+              Elige tu runtime
+            </h2>
+            <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
+              Mismo protocolo, diferentes fortalezas. Elige el runtime que encaje con tu stack.
+            </p>
+          </div>
+
+          <div class="overflow-x-auto rounded-xl border border-[var(--border)]">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-[var(--bg-card)]">
+                  <th class="p-4 text-sm font-semibold text-[var(--text)] border-b border-[var(--border)]">Capacidad</th>
+                  <th class="p-4 text-sm font-semibold text-purple-400 border-b border-[var(--border)]">AI-Protocol</th>
+                  <th class="p-4 text-sm font-semibold text-orange-400 border-b border-[var(--border)]">Rust SDK</th>
+                  <th class="p-4 text-sm font-semibold text-emerald-400 border-b border-[var(--border)]">Python SDK</th>
+                </tr>
+              </thead>
+              <tbody class="text-sm">
+                <tr class="border-b border-[var(--border)]">
+                  <td class="p-4 font-medium text-[var(--text)]">Sistema de tipos</td>
+                  <td class="p-4 text-[var(--text-dim)]">JSON Schema</td>
+                  <td class="p-4 text-[var(--text-dim)]">Tiempo de compilación (Rust)</td>
+                  <td class="p-4 text-[var(--text-dim)]">Tiempo de ejecución (Pydantic v2)</td>
+                </tr>
+                <tr class="border-b border-[var(--border)]">
+                  <td class="p-4 font-medium text-[var(--text)]">Streaming</td>
+                  <td class="p-4 text-[var(--text-dim)]">Especificación SSE/NDJSON</td>
+                  <td class="p-4 text-[var(--text-dim)]">tokio async streams</td>
+                  <td class="p-4 text-[var(--text-dim)]">async generators</td>
+                </tr>
+                <tr class="border-b border-[var(--border)]">
+                  <td class="p-4 font-medium text-[var(--text)]">Resiliencia</td>
+                  <td class="p-4 text-[var(--text-dim)]">Especificación de política de reintentos</td>
+                  <td class="p-4 text-[var(--text-dim)]">Circuit breaker, rate limiter, backpressure</td>
+                  <td class="p-4 text-[var(--text-dim)]">ResilientExecutor con todos los patrones</td>
+                </tr>
+                <tr class="border-b border-[var(--border)]">
+                  <td class="p-4 font-medium text-[var(--text)]">Embeddings</td>
+                  <td class="p-4 text-[var(--text-dim)]">—</td>
+                  <td class="p-4 text-[var(--text-dim)]">Operaciones vectoriales, similitud</td>
+                  <td class="p-4 text-[var(--text-dim)]">Operaciones vectoriales, similitud</td>
+                </tr>
+                <tr class="border-b border-[var(--border)]">
+                  <td class="p-4 font-medium text-[var(--text)]">Distribución</td>
+                  <td class="p-4 text-[var(--text-dim)]">GitHub / npm</td>
+                  <td class="p-4 text-[var(--text-dim)]">Crates.io</td>
+                  <td class="p-4 text-[var(--text-dim)]">PyPI</td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-medium text-[var(--text)]">Ideal para</td>
+                  <td class="p-4 text-[var(--text-dim)] italic">Especificación y estándares</td>
+                  <td class="p-4 text-[var(--text-dim)] italic">Sistemas, crítico para rendimiento</td>
+                  <td class="p-4 text-[var(--text-dim)] italic">ML, ciencia de datos, prototipado</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Providers -->
+      <Providers locale={locale} />
+
+      <!-- CTA -->
+      <section class="section">
+        <div class="container">
+          <div class="text-center p-12 rounded-2xl border border-[var(--border)] bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-alt)]">
+            <h2 class="text-3xl font-bold text-[var(--text)] mb-4">¿Listo para empezar?</h2>
+            <p class="text-lg text-[var(--text-dim)] mb-8 max-w-xl mx-auto">
+              Lee la documentación, elige tu runtime y empieza a desarrollar con más de 35 proveedores de IA hoy mismo.
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+              <a href="/es/quickstart/" class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:brightness-110 transition-all hover:no-underline">
+                Guía de inicio rápido
+              </a>
+              <a href="/es/intro/" class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline">
+                Leer la documentación
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer locale={locale} />
+  </body>
+</html>
