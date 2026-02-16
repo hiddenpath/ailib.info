@@ -18,23 +18,38 @@ Every piece of provider-specific behavior — endpoints, authentication, paramet
 ```
 ai-protocol/
 ├── v1/
-│   ├── spec.yaml          # Core specification (v0.5.0)
-│   ├── providers/          # 35+ provider manifests
+│   ├── spec.yaml            # V1 core specification
+│   ├── providers/            # 36 V1 provider manifests
 │   │   ├── openai.yaml
 │   │   ├── anthropic.yaml
-│   │   ├── gemini.yaml
-│   │   ├── deepseek.yaml
 │   │   └── ...
-│   └── models/             # Model instance registry
-│       ├── gpt.yaml
-│       ├── claude.yaml
-│       └── ...
-├── schemas/                # JSON Schema validation
-│   ├── v1.json
+│   └── models/               # Model instance registry
+├── v2/
+│   └── providers/            # 6 V2 provider manifests
+│       ├── openai.yaml       # Ring 1/2/3 + MCP/CU/MM declarations
+│       ├── anthropic.yaml
+│       ├── gemini.yaml
+│       ├── deepseek.yaml
+│       ├── moonshot.yaml
+│       └── zhipu.yaml
+├── v2-alpha/
+│   └── spec.yaml             # V2 specification (3 layers + 3 modules)
+├── schemas/
+│   ├── v1.json               # V1 schema
+│   ├── v2/
+│   │   ├── provider.json     # V2 provider manifest schema
+│   │   ├── provider-contract.json  # ProviderContract schema
+│   │   ├── mcp.json          # MCP integration schema
+│   │   ├── computer-use.json # Computer Use schema
+│   │   ├── multimodal.json   # Extended multimodal schema
+│   │   └── context-policy.json # Context management schema
 │   └── spec.json
-├── dist/                   # Pre-compiled JSON (generated)
-├── scripts/                # Build & validation tools
-└── examples/               # Usage examples
+├── docs/
+│   ├── V2_ARCHITECTURE.md    # V2 architecture document (v1.0)
+│   └── V2_MIGRATION_GUIDE.md # V1 → V2 migration guide
+├── dist/                     # Pre-compiled JSON (generated)
+├── scripts/                  # Build & validation tools
+└── work/                     # Working documents & research
 ```
 
 ## Provider Manifests
@@ -56,7 +71,7 @@ Each provider has a YAML manifest declaring everything a runtime needs:
 
 ```yaml
 id: anthropic
-protocol_version: "0.5"
+protocol_version: "0.7"
 endpoint:
   base_url: "https://api.anthropic.com/v1"
   chat_path: "/messages"
@@ -121,37 +136,81 @@ npm run build       # Compile YAML → JSON
 
 AI-Protocol uses layered versioning:
 
-1. **Spec version** (`v1/spec.yaml`) — Schema structure version (currently v0.5.0)
-2. **Protocol version** (in manifests) — Protocol features used (currently 0.5)
-3. **Release version** (`package.json`) — SemVer for the specification package (v0.5.0)
+1. **Spec version** (`v1/spec.yaml`) — Schema structure version (currently v0.7.0)
+2. **Protocol version** (in manifests) — Protocol features used (currently 0.7)
+3. **Release version** (`package.json`) — SemVer for the specification package (v0.7.0)
 
 ## V2 Protocol Architecture
 
-Protocol v0.5.0 introduces the **V2 architecture** — a clean separation of concerns across layers and a concentric manifest model.
+Protocol v0.7.0 delivers the full **V2 architecture** — a complete separation of concerns across layers, a concentric manifest model, and three new capability modules.
 
 ### Three-Layer Pyramid
 
 - **L1 Core Protocol** — Message format, standard error codes (E1001–E9999), version declaration. All providers must implement this layer.
-- **L2 Capability Extensions** — Streaming, vision, tools. Each extension is controlled by feature flags; providers opt in per capability.
+- **L2 Capability Extensions** — Streaming, vision, tools, MCP, Computer Use, multimodal. Each extension is controlled by feature flags; providers opt in per capability.
 - **L3 Environment Profile** — API keys, endpoints, retry policies. Environment-specific configuration that can be overridden without changing provider logic.
 
 ### Concentric Circle Manifest Model
 
-- **Ring 1 Core Skeleton** (required) — Minimal fields for a valid manifest: endpoint, auth, parameter mappings
-- **Ring 2 Capability Mapping** (conditional) — Streaming config, tools mapping, vision params — present when the provider supports them
-- **Ring 3 Advanced Extensions** (optional) — Custom headers, rate limit headers, advanced retry policies
+- **Ring 1 Core Skeleton** (required) — Minimal fields for a valid manifest: endpoint, auth, parameter mappings, model list
+- **Ring 2 Capability Mapping** (conditional) — Streaming config, tools mapping, MCP integration, Computer Use actions — present when the provider supports them
+- **Ring 3 Advanced Extensions** (optional) — Custom headers, rate limit headers, context management policies, advanced retry
 
-### V2-Alpha Providers
+### V2 Providers
 
-OpenAI, Anthropic, and Gemini are already available in **v2-alpha** format. These manifests use the Ring 1/2/3 structure and can be used alongside v1 manifests.
+Six providers are available in **V2 format**, each with full Ring 1/2/3 structure and MCP/CU/Multimodal declarations:
+
+| Provider | API Style | MCP | Computer Use | Multimodal |
+|----------|-----------|-----|-------------|------------|
+| OpenAI | `OpenAiCompatible` | ✅ (tool_parameter) | ✅ (screen_based) | Vision, Audio |
+| Anthropic | `AnthropicMessages` | ✅ (sdk_config) | ✅ (screen_based) | Vision |
+| Gemini | `GeminiGenerate` | ✅ (sdk_config) | ✅ (tool_based) | Vision, Audio, Video |
+| DeepSeek | `OpenAiCompatible` | — | — | Vision |
+| Moonshot | `OpenAiCompatible` | — | — | Vision |
+| Zhipu | `OpenAiCompatible` | — | — | Vision |
+
+V2 manifests are fully backward compatible — V1 manifests continue to work and can be auto-promoted via `CapabilitiesV2.from_legacy()`.
+
+### ProviderContract
+
+V2 introduces the **ProviderContract** schema — a formal declaration of each provider's API characteristics:
+
+- **API Style** — `OpenAiCompatible`, `AnthropicMessages`, `GeminiGenerate`, or `Custom`
+- **Capability Matrix** — Which capabilities the provider supports and their configuration
+- **Action Mapping** — How standard actions map to provider-specific API calls
+- **Degradation Strategy** — Fallback behavior when capabilities are unavailable
+
+### V2 Schema Suite
+
+Six JSON schemas validate the V2 protocol:
+
+| Schema | Purpose |
+|--------|---------|
+| `provider.json` | V2 provider manifest structure |
+| `provider-contract.json` | ProviderContract capability declaration |
+| `mcp.json` | MCP client/server/transport configuration |
+| `computer-use.json` | Computer Use actions, safety, provider mapping |
+| `multimodal.json` | Input/output modalities, formats, omni-mode |
+| `context-policy.json` | Context window management strategies |
 
 ### Standard Error Codes
 
 V2 defines 13 standardized error codes (E1001–E9999) across 5 categories: client errors (E1xxx), rate/quota (E2xxx), server (E3xxx), conflict/cancel (E4xxx), and unknown (E9999). See the [specification](/protocol/spec/) for the full code list.
 
+### CLI Tool
+
+The `ai-protocol-cli` Rust binary provides developer utilities for working with manifests:
+
+```bash
+ai-protocol-cli validate <path>        # Validate all manifests (53/53 passing)
+ai-protocol-cli info <provider>         # Show provider capabilities and config
+ai-protocol-cli list                    # List all 37 providers with versions
+ai-protocol-cli check-compat <manifest> # Check runtime feature compatibility
+```
+
 ### Cross-Runtime Consistency
 
-A **compliance test suite** ensures identical behavior across Rust and Python runtimes. All V2 providers pass the same test matrix in both implementations.
+A **compliance test suite** with 230+ tests ensures identical behavior across Rust and Python runtimes. The V2 integration tests validate the full chain: Manifest parsing → ProviderDriver selection → Capability Registry → MCP bridge → Computer Use safety → Multimodal validation.
 
 ## Next Steps
 

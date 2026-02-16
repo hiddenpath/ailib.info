@@ -1,6 +1,6 @@
 ---
 title: 流式管道 (Rust)
-description: ai-lib-rust v0.7.1 中基于算子的流式管道详解。
+description: ai-lib-rust v0.8.0 中基于算子的流式管道详解。
 ---
 
 # 流式管道

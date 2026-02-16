@@ -5,7 +5,7 @@ description: Architecture and design of ai-lib-python — the developer-friendly
 
 # Python SDK Overview
 
-**ai-lib-python** (v0.6.0) is the official Python runtime for AI-Protocol. It provides a developer-friendly, fully async interface with Pydantic v2 type safety and production-grade telemetry.
+**ai-lib-python** (v0.7.0) is the official Python runtime for AI-Protocol. It provides a developer-friendly, fully async interface with Pydantic v2 type safety and production-grade telemetry.
 
 ## Architecture
 
@@ -56,6 +56,15 @@ The Python SDK mirrors the Rust runtime's layered architecture:
 - **HealthChecker** — Service health monitoring
 - **FeedbackCollector** — User feedback
 
+### V2 Modules (pip extras)
+
+- **protocol/v2/** — `ManifestV2` + `CapabilitiesV2` parser with V1 auto-promotion
+- **drivers/** — `ProviderDriver` ABC + OpenAI, Anthropic, Gemini drivers; `create_driver()` factory based on manifest `api_style`
+- **registry/** — `CapabilityRegistry` for dynamic module loading with pip extras detection
+- **mcp/** — `McpToolBridge` for MCP tool format conversion, namespace isolation, allow/deny filters
+- **computer_use/** — `ComputerAction` dataclass + `SafetyPolicy` with domain allowlist, sensitive path protection, and per-turn action limits
+- **multimodal/** — `MultimodalCapabilities` for modality detection, format validation, and content block checking
+
 ### Additional Modules
 - **embeddings/** — EmbeddingClient with vector operations
 - **cache/** — Multi-backend caching (memory, disk)
@@ -86,11 +95,17 @@ The Python SDK mirrors the Rust runtime's layered architecture:
 
 ## V2 Protocol Alignment
 
-v0.6.0 aligns with the AI-Protocol V2 specification:
+v0.7.0 fully implements the V2 protocol specification:
 
+- **V2 Manifest Loading** — `ManifestV2` + `CapabilitiesV2` with V1 auto-promotion via `from_legacy()`
+- **ProviderDriver** — ABC with OpenAI, Anthropic, Gemini implementations; `create_driver()` factory
+- **Capability Registry** — pip extras detection with `status_report()` and `validate_requirements()`
+- **MCP Tool Bridge** — `McpToolBridge` for tool format conversion with namespace isolation
+- **Computer Use** — `ComputerAction` + `SafetyPolicy` for protocol-driven safety enforcement
+- **Extended Multimodal** — `MultimodalCapabilities` for modality detection and format validation
 - **Standard Error Codes** — 13 frozen dataclass codes (E1001–E9999) in `errors/standard_codes.py`
-- **Capability Extras** — 8 pip extras (vision, audio, embeddings, structured, batch, agentic, telemetry, tokenizer) plus a "full" meta-extra
-- **Compliance Testing** — 20/20 cross-runtime test cases passing
+- **Capability Extras** — 8+ pip extras (vision, audio, mcp, computer_use, multimodal, embeddings, structured, batch, agentic, telemetry, tokenizer) plus "full"
+- **75+ V2 Tests** — 69 unit + 6 integration tests covering full V2 chain
 - **Protocol Version Support** — Supports protocol versions 1.0, 1.1, 1.5, 2.0
 
 ## Python Version

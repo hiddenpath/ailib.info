@@ -1,13 +1,13 @@
 ---
 title: 高级功能（Python）
-description: ai-lib-python v0.6.0 中的 telemetry、模型路由、embeddings、缓存、插件与结构化输出。
+description: ai-lib-python v0.7.0 中的 telemetry、模型路由、embeddings、缓存、插件与结构化输出。
 ---
 
 # 高级功能
 
 ## Capability Extras
 
-通过 pip extras 安装可选功能（v0.6.0+）：
+通过 pip extras 安装可选功能（v0.7.0+）：
 
 | Extra | Purpose |
 |-------|---------|

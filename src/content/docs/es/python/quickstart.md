@@ -8,11 +8,11 @@ description: Comience con ai-lib-python en minutos.
 ## Instalación
 
 ```bash
-# Basic installation (v0.6.0+)
-pip install ai-lib-python>=0.6.0
+# Basic installation (v0.7.0+)
+pip install ai-lib-python>=0.7.0
 
 # With all optional features (recommended)
-pip install ai-lib-python[full]>=0.6.0
+pip install ai-lib-python[full]>=0.7.0
 
 # With specific extras (vision, audio, embeddings, structured, batch, agentic, telemetry, tokenizer)
 pip install ai-lib-python[telemetry]

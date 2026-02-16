@@ -1,6 +1,6 @@
 ---
 title: API AiClient (Rust)
-description: Guía detallada para usar AiClient, ChatRequestBuilder y tipos de respuesta en ai-lib-rust v0.7.1.
+description: Guía detallada para usar AiClient, ChatRequestBuilder y tipos de respuesta en ai-lib-rust v0.8.0.
 ---
 
 # API AiClient

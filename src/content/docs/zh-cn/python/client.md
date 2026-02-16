@@ -137,7 +137,7 @@ async for event in client.chat().user("Long task...").stream(cancel_token=token)
 
 ## 错误处理
 
-所有错误通过 `standard_code` 属性暴露 V2 标准错误码（ai-lib-python v0.6.0+）：
+所有错误通过 `standard_code` 属性暴露 V2 标准错误码（ai-lib-python v0.7.0+）：
 
 ```python
 from ai_lib_python.errors import (

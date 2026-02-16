@@ -5,11 +5,11 @@ description: ai-lib-rust のアーキテクチャと設計 — AI-Protocol 用�
 
 # Rust SDK 概要
 
-**ai-lib-rust**（v0.7.1）は、AI-Protocol 仕様の高性能 Rust ランタイムです。プロバイダーの動作のすべてが設定から来るプロトコル駆動アーキテクチャを実装しています。
+**ai-lib-rust**（v0.8.0）は、AI-Protocol 仕様の高性能 Rust ランタイムです。プロバイダーの動作のすべてが設定から来るプロトコル駆動アーキテクチャを実装しています。
 
 ## V2 プロトコル対応
 
-ai-lib-rust v0.7.1 は AI-Protocol V2 仕様に対応しています：
+ai-lib-rust v0.8.0 は AI-Protocol V2 仕様に対応しています：
 
 - **標準エラーコード**：すべてのエラーパスに統合された 13 バリアントの `StandardErrorCode` enum（E1001–E9999）
 - **フィーチャーフラグ**：7 つの機能（`embeddings`、`batch`、`guardrails`、`tokens`、`telemetry`、`routing_mvp`、`interceptors`）に加え `full` メタ機能

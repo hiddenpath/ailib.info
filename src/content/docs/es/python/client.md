@@ -137,7 +137,7 @@ async for event in client.chat().user("Long task...").stream(cancel_token=token)
 
 ## Manejo de errores
 
-Todos los errores exponen códigos de error estándar V2 a través de la propiedad `standard_code` (ai-lib-python v0.6.0+):
+Todos los errores exponen códigos de error estándar V2 a través de la propiedad `standard_code` (ai-lib-python v0.7.0+):
 
 ```python
 from ai_lib_python.errors import (

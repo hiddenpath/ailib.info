@@ -5,16 +5,20 @@ description: Architecture and design of ai-lib-rust — the high-performance Rus
 
 # Rust SDK Overview
 
-**ai-lib-rust** (v0.7.1) is the high-performance Rust runtime for the AI-Protocol specification. It implements a protocol-driven architecture where all provider behavior comes from configuration, not code.
+**ai-lib-rust** (v0.8.0) is the high-performance Rust runtime for the AI-Protocol specification. It implements a protocol-driven architecture where all provider behavior comes from configuration, not code.
 
 ## V2 Protocol Alignment
 
-ai-lib-rust v0.7.1 aligns with the AI-Protocol V2 specification:
+ai-lib-rust v0.8.0 fully implements the V2 protocol specification:
 
+- **V2 Manifest Loading**: Three-ring manifest parser (`ManifestV2`) with V1 auto-promotion
+- **ProviderDriver**: `Box<dyn ProviderDriver>` abstraction with OpenAI, Anthropic, and Gemini drivers
+- **Capability Registry**: Feature-gate based dynamic capability detection and module loading
+- **MCP Tool Bridge**: `McpToolBridge` for converting MCP tools to AI-Protocol format with namespace isolation
+- **Computer Use**: `ComputerAction` enum + `SafetyPolicy` for protocol-driven safety enforcement
+- **Extended Multimodal**: `MultimodalCapabilities` for modality detection, format validation, and capability checking
 - **Standard Error Codes**: 13-variant `StandardErrorCode` enum (E1001–E9999) integrated into all error paths
-- **Feature Flags**: 7 capability features (`embeddings`, `batch`, `guardrails`, `tokens`, `telemetry`, `routing_mvp`, `interceptors`) plus the `full` meta-feature
-- **Compliance Testing**: 20/20 cross-runtime test cases passing
-- **Structured Output**: JSON mode with schema validation
+- **185+ Tests**: Comprehensive coverage including 6 V2 integration tests and 53 CLI validations
 
 ## Architecture
 
@@ -56,6 +60,14 @@ Production reliability patterns:
 - **RateLimiter** — Token bucket algorithm
 - **Backpressure** — max_inflight semaphore
 
+### V2 Modules (feature-gated)
+
+- **drivers/** — `ProviderDriver` trait + OpenAI, Anthropic, Gemini implementations; auto-selected by manifest `api_style`
+- **registry/** — `CapabilityRegistry` for runtime module loading based on manifest declarations
+- **mcp/** — `McpToolBridge` for MCP tool format conversion, namespace isolation (`mcp__{server}__{tool}`), and provider-specific config extraction
+- **computer_use/** — `ComputerAction` enum (screenshot, mouse, keyboard, browser, file ops) + `SafetyPolicy` (domain allowlist, sensitive path protection, max actions per turn)
+- **multimodal/** — `MultimodalCapabilities` for modality detection, format validation (image, audio, video), and content block validation
+
 ### Additional Modules
 - **embeddings/** — EmbeddingClient with vector operations
 - **cache/** — Response caching with TTL (MemoryCache)
@@ -85,6 +97,10 @@ Optional features enabled via Cargo (use `full` to enable all):
 
 | Feature | What it enables |
 |---------|----------------|
+| `v2` | V2 manifest loading, ProviderDriver, Capability Registry |
+| `mcp` | MCP tool bridge, namespace isolation, provider config extraction |
+| `computer_use` | Computer Use actions, safety policy enforcement |
+| `multimodal` | Extended multimodal capabilities, format validation |
 | `embeddings` | EmbeddingClient, vector operations |
 | `batch` | BatchCollector, BatchExecutor |
 | `guardrails` | Content filtering, PII detection |
@@ -92,6 +108,7 @@ Optional features enabled via Cargo (use `full` to enable all):
 | `telemetry` | Advanced observability sinks |
 | `routing_mvp` | CustomModelManager, ModelArray, load balancing strategies |
 | `interceptors` | InterceptorPipeline for logging, metrics, audit |
+| `reasoning` | Extended thinking, reasoning traces |
 
 ## Environment Variables
 

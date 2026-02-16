@@ -15,7 +15,7 @@ const locale = 'zh-cn';
   <head>
     <meta charset="utf-8" />
     <title>AI-Lib | 一个协议，所有 AI 服务商</title>
-    <meta name="description" content="AI-Lib 是一个开源生态系统，标准化 AI 模型交互方式。一套规范驱动 Rust 和 Python 运行时，支持 35+ 服务商。" />
+    <meta name="description" content="AI-Lib 是一个开源生态系统，标准化 AI 模型交互方式。一套规范驱动 Rust 和 Python 运行时，支持 37 服务商。" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta property="og:title" content="AI-Lib | 一个协议，所有 AI 服务商" />
     <meta property="og:description" content="开源 AI 模型交互标准化生态系统。一套协议，多种运行时。" />
@@ -44,17 +44,17 @@ const locale = 'zh-cn';
             <ProjectCard
               locale={locale}
               variant="protocol"
-              version="0.5.0"
+              version="0.7.0"
               title="AI-Protocol"
               description="与供应商无关的规范。YAML 清单定义如何与每个 AI 服务商通信——零硬编码逻辑。"
-              features={['35+ 服务商清单', 'JSON Schema 验证', '流式事件规范化', '错误分类标准', '热重载配置']}
+              features={['37 服务商清单', 'JSON Schema 验证', '流式事件规范化', '错误分类标准', '热重载配置']}
               link="/zh-cn/protocol/"
               github="https://github.com/hiddenpath/ai-protocol"
             />
             <ProjectCard
               locale={locale}
               variant="rust"
-              version="0.7.1"
+              version="0.8.0"
               title="ai-lib-rust"
               description="高性能 Rust 运行时。V2 标准错误码、功能开关、基于算子的流式管道、编译时安全、亚毫秒级开销。"
               features={['基于算子的管道', 'V2 标准错误码', '功能门控模块', '熔断器与限流器', '嵌入与缓存', '插件系统', '发布于 Crates.io']}
@@ -64,7 +64,7 @@ const locale = 'zh-cn';
             <ProjectCard
               locale={locale}
               variant="python"
-              version="0.6.0"
+              version="0.7.0"
               title="ai-lib-python"
               description="开发者友好的 Python 运行时。V2 标准错误码、按能力扩展、完整异步支持、Pydantic v2 类型、生产级遥测。"
               features={['原生 async/await', 'V2 标准错误码', '按能力扩展', 'Pydantic v2 类型安全', 'OpenTelemetry 集成', '模型路由与负载均衡', '发布于 PyPI']}
@@ -231,7 +231,7 @@ const locale = 'zh-cn';
           <div class="text-center p-12 rounded-2xl border border-[var(--border)] bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-alt)]">
             <h2 class="text-3xl font-bold text-[var(--text)] mb-4">准备好开始了吗？</h2>
             <p class="text-lg text-[var(--text-dim)] mb-8 max-w-xl mx-auto">
-              阅读文档，选择你的运行时，从今天开始使用 35+ AI 服务商进行开发。
+              阅读文档，选择你的运行时，从今天开始使用 37 AI 服务商进行开发。
             </p>
             <div class="flex flex-wrap gap-4 justify-center">
               <a href="/zh-cn/quickstart/" class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:brightness-110 transition-all hover:no-underline">

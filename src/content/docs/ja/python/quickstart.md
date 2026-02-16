@@ -8,11 +8,11 @@ description: 数分で ai-lib-python を始められます。
 ## インストール
 
 ```bash
-# 基本インストール（v0.6.0+）
-pip install ai-lib-python>=0.6.0
+# 基本インストール（v0.7.0+）
+pip install ai-lib-python>=0.7.0
 
 # すべてのオプション機能付き（推奨）
-pip install ai-lib-python[full]>=0.6.0
+pip install ai-lib-python[full]>=0.7.0
 
 # 特定の extra 付き（vision、audio、embeddings、structured、batch、agentic、telemetry、tokenizer）
 pip install ai-lib-python[telemetry]

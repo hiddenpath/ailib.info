@@ -1,6 +1,6 @@
 ---
 title: 高级功能（Rust）
-description: ai-lib-rust v0.7.1 中的 embeddings、缓存、批处理、插件、guardrails、功能标志、结构化输出及 V2 错误码。
+description: ai-lib-rust v0.8.0 中的 embeddings、缓存、批处理、插件、guardrails、功能标志、结构化输出及 V2 错误码。
 ---
 
 # 高级功能

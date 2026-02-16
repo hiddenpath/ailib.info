@@ -5,11 +5,11 @@ description: ai-lib-rust 的架构与设计 — AI-Protocol 的高性能 Rust �
 
 # Rust SDK 概览
 
-**ai-lib-rust**（v0.7.1）是 AI-Protocol 规范的高性能 Rust 运行时。它采用协议驱动架构，所有提供商行为均来自配置而非代码。
+**ai-lib-rust**（v0.8.0）是 AI-Protocol 规范的高性能 Rust 运行时。它采用协议驱动架构，所有提供商行为均来自配置而非代码。
 
 ## V2 协议对齐
 
-ai-lib-rust v0.7.1 与 AI-Protocol V2 规范对齐：
+ai-lib-rust v0.8.0 与 AI-Protocol V2 规范对齐：
 
 - **标准错误码**：13 种变体的 `StandardErrorCode` 枚举（E1001–E9999），已集成到所有错误路径
 - **功能标志**：7 种能力特性（`embeddings`、`batch`、`guardrails`、`tokens`、`telemetry`、`routing_mvp`、`interceptors`）以及 `full` 元特性

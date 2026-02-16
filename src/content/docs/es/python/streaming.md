@@ -1,6 +1,6 @@
 ---
 title: Canalización de streaming (Python)
-description: Cómo funciona la canalización de streaming en ai-lib-python v0.6.0 — decodificadores, selectores, acumuladores y mapeadores de eventos.
+description: Cómo funciona la canalización de streaming en ai-lib-python v0.7.0 — decodificadores, selectores, acumuladores y mapeadores de eventos.
 ---
 
 # Canalización de streaming

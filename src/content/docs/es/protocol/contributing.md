@@ -9,7 +9,7 @@ Agregar un nuevo proveedor de IA a AI-Protocol lo hace disponible instantáneame
 
 ## Pasos
 
-> **Formato v2-alpha**: La versión v0.5.0 del protocolo introduce el formato de proveedor v2-alpha con la estructura de manifiesto Anillo 1/2/3. Los nuevos proveedores pueden opcionalmente orientarse a v2-alpha para códigos de error estandarizados, banderas de características y extensiones de capacidades. Consulte la [Visión general del protocolo](/protocol/overview/) para detalles de la arquitectura V2.
+> **Formato v2-alpha**: La versión v0.7.0 del protocolo introduce el formato de proveedor v2-alpha con la estructura de manifiesto Anillo 1/2/3. Los nuevos proveedores pueden opcionalmente orientarse a v2-alpha para códigos de error estandarizados, banderas de características y extensiones de capacidades. Consulte la [Visión general del protocolo](/protocol/overview/) para detalles de la arquitectura V2.
 
 ### 1. Investigar la API del proveedor
 

@@ -5,7 +5,7 @@ description: Arquitectura y diseño de ai-lib-python — el tiempo de ejecución
 
 # Visión general del SDK Python
 
-**ai-lib-python** (v0.6.0) es el tiempo de ejecución Python oficial para AI-Protocol. Proporciona una interfaz totalmente asíncrona orientada al desarrollador con seguridad de tipos Pydantic v2 y telemetría de nivel producción.
+**ai-lib-python** (v0.7.0) es el tiempo de ejecución Python oficial para AI-Protocol. Proporciona una interfaz totalmente asíncrona orientada al desarrollador con seguridad de tipos Pydantic v2 y telemetría de nivel producción.
 
 ## Arquitectura
 
@@ -86,7 +86,7 @@ El SDK Python refleja la arquitectura en capas del tiempo de ejecución Rust:
 
 ## Alineación con el protocolo V2
 
-v0.6.0 está alineado con la especificación AI-Protocol V2:
+v0.7.0 está alineado con la especificación AI-Protocol V2:
 
 - **Códigos de error estándar** — 13 códigos dataclass congelados (E1001–E9999) en `errors/standard_codes.py`
 - **Extras de capacidades** — 8 extras pip (vision, audio, embeddings, structured, batch, agentic, telemetry, tokenizer) más un meta-extra "full"

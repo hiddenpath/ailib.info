@@ -5,7 +5,7 @@ description: Cómo AI-Protocol, ai-lib-rust y ai-lib-python funcionan juntos com
 
 # Arquitectura del ecosistema
 
-El ecosistema AI-Lib se basa en una arquitectura limpia de tres capas donde cada capa tiene una responsabilidad distinta. Versiones actuales: **AI-Protocol v0.5.0**, **ai-lib-rust v0.7.1**, **ai-lib-python v0.6.0**.
+El ecosistema AI-Lib se basa en una arquitectura limpia de tres capas donde cada capa tiene una responsabilidad distinta. Versiones actuales: **AI-Protocol v0.7.0**, **ai-lib-rust v0.8.0**, **ai-lib-python v0.7.0**.
 
 ## Las tres capas
 
@@ -13,7 +13,7 @@ El ecosistema AI-Lib se basa en una arquitectura limpia de tres capas donde cada
 
 La capa de **especificación**. Los manifiestos YAML definen:
 
-- **Manifiestos de proveedores** (`providers/*.yaml`) — Endpoint, autenticación, mapeo de parámetros, decodificador de streaming, clasificación de errores para cada uno de los más de 35 proveedores
+- **Manifiestos de proveedores** (`providers/*.yaml`) — Endpoint, autenticación, mapeo de parámetros, decodificador de streaming, clasificación de errores para cada uno de los 37 proveedores
 - **Registro de modelos** (`models/*.yaml`) — Instancias de modelos con ventanas de contexto, capacidades y precios
 - **Especificación principal** (`spec.yaml`) — Parámetros estándar, eventos, tipos de error, políticas de reintento
 - **Esquemas** (`schemas/`) — Validación JSON Schema para toda la configuración
@@ -79,7 +79,7 @@ Esto significa que puede comenzar a desarrollar sin ninguna configuración local
 
 ## Evolución del protocolo V2
 
-La versión v0.5.0 del protocolo introduce una arquitectura de **pirámide de tres capas**:
+La versión v0.7.0 del protocolo introduce una arquitectura de **pirámide de tres capas**:
 
 - **L1 Protocolo principal** — Formato de mensaje, códigos de error estándar (E1001–E9999), declaración de versión
 - **L2 Extensiones de capacidades** — Streaming, visión, herramientas — cada una controlada por banderas de características

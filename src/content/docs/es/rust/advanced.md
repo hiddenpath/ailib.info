@@ -1,6 +1,6 @@
 ---
 title: Características avanzadas (Rust)
-description: Embeddings, caché, procesamiento por lotes, plugins, guardrails, banderas de características, salida estructurada y códigos de error V2 en ai-lib-rust v0.7.1.
+description: Embeddings, caché, procesamiento por lotes, plugins, guardrails, banderas de características, salida estructurada y códigos de error V2 en ai-lib-rust v0.8.0.
 ---
 
 # Características avanzadas

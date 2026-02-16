@@ -5,7 +5,7 @@ description: ai-lib-python 的架构与设计 — AI-Protocol 的开发者友好
 
 # Python SDK 概览
 
-**ai-lib-python**（v0.6.0）是 AI-Protocol 的官方 Python 运行时。它提供开发者友好、 fully async 的接口，具备 Pydantic v2 类型安全与生产级 telemetry。
+**ai-lib-python**（v0.7.0）是 AI-Protocol 的官方 Python 运行时。它提供开发者友好、 fully async 的接口，具备 Pydantic v2 类型安全与生产级 telemetry。
 
 ## 架构
 
@@ -86,7 +86,7 @@ Python SDK 镜像 Rust 运行时的分层架构：
 
 ## V2 协议对齐
 
-v0.6.0 与 AI-Protocol V2 规范对齐：
+v0.7.0 与 AI-Protocol V2 规范对齐：
 
 - **标准错误码** — `errors/standard_codes.py` 中的 13 个 frozen dataclass 码（E1001–E9999）
 - **Capability Extras** — 8 个 pip extras（vision、audio、embeddings、structured、batch、agentic、telemetry、tokenizer）及 "full" 元 extra

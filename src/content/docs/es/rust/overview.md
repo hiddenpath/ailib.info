@@ -5,11 +5,11 @@ description: Arquitectura y diseño de ai-lib-rust — el tiempo de ejecución R
 
 # Visión general del SDK Rust
 
-**ai-lib-rust** (v0.7.1) es el tiempo de ejecución Rust de alto rendimiento para la especificación AI-Protocol. Implementa una arquitectura impulsada por protocolo donde todo el comportamiento del proveedor proviene de la configuración, no del código.
+**ai-lib-rust** (v0.8.0) es el tiempo de ejecución Rust de alto rendimiento para la especificación AI-Protocol. Implementa una arquitectura impulsada por protocolo donde todo el comportamiento del proveedor proviene de la configuración, no del código.
 
 ## Alineación con el protocolo V2
 
-ai-lib-rust v0.7.1 está alineado con la especificación AI-Protocol V2:
+ai-lib-rust v0.8.0 está alineado con la especificación AI-Protocol V2:
 
 - **Códigos de error estándar**: Enumeración `StandardErrorCode` de 13 variantes (E1001–E9999) integrada en todas las rutas de error
 - **Banderas de características**: 7 características de capacidad (`embeddings`, `batch`, `guardrails`, `tokens`, `telemetry`, `routing_mvp`, `interceptors`) más la meta-característica `full`

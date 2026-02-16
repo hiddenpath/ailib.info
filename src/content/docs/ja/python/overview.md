@@ -5,7 +5,7 @@ description: ai-lib-python のアーキテクチャと設計 — AI-Protocol 用
 
 # Python SDK 概要
 
-**ai-lib-python**（v0.6.0）は、AI-Protocol の公式 Python ランタイムです。Pydantic v2 による型安全性と本番グレードのテレメトリを持つ、開発者フレンドリーな完全 async インターフェースを提供します。
+**ai-lib-python**（v0.7.0）は、AI-Protocol の公式 Python ランタイムです。Pydantic v2 による型安全性と本番グレードのテレメトリを持つ、開発者フレンドリーな完全 async インターフェースを提供します。
 
 ## アーキテクチャ
 
@@ -86,7 +86,7 @@ Python SDK は Rust ランタイムのレイヤーアーキテクチャを反映
 
 ## V2 プロトコル対応
 
-v0.6.0 は AI-Protocol V2 仕様に対応しています：
+v0.7.0 は AI-Protocol V2 仕様に対応しています：
 
 - **標準エラーコード** — `errors/standard_codes.py` の 13 の frozen dataclass コード（E1001–E9999）
 - **機能 Extra** — 8 つの pip extra（vision、audio、embeddings、structured、batch、agentic、telemetry、tokenizer）に加え「full」メタ extra

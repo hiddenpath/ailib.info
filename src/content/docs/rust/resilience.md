@@ -1,11 +1,11 @@
 ---
 title: Resilience (Rust)
-description: Production reliability patterns in ai-lib-rust v0.7.1 — circuit breaker, rate limiter, backpressure, retry.
+description: Production reliability patterns in ai-lib-rust v0.8.0 — circuit breaker, rate limiter, backpressure, retry.
 ---
 
 # Resilience Patterns
 
-ai-lib-rust (v0.7.1) includes production-grade reliability patterns out of the box. Retry and fallback decisions use V2 standard error codes: the `retryable` and `fallbackable` properties on `StandardErrorCode` determine whether an error triggers retries or model fallback.
+ai-lib-rust (v0.8.0) includes production-grade reliability patterns out of the box. Retry and fallback decisions use V2 standard error codes: the `retryable` and `fallbackable` properties on `StandardErrorCode` determine whether an error triggers retries or model fallback.
 
 ## Circuit Breaker
 

@@ -1,13 +1,13 @@
 ---
 title: Características avanzadas (Python)
-description: Telemetría, enrutamiento de modelos, embeddings, caché, plugins y salida estructurada en ai-lib-python v0.6.0.
+description: Telemetría, enrutamiento de modelos, embeddings, caché, plugins y salida estructurada en ai-lib-python v0.7.0.
 ---
 
 # Características avanzadas
 
 ## Extras de capacidades
 
-Instale características opcionales mediante extras pip (v0.6.0+):
+Instale características opcionales mediante extras pip (v0.7.0+):
 
 | Extra | Propósito |
 |-------|-----------|

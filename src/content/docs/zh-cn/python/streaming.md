@@ -1,6 +1,6 @@
 ---
 title: 流式管道（Python）
-description: ai-lib-python v0.6.0 中流式管道如何工作 — 解码器、选择器、累加器与事件映射器。
+description: ai-lib-python v0.7.0 中流式管道如何工作 — 解码器、选择器、累加器与事件映射器。
 ---
 
 # 流式管道

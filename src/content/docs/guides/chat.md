@@ -5,7 +5,7 @@ description: Guide to using chat completions across providers with AI-Lib runtim
 
 # Chat Completions
 
-Chat completions are the primary API for interacting with AI models. Both runtimes provide a unified interface that works across all 35+ providers.
+Chat completions are the primary API for interacting with AI models. Both runtimes provide a unified interface that works across all 37 providers.
 
 ## Basic Usage
 

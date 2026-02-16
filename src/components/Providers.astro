@@ -2,10 +2,10 @@
 const { locale = 'en' } = Astro.props;
 
 const t: Record<string, Record<string, string>> = {
-  en:      { title: '35+ AI Providers Supported', subtitle: 'All driven by protocol configuration — zero hardcoded logic for any provider', global: 'Global Providers', china: 'China Region' },
-  'zh-cn': { title: '支持 35+ AI 服务商', subtitle: '通过协议配置驱动，无需任何硬编码即可接入全球和中国区主流 AI 服务商', global: '全球服务商', china: '中国区服务商' },
-  ja:      { title: '35以上のAIプロバイダーに対応', subtitle: 'すべてプロトコル構成で駆動 — プロバイダーへのハードコードロジックはゼロ', global: 'グローバルプロバイダー', china: '中国リージョン' },
-  es:      { title: 'Más de 35 proveedores de IA', subtitle: 'Todo impulsado por configuración de protocolo — cero lógica hardcodeada', global: 'Proveedores globales', china: 'Región de China' },
+  en:      { title: '37 AI Providers Supported', subtitle: 'All driven by protocol configuration — zero hardcoded logic for any provider. 6 V2 manifests with MCP/CU/Multimodal declarations.', global: 'Global Providers', china: 'China Region' },
+  'zh-cn': { title: '支持 37 个 AI 服务商', subtitle: '通过协议配置驱动，无需任何硬编码即可接入全球和中国区主流 AI 服务商。6 个 V2 清单含 MCP/CU/多模态声明。', global: '全球服务商', china: '中国区服务商' },
+  ja:      { title: '37のAIプロバイダーに対応', subtitle: 'すべてプロトコル構成で駆動 — プロバイダーへのハードコードロジックはゼロ。6つのV2マニフェストがMCP/CU/マルチモーダルをサポート。', global: 'グローバルプロバイダー', china: '中国リージョン' },
+  es:      { title: '37 proveedores de IA soportados', subtitle: 'Todo impulsado por configuración de protocolo — cero lógica hardcodeada. 6 manifiestos V2 con declaraciones MCP/CU/Multimodal.', global: 'Proveedores globales', china: 'Región de China' },
 };
 const i = t[locale] || t.en;
 

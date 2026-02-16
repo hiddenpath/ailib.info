@@ -5,7 +5,7 @@ description: How AI-Protocol, ai-lib-rust, and ai-lib-python work together as an
 
 # Ecosystem Architecture
 
-The AI-Lib ecosystem is built on a clean three-layer architecture where each layer has a distinct responsibility. Current versions: **AI-Protocol v0.5.0**, **ai-lib-rust v0.7.1**, **ai-lib-python v0.6.0**.
+The AI-Lib ecosystem is built on a clean three-layer architecture where each layer has a distinct responsibility. Current versions: **AI-Protocol v0.7.0**, **ai-lib-rust v0.8.0**, **ai-lib-python v0.7.0**.
 
 ## The Three Layers
 
@@ -13,10 +13,11 @@ The AI-Lib ecosystem is built on a clean three-layer architecture where each lay
 
 The **specification** layer. YAML manifests define:
 
-- **Provider manifests** (`providers/*.yaml`) — Endpoint, auth, parameter mappings, streaming decoder, error classification for each of 35+ providers
+- **Provider manifests** (`v1/providers/` + `v2/providers/`) — Endpoint, auth, parameter mappings, streaming decoder, error classification for 37 providers (6 V2 + 36 V1)
 - **Model registry** (`models/*.yaml`) — Model instances with context windows, capabilities, pricing
-- **Core specification** (`spec.yaml`) — Standard parameters, events, error types, retry policies
-- **Schemas** (`schemas/`) — JSON Schema validation for all configuration
+- **Core specification** (`spec.yaml`, `v2-alpha/spec.yaml`) — Standard parameters, events, error types, retry policies
+- **V2 Schemas** (`schemas/v2/`) — JSON Schema for provider, MCP, Computer Use, multimodal, context policy, and ProviderContract
+- **V2 ProviderContract** — API style declaration, capability matrix, action mapping, degradation strategy
 
 The protocol layer is **language-agnostic**. It's consumed by any runtime in any language.
 
@@ -30,7 +31,7 @@ The **execution** layer. Runtimes implement:
 - **Resilience** — Circuit breaker, rate limiting, retry, fallback
 - **Extensions** — Embeddings, caching, batching, plugins
 
-Both runtimes share the same architecture:
+Both runtimes share the same architecture with cross-runtime parity:
 
 | Concept | Rust | Python |
 |---------|------|--------|
@@ -40,6 +41,11 @@ Both runtimes share the same architecture:
 | Events | `StreamingEvent` enum | `StreamingEvent` class |
 | Transport | reqwest (tokio) | httpx (asyncio) |
 | Types | Rust structs | Pydantic v2 models |
+| **V2 Driver** | `Box<dyn ProviderDriver>` | `ProviderDriver` ABC |
+| **Registry** | `CapabilityRegistry` (feature-gate) | `CapabilityRegistry` (pip extras) |
+| **MCP Bridge** | `McpToolBridge` | `McpToolBridge` |
+| **Computer Use** | `ComputerAction` + `SafetyPolicy` | `ComputerAction` + `SafetyPolicy` |
+| **Multimodal** | `MultimodalCapabilities` | `MultimodalCapabilities` |
 
 ### 3. Application Layer — Your Code
 
@@ -77,24 +83,86 @@ Both runtimes search for protocol manifests in this order:
 
 This means you can start developing without any local setup — the runtimes will fetch manifests from GitHub automatically.
 
-## V2 Protocol Evolution
+## V2 Protocol Architecture
 
-The protocol v0.5.0 release introduces a **three-layer pyramid** architecture:
+The V2 protocol (v0.7.0) delivers a complete **three-layer pyramid** with three new capability modules:
+
+### Three-Layer Pyramid
 
 - **L1 Core Protocol** — Message format, standard error codes (E1001–E9999), version declaration
-- **L2 Capability Extensions** — Streaming, vision, tools — each controlled by feature flags
+- **L2 Capability Extensions** — Streaming, vision, tools, MCP, Computer Use, multimodal — each controlled by feature flags
 - **L3 Environment Profile** — API keys, endpoints, retry policies — environment-specific configuration
 
-The **compliance test suite** (42 test cases, 20/20 passing in both runtimes) ensures identical behavior across Rust and Python implementations.
+### Concentric Circle Manifest Model
 
-## Relationship to MCP
+V2 manifests are organized in three rings:
 
-AI-Protocol and MCP (Model Context Protocol) are **complementary**:
+- **Ring 1 Core Skeleton** (required) — Minimal fields: endpoint, auth, parameter mappings, model list
+- **Ring 2 Capability Mapping** (conditional) — Streaming config, tool mapping, MCP integration, Computer Use actions
+- **Ring 3 Advanced Extensions** (optional) — Custom headers, rate limit headers, context management policies
 
-- **MCP** handles high-level concerns — tool registration, context management, agent coordination
-- **AI-Protocol** handles low-level concerns — API normalization, streaming format conversion, error classification
+### ProviderDriver Abstraction
 
-They operate at different layers and can be used together.
+Both runtimes implement a **ProviderDriver** abstraction that normalizes three distinct API styles:
+
+| API Style | Provider | Request Format | Streaming Format |
+|-----------|----------|----------------|------------------|
+| `OpenAiCompatible` | OpenAI, DeepSeek, Moonshot | `messages` array | SSE `data: {...}` |
+| `AnthropicMessages` | Anthropic | `messages` + `system` separate | SSE with typed events |
+| `GeminiGenerate` | Google Gemini | `contents` array | SSE `generateContent` |
+
+The runtime automatically selects the correct driver based on the manifest's `api_style` declaration.
+
+### MCP Tool Integration
+
+AI-Protocol includes a built-in **MCP (Model Context Protocol) tool bridge**. Rather than operating at a separate layer, MCP tools are first-class citizens:
+
+- **McpToolBridge** converts MCP server tools to AI-Protocol `ToolDefinition` format
+- Tools are namespaced as `mcp__{server}__{tool_name}` to prevent collisions
+- Allow/deny filters control which MCP tools are exposed
+- Provider-specific MCP configuration (tool_parameter vs sdk_config) is handled automatically
+- Supports stdio, SSE, and streamable HTTP transports
+
+### Computer Use Abstraction
+
+A unified Computer Use capability normalizes GUI automation across providers:
+
+- **ComputerAction** enum covers all action types: screenshot, mouse click, keyboard type, browser navigate, file read/write
+- **SafetyPolicy** enforces mandatory safety constraints loaded from the manifest:
+  - Confirmation required for destructive actions
+  - Domain allowlist for browser navigation
+  - Sensitive path protection
+  - Maximum actions per turn limit
+  - Sandbox mode support
+- Supports both `screen_based` (Anthropic, OpenAI) and `tool_based` (Google) implementation styles
+
+### Extended Multimodal
+
+V2 extends multimodal support beyond vision to include audio, video, and omni-mode:
+
+| Modality | Input | Output | Providers |
+|----------|-------|--------|-----------|
+| Text | ✅ | ✅ | All |
+| Image | ✅ | ✅ (select) | OpenAI, Anthropic, Gemini, Qwen |
+| Audio | ✅ | ✅ (select) | Gemini, Qwen (omni) |
+| Video | ✅ | — | Gemini |
+
+The **MultimodalCapabilities** module validates content modalities against provider declarations before sending requests.
+
+### CLI Tool
+
+The `ai-protocol-cli` tool provides developer utilities:
+
+```bash
+ai-protocol-cli validate <path>        # Validate manifests against schemas
+ai-protocol-cli info <provider>         # Show provider capabilities
+ai-protocol-cli list                    # List all providers (37 total)
+ai-protocol-cli check-compat <manifest> # Check runtime compatibility
+```
+
+### Cross-Runtime Consistency
+
+The **compliance test suite** now includes 230+ tests across both runtimes, with 12 dedicated V2 integration tests (6 per runtime) that validate the full chain from manifest loading through MCP bridging, Computer Use safety, and multimodal validation.
 
 ## Next Steps
 

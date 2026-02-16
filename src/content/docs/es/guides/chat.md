@@ -5,7 +5,7 @@ description: Guía para usar completaciones de chat entre proveedores con los ti
 
 # Completaciones de chat
 
-Las completaciones de chat son la API principal para interactuar con los modelos de IA. Ambos tiempos de ejecución proporcionan una interfaz unificada que funciona con todos los más de 35 proveedores.
+Las completaciones de chat son la API principal para interactuar con los modelos de IA. Ambos tiempos de ejecución proporcionan una interfaz unificada que funciona con todos los 37 proveedores.
 
 ## Uso básico
 

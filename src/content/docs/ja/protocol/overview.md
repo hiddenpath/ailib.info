@@ -18,8 +18,8 @@ AI-Protocol は、AI モデルとのやり取りを標準化する **プロバ�
 ```
 ai-protocol/
 ├── v1/
-│   ├── spec.yaml          # コア仕様（v0.5.0）
-│   ├── providers/          # 35 以上のプロバイダーマニフェスト
+│   ├── spec.yaml          # コア仕様（v0.7.0）
+│   ├── providers/          # 37 のプロバイダーマニフェスト
 │   │   ├── openai.yaml
 │   │   ├── anthropic.yaml
 │   │   ├── gemini.yaml
@@ -56,7 +56,7 @@ ai-protocol/
 
 ```yaml
 id: anthropic
-protocol_version: "0.5"
+protocol_version: "0.7"
 endpoint:
   base_url: "https://api.anthropic.com/v1"
   chat_path: "/messages"
@@ -121,13 +121,13 @@ npm run build       # YAML → JSON をコンパイル
 
 AI-Protocol はレイヤードバージョニングを使用します：
 
-1. **仕様バージョン**（`v1/spec.yaml`）— スキーマ構造のバージョン（現在 v0.5.0）
-2. **プロトコルバージョン**（マニフェスト内）— 使用するプロトコル機能（現在 0.5）
-3. **リリースバージョン**（`package.json`）— 仕様パッケージの SemVer（v0.5.0）
+1. **仕様バージョン**（`v1/spec.yaml`）— スキーマ構造のバージョン（現在 v0.7.0）
+2. **プロトコルバージョン**（マニフェスト内）— 使用するプロトコル機能（現在 0.7）
+3. **リリースバージョン**（`package.json`）— 仕様パッケージの SemVer（v0.7.0）
 
 ## V2 プロトコルアーキテクチャ
 
-プロトコル v0.5.0 は **V2 アーキテクチャ** を導入しています — レイヤー間の明確な関心の分離と、同心円マニフェストモデルです。
+プロトコル v0.7.0 は **V2 アーキテクチャ** を導入しています — レイヤー間の明確な関心の分離と、同心円マニフェストモデルです。
 
 ### 3 層ピラミッド
 

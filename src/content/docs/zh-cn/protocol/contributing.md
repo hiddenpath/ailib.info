@@ -9,7 +9,7 @@ description: 向 AI-Protocol 规范添加新 AI 供应商的分步指南。
 
 ## 步骤
 
-> **V2-alpha 格式**：协议 v0.5.0 版本引入了采用 Ring 1/2/3 清单结构的 v2-alpha 供应商格式。新供应商可选择采用 v2-alpha，以获得标准化错误码、特性标志和能力扩展。V2 架构详情请参阅[协议概览](/protocol/overview/)。
+> **V2-alpha 格式**：协议 v0.7.0 版本引入了采用 Ring 1/2/3 清单结构的 v2-alpha 供应商格式。新供应商可选择采用 v2-alpha，以获得标准化错误码、特性标志和能力扩展。V2 架构详情请参阅[协议概览](/protocol/overview/)。
 
 ### 1. 研究供应商 API
 

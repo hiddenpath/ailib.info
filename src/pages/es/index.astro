@@ -15,7 +15,7 @@ const locale = 'es';
   <head>
     <meta charset="utf-8" />
     <title>AI-Lib | Un protocolo, todos los proveedores de IA</title>
-    <meta name="description" content="AI-Lib es un ecosistema de código abierto que estandariza las interacciones con modelos de IA. Una especificación impulsa los runtimes Rust y Python, soportando más de 35 proveedores." />
+    <meta name="description" content="AI-Lib es un ecosistema de código abierto que estandariza las interacciones con modelos de IA. Protocolo V2 con MCP, Computer Use y multimodal — 37 proveedores." />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta property="og:title" content="AI-Lib | Un protocolo, todos los proveedores de IA" />
     <meta property="og:description" content="Ecosistema de código abierto para interacciones con modelos de IA estandarizadas. Un protocolo, múltiples runtimes." />
@@ -44,17 +44,17 @@ const locale = 'es';
             <ProjectCard
               locale={locale}
               variant="protocol"
-              version="0.5.0"
+              version="0.7.0"
               title="AI-Protocol"
-              description="La especificación independiente del proveedor. Los manifiestos YAML definen cómo comunicarse con cada proveedor de IA — sin lógica hardcodeada."
-              features={['Más de 35 manifiestos de proveedores', 'Validado con JSON Schema', 'Normalización de eventos en streaming', 'Estándar de clasificación de errores', 'Configuración recargable en caliente']}
+              description="Especificación V2 con manifiestos de tres anillos, MCP, Computer Use y multimodal — sin lógica hardcodeada."
+              features={['37 manifiestos (6 V2 + 36 V1)', 'Arquitectura piramidal de tres capas V2', 'Schemas MCP / CU / Multimodal', 'Herramienta CLI de validación', 'Configuración recargable en caliente']}
               link="/es/protocol/"
               github="https://github.com/hiddenpath/ai-protocol"
             />
             <ProjectCard
               locale={locale}
               variant="rust"
-              version="0.7.1"
+              version="0.8.0"
               title="ai-lib-rust"
               description="Runtime Rust de alto rendimiento. Códigos de error estándar V2, flags de características, pipeline de streaming basado en operadores, seguridad en tiempo de compilación y sobrecarga submilisegundo."
               features={['Pipeline basado en operadores', 'Códigos de error estándar V2', 'Módulos con feature gates', 'Circuit breaker y rate limiter', 'Embeddings y caché', 'Sistema de plugins', 'Publicado en Crates.io']}
@@ -64,7 +64,7 @@ const locale = 'es';
             <ProjectCard
               locale={locale}
               variant="python"
-              version="0.6.0"
+              version="0.7.0"
               title="ai-lib-python"
               description="Runtime Python amigable para desarrolladores. Códigos de error estándar V2, extras por capacidad, soporte async completo, tipos Pydantic v2 y telemetría de producción."
               features={['Async/await nativo', 'Códigos de error estándar V2', 'Extras por capacidad', 'Seguridad de tipos Pydantic v2', 'Integración OpenTelemetry', 'Enrutamiento y balanceo de carga de modelos', 'Publicado en PyPI']}
@@ -231,7 +231,7 @@ const locale = 'es';
           <div class="text-center p-12 rounded-2xl border border-[var(--border)] bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-alt)]">
             <h2 class="text-3xl font-bold text-[var(--text)] mb-4">¿Listo para empezar?</h2>
             <p class="text-lg text-[var(--text-dim)] mb-8 max-w-xl mx-auto">
-              Lee la documentación, elige tu runtime y empieza a desarrollar con más de 35 proveedores de IA hoy mismo.
+              Lee la documentación, elige tu runtime y empieza a desarrollar con 37 proveedores de IA hoy mismo.
             </p>
             <div class="flex flex-wrap gap-4 justify-center">
               <a href="/es/quickstart/" class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:brightness-110 transition-all hover:no-underline">

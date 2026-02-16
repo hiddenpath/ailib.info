@@ -18,8 +18,8 @@ AI-Protocol 是一个**与供应商无关的规范**，用于标准化与 AI 模
 ```
 ai-protocol/
 ├── v1/
-│   ├── spec.yaml          # Core specification (v0.5.0)
-│   ├── providers/          # 35+ provider manifests
+│   ├── spec.yaml          # Core specification (v0.7.0)
+│   ├── providers/          # 37 provider manifests (6 V2 + 36 V1)
 │   │   ├── openai.yaml
 │   │   ├── anthropic.yaml
 │   │   ├── gemini.yaml
@@ -56,7 +56,7 @@ ai-protocol/
 
 ```yaml
 id: anthropic
-protocol_version: "0.5"
+protocol_version: "0.7"
 endpoint:
   base_url: "https://api.anthropic.com/v1"
   chat_path: "/messages"
@@ -121,13 +121,13 @@ npm run build       # Compile YAML → JSON
 
 AI-Protocol 使用分层版本控制：
 
-1. **规范版本**（`v1/spec.yaml`）— 模式结构版本（当前为 v0.5.0）
-2. **协议版本**（在清单中）— 使用的协议特性（当前为 0.5）
-3. **发布版本**（`package.json`）— 规范包的 SemVer（v0.5.0）
+1. **规范版本**（`v1/spec.yaml`）— 模式结构版本（当前为 v0.7.0）
+2. **协议版本**（在清单中）— 使用的协议特性（当前为 0.7）
+3. **发布版本**（`package.json`）— 规范包的 SemVer（v0.7.0）
 
 ## V2 协议架构
 
-协议 v0.5.0 引入了 **V2 架构** —— 跨层关注点清晰分离，以及同心圆清单模型。
+协议 v0.7.0 引入了 **V2 架构** —— 跨层关注点清晰分离，以及同心圆清单模型。
 
 ### 三层金字塔
 
@@ -144,6 +144,17 @@ AI-Protocol 使用分层版本控制：
 ### V2-Alpha 供应商
 
 OpenAI、Anthropic 和 Gemini 已提供 **v2-alpha** 格式。这些清单使用 Ring 1/2/3 结构，可与 v1 清单一起使用。
+
+### V2 扩展能力
+
+V2 架构引入了多项扩展能力：
+
+- **MCP 工具桥接** — 与 Model Context Protocol 集成，支持工具注册和上下文管理
+- **Computer Use 抽象** — 标准化计算机操作接口，支持跨供应商的统一计算机使用能力
+- **扩展多模态** — 增强的多模态模式定义，支持更丰富的视觉和多媒体交互
+- **ProviderDriver** — 可插拔的供应商驱动架构，便于扩展和自定义
+- **能力注册表** — 统一的能力发现和管理机制
+- **CLI 工具** — 命令行工具支持协议验证、清单管理和测试
 
 ### 标准错误码
 

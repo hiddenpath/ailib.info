@@ -23,15 +23,15 @@ AI-Lib は別のアプローチを取ります：
 
 | プロジェクト | 役割 | 言語 | バージョン | 配布 |
 |-------------|------|------|------------|------|
-| **[AI-Protocol](/protocol/)** | 仕様レイヤー | YAML/JSON | v0.5.0 | GitHub |
-| **[ai-lib-rust](/rust/)** | ランタイム実装 | Rust | v0.7.1 | [Crates.io](https://crates.io/crates/ai-lib) |
-| **[ai-lib-python](/python/)** | ランタイム実装 | Python | v0.6.0 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| **[AI-Protocol](/protocol/)** | 仕様レイヤー | YAML/JSON | v0.7.0 | GitHub |
+| **[ai-lib-rust](/rust/)** | ランタイム実装 | Rust | v0.8.0 | [Crates.io](https://crates.io/crates/ai-lib) |
+| **[ai-lib-python](/python/)** | ランタイム実装 | Python | v0.7.0 | [PyPI](https://pypi.org/project/ai-lib-python/) |
 
-プロトコル v0.5.0 リリースでは **V2 プロトコル機能** を導入しています：3 層アーキテクチャ、標準化されたエラーコード、機能拡張用のフィーチャーフラグ、ランタイム間で同一の動作を保証するコンプライアンステストスイート。
+プロトコル v0.7.0 リリースでは **V2 プロトコル機能** を導入しています：3 層アーキテクチャ、標準化されたエラーコード、機能拡張用のフィーチャーフラグ、ランタイム間で同一の動作を保証するコンプライアンステストスイート。
 
 ### AI-Protocol（仕様）
 
-基盤となるものです。YAML マニフェストは 35 以上の AI プロバイダーを記述します：エンドポイント、認証、パラメータマッピング、ストリーミングデコーダー設定、エラー分類ルール、機能。
+基盤となるものです。YAML マニフェストは 37 の AI プロバイダーを記述します：エンドポイント、認証、パラメータマッピング、ストリーミングデコーダー設定、エラー分類ルール、機能。
 
 ### ai-lib-rust（Rust ランタイム）
 
@@ -43,7 +43,7 @@ AI-Lib は別のアプローチを取ります：
 
 ## 主な機能
 
-- **35 以上のプロバイダー** — OpenAI、Anthropic、Gemini、DeepSeek、Qwen など
+- **37 のプロバイダー** — OpenAI、Anthropic、Gemini、DeepSeek、Qwen など
 - **統合ストリーミング** — プロバイダーに関係なく同じ `StreamingEvent` 型
 - **プロトコル駆動** — すべての動作は YAML で定義され、コードには記述しません
 - **ホットリロード** — 再起動せずにプロバイダー設定を更新可能

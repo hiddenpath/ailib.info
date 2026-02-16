@@ -1,11 +1,11 @@
 ---
 title: Resiliencia (Python)
-description: Patrones de fiabilidad en producción en ai-lib-python v0.6.0 — ResilientExecutor, cortacircuitos, limitador de tasa, fallback.
+description: Patrones de fiabilidad en producción en ai-lib-python v0.7.0 — ResilientExecutor, cortacircuitos, limitador de tasa, fallback.
 ---
 
 # Patrones de resiliencia
 
-ai-lib-python (v0.6.0+) incluye un sistema integral de resiliencia centrado en `ResilientExecutor`. Las decisiones de reintento y fallback utilizan ahora códigos de error estándar V2 mediante las propiedades `retryable` y `fallbackable` en `StandardErrorCode`, garantizando un comportamiento alineado con el protocolo.
+ai-lib-python (v0.7.0+) incluye un sistema integral de resiliencia centrado en `ResilientExecutor`. Las decisiones de reintento y fallback utilizan ahora códigos de error estándar V2 mediante las propiedades `retryable` y `fallbackable` en `StandardErrorCode`, garantizando un comportamiento alineado con el protocolo.
 
 ## ResilientExecutor
 

@@ -1,6 +1,6 @@
 ---
 title: AiClient API (Rust)
-description: ai-lib-rust v0.7.1 中使用 AiClient、ChatRequestBuilder 及响应类型的详细指南。
+description: ai-lib-rust v0.8.0 中使用 AiClient、ChatRequestBuilder 及响应类型的详细指南。
 ---
 
 # AiClient API

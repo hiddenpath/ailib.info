@@ -1,11 +1,11 @@
 ---
 title: 弹性（Python）
-description: ai-lib-python v0.6.0 中的生产级可靠性模式 — ResilientExecutor、熔断器、速率限制器、回退。
+description: ai-lib-python v0.7.0 中的生产级可靠性模式 — ResilientExecutor、熔断器、速率限制器、回退。
 ---
 
 # 弹性模式
 
-ai-lib-python（v0.6.0+）包含围绕 `ResilientExecutor` 的完整弹性系统。重试与回退决策现已通过 `StandardErrorCode` 的 `retryable` 与 `fallbackable` 属性使用 V2 标准错误码，确保协议一致行为。
+ai-lib-python（v0.7.0+）包含围绕 `ResilientExecutor` 的完整弹性系统。重试与回退决策现已通过 `StandardErrorCode` 的 `retryable` 与 `fallbackable` 属性使用 V2 标准错误码，确保协议一致行为。
 
 ## ResilientExecutor
 

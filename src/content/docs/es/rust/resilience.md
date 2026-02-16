@@ -1,11 +1,11 @@
 ---
 title: Resiliencia (Rust)
-description: Patrones de confiabilidad para producción en ai-lib-rust v0.7.1 — circuit breaker, limitador de velocidad, backpressure, reintentos.
+description: Patrones de confiabilidad para producción en ai-lib-rust v0.8.0 — circuit breaker, limitador de velocidad, backpressure, reintentos.
 ---
 
 # Patrones de resiliencia
 
-ai-lib-rust (v0.7.1) incluye patrones de confiabilidad de nivel producción de serie. Las decisiones de reintento y fallback utilizan códigos de error estándar V2: las propiedades `retryable` y `fallbackable` en `StandardErrorCode` determinan si un error desencadena reintentos o fallback de modelo.
+ai-lib-rust (v0.8.0) incluye patrones de confiabilidad de nivel producción de serie. Las decisiones de reintento y fallback utilizan códigos de error estándar V2: las propiedades `retryable` y `fallbackable` en `StandardErrorCode` determinan si un error desencadena reintentos o fallback de modelo.
 
 ## Circuit Breaker
 

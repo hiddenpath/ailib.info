@@ -18,8 +18,8 @@ Cada comportamiento específico del proveedor — endpoints, autenticación, nom
 ```
 ai-protocol/
 ├── v1/
-│   ├── spec.yaml          # Core specification (v0.5.0)
-│   ├── providers/          # 35+ provider manifests
+│   ├── spec.yaml          # Core specification (v0.7.0)
+│   ├── providers/          # 37 provider manifests
 │   │   ├── openai.yaml
 │   │   ├── anthropic.yaml
 │   │   ├── gemini.yaml
@@ -56,7 +56,7 @@ Cada proveedor tiene un manifiesto YAML que declara todo lo que un tiempo de eje
 
 ```yaml
 id: anthropic
-protocol_version: "0.5"
+protocol_version: "0.7"
 endpoint:
   base_url: "https://api.anthropic.com/v1"
   chat_path: "/messages"
@@ -121,13 +121,13 @@ npm run build       # Compile YAML → JSON
 
 AI-Protocol utiliza versionado en capas:
 
-1. **Versión de la especificación** (`v1/spec.yaml`) — Versión de la estructura del esquema (actualmente v0.5.0)
-2. **Versión del protocolo** (en manifiestos) — Características del protocolo utilizadas (actualmente 0.5)
-3. **Versión de lanzamiento** (`package.json`) — SemVer para el paquete de especificación (v0.5.0)
+1. **Versión de la especificación** (`v1/spec.yaml`) — Versión de la estructura del esquema (actualmente v0.7.0)
+2. **Versión del protocolo** (en manifiestos) — Características del protocolo utilizadas (actualmente 0.7)
+3. **Versión de lanzamiento** (`package.json`) — SemVer para el paquete de especificación (v0.7.0)
 
 ## Arquitectura del protocolo V2
 
-La versión v0.5.0 del protocolo introduce la **arquitectura V2** — una separación limpia de responsabilidades entre capas y un modelo de manifiesto concéntrico.
+La versión v0.7.0 del protocolo introduce la **arquitectura V2** — una separación limpia de responsabilidades entre capas y un modelo de manifiesto concéntrico.
 
 ### Pirámide de tres capas
 

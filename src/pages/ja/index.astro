@@ -15,7 +15,7 @@ const locale = 'ja';
   <head>
     <meta charset="utf-8" />
     <title>AI-Lib | ワンプロトコル、すべてのAIプロバイダー</title>
-    <meta name="description" content="AI-LibはAIモデルインタラクションを標準化するオープンソースエコシステムです。1つの仕様でRustとPythonランタイムを駆動し、35以上のプロバイダーをサポートします。" />
+    <meta name="description" content="AI-LibはAIモデルインタラクションを標準化するオープンソースエコシステムです。V2プロトコルでMCP、Computer Use、マルチモーダルをサポート — 37プロバイダー対応。" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta property="og:title" content="AI-Lib | ワンプロトコル、すべてのAIプロバイダー" />
     <meta property="og:description" content="AIモデルインタラクションを標準化するオープンソースエコシステム。1つのプロトコル、複数のランタイム。" />
@@ -44,17 +44,17 @@ const locale = 'ja';
             <ProjectCard
               locale={locale}
               variant="protocol"
-              version="0.5.0"
+              version="0.7.0"
               title="AI-Protocol"
-              description="プロバイダーに依存しない仕様。YAMLマニフェストがすべてのAIプロバイダーとの通信方法を定義——ハードコードされたロジックは一切ありません。"
-              features={['35以上のプロバイダーマニフェスト', 'JSON Schemaで検証', 'ストリーミングイベント正規化', 'エラー分類標準', 'ホットリロード可能な設定']}
+              description="V2仕様：三リングマニフェスト、MCP、Computer Use、マルチモーダルスキーマ——ハードコードされたロジックは一切ありません。"
+              features={['37プロバイダーマニフェスト (6 V2 + 36 V1)', 'V2三層ピラミッドアーキテクチャ', 'MCP / CU / マルチモーダルスキーマ', 'CLI検証ツール', 'ホットリロード可能な設定']}
               link="/ja/protocol/"
               github="https://github.com/hiddenpath/ai-protocol"
             />
             <ProjectCard
               locale={locale}
               variant="rust"
-              version="0.7.1"
+              version="0.8.0"
               title="ai-lib-rust"
               description="高性能Rustランタイム。V2標準エラーコード、機能フラグ、オペレータベースのストリーミングパイプライン、コンパイル時安全性、サブミリ秒オーバーヘッド。"
               features={['オペレータベースパイプライン', 'V2標準エラーコード', '機能ゲート付きモジュール', 'サーキットブレーカーとレートリミッター', '埋め込みとキャッシュ', 'プラグインシステム', 'Crates.ioで公開']}
@@ -64,7 +64,7 @@ const locale = 'ja';
             <ProjectCard
               locale={locale}
               variant="python"
-              version="0.6.0"
+              version="0.7.0"
               title="ai-lib-python"
               description="開発者フレンドリーなPythonランタイム。V2標準エラーコード、機能ベースのエクストラ、完全な非同期サポート、Pydantic v2型、本番グレードのテレメトリ。"
               features={['ネイティブ async/await', 'V2標準エラーコード', '機能ベースのエクストラ', 'Pydantic v2型安全性', 'OpenTelemetry統合', 'モデルルーティングとロードバランシング', 'PyPIで公開']}
@@ -231,7 +231,7 @@ const locale = 'ja';
           <div class="text-center p-12 rounded-2xl border border-[var(--border)] bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-alt)]">
             <h2 class="text-3xl font-bold text-[var(--text)] mb-4">始める準備はできましたか？</h2>
             <p class="text-lg text-[var(--text-dim)] mb-8 max-w-xl mx-auto">
-              ドキュメントを読み、ランタイムを選び、今日から35以上のAIプロバイダーで開発を始めましょう。
+              ドキュメントを読み、ランタイムを選び、今日から37のAIプロバイダーで開発を始めましょう。
             </p>
             <div class="flex flex-wrap gap-4 justify-center">
               <a href="/ja/quickstart/" class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:brightness-110 transition-all hover:no-underline">

@@ -1,18 +1,22 @@
 ---
 title: Multimodal
-description: Using vision and multimodal capabilities with AI-Lib.
+description: Using vision, audio, video, and omni-mode multimodal capabilities with AI-Lib.
 ---
 
 # Multimodal
 
-AI-Lib supports multimodal inputs — text combined with images — through the same unified API.
+AI-Lib supports multimodal inputs and outputs — text combined with images, audio, and video — through the same unified API. The V2 protocol provides comprehensive multimodal capabilities with format validation and provider-aware modality checking.
 
 ## Supported Capabilities
 
-| Capability | Providers |
-|-----------|-----------|
-| Vision (images) | OpenAI, Anthropic, Gemini, Qwen |
-| Audio input | Limited (Gemini) |
+| Capability | Direction | Providers |
+|-----------|-----------|-----------|
+| Vision (images) | Input | OpenAI, Anthropic, Gemini, Qwen, DeepSeek |
+| Image generation | Output | OpenAI (DALL-E), select providers |
+| Audio input | Input | Gemini, Qwen (omni_mode) |
+| Audio output | Output | Qwen (omni_mode), select providers |
+| Video input | Input | Gemini |
+| Omni mode | Input + Output | Qwen (simultaneous text + audio) |
 
 ## Sending Images
 
@@ -90,21 +94,84 @@ message = Message.user_with_content([
 ])
 ```
 
+## V2 Multimodal Capabilities
+
+The V2 protocol provides a `MultimodalCapabilities` module that validates content against provider declarations before sending requests.
+
+### Modality Detection
+
+The runtime automatically detects modalities in your content blocks:
+
+```rust
+use ai_lib::multimodal::{detect_modalities, Modality};
+
+let modalities = detect_modalities(&content_blocks);
+// Returns: {Text, Image} or {Text, Audio, Video} etc.
+```
+
+```python
+from ai_lib_python.multimodal import detect_modalities, Modality
+
+modalities = detect_modalities(content_blocks)
+# Returns: {Modality.TEXT, Modality.IMAGE}
+```
+
+### Format Validation
+
+The runtime validates formats against what the provider supports:
+
+```rust
+use ai_lib::multimodal::MultimodalCapabilities;
+
+let caps = MultimodalCapabilities::from_config(&manifest.multimodal);
+assert!(caps.validate_image_format("png"));
+assert!(caps.validate_audio_format("wav"));
+```
+
+```python
+from ai_lib_python.multimodal import MultimodalCapabilities
+
+caps = MultimodalCapabilities.from_config(manifest_multimodal)
+assert caps.validate_image_format("png")
+assert caps.validate_audio_format("wav")
+```
+
+### Content Validation
+
+Before sending a request, validate that the provider supports all modalities in the content:
+
+```rust
+use ai_lib::multimodal::validate_content_modalities;
+
+match validate_content_modalities(&blocks, &caps) {
+    Ok(()) => { /* all modalities supported */ }
+    Err(unsupported) => {
+        eprintln!("Provider doesn't support: {:?}", unsupported);
+    }
+}
+```
+
 ## How It Works
 
 1. The runtime constructs a multimodal message with mixed content blocks
-2. The protocol manifest maps content blocks to the provider's format
-3. Different providers use different structures:
+2. **V2 validation**: `MultimodalCapabilities` checks that all content modalities are supported by the provider
+3. The protocol manifest maps content blocks to the provider's format
+4. Different providers use different structures:
    - **OpenAI**: `content` array with `type: "image_url"` objects
    - **Anthropic**: `content` array with `type: "image"` objects
-   - **Gemini**: `parts` array with `inline_data` objects
-4. The protocol handles all format differences automatically
+   - **Gemini**: `parts` array with `inline_data` objects (supports video `parts`)
+5. The protocol handles all format differences automatically
 
-## Provider Support
+## Provider Multimodal Matrix
 
-Check `capabilities.vision: true` in the provider manifest before sending images.
+The V2 manifest declares each provider's multimodal capabilities explicitly:
 
-```rust
-// The runtime checks capabilities before sending
-// If vision is not supported, you'll get a clear error
-```
+| Provider | Image In | Audio In | Video In | Image Out | Audio Out | Omni |
+|----------|---------|---------|---------|----------|----------|------|
+| OpenAI | ✅ png, jpg, gif, webp | — | — | ✅ | — | — |
+| Anthropic | ✅ png, jpg, gif, webp | — | — | — | — | — |
+| Gemini | ✅ png, jpg, gif, webp | ✅ wav, mp3, flac | ✅ mp4, avi | — | — | — |
+| Qwen | ✅ png, jpg | ✅ wav, mp3 | — | — | ✅ | ✅ |
+| DeepSeek | ✅ png, jpg | — | — | — | — | — |
+
+Check `multimodal.input` and `multimodal.output` sections in the V2 provider manifest for the complete declaration.

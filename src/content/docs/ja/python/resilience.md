@@ -1,11 +1,11 @@
 ---
 title: 耐障害性（Python）
-description: ai-lib-python v0.6.0 における本番グレードの信頼性パターン — ResilientExecutor、サーキットブレーカー、レートリミッター、フォールバック。
+description: ai-lib-python v0.7.0 における本番グレードの信頼性パターン — ResilientExecutor、サーキットブレーカー、レートリミッター、フォールバック。
 ---
 
 # 耐障害性パターン
 
-ai-lib-python（v0.6.0+）には、`ResilientExecutor` を中心とした包括的な耐障害性システムが含まれています。リトライとフォールバックの判断は、`StandardErrorCode` の `retryable` と `fallbackable` プロパティを介して V2 標準エラーコードを使用するようになり、プロトコルに準拠した動作を保証しています。
+ai-lib-python（v0.7.0+）には、`ResilientExecutor` を中心とした包括的な耐障害性システムが含まれています。リトライとフォールバックの判断は、`StandardErrorCode` の `retryable` と `fallbackable` プロパティを介して V2 標準エラーコードを使用するようになり、プロトコルに準拠した動作を保証しています。
 
 ## ResilientExecutor
 

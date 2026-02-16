@@ -9,7 +9,7 @@ Adding a new AI provider to AI-Protocol makes it instantly available across all 
 
 ## Steps
 
-> **V2-alpha format**: The protocol v0.5.0 release introduces the v2-alpha provider format with the Ring 1/2/3 manifest structure. New providers can optionally target v2-alpha for standardized error codes, feature flags, and capability extensions. See the [Protocol Overview](/protocol/overview/) for V2 architecture details.
+> **V2-alpha format**: The protocol v0.7.0 release introduces the v2-alpha provider format with the Ring 1/2/3 manifest structure. New providers can optionally target v2-alpha for standardized error codes, feature flags, and capability extensions. See the [Protocol Overview](/protocol/overview/) for V2 architecture details.
 
 ### 1. Research the Provider API
 

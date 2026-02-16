@@ -1,6 +1,6 @@
 ---
 const { locale = 'en', variant = 'rust' } = Astro.props;
-const isZh = locale === 'zh';
+const isZh = locale === 'zh-cn' || locale === 'zh';
 const isRust = variant === 'rust';
 
 const color = isRust ? '#f97316' : '#10b981';
@@ -120,7 +120,7 @@ const titleZh = isRust ? 'ai-lib-rust 运行时架构' : 'ai-lib-python 运行�
     <!-- Bottom: Providers -->
     <rect x="160" y="448" width="440" height="24" rx="12" fill="#1e293b" stroke="#475569" stroke-width="1" />
     <text x="380" y="464" text-anchor="middle" fill="#64748b" font-size="10" font-weight="500" font-family="Inter, system-ui, sans-serif">
-      OpenAI &middot; Anthropic &middot; Gemini &middot; DeepSeek &middot; Qwen &middot; 35+ {isZh ? '服务商' : 'Providers'}
+      OpenAI &middot; Anthropic &middot; Gemini &middot; DeepSeek &middot; Qwen &middot; 37 {isZh ? '服务商' : 'Providers'}
     </text>
   </svg>
 </div>

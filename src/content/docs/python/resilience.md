@@ -1,11 +1,11 @@
 ---
 title: Resilience (Python)
-description: Production reliability patterns in ai-lib-python v0.6.0 — ResilientExecutor, circuit breaker, rate limiter, fallback.
+description: Production reliability patterns in ai-lib-python v0.7.0 — ResilientExecutor, circuit breaker, rate limiter, fallback.
 ---
 
 # Resilience Patterns
 
-ai-lib-python (v0.6.0+) includes a comprehensive resilience system centered around the `ResilientExecutor`. Retry and fallback decisions now use V2 standard error codes via `retryable` and `fallbackable` properties on `StandardErrorCode`, ensuring protocol-aligned behavior.
+ai-lib-python (v0.7.0+) includes a comprehensive resilience system centered around the `ResilientExecutor`. Retry and fallback decisions now use V2 standard error codes via `retryable` and `fallbackable` properties on `StandardErrorCode`, ensuring protocol-aligned behavior.
 
 ## ResilientExecutor
 

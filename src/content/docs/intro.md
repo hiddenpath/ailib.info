@@ -23,15 +23,15 @@ AI-Lib takes a different approach:
 
 | Project | Role | Language | Version | Distribution |
 |---------|------|----------|---------|---------------|
-| **[AI-Protocol](/protocol/)** | Specification layer | YAML/JSON | v0.5.0 | GitHub |
-| **[ai-lib-rust](/rust/)** | Runtime implementation | Rust | v0.7.1 | [Crates.io](https://crates.io/crates/ai-lib) |
-| **[ai-lib-python](/python/)** | Runtime implementation | Python | v0.6.0 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| **[AI-Protocol](/protocol/)** | Specification layer | YAML/JSON | v0.7.0 | GitHub |
+| **[ai-lib-rust](/rust/)** | Runtime implementation | Rust | v0.8.0 | [Crates.io](https://crates.io/crates/ai-lib) |
+| **[ai-lib-python](/python/)** | Runtime implementation | Python | v0.7.0 | [PyPI](https://pypi.org/project/ai-lib-python/) |
 
-The protocol v0.5.0 release introduces **V2 protocol features**: a three-layer architecture, standardized error codes, feature flags for capability extensions, and a compliance test suite ensuring identical behavior across runtimes.
+The latest release delivers the full **V2 protocol** with three major new capabilities: **MCP tool integration**, **Computer Use abstraction**, and **Extended Multimodal** support. Both runtimes feature ProviderDriver abstraction, Capability Registry, and 230+ tests ensuring cross-runtime consistency.
 
 ### AI-Protocol (Specification)
 
-The foundation. YAML manifests describe 35+ AI providers: their endpoints, authentication, parameter mappings, streaming decoder configurations, error classification rules, and capabilities. JSON Schema validates everything.
+The foundation. YAML manifests describe 37 AI providers (6 V2 + 36 V1): their endpoints, authentication, parameter mappings, streaming decoder configurations, error classification rules, MCP/CU/multimodal capabilities, and more. JSON Schema validates everything.
 
 ### ai-lib-rust (Rust Runtime)
 
@@ -43,9 +43,15 @@ Developer-friendly runtime. Full async/await support, Pydantic v2 type safety, p
 
 ## Key Features
 
-- **35+ providers** — OpenAI, Anthropic, Gemini, DeepSeek, Qwen, and many more
+- **37 providers** — OpenAI, Anthropic, Gemini, DeepSeek, Qwen, Moonshot, Zhipu, and many more (6 V2 + 36 V1)
 - **Unified streaming** — Same `StreamingEvent` types regardless of provider
 - **Protocol-driven** — All behavior defined in YAML, not code
+- **MCP integration** — Built-in MCP tool bridge: convert MCP server tools to AI-Protocol format automatically
+- **Computer Use** — Normalized GUI automation abstraction with safety policy enforcement
+- **Extended multimodal** — Vision, audio, video input; audio and image output; omni-mode support
+- **ProviderDriver** — Three concrete drivers (OpenAI, Anthropic, Gemini) with automatic API style detection
+- **Capability Registry** — Dynamic module loading based on manifest capability declarations
+- **CLI tool** — `ai-protocol-cli` for manifest validation, provider info, and compatibility checking
 - **Hot-reload** — Update provider configs without restarting
 - **Resilience** — Circuit breaker, rate limiting, retry, fallback
 - **Tool calling** — Unified function calling across providers

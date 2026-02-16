@@ -1,6 +1,6 @@
 ---
 title: Canalización de streaming (Rust)
-description: Profundice en la canalización de streaming basada en operadores en ai-lib-rust v0.7.1.
+description: Profundice en la canalización de streaming basada en operadores en ai-lib-rust v0.8.0.
 ---
 
 # Canalización de streaming

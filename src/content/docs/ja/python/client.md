@@ -137,7 +137,7 @@ async for event in client.chat().user("Long task...").stream(cancel_token=token)
 
 ## エラーハンドリング
 
-すべてのエラーは `standard_code` プロパティで V2 標準エラーコードを公開します（ai-lib-python v0.6.0+）：
+すべてのエラーは `standard_code` プロパティで V2 標準エラーコードを公開します（ai-lib-python v0.7.0+）：
 
 ```python
 from ai_lib_python.errors import (
