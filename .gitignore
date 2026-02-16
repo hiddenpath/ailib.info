@@ -48,3 +48,6 @@ FINAL_REFAC_REPORT.md
 .tools/
 .gemini/
 .work/
+src/assets/ailib_icon_mini.png
+src/assets/ailib_icon_minimal.svg
+src/assets/ailib_icon.png
