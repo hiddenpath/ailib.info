@@ -1,22 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-  <rect width="32" height="32" rx="6" fill="#121824"/>
-  <!-- Body -->
-  <ellipse cx="16" cy="18.5" rx="4.5" ry="5.5" fill="#6DA8FF"/>
-  <!-- Head -->
-  <circle cx="16" cy="12" r="3.2" fill="#7BB8FF"/>
-  <!-- Eyes -->
-  <circle cx="14.6" cy="11.4" r="1" fill="#121824"/>
-  <circle cx="17.4" cy="11.4" r="1" fill="#121824"/>
-  <circle cx="14.8" cy="11.1" r="0.4" fill="#fff"/>
-  <circle cx="17.6" cy="11.1" r="0.4" fill="#fff"/>
-  <!-- Legs left -->
-  <path d="M11.5 16 Q8.5 13.5 6 11.5" stroke="#9CC5FF" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-  <path d="M12 18 Q8.5 17 5.5 16" stroke="#9CC5FF" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-  <path d="M12 20.5 Q8.5 21 5.5 21.5" stroke="#9CC5FF" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-  <path d="M12.5 23 Q9.5 24.5 7 26.5" stroke="#9CC5FF" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-  <!-- Legs right -->
-  <path d="M20.5 16 Q23.5 13.5 26 11.5" stroke="#9CC5FF" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-  <path d="M20 18 Q23.5 17 26.5 16" stroke="#9CC5FF" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-  <path d="M20 20.5 Q23.5 21 26.5 21.5" stroke="#9CC5FF" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-  <path d="M19.5 23 Q22.5 24.5 25 26.5" stroke="#9CC5FF" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#1f5fbf" d="M100 66l-16 9-1 25-8 7-2 30 27 20 27-20-2-30-8-7-1-25z" />
+    <g stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M90 95 60 66 75 22" />
+        <path d="M90 95 46 78 46 40" />
+        <path d="M90 95 40 110 40 155" />
+        <path d="M90 95 55 128 75 180" />
+        <path d="M95 60 95 70" />
+        <g transform="translate(200 0) scale(-1 1)">
+            <path d="M90 95 60 66 75 22" />
+            <path d="M90 95 46 78 46 40" />
+            <path d="M90 95 40 110 40 155" />
+            <path d="M90 95 55 128 75 180" />
+            <path d="M95 60 95 70" />
+        </g>
+    </g>
 </svg>
