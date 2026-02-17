@@ -19,7 +19,7 @@ const locale = 'es';
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta property="og:title" content="AI-Lib | Un protocolo, todos los proveedores de IA" />
     <meta property="og:description" content="Ecosistema de código abierto para interacciones con modelos de IA estandarizadas. Un protocolo, múltiples runtimes." />
-    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image" content="/og-image-es.png" />
     <link rel="icon" href="/favicon.svg" />
   </head>
   <body>
@@ -44,7 +44,7 @@ const locale = 'es';
             <ProjectCard
               locale={locale}
               variant="protocol"
-              version="0.7.0"
+              version="0.7.1"
               title="AI-Protocol"
               description="Especificación V2 con manifiestos de tres anillos, MCP, Computer Use y multimodal — sin lógica hardcodeada."
               features={['37 manifiestos (6 V2 + 36 V1)', 'Arquitectura piramidal de tres capas V2', 'Schemas MCP / CU / Multimodal', 'Herramienta CLI de validación', 'Configuración recargable en caliente']}
@@ -54,7 +54,7 @@ const locale = 'es';
             <ProjectCard
               locale={locale}
               variant="rust"
-              version="0.8.0"
+              version="0.8.1"
               title="ai-lib-rust"
               description="Runtime Rust de alto rendimiento. Códigos de error estándar V2, flags de características, pipeline de streaming basado en operadores, seguridad en tiempo de compilación y sobrecarga submilisegundo."
               features={['Pipeline basado en operadores', 'Códigos de error estándar V2', 'Módulos con feature gates', 'Circuit breaker y rate limiter', 'Embeddings y caché', 'Sistema de plugins', 'Publicado en Crates.io']}
@@ -64,13 +64,28 @@ const locale = 'es';
             <ProjectCard
               locale={locale}
               variant="python"
-              version="0.7.0"
+              version="0.7.1"
               title="ai-lib-python"
               description="Runtime Python amigable para desarrolladores. Códigos de error estándar V2, extras por capacidad, soporte async completo, tipos Pydantic v2 y telemetría de producción."
               features={['Async/await nativo', 'Códigos de error estándar V2', 'Extras por capacidad', 'Seguridad de tipos Pydantic v2', 'Integración OpenTelemetry', 'Enrutamiento y balanceo de carga de modelos', 'Publicado en PyPI']}
               link="/es/python/"
               github="https://github.com/hiddenpath/ai-lib-python"
             />
+          </div>
+          <div class="mt-12 pt-8 border-t border-[var(--border)]">
+            <h3 class="text-lg font-semibold text-[var(--text)] mb-4">Herramientas de desarrollo</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <ProjectCard
+                locale={locale}
+                variant="mock"
+                version="0.1.0"
+                title="ai-protocol-mock"
+                description="Servidor mock unificado para runtimes AI-Protocol. Mock HTTP (formatos OpenAI + Anthropic) y mock MCP JSON-RPC para pruebas de integración."
+                features={['Mock HTTP impulsado por manifiestos', 'Formatos OpenAI y Anthropic', 'MCP tools/list, tools/call, capabilities', 'Soporte Docker', 'Sincronizar manifiestos desde ai-protocol']}
+                link="https://github.com/hiddenpath/ai-protocol-mock"
+                github="https://github.com/hiddenpath/ai-protocol-mock"
+              />
+            </div>
           </div>
         </div>
       </section>

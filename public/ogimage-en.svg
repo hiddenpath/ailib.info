@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" version="1.1"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:xlink="http://www.w3.org/1999/xlink">
-  <title>AI-Lib – AI-Protocol 规范 · Rust / Python 双运行时</title>
-  <desc>Open Graph preview: AI-Lib 开源生态系统，标准化 AI 模型交互。一套协议驱动 Rust 与 Python 运行时，支持 37 家服务商。</desc>
+  <title>AI-Lib - AI-Protocol spec - Rust and Python runtimes</title>
+  <desc>Open Graph preview: AI-Lib open-source ecosystem for standardized AI model interactions. One protocol drives Rust and Python runtimes, 37 providers.</desc>
   <defs>
     <linearGradient id="bg-grad" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#0B0D11" />
@@ -65,19 +65,19 @@
   <g font-family="Inter, system-ui, '-apple-system', 'Segoe UI', Roboto, sans-serif" letter-spacing="0.5">
     <text x="260" y="200" font-size="140px" font-weight="600" fill="url(#title-grad)"
       style="letter-spacing:-2px;stroke:#6da8ff;stroke-width:1;stroke-opacity:0.15;paint-order:stroke">AI-Lib</text>
-    <text x="150" y="270" font-size="40px" font-weight="500" fill="#d2dae4">AI-Protocol 规范 · Rust / Python 双运行时实现</text>
+    <text x="150" y="270" font-size="38px" font-weight="500" fill="#d2dae4">AI-Protocol spec - Rust and Python runtimes</text>
     <!-- Capsule tags -->
     <g font-size="26px" font-weight="500" fill="#b7d5ff">
       <rect x="150" y="315" rx="36" ry="36" width="240" height="64" fill="#223049" fill-opacity="0.9"
         stroke="#355171" stroke-opacity="0.55" filter="url(#capsule-shadow)" />
-      <text x="270" y="355" text-anchor="middle">37 家服务商</text>
+      <text x="270" y="355" text-anchor="middle">37 Providers</text>
       <rect x="405" y="315" rx="36" ry="36" width="220" height="64" fill="#223049" fill-opacity="0.9"
         stroke="#355171" stroke-opacity="0.55" filter="url(#capsule-shadow)" />
-      <text x="515" y="355" text-anchor="middle">协议驱动</text>
-      <rect x="640" y="315" rx="36" ry="36" width="200" height="64" fill="#223049" fill-opacity="0.9"
+      <text x="515" y="355" text-anchor="middle">Protocol-driven</text>
+      <rect x="640" y="315" rx="36" ry="36" width="180" height="64" fill="#223049" fill-opacity="0.9"
         stroke="#355171" stroke-opacity="0.55" filter="url(#capsule-shadow)" />
-      <text x="740" y="355" text-anchor="middle">MCP 工具</text>
+      <text x="730" y="355" text-anchor="middle">MCP Tools</text>
     </g>
-    <text x="150" y="554" font-size="24px" fill="#8ea0b2">MIT / Apache-2.0 • https://ailib.info</text>
+    <text x="150" y="554" font-size="24px" fill="#8ea0b2">MIT / Apache-2.0 - https://ailib.info</text>
   </g>
 </svg>

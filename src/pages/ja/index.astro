@@ -19,7 +19,7 @@ const locale = 'ja';
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta property="og:title" content="AI-Lib | ワンプロトコル、すべてのAIプロバイダー" />
     <meta property="og:description" content="AIモデルインタラクションを標準化するオープンソースエコシステム。1つのプロトコル、複数のランタイム。" />
-    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image" content="/og-image-ja.png" />
     <link rel="icon" href="/favicon.svg" />
   </head>
   <body>
@@ -44,7 +44,7 @@ const locale = 'ja';
             <ProjectCard
               locale={locale}
               variant="protocol"
-              version="0.7.0"
+              version="0.7.1"
               title="AI-Protocol"
               description="V2仕様：三リングマニフェスト、MCP、Computer Use、マルチモーダルスキーマ——ハードコードされたロジックは一切ありません。"
               features={['37プロバイダーマニフェスト (6 V2 + 36 V1)', 'V2三層ピラミッドアーキテクチャ', 'MCP / CU / マルチモーダルスキーマ', 'CLI検証ツール', 'ホットリロード可能な設定']}
@@ -54,7 +54,7 @@ const locale = 'ja';
             <ProjectCard
               locale={locale}
               variant="rust"
-              version="0.8.0"
+              version="0.8.1"
               title="ai-lib-rust"
               description="高性能Rustランタイム。V2標準エラーコード、機能フラグ、オペレータベースのストリーミングパイプライン、コンパイル時安全性、サブミリ秒オーバーヘッド。"
               features={['オペレータベースパイプライン', 'V2標準エラーコード', '機能ゲート付きモジュール', 'サーキットブレーカーとレートリミッター', '埋め込みとキャッシュ', 'プラグインシステム', 'Crates.ioで公開']}
@@ -64,13 +64,28 @@ const locale = 'ja';
             <ProjectCard
               locale={locale}
               variant="python"
-              version="0.7.0"
+              version="0.7.1"
               title="ai-lib-python"
               description="開発者フレンドリーなPythonランタイム。V2標準エラーコード、機能ベースのエクストラ、完全な非同期サポート、Pydantic v2型、本番グレードのテレメトリ。"
               features={['ネイティブ async/await', 'V2標準エラーコード', '機能ベースのエクストラ', 'Pydantic v2型安全性', 'OpenTelemetry統合', 'モデルルーティングとロードバランシング', 'PyPIで公開']}
               link="/ja/python/"
               github="https://github.com/hiddenpath/ai-lib-python"
             />
+          </div>
+          <div class="mt-12 pt-8 border-t border-[var(--border)]">
+            <h3 class="text-lg font-semibold text-[var(--text)] mb-4">開発ツール</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <ProjectCard
+                locale={locale}
+                variant="mock"
+                version="0.1.0"
+                title="ai-protocol-mock"
+                description="AI-Protocol ランタイム用統合モックサーバー。HTTPプロバイダーモック（OpenAI + Anthropic形式）とMCP JSON-RPCモックで統合テストをサポート。"
+                features={['マニフェスト駆動HTTPモック', 'OpenAI & Anthropic response形式', 'MCP tools/list、tools/call、capabilities', 'Dockerサポート', 'ai-protocolからマニフェスト同期']}
+                link="https://github.com/hiddenpath/ai-protocol-mock"
+                github="https://github.com/hiddenpath/ai-protocol-mock"
+              />
+            </div>
           </div>
         </div>
       </section>

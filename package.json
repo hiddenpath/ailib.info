@@ -10,6 +10,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "export:og": "node scripts/export-og-images.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
@@ -21,6 +22,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.0"
   }

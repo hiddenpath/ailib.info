@@ -19,7 +19,7 @@ const locale = 'en';
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta property="og:title" content="AI-Lib | One Protocol, Every AI Provider" />
     <meta property="og:description" content="Open-source ecosystem for standardized AI model interactions. One protocol, multiple runtimes." />
-    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image" content="/og-image-en.png" />
     <link rel="icon" href="/favicon.svg" />
   </head>
   <body>
@@ -44,7 +44,7 @@ const locale = 'en';
             <ProjectCard
               locale={locale}
               variant="protocol"
-              version="0.7.0"
+              version="0.7.1"
               title="AI-Protocol"
               description="The provider-agnostic specification. V2 three-ring manifests with MCP, Computer Use, and multimodal schemas — no hardcoded logic, ever."
               features={['37 provider manifests (6 V2 + 36 V1)', 'V2 three-layer pyramid architecture', 'MCP / Computer Use / Multimodal schemas', 'ProviderContract specification', 'CLI tool for validation & inspection', 'JSON Schema validated', 'Hot-reloadable configuration']}
@@ -54,7 +54,7 @@ const locale = 'en';
             <ProjectCard
               locale={locale}
               variant="rust"
-              version="0.8.0"
+              version="0.8.1"
               title="ai-lib-rust"
               description="High-performance Rust runtime. ProviderDriver abstraction, MCP tool bridge, Computer Use safety, extended multimodal, and operator-based streaming pipeline."
               features={['ProviderDriver (OpenAI/Anthropic/Gemini)', 'MCP tool bridge with namespace isolation', 'Computer Use + SafetyPolicy', 'Extended multimodal validation', 'Capability Registry (feature-gated)', 'Operator-based streaming pipeline', '185+ tests, published on Crates.io']}
@@ -64,13 +64,30 @@ const locale = 'en';
             <ProjectCard
               locale={locale}
               variant="python"
-              version="0.7.0"
+              version="0.7.1"
               title="ai-lib-python"
               description="Developer-friendly Python runtime. ProviderDriver abstraction, MCP tool bridge, Computer Use safety, extended multimodal, and full async support."
               features={['ProviderDriver (OpenAI/Anthropic/Gemini)', 'MCP tool bridge with namespace isolation', 'Computer Use + SafetyPolicy', 'Extended multimodal validation', 'Capability Registry (pip extras)', 'Pydantic v2 + full async/await', '75+ V2 tests, published on PyPI']}
               link="/python/"
               github="https://github.com/hiddenpath/ai-lib-python"
             />
+          </div>
+
+          <!-- Dev Tools -->
+          <div class="mt-12 pt-8 border-t border-[var(--border)]">
+            <h3 class="text-lg font-semibold text-[var(--text)] mb-4">Dev Tools</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <ProjectCard
+                locale={locale}
+                variant="mock"
+                version="0.1.0"
+                title="ai-protocol-mock"
+                description="Unified mock server for AI-Protocol runtimes. HTTP provider mock (OpenAI + Anthropic formats) and MCP JSON-RPC mock for integration testing."
+                features={['Manifest-driven HTTP mock', 'OpenAI & Anthropic response formats', 'MCP tools/list, tools/call, capabilities', 'Docker support', 'Sync manifests from ai-protocol']}
+                link="https://github.com/hiddenpath/ai-protocol-mock"
+                github="https://github.com/hiddenpath/ai-protocol-mock"
+              />
+            </div>
           </div>
         </div>
       </section>
