@@ -11,7 +11,7 @@ description: 数分で ai-lib-rust を始められます。
 
 ```toml
 [dependencies]
-ai-lib = { version = "0.7", features = ["full"] }
+ai-lib-rust = { version = "0.8", features = ["full"] }
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 ```
@@ -27,10 +27,10 @@ export DEEPSEEK_API_KEY="your-key-here"
 ## 基本チャット
 
 ```rust
-use ai_lib::{AiClient, Message};
+use ai_lib_rust::{AiClient, Message};
 
 #[tokio::main]
-async fn main() -> ai_lib::Result<()> {
+async fn main() -> ai_lib_rust::Result<()> {
     let client = AiClient::new("deepseek/deepseek-chat").await?;
 
     let response = client.chat()
@@ -48,11 +48,11 @@ async fn main() -> ai_lib::Result<()> {
 ## ストリーミング
 
 ```rust
-use ai_lib::{AiClient, StreamingEvent};
+use ai_lib_rust::{AiClient, StreamingEvent};
 use futures::StreamExt;
 
 #[tokio::main]
-async fn main() -> ai_lib::Result<()> {
+async fn main() -> ai_lib_rust::Result<()> {
     let client = AiClient::new("deepseek/deepseek-chat").await?;
 
     let mut stream = client.chat()
@@ -75,12 +75,12 @@ async fn main() -> ai_lib::Result<()> {
 ## ツール呼び出し
 
 ```rust
-use ai_lib::{AiClient, ToolDefinition, StreamingEvent};
+use ai_lib_rust::{AiClient, ToolDefinition, StreamingEvent};
 use serde_json::json;
 use futures::StreamExt;
 
 #[tokio::main]
-async fn main() -> ai_lib::Result<()> {
+async fn main() -> ai_lib_rust::Result<()> {
     let client = AiClient::new("openai/gpt-4o").await?;
 
     let weather_tool = ToolDefinition {
@@ -120,10 +120,10 @@ async fn main() -> ai_lib::Result<()> {
 ## マルチターン会話
 
 ```rust
-use ai_lib::{AiClient, Message, MessageRole};
+use ai_lib_rust::{AiClient, Message, MessageRole};
 
 #[tokio::main]
-async fn main() -> ai_lib::Result<()> {
+async fn main() -> ai_lib_rust::Result<()> {
     let client = AiClient::new("anthropic/claude-3-5-sonnet").await?;
 
     let messages = vec![

@@ -109,6 +109,15 @@ img {
   height: auto;
 }
 
+/* 蜘蛛图标颜色：浅色模式用黑色，深色模式用白色（SVG 使用 currentColor 由外部 CSS 控制） */
+.spider-icon {
+  color: #ffffff;
+}
+
+[data-theme='light'] .spider-icon {
+  color: #000000;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

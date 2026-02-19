@@ -5,7 +5,7 @@ description: How AI-Protocol, ai-lib-rust, and ai-lib-python work together as an
 
 # Ecosystem Architecture
 
-The AI-Lib ecosystem is built on a clean three-layer architecture where each layer has a distinct responsibility. Current versions: **AI-Protocol v0.7.0**, **ai-lib-rust v0.8.0**, **ai-lib-python v0.7.0**.
+The AI-Lib ecosystem is built on a clean three-layer architecture where each layer has a distinct responsibility. Current versions: **AI-Protocol v0.7.5**, **ai-lib-rust v0.8.4**, **ai-lib-python v0.7.4**, **ai-protocol-mock v0.1.3**.
 
 ## The Three Layers
 
@@ -13,7 +13,7 @@ The AI-Lib ecosystem is built on a clean three-layer architecture where each lay
 
 The **specification** layer. YAML manifests define:
 
-- **Provider manifests** (`v1/providers/` + `v2/providers/`) — Endpoint, auth, parameter mappings, streaming decoder, error classification for 37 providers (6 V2 + 36 V1)
+- **Provider manifests** (`v1/providers/` + `v2/providers/`) — Endpoint, auth, parameter mappings, streaming decoder, error classification for 38 providers (8 V2 + 36 V1)
 - **Model registry** (`models/*.yaml`) — Model instances with context windows, capabilities, pricing
 - **Core specification** (`spec.yaml`, `v2-alpha/spec.yaml`) — Standard parameters, events, error types, retry policies
 - **V2 Schemas** (`schemas/v2/`) — JSON Schema for provider, MCP, Computer Use, multimodal, context policy, and ProviderContract
@@ -144,8 +144,9 @@ V2 extends multimodal support beyond vision to include audio, video, and omni-mo
 |----------|-------|--------|-----------|
 | Text | ✅ | ✅ | All |
 | Image | ✅ | ✅ (select) | OpenAI, Anthropic, Gemini, Qwen |
-| Audio | ✅ | ✅ (select) | Gemini, Qwen (omni) |
+| Audio | ✅ | ✅ (select) | OpenAI (STT/TTS), Gemini, Qwen (omni) |
 | Video | ✅ | — | Gemini |
+| Rerank | — | ✅ | Cohere, Jina |
 
 The **MultimodalCapabilities** module validates content modalities against provider declarations before sending requests.
 
