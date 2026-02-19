@@ -18,8 +18,24 @@ const i = t[locale] || t.en;
     <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
       <!-- Brand -->
       <div class="md:col-span-1">
-        <div class="flex items-center gap-2 mb-4">
-          <img src="/favicon.svg" alt="AI-Lib" class="spider-icon w-7 h-7" />
+        <div class="flex items-center gap-2 mb-4 text-[var(--text)]">
+          <svg class="w-7 h-7 shrink-0" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="AI-Lib">
+            <path fill="#1f5fbf" d="M100 66l-16 9-1 25-8 7-2 30 27 20 27-20-2-30-8-7-1-25z" />
+            <g stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+              <path d="M90 95 60 66 75 22" />
+              <path d="M90 95 46 78 46 40" />
+              <path d="M90 95 40 110 40 155" />
+              <path d="M90 95 55 128 75 180" />
+              <path d="M95 60 95 70" />
+              <g transform="translate(200 0) scale(-1 1)">
+                <path d="M90 95 60 66 75 22" />
+                <path d="M90 95 46 78 46 40" />
+                <path d="M90 95 40 110 40 155" />
+                <path d="M90 95 55 128 75 180" />
+                <path d="M95 60 95 70" />
+              </g>
+            </g>
+          </svg>
           <span class="font-bold text-lg text-[var(--text)]">AI-Lib</span>
         </div>
         <p class="text-sm text-[var(--text-dim)] leading-relaxed">
