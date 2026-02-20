@@ -12,7 +12,7 @@ description: ai-lib-rust v0.8.0 中的 embeddings、缓存、批处理、插件�
 生成并处理向量 embedding：
 
 ```rust
-use ai_lib::embeddings::{EmbeddingClient, cosine_similarity};
+use ai_lib_rust::embeddings::{EmbeddingClient, cosine_similarity};
 
 let client = EmbeddingClient::builder()
     .model("openai/text-embedding-3-small")
@@ -36,7 +36,7 @@ println!("Rust vs Python similarity: {sim:.3}");
 缓存响应以降低成本和延迟：
 
 ```rust
-use ai_lib::cache::{CacheManager, MemoryCache};
+use ai_lib_rust::cache::{CacheManager, MemoryCache};
 
 let cache = CacheManager::new(MemoryCache::new())
     .with_ttl(Duration::from_secs(3600));
@@ -59,7 +59,7 @@ let r2 = client.chat().user("What is 2+2?").execute().await?;
 高效执行多个请求：
 
 ```rust
-use ai_lib::batch::{BatchCollector, BatchExecutor};
+use ai_lib_rust::batch::{BatchCollector, BatchExecutor};
 
 let mut collector = BatchCollector::new();
 collector.add(client.chat().user("Question 1"));
@@ -84,7 +84,7 @@ for result in results {
 估算 token 使用量与成本：
 
 ```rust
-use ai_lib::tokens::{TokenCounter, ModelPricing};
+use ai_lib_rust::tokens::{TokenCounter, ModelPricing};
 
 let counter = TokenCounter::for_model("gpt-4o");
 let count = counter.count("Hello, how are you?");
@@ -100,7 +100,7 @@ println!("Estimated cost: ${cost:.4}");
 使用自定义插件扩展客户端：
 
 ```rust
-use ai_lib::plugins::{Plugin, PluginRegistry};
+use ai_lib_rust::plugins::{Plugin, PluginRegistry};
 
 struct LoggingPlugin;
 
@@ -125,7 +125,7 @@ registry.register(LoggingPlugin);
 内容过滤与安全：
 
 ```rust
-use ai_lib::guardrails::{GuardrailsConfig, KeywordFilter};
+use ai_lib_rust::guardrails::{GuardrailsConfig, KeywordFilter};
 
 let config = GuardrailsConfig::new()
     .add_filter(KeywordFilter::new(vec!["unsafe_word"]))
@@ -137,7 +137,7 @@ let config = GuardrailsConfig::new()
 智能模型路由（使用 `routing_mvp` 功能启用）：
 
 ```rust
-use ai_lib::routing::{CustomModelManager, ModelArray, ModelSelectionStrategy};
+use ai_lib_rust::routing::{CustomModelManager, ModelArray, ModelSelectionStrategy};
 
 let manager = CustomModelManager::new()
     .add_model("openai/gpt-4o", weight: 0.7)
@@ -150,7 +150,7 @@ let manager = CustomModelManager::new()
 请求/响应拦截（使用 `interceptors` 功能启用）：
 
 ```rust
-use ai_lib::interceptors::{InterceptorPipeline, Interceptor};
+use ai_lib_rust::interceptors::{InterceptorPipeline, Interceptor};
 
 let pipeline = InterceptorPipeline::new()
     .add(LoggingInterceptor)

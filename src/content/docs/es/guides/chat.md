@@ -62,7 +62,7 @@ Pase el historial de conversación:
 
 ```rust
 // Rust
-use ai_lib::{Message, MessageRole};
+use ai_lib_rust::{Message, MessageRole};
 
 let messages = vec![
     Message::system("You are a tutor."),

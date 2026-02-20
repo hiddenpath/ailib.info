@@ -31,11 +31,11 @@ export ANTHROPIC_API_KEY="your-key-here"
 ### 3. 最初のプログラムを書く
 
 ```rust
-use ai_lib::{AiClient, StreamingEvent};
+use ai_lib_rust::{AiClient, StreamingEvent};
 use futures::StreamExt;
 
 #[tokio::main]
-async fn main() -> ai_lib::Result<()> {
+async fn main() -> ai_lib_rust::Result<()> {
     // クライアントを作成 — プロトコルマニフェストは自動的に読み込まれます
     let client = AiClient::new("anthropic/claude-3-5-sonnet").await?;
 

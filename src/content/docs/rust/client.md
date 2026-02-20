@@ -136,7 +136,7 @@ tokio::spawn(async move {
 ## Error Handling
 
 ```rust
-use ai_lib::{Error, ErrorContext};
+use ai_lib_rust::{Error, ErrorContext};
 
 match client.chat().user("Hello").execute().await {
     Ok(response) => println!("{}", response.content),

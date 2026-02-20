@@ -12,7 +12,7 @@ Function calling（ツール使用）により、AI モデルが外部関数を�
 ### Rust
 
 ```rust
-use ai_lib::ToolDefinition;
+use ai_lib_rust::ToolDefinition;
 use serde_json::json;
 
 let get_weather = ToolDefinition {

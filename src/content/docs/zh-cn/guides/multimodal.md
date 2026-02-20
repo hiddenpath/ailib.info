@@ -19,7 +19,7 @@ AI-Lib 支持多模态输入 — 文本与图像组合 — 通过相同的统一
 ### Rust
 
 ```rust
-use ai_lib::{AiClient, Message, ContentBlock};
+use ai_lib_rust::{AiClient, Message, ContentBlock};
 
 let client = AiClient::from_model("openai/gpt-4o").await?;
 

@@ -12,7 +12,7 @@ Las llamadas a funciones (uso de herramientas) permiten que los modelos de IA in
 ### Rust
 
 ```rust
-use ai_lib::ToolDefinition;
+use ai_lib_rust::ToolDefinition;
 use serde_json::json;
 
 let get_weather = ToolDefinition {

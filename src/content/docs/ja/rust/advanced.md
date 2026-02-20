@@ -12,7 +12,7 @@ description: ai-lib-rust v0.8.0 における埋め込み、キャッシュ、バ
 ベクトル埋め込みの生成と操作：
 
 ```rust
-use ai_lib::embeddings::{EmbeddingClient, cosine_similarity};
+use ai_lib_rust::embeddings::{EmbeddingClient, cosine_similarity};
 
 let client = EmbeddingClient::builder()
     .model("openai/text-embedding-3-small")
@@ -36,7 +36,7 @@ println!("Rust vs Python similarity: {sim:.3}");
 コストとレイテンシを削減するためのレスポンスキャッシュ：
 
 ```rust
-use ai_lib::cache::{CacheManager, MemoryCache};
+use ai_lib_rust::cache::{CacheManager, MemoryCache};
 
 let cache = CacheManager::new(MemoryCache::new())
     .with_ttl(Duration::from_secs(3600));
@@ -59,7 +59,7 @@ let r2 = client.chat().user("What is 2+2?").execute().await?;
 複数リクエストを効率的に実行：
 
 ```rust
-use ai_lib::batch::{BatchCollector, BatchExecutor};
+use ai_lib_rust::batch::{BatchCollector, BatchExecutor};
 
 let mut collector = BatchCollector::new();
 collector.add(client.chat().user("Question 1"));
@@ -84,7 +84,7 @@ for result in results {
 トークン使用量とコストの見積もり：
 
 ```rust
-use ai_lib::tokens::{TokenCounter, ModelPricing};
+use ai_lib_rust::tokens::{TokenCounter, ModelPricing};
 
 let counter = TokenCounter::for_model("gpt-4o");
 let count = counter.count("Hello, how are you?");
@@ -100,7 +100,7 @@ println!("Estimated cost: ${cost:.4}");
 カスタムプラグインでクライアントを拡張：
 
 ```rust
-use ai_lib::plugins::{Plugin, PluginRegistry};
+use ai_lib_rust::plugins::{Plugin, PluginRegistry};
 
 struct LoggingPlugin;
 
@@ -125,7 +125,7 @@ registry.register(LoggingPlugin);
 コンテンツフィルタリングとセーフティ：
 
 ```rust
-use ai_lib::guardrails::{GuardrailsConfig, KeywordFilter};
+use ai_lib_rust::guardrails::{GuardrailsConfig, KeywordFilter};
 
 let config = GuardrailsConfig::new()
     .add_filter(KeywordFilter::new(vec!["unsafe_word"]))
@@ -137,7 +137,7 @@ let config = GuardrailsConfig::new()
 スマートモデルルーティング（`routing_mvp` フィーチャーで有効化）：
 
 ```rust
-use ai_lib::routing::{CustomModelManager, ModelArray, ModelSelectionStrategy};
+use ai_lib_rust::routing::{CustomModelManager, ModelArray, ModelSelectionStrategy};
 
 let manager = CustomModelManager::new()
     .add_model("openai/gpt-4o", weight: 0.7)
@@ -150,7 +150,7 @@ let manager = CustomModelManager::new()
 リクエスト/レスポンスのインターセプション（`interceptors` フィーチャーで有効化）：
 
 ```rust
-use ai_lib::interceptors::{InterceptorPipeline, Interceptor};
+use ai_lib_rust::interceptors::{InterceptorPipeline, Interceptor};
 
 let pipeline = InterceptorPipeline::new()
     .add(LoggingInterceptor)

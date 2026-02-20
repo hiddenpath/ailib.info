@@ -19,7 +19,7 @@ AI-Lib soporta entradas multimodales — texto combinado con imágenes — a tra
 ### Rust
 
 ```rust
-use ai_lib::{AiClient, Message, ContentBlock};
+use ai_lib_rust::{AiClient, Message, ContentBlock};
 
 let client = AiClient::new("openai/gpt-4o").await?;
 

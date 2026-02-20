@@ -12,7 +12,7 @@ description: 使用 AI-Lib 跨提供商使用函数调用（工具使用）的�
 ### Rust
 
 ```rust
-use ai_lib::ToolDefinition;
+use ai_lib_rust::ToolDefinition;
 use serde_json::json;
 
 let get_weather = ToolDefinition {

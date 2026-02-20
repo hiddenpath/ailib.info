@@ -12,7 +12,7 @@ Function calling (tool use) lets AI models invoke external functions. AI-Lib pro
 ### Rust
 
 ```rust
-use ai_lib::ToolDefinition;
+use ai_lib_rust::ToolDefinition;
 use serde_json::json;
 
 let get_weather = ToolDefinition {

@@ -12,7 +12,7 @@ Más allá de la funcionalidad principal de chat, ai-lib-rust proporciona varias
 Genere y trabaje con embeddings vectoriales:
 
 ```rust
-use ai_lib::embeddings::{EmbeddingClient, cosine_similarity};
+use ai_lib_rust::embeddings::{EmbeddingClient, cosine_similarity};
 
 let client = EmbeddingClient::builder()
     .model("openai/text-embedding-3-small")
@@ -36,7 +36,7 @@ Las operaciones vectoriales incluyen similitud coseno, distancia euclidiana y pr
 Almacene en caché las respuestas para reducir costos y latencia:
 
 ```rust
-use ai_lib::cache::{CacheManager, MemoryCache};
+use ai_lib_rust::cache::{CacheManager, MemoryCache};
 
 let cache = CacheManager::new(MemoryCache::new())
     .with_ttl(Duration::from_secs(3600));
@@ -59,7 +59,7 @@ let r2 = client.chat().user("What is 2+2?").execute().await?;
 Ejecute múltiples solicitudes eficientemente:
 
 ```rust
-use ai_lib::batch::{BatchCollector, BatchExecutor};
+use ai_lib_rust::batch::{BatchCollector, BatchExecutor};
 
 let mut collector = BatchCollector::new();
 collector.add(client.chat().user("Question 1"));
@@ -84,7 +84,7 @@ for result in results {
 Estime el uso de tokens y costos:
 
 ```rust
-use ai_lib::tokens::{TokenCounter, ModelPricing};
+use ai_lib_rust::tokens::{TokenCounter, ModelPricing};
 
 let counter = TokenCounter::for_model("gpt-4o");
 let count = counter.count("Hello, how are you?");
@@ -100,7 +100,7 @@ println!("Estimated cost: ${cost:.4}");
 Extienda el cliente con plugins personalizados:
 
 ```rust
-use ai_lib::plugins::{Plugin, PluginRegistry};
+use ai_lib_rust::plugins::{Plugin, PluginRegistry};
 
 struct LoggingPlugin;
 
@@ -125,7 +125,7 @@ registry.register(LoggingPlugin);
 Filtrado de contenido y seguridad:
 
 ```rust
-use ai_lib::guardrails::{GuardrailsConfig, KeywordFilter};
+use ai_lib_rust::guardrails::{GuardrailsConfig, KeywordFilter};
 
 let config = GuardrailsConfig::new()
     .add_filter(KeywordFilter::new(vec!["unsafe_word"]))
@@ -137,7 +137,7 @@ let config = GuardrailsConfig::new()
 Enrutamiento inteligente de modelos (habilitar con característica `routing_mvp`):
 
 ```rust
-use ai_lib::routing::{CustomModelManager, ModelArray, ModelSelectionStrategy};
+use ai_lib_rust::routing::{CustomModelManager, ModelArray, ModelSelectionStrategy};
 
 let manager = CustomModelManager::new()
     .add_model("openai/gpt-4o", weight: 0.7)
@@ -150,7 +150,7 @@ let manager = CustomModelManager::new()
 Interceptación de solicitudes/respuestas (habilitar con característica `interceptors`):
 
 ```rust
-use ai_lib::interceptors::{InterceptorPipeline, Interceptor};
+use ai_lib_rust::interceptors::{InterceptorPipeline, Interceptor};
 
 let pipeline = InterceptorPipeline::new()
     .add(LoggingInterceptor)

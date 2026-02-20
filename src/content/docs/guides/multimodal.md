@@ -23,7 +23,7 @@ AI-Lib supports multimodal inputs and outputs — text combined with images, aud
 ### Rust
 
 ```rust
-use ai_lib::{AiClient, Message, ContentBlock};
+use ai_lib_rust::{AiClient, Message, ContentBlock};
 
 let client = AiClient::new("openai/gpt-4o").await?;
 
@@ -103,7 +103,7 @@ The V2 protocol provides a `MultimodalCapabilities` module that validates conten
 The runtime automatically detects modalities in your content blocks:
 
 ```rust
-use ai_lib::multimodal::{detect_modalities, Modality};
+use ai_lib_rust::multimodal::{detect_modalities, Modality};
 
 let modalities = detect_modalities(&content_blocks);
 // Returns: {Text, Image} or {Text, Audio, Video} etc.
@@ -121,7 +121,7 @@ modalities = detect_modalities(content_blocks)
 The runtime validates formats against what the provider supports:
 
 ```rust
-use ai_lib::multimodal::MultimodalCapabilities;
+use ai_lib_rust::multimodal::MultimodalCapabilities;
 
 let caps = MultimodalCapabilities::from_config(&manifest.multimodal);
 assert!(caps.validate_image_format("png"));
@@ -141,7 +141,7 @@ assert caps.validate_audio_format("wav")
 Before sending a request, validate that the provider supports all modalities in the content:
 
 ```rust
-use ai_lib::multimodal::validate_content_modalities;
+use ai_lib_rust::multimodal::validate_content_modalities;
 
 match validate_content_modalities(&blocks, &caps) {
     Ok(()) => { /* all modalities supported */ }
