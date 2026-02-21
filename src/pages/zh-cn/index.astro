@@ -15,7 +15,7 @@ const locale = 'zh-cn';
   <head>
     <meta charset="utf-8" />
     <title>AI-Lib | 一个协议，所有 AI 服务商</title>
-    <meta name="description" content="AI-Lib 是一个开源生态系统，标准化 AI 模型交互方式。一套规范驱动 Rust 和 Python 运行时，支持 37 服务商。" />
+    <meta name="description" content="AI-Lib 是一个开源生态系统，标准化 AI 模型交互方式。一套规范驱动 Rust、Python 与 TypeScript 运行时，支持 37 服务商，含 MCP、STT/TTS/Rerank 与多模态能力。" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta property="og:title" content="AI-Lib | 一个协议，所有 AI 服务商" />
     <meta property="og:description" content="开源 AI 模型交互标准化生态系统。一套协议，多种运行时。" />
@@ -33,21 +33,21 @@ const locale = 'zh-cn';
         <div class="container">
           <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
-              三个项目，一个生态系统
+              五个项目，一个生态系统
             </h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
-              规范层定义规则。两种运行时实现将规范付诸实践。
+              规范层定义规则。三种运行时实现（Rust、Python、TypeScript）将规范付诸实践。
             </p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <ProjectCard
               locale={locale}
               variant="protocol"
               version="0.7.6"
               title="AI-Protocol"
               description="与供应商无关的规范。YAML 清单定义如何与每个 AI 服务商通信——零硬编码逻辑。"
-              features={['37 服务商清单', 'JSON Schema 验证', '流式事件规范化', '错误分类标准', '热重载配置']}
+              features={['37 服务商清单（6 V2 + 36 V1）', 'STT/TTS/Rerank 清单（Jina、OpenAI、Cohere）', 'JSON Schema 验证', '流式事件规范化', '错误分类标准', '热重载配置']}
               link="/zh-cn/protocol/"
               github="https://github.com/hiddenpath/ai-protocol"
             />
@@ -57,7 +57,7 @@ const locale = 'zh-cn';
               version="0.8.5"
               title="ai-lib-rust"
               description="高性能 Rust 运行时。V2 标准错误码、功能开关、基于算子的流式管道、编译时安全、亚毫秒级开销。"
-              features={['基于算子的管道', 'V2 标准错误码', '功能门控模块', '熔断器与限流器', '嵌入与缓存', '插件系统', '发布于 Crates.io']}
+              features={['ProviderDriver（OpenAI/Anthropic/Gemini）', 'MCP 工具桥 + 命名空间隔离', 'Computer Use + SafetyPolicy', '扩展多模态验证', '嵌入与缓存', '插件系统', '185+ 测试，发布于 Crates.io']}
               link="/zh-cn/rust/"
               github="https://github.com/hiddenpath/ai-lib-rust"
             />
@@ -67,9 +67,19 @@ const locale = 'zh-cn';
               version="0.7.4"
               title="ai-lib-python"
               description="开发者友好的 Python 运行时。V2 标准错误码、按能力扩展、完整异步支持、Pydantic v2 类型、生产级遥测。"
-              features={['原生 async/await', 'V2 标准错误码', '按能力扩展', 'Pydantic v2 类型安全', 'OpenTelemetry 集成', '模型路由与负载均衡', '发布于 PyPI']}
+              features={['ProviderDriver（OpenAI/Anthropic/Gemini）', 'MCP 工具桥 + 命名空间隔离', 'Computer Use + SafetyPolicy', 'STT/TTS/Rerank 扩展', 'Pydantic v2 类型安全', '模型路由与负载均衡', '75+ V2 测试，发布于 PyPI']}
               link="/zh-cn/python/"
-              github="https://github.com/hiddenpath/ai-lib-python"
+                github="https://github.com/hiddenpath/ai-lib-python"
+            />
+            <ProjectCard
+              locale={locale}
+              variant="ts"
+              version="0.3.0"
+              title="ai-lib-ts"
+              description="TypeScript/Node.js 运行时，面向 npm 生态。协议驱动、流式优先，支持 Resilience、Routing、MCP 与多模态。"
+              features={['V2 清单解析 + 标准错误码', 'Resilience（Retry、CircuitBreaker、RateLimiter）', 'ModelManager + CostBasedSelector + FallbackChain', 'SttClient、TtsClient、RerankerClient', 'McpToolBridge、EmbeddingClient、Plugins', '原生 fetch，发布于 npm']}
+              link="https://github.com/hiddenpath/ai-lib-ts"
+              github="https://github.com/hiddenpath/ai-lib-ts"
             />
           </div>
           <div class="mt-12 pt-8 border-t border-[var(--border)]">
@@ -81,7 +91,7 @@ const locale = 'zh-cn';
                 version="0.1.7"
                 title="ai-protocol-mock"
                 description="AI-Protocol 运行时统一 mock 服务。HTTP 提供方 mock（OpenAI + Anthropic 格式）与 MCP JSON-RPC mock，用于集成测试。"
-                features={['清单驱动 HTTP mock', 'OpenAI 与 Anthropic 响应格式', 'MCP tools/list、tools/call、capabilities', 'Docker 支持', '从 ai-protocol 同步清单']}
+                features={['清单驱动 HTTP mock', 'OpenAI、Anthropic + STT/TTS/Rerank', 'MCP tools/list、tools/call、capabilities', 'Docker 支持', '第三方集成（ZeroClaw、CI）', '从 ai-protocol 同步清单']}
                 link="https://github.com/hiddenpath/ai-protocol-mock"
                 github="https://github.com/hiddenpath/ai-protocol-mock"
               />
@@ -192,6 +202,7 @@ const locale = 'zh-cn';
                   <th class="p-4 text-sm font-semibold text-purple-400 border-b border-[var(--border)]">AI-Protocol</th>
                   <th class="p-4 text-sm font-semibold text-orange-400 border-b border-[var(--border)]">Rust SDK</th>
                   <th class="p-4 text-sm font-semibold text-emerald-400 border-b border-[var(--border)]">Python SDK</th>
+                  <th class="p-4 text-sm font-semibold text-blue-400 border-b border-[var(--border)]">TypeScript SDK</th>
                 </tr>
               </thead>
               <tbody class="text-sm">
@@ -200,36 +211,49 @@ const locale = 'zh-cn';
                   <td class="p-4 text-[var(--text-dim)]">JSON Schema</td>
                   <td class="p-4 text-[var(--text-dim)]">编译时（Rust）</td>
                   <td class="p-4 text-[var(--text-dim)]">运行时（Pydantic v2）</td>
+                  <td class="p-4 text-[var(--text-dim)]">编译时（TypeScript）</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">流式</td>
                   <td class="p-4 text-[var(--text-dim)]">SSE/NDJSON 规范</td>
                   <td class="p-4 text-[var(--text-dim)]">tokio async streams</td>
                   <td class="p-4 text-[var(--text-dim)]">async generators</td>
+                  <td class="p-4 text-[var(--text-dim)]">AsyncIterator + fetch</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">弹性</td>
                   <td class="p-4 text-[var(--text-dim)]">重试策略规范</td>
                   <td class="p-4 text-[var(--text-dim)]">熔断器、限流器、背压</td>
                   <td class="p-4 text-[var(--text-dim)]">ResilientExecutor 及所有模式</td>
+                  <td class="p-4 text-[var(--text-dim)]">RetryPolicy、CircuitBreaker、RateLimiter</td>
+                </tr>
+                <tr class="border-b border-[var(--border)]">
+                  <td class="p-4 font-medium text-[var(--text)]">MCP</td>
+                  <td class="p-4 text-[var(--text-dim)]">mcp.json 规范</td>
+                  <td class="p-4 text-[var(--text-dim)]">McpToolBridge</td>
+                  <td class="p-4 text-[var(--text-dim)]">McpToolBridge</td>
+                  <td class="p-4 text-[var(--text-dim)]">McpToolBridge</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">嵌入</td>
                   <td class="p-4 text-[var(--text-dim)]">—</td>
                   <td class="p-4 text-[var(--text-dim)]">向量运算、相似度</td>
                   <td class="p-4 text-[var(--text-dim)]">向量运算、相似度</td>
+                  <td class="p-4 text-[var(--text-dim)]">EmbeddingClient</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">分发</td>
                   <td class="p-4 text-[var(--text-dim)]">GitHub / npm</td>
                   <td class="p-4 text-[var(--text-dim)]">Crates.io</td>
                   <td class="p-4 text-[var(--text-dim)]">PyPI</td>
+                  <td class="p-4 text-[var(--text-dim)]">npm</td>
                 </tr>
                 <tr>
                   <td class="p-4 font-medium text-[var(--text)]">最适合</td>
                   <td class="p-4 text-[var(--text-dim)] italic">规范与标准</td>
                   <td class="p-4 text-[var(--text-dim)] italic">系统、性能关键</td>
                   <td class="p-4 text-[var(--text-dim)] italic">ML、数据科学、原型开发</td>
+                  <td class="p-4 text-[var(--text-dim)] italic">Node.js、npm 生态、全栈</td>
                 </tr>
               </tbody>
             </table>
@@ -246,7 +270,7 @@ const locale = 'zh-cn';
           <div class="text-center p-12 rounded-2xl border border-[var(--border)] bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-alt)]">
             <h2 class="text-3xl font-bold text-[var(--text)] mb-4">准备好开始了吗？</h2>
             <p class="text-lg text-[var(--text-dim)] mb-8 max-w-xl mx-auto">
-              阅读文档，选择你的运行时，从今天开始使用 37 AI 服务商进行开发。
+              阅读文档，选择你的运行时（Rust、Python 或 TypeScript），从今天开始使用 37 AI 服务商进行开发。
             </p>
             <div class="flex flex-wrap gap-4 justify-center">
               <a href="/zh-cn/quickstart/" class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:brightness-110 transition-all hover:no-underline">

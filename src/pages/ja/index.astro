@@ -15,7 +15,7 @@ const locale = 'ja';
   <head>
     <meta charset="utf-8" />
     <title>AI-Lib | ワンプロトコル、すべてのAIプロバイダー</title>
-    <meta name="description" content="AI-LibはAIモデルインタラクションを標準化するオープンソースエコシステムです。V2プロトコルでMCP、Computer Use、マルチモーダルをサポート — 37プロバイダー対応。" />
+    <meta name="description" content="AI-LibはAIモデルインタラクションを標準化するオープンソースエコシステムです。Rust、Python、TypeScriptの3ランタイムでMCP、STT/TTS/Rerank、マルチモーダルをサポート — 37プロバイダー対応。" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta property="og:title" content="AI-Lib | ワンプロトコル、すべてのAIプロバイダー" />
     <meta property="og:description" content="AIモデルインタラクションを標準化するオープンソースエコシステム。1つのプロトコル、複数のランタイム。" />
@@ -33,21 +33,21 @@ const locale = 'ja';
         <div class="container">
           <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
-              3つのプロジェクト、1つのエコシステム
+              5つのプロジェクト、1つのエコシステム
             </h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
-              仕様レイヤーがルールを定義し、2つのランタイム実装がそれを実現します。
+              仕様レイヤーがルールを定義し、3つのランタイム実装（Rust、Python、TypeScript）がそれを実現します。
             </p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <ProjectCard
               locale={locale}
               variant="protocol"
               version="0.7.6"
               title="AI-Protocol"
               description="V2仕様：三リングマニフェスト、MCP、Computer Use、マルチモーダルスキーマ——ハードコードされたロジックは一切ありません。"
-              features={['37プロバイダーマニフェスト (6 V2 + 36 V1)', 'V2三層ピラミッドアーキテクチャ', 'MCP / CU / マルチモーダルスキーマ', 'CLI検証ツール', 'ホットリロード可能な設定']}
+              features={['37プロバイダーマニフェスト (6 V2 + 36 V1)', 'STT/TTS/Rerank マニフェスト（Jina、OpenAI、Cohere）', 'MCP / CU / マルチモーダルスキーマ', 'CLI検証ツール', 'ホットリロード可能な設定']}
               link="/ja/protocol/"
               github="https://github.com/hiddenpath/ai-protocol"
             />
@@ -57,7 +57,7 @@ const locale = 'ja';
               version="0.8.5"
               title="ai-lib-rust"
               description="高性能Rustランタイム。V2標準エラーコード、機能フラグ、オペレータベースのストリーミングパイプライン、コンパイル時安全性、サブミリ秒オーバーヘッド。"
-              features={['オペレータベースパイプライン', 'V2標準エラーコード', '機能ゲート付きモジュール', 'サーキットブレーカーとレートリミッター', '埋め込みとキャッシュ', 'プラグインシステム', 'Crates.ioで公開']}
+              features={['ProviderDriver（OpenAI/Anthropic/Gemini）', 'MCPツールブリッジ + 名前空間分離', 'Computer Use + SafetyPolicy', '拡張マルチモーダル検証', '埋め込みとキャッシュ', 'プラグインシステム', '185+ テスト、Crates.ioで公開']}
               link="/ja/rust/"
               github="https://github.com/hiddenpath/ai-lib-rust"
             />
@@ -67,9 +67,19 @@ const locale = 'ja';
               version="0.7.4"
               title="ai-lib-python"
               description="開発者フレンドリーなPythonランタイム。V2標準エラーコード、機能ベースのエクストラ、完全な非同期サポート、Pydantic v2型、本番グレードのテレメトリ。"
-              features={['ネイティブ async/await', 'V2標準エラーコード', '機能ベースのエクストラ', 'Pydantic v2型安全性', 'OpenTelemetry統合', 'モデルルーティングとロードバランシング', 'PyPIで公開']}
+              features={['ProviderDriver（OpenAI/Anthropic/Gemini）', 'MCPツールブリッジ + 名前空間分離', 'Computer Use + SafetyPolicy', 'STT/TTS/Rerank エクストラ', 'Pydantic v2型安全性', 'モデルルーティングとロードバランシング', '75+ V2テスト、PyPIで公開']}
               link="/ja/python/"
-              github="https://github.com/hiddenpath/ai-lib-python"
+                github="https://github.com/hiddenpath/ai-lib-python"
+            />
+            <ProjectCard
+              locale={locale}
+              variant="ts"
+              version="0.3.0"
+              title="ai-lib-ts"
+              description="TypeScript/Node.jsランタイム、npmエコシステム向け。プロトコル駆動、ストリーミングファースト、Resilience、Routing、MCP、マルチモーダル対応。"
+              features={['V2マニフェスト解析 + 標準エラーコード', 'Resilience（Retry、CircuitBreaker、RateLimiter）', 'ModelManager + CostBasedSelector + FallbackChain', 'SttClient、TtsClient、RerankerClient', 'McpToolBridge、EmbeddingClient、Plugins', 'ネイティブfetch、npmで公開']}
+              link="https://github.com/hiddenpath/ai-lib-ts"
+              github="https://github.com/hiddenpath/ai-lib-ts"
             />
           </div>
           <div class="mt-12 pt-8 border-t border-[var(--border)]">
@@ -81,7 +91,7 @@ const locale = 'ja';
                 version="0.1.7"
                 title="ai-protocol-mock"
                 description="AI-Protocol ランタイム用統合モックサーバー。HTTPプロバイダーモック（OpenAI + Anthropic形式）とMCP JSON-RPCモックで統合テストをサポート。"
-                features={['マニフェスト駆動HTTPモック', 'OpenAI & Anthropic response形式', 'MCP tools/list、tools/call、capabilities', 'Dockerサポート', 'ai-protocolからマニフェスト同期']}
+                features={['マニフェスト駆動HTTPモック', 'OpenAI、Anthropic + STT/TTS/Rerank', 'MCP tools/list、tools/call、capabilities', 'Dockerサポート', 'サードパーティ統合（ZeroClaw、CI）', 'ai-protocolからマニフェスト同期']}
                 link="https://github.com/hiddenpath/ai-protocol-mock"
                 github="https://github.com/hiddenpath/ai-protocol-mock"
               />
@@ -192,6 +202,7 @@ const locale = 'ja';
                   <th class="p-4 text-sm font-semibold text-purple-400 border-b border-[var(--border)]">AI-Protocol</th>
                   <th class="p-4 text-sm font-semibold text-orange-400 border-b border-[var(--border)]">Rust SDK</th>
                   <th class="p-4 text-sm font-semibold text-emerald-400 border-b border-[var(--border)]">Python SDK</th>
+                  <th class="p-4 text-sm font-semibold text-blue-400 border-b border-[var(--border)]">TypeScript SDK</th>
                 </tr>
               </thead>
               <tbody class="text-sm">
@@ -200,36 +211,49 @@ const locale = 'ja';
                   <td class="p-4 text-[var(--text-dim)]">JSON Schema</td>
                   <td class="p-4 text-[var(--text-dim)]">コンパイル時（Rust）</td>
                   <td class="p-4 text-[var(--text-dim)]">実行時（Pydantic v2）</td>
+                  <td class="p-4 text-[var(--text-dim)]">コンパイル時（TypeScript）</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">ストリーミング</td>
                   <td class="p-4 text-[var(--text-dim)]">SSE/NDJSON 仕様</td>
                   <td class="p-4 text-[var(--text-dim)]">tokio async streams</td>
                   <td class="p-4 text-[var(--text-dim)]">async generators</td>
+                  <td class="p-4 text-[var(--text-dim)]">AsyncIterator + fetch</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">レジリエンス</td>
                   <td class="p-4 text-[var(--text-dim)]">リトライポリシー仕様</td>
                   <td class="p-4 text-[var(--text-dim)]">サーキットブレーカー、レートリミッター、バックプレッシャー</td>
                   <td class="p-4 text-[var(--text-dim)]">全パターン対応 ResilientExecutor</td>
+                  <td class="p-4 text-[var(--text-dim)]">RetryPolicy、CircuitBreaker、RateLimiter</td>
+                </tr>
+                <tr class="border-b border-[var(--border)]">
+                  <td class="p-4 font-medium text-[var(--text)]">MCP</td>
+                  <td class="p-4 text-[var(--text-dim)]">mcp.json スキーマ</td>
+                  <td class="p-4 text-[var(--text-dim)]">McpToolBridge</td>
+                  <td class="p-4 text-[var(--text-dim)]">McpToolBridge</td>
+                  <td class="p-4 text-[var(--text-dim)]">McpToolBridge</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">埋め込み</td>
                   <td class="p-4 text-[var(--text-dim)]">—</td>
                   <td class="p-4 text-[var(--text-dim)]">ベクトル演算、類似度</td>
                   <td class="p-4 text-[var(--text-dim)]">ベクトル演算、類似度</td>
+                  <td class="p-4 text-[var(--text-dim)]">EmbeddingClient</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">配布</td>
                   <td class="p-4 text-[var(--text-dim)]">GitHub / npm</td>
                   <td class="p-4 text-[var(--text-dim)]">Crates.io</td>
                   <td class="p-4 text-[var(--text-dim)]">PyPI</td>
+                  <td class="p-4 text-[var(--text-dim)]">npm</td>
                 </tr>
                 <tr>
                   <td class="p-4 font-medium text-[var(--text)]">最適な用途</td>
                   <td class="p-4 text-[var(--text-dim)] italic">仕様と標準</td>
                   <td class="p-4 text-[var(--text-dim)] italic">システム、パフォーマンス重視</td>
                   <td class="p-4 text-[var(--text-dim)] italic">ML、データサイエンス、プロトタイピング</td>
+                  <td class="p-4 text-[var(--text-dim)] italic">Node.js、npmエコシステム、フルスタック</td>
                 </tr>
               </tbody>
             </table>
@@ -246,7 +270,7 @@ const locale = 'ja';
           <div class="text-center p-12 rounded-2xl border border-[var(--border)] bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-alt)]">
             <h2 class="text-3xl font-bold text-[var(--text)] mb-4">始める準備はできましたか？</h2>
             <p class="text-lg text-[var(--text-dim)] mb-8 max-w-xl mx-auto">
-              ドキュメントを読み、ランタイムを選び、今日から37のAIプロバイダーで開発を始めましょう。
+              ドキュメントを読み、ランタイム（Rust、Python、TypeScript）を選び、今日から37のAIプロバイダーで開発を始めましょう。
             </p>
             <div class="flex flex-wrap gap-4 justify-center">
               <a href="/ja/quickstart/" class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:brightness-110 transition-all hover:no-underline">
