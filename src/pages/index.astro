@@ -99,6 +99,36 @@ const locale = 'en';
               />
             </div>
           </div>
+
+          <!-- Showcase Projects -->
+          <div class="mt-12 pt-8 border-t border-[var(--border)]">
+            <h3 class="text-lg font-semibold text-[var(--text)] mb-4">Showcase Projects</h3>
+            <p class="text-sm text-[var(--text-dim)] mb-4 max-w-2xl">
+              Reference applications built on the AI-Lib ecosystem — see the protocol and runtimes in action.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <ProjectCard
+                locale={locale}
+                variant="showcase"
+                version="0.3.1"
+                title="AI Debate"
+                description="Multi-model AI debate arena. Pro vs Con across four rounds, then a Judge delivers the verdict. Built on ai-lib-rust and ai-protocol."
+                features={['4-round debate flow (Opening → Rebuttal → Defense → Closing → Judgement)', 'Web search tool calling via Tavily (optional)', 'Multi-provider: DeepSeek, Zhipu, Groq, Mistral, OpenAI, Anthropic', 'Auto fallback, real-time SSE streaming', 'Axum + SQLite, modern dark UI']}
+                link="https://github.com/hiddenpath/aidebate"
+                github="https://github.com/hiddenpath/aidebate"
+              />
+              <ProjectCard
+                locale={locale}
+                variant="showcase"
+                version="0.2.0"
+                title="ZeroSpider"
+                description="Protocol-driven autonomous AI agent runtime. Intelligent model selection, multi-model negotiation, and hardware integration."
+                features={['Protocol-driven providers via ai-lib-rust + ai-protocol', 'Smart routing: cost, speed, quality, reliability', 'Multi-model negotiation and parallel task execution', 'Channels: Telegram, Discord, Matrix', 'Remote deployment, hardware (GPIO, STM32)']}
+                link="https://github.com/hiddenpath/zerospider"
+                github="https://github.com/hiddenpath/zerospider"
+              />
+            </div>
+          </div>
         </div>
       </section>
 

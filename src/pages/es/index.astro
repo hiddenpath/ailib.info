@@ -97,6 +97,36 @@ const locale = 'es';
               />
             </div>
           </div>
+
+          <!-- Proyectos de referencia -->
+          <div class="mt-12 pt-8 border-t border-[var(--border)]">
+            <h3 class="text-lg font-semibold text-[var(--text)] mb-4">Proyectos de referencia</h3>
+            <p class="text-sm text-[var(--text-dim)] mb-4 max-w-2xl">
+              Aplicaciones de referencia construidas sobre el ecosistema AI-Lib — ve el protocolo y los runtimes en acción.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <ProjectCard
+                locale={locale}
+                variant="showcase"
+                version="0.3.1"
+                title="AI Debate"
+                description="Arena de debate AI multi-modelo. Pro vs Con en cuatro rondas, luego un Juez emite el veredicto. Construido con ai-lib-rust y ai-protocol."
+                features={['Flujo de debate en 4 rondas (Apertura → Refutación → Defensa → Cierre → Veredicto)', 'Búsqueda web vía Tavily (opcional)', 'Multi-proveedor: DeepSeek, Zhipu, Groq, Mistral, OpenAI, Anthropic', 'Fallback automático, streaming SSE en tiempo real', 'Axum + SQLite, UI oscura moderna']}
+                link="https://github.com/hiddenpath/aidebate"
+                github="https://github.com/hiddenpath/aidebate"
+              />
+              <ProjectCard
+                locale={locale}
+                variant="showcase"
+                version="0.2.0"
+                title="ZeroSpider"
+                description="Runtime de agente AI autónomo impulsado por protocolo. Selección inteligente de modelos, negociación multi-modelo e integración de hardware."
+                features={['Proveedores impulsados por protocolo vía ai-lib-rust + ai-protocol', 'Enrutamiento inteligente: coste, velocidad, calidad, fiabilidad', 'Negociación multi-modelo y ejecución paralela de tareas', 'Canales: Telegram, Discord, Matrix', 'Despliegue remoto, hardware (GPIO, STM32)']}
+                link="https://github.com/hiddenpath/zerospider"
+                github="https://github.com/hiddenpath/zerospider"
+              />
+            </div>
+          </div>
         </div>
       </section>
 

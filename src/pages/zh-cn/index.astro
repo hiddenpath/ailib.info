@@ -97,6 +97,36 @@ const locale = 'zh-cn';
               />
             </div>
           </div>
+
+          <!-- 示范项目 -->
+          <div class="mt-12 pt-8 border-t border-[var(--border)]">
+            <h3 class="text-lg font-semibold text-[var(--text)] mb-4">示范项目</h3>
+            <p class="text-sm text-[var(--text-dim)] mb-4 max-w-2xl">
+              基于 AI-Lib 生态构建的参考应用——直观感受协议与运行时的实际效果。
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <ProjectCard
+                locale={locale}
+                variant="showcase"
+                version="0.3.1"
+                title="AI Debate"
+                description="多模型 AI 辩论竞技场。正方与反方四轮交锋，最后由裁判给出裁决。基于 ai-lib-rust 与 ai-protocol 构建。"
+                features={['4 轮辩论流程（开篇→反驳→辩护→结辩→裁决）', '可选 Tavily 网络搜索工具调用', '多服务商：DeepSeek、智谱、Groq、Mistral、OpenAI、Anthropic', '自动回退、实时 SSE 流式', 'Axum + SQLite，现代深色 UI']}
+                link="https://github.com/hiddenpath/aidebate"
+                github="https://github.com/hiddenpath/aidebate"
+              />
+              <ProjectCard
+                locale={locale}
+                variant="showcase"
+                version="0.2.0"
+                title="ZeroSpider"
+                description="协议驱动的自主 AI 智能体运行时。智能模型选择、多模型协商与硬件集成。"
+                features={['通过 ai-lib-rust + ai-protocol 实现协议驱动提供方', '智能路由：成本、速度、质量、可靠性', '多模型协商与并行任务执行', '通道：Telegram、Discord、Matrix', '远程部署、硬件（GPIO、STM32）']}
+                link="https://github.com/hiddenpath/zerospider"
+                github="https://github.com/hiddenpath/zerospider"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
