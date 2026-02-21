@@ -59,6 +59,18 @@ export default defineConfig({
           ],
         },
         {
+          label: 'TypeScript SDK',
+          translations: { 'zh-CN': 'TypeScript SDK', 'ja': 'TypeScript SDK', 'es': 'TypeScript SDK' },
+          items: [
+            { label: 'Overview', translations: { 'zh-CN': '概览', 'ja': '概要', 'es': 'Visión general' }, slug: 'ts/overview' },
+            { label: 'Quick Start', translations: { 'zh-CN': '快速开始', 'ja': 'クイックスタート', 'es': 'Inicio rápido' }, slug: 'ts/quickstart' },
+            { label: 'AiClient API', translations: { 'zh-CN': 'AiClient API', 'ja': 'AiClient API', 'es': 'AiClient API' }, slug: 'ts/client' },
+            { label: 'Streaming Pipeline', translations: { 'zh-CN': '流式管道', 'ja': 'ストリーミングパイプライン', 'es': 'Pipeline de streaming' }, slug: 'ts/streaming' },
+            { label: 'Resilience', translations: { 'zh-CN': '弹性机制', 'ja': 'レジリエンス', 'es': 'Resiliencia' }, slug: 'ts/resilience' },
+            { label: 'Advanced Features', translations: { 'zh-CN': '高级功能', 'ja': '高度な機能', 'es': 'Funciones avanzadas' }, slug: 'ts/advanced' },
+          ],
+        },
+        {
           label: 'Developer Guides',
           translations: { 'zh-CN': '开发者指南', 'ja': '開発者ガイド', 'es': 'Guías para desarrolladores' },
           items: [
