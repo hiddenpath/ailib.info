@@ -9,8 +9,8 @@ const locale = 'es';
 <html lang="es" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
-    <title>ai-lib-ts | TypeScript/Node.js Runtime para AI-Protocol</title>
-    <meta name="description" content="ai-lib-ts es el TypeScript/Node.js runtime para AI-Protocol. Protocol-driven, streaming-first, with Resilience, Routing, MCP, and multimodal support." />
+    <title>ai-lib-ts | Runtime TypeScript/Node.js para AI-Protocol</title>
+    <meta name="description" content="ai-lib-ts es el runtime TypeScript/Node.js para AI-Protocol. Impulsado por protocolo, streaming-first, con Resilience, Routing, MCP y soporte multimodal." />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" href="/favicon.svg" />
   </head>
@@ -30,17 +30,105 @@ const locale = 'es';
               v0.4.0 &middot; npm
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.05]">
-              <span class="gradient-text">TypeScript Runtime</span>
+              <span class="gradient-text">Runtime TypeScript</span>
               <br />
-              <span class="text-[var(--text)]">for AI-Protocol.</span>
+              <span class="text-[var(--text)]">para AI-Protocol.</span>
             </h1>
             <p class="text-lg md:text-xl text-[var(--text-dim)] max-w-2xl mb-8 leading-relaxed">
-              TypeScript/Node.js runtime for AI-Protocol. Protocol-driven, streaming-first, with Resilience, Routing, MCP, and multimodal support.
+              Runtime TypeScript/Node.js impulsado por protocolo, streaming-first. Parsing de manifiestos V2, códigos de error estándar, patrones de Resilience, enrutamiento de modelos, puente MCP y soporte multimodal.
             </p>
             <div class="flex flex-wrap gap-4 mb-8">
               <a href="/es/ts/quickstart/" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all hover:no-underline">Inicio rápido</a>
               <a href="https://github.com/hiddenpath/ai-lib-ts" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline">GitHub</a>
               <a href="https://www.npmjs.com/package/@hiddenpath/ai-lib-ts" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline">npm</a>
+            </div>
+
+            <!-- Quick install -->
+            <div class="bg-[#0d1117] border border-[var(--border)] rounded-lg p-4 max-w-lg">
+              <div class="text-xs text-[var(--text-muted)] mb-2 font-mono">npm install</div>
+              <code class="text-sm text-blue-300 font-mono">npm install @hiddenpath/ai-lib-ts</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Features -->
+      <section class="section-alt">
+        <div class="container">
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">Características principales</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Parsing de manifiestos V2</h3>
+              <p class="text-sm text-[var(--text-dim)]">Parsear y cargar manifiestos de protocolo V2 con códigos de error estándar (13 códigos). Configuración agnóstica al proveedor, cero lógica hardcodeada.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Patrones de resiliencia</h3>
+              <p class="text-sm text-[var(--text-dim)]">RetryPolicy, CircuitBreaker, RateLimiter y Backpressure integrados. PreflightChecker para control unificado de peticiones.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Enrutamiento de modelos</h3>
+              <p class="text-sm text-[var(--text-dim)]">ModelManager con CostBasedSelector, QualityBasedSelector y FallbackChain. Selección inteligente de modelos para optimización de coste y calidad.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Soporte multimodal</h3>
+              <p class="text-sm text-[var(--text-dim)]">SttClient para voz a texto, TtsClient para texto a voz, RerankerClient para reranking de documentos. Soporte completo de bloques de contenido multimodal.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Puente de herramientas MCP</h3>
+              <p class="text-sm text-[var(--text-dim)]">Puente de herramientas MCP al formato AI-Protocol. Integración transparente de servidores MCP con interfaz unificada de llamada de herramientas.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Batch y plugins</h3>
+              <p class="text-sm text-[var(--text-dim)]">BatchExecutor para procesamiento paralelo con concurrencia configurable. Sistema de plugins con hooks de intercepción de peticiones/respuestas.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Code Example -->
+      <section class="section">
+        <div class="container">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            <div>
+              <h2 class="text-3xl font-bold text-[var(--text)] mb-4">API simple y unificada</h2>
+              <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
+                El mismo código funciona con los 37 proveedores. Solo cambia el identificador del modelo — el manifiesto del protocolo se encarga del resto.
+              </p>
+              <ul class="space-y-3">
+                <li class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold">1</span>
+                  <span class="text-[var(--text-dim)]">Crear cliente con ID de modelo</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold">2</span>
+                  <span class="text-[var(--text-dim)]">Construir petición de chat con API fluida</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold">3</span>
+                  <span class="text-[var(--text-dim)]">Ejecutar o hacer streaming de la respuesta</span>
+                </li>
+              </ul>
+            </div>
+            <div class="bg-[#0d1117] border border-[var(--border)] rounded-lg overflow-hidden">
+              <div class="bg-[var(--bg-alt)] px-4 py-2 border-b border-[var(--border)] flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+                <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
+                <span class="ml-4 text-xs text-[var(--text-muted)] font-mono">chat.ts</span>
+              </div>
+              <pre class="p-4 text-sm overflow-x-auto"><code class="text-[var(--text-dim)]"><span class="text-purple-400">import</span> { AiClient, Message } <span class="text-purple-400">from</span> <span class="text-green-300">'@hiddenpath/ai-lib-ts'</span>;
+
+<span class="text-purple-400">const</span> client = <span class="text-purple-400">await</span> AiClient.<span class="text-blue-300">new</span>(<span class="text-green-300">'openai/gpt-4o'</span>);
+
+<span class="text-purple-400">const</span> response = <span class="text-purple-400">await</span> client
+  .<span class="text-blue-300">chat</span>([
+    Message.<span class="text-blue-300">system</span>(<span class="text-green-300">'You are helpful.'</span>),
+    Message.<span class="text-blue-300">user</span>(<span class="text-green-300">'Hello!'</span>),
+  ])
+  .<span class="text-blue-300">temperature</span>(<span class="text-orange-300">0.7</span>)
+  .<span class="text-blue-300">execute</span>();
+
+console.<span class="text-blue-300">log</span>(response.content);</code></pre>
             </div>
           </div>
         </div>
@@ -52,31 +140,35 @@ const locale = 'es';
           <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">Documentación</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <a href="/es/ts/quickstart/" class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline">
-              <h3 class="font-bold text-[var(--text)] mb-2">Inicio rápido</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">Inicio rápido →</h3>
               <p class="text-sm text-[var(--text-dim)]">Comience en minutos.</p>
             </a>
             <a href="/es/ts/client/" class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline">
-              <h3 class="font-bold text-[var(--text)] mb-2">AiClient API</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">AiClient API →</h3>
               <p class="text-sm text-[var(--text-dim)]">Referencia completa de API.</p>
             </a>
             <a href="/es/ts/streaming/" class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline">
-              <h3 class="font-bold text-[var(--text)] mb-2">Streaming</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">Streaming →</h3>
               <p class="text-sm text-[var(--text-dim)]">Manejo de respuestas en tiempo real.</p>
             </a>
             <a href="/es/ts/resilience/" class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline">
-              <h3 class="font-bold text-[var(--text)] mb-2">Resiliencia</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">Resiliencia →</h3>
               <p class="text-sm text-[var(--text-dim)]">Patrones listos para producción.</p>
             </a>
             <a href="/es/ts/advanced/" class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline">
-              <h3 class="font-bold text-[var(--text)] mb-2">Avanzado</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">Avanzado →</h3>
               <p class="text-sm text-[var(--text-dim)]">Embeddings, MCP, plugins.</p>
+            </a>
+            <a href="/es/ts/overview/" class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline">
+              <h3 class="font-bold text-[var(--text)] mb-2">Visión general →</h3>
+              <p class="text-sm text-[var(--text-dim)]">Arquitectura y conceptos.</p>
             </a>
           </div>
         </div>
       </section>
     </main>
 
-    <Footer />
+    <Footer locale={locale} />
   </body>
 </html>
 

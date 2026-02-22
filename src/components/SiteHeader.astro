@@ -4,10 +4,10 @@ import LanguagePicker from './LanguagePicker.astro';
 const { locale = 'en' } = Astro.props;
 
 const navLabels: Record<string, Record<string, string>> = {
-  en:    { protocol: 'Protocol', rust: 'Rust SDK', python: 'Python SDK', docs: 'Docs' },
-  'zh-cn': { protocol: '协议',     rust: 'Rust SDK', python: 'Python SDK', docs: '文档' },
-  ja:    { protocol: 'プロトコル', rust: 'Rust SDK', python: 'Python SDK', docs: 'ドキュメント' },
-  es:    { protocol: 'Protocolo', rust: 'Rust SDK', python: 'Python SDK', docs: 'Docs' },
+  en:    { protocol: 'Protocol', rust: 'Rust SDK', python: 'Python SDK', ts: 'TS SDK', docs: 'Docs' },
+  'zh-cn': { protocol: '协议',     rust: 'Rust SDK', python: 'Python SDK', ts: 'TS SDK', docs: '文档' },
+  ja:    { protocol: 'プロトコル', rust: 'Rust SDK', python: 'Python SDK', ts: 'TS SDK', docs: 'ドキュメント' },
+  es:    { protocol: 'Protocolo', rust: 'Rust SDK', python: 'Python SDK', ts: 'TS SDK', docs: 'Docs' },
 };
 
 const t = navLabels[locale] || navLabels.en;
@@ -17,6 +17,7 @@ const nav = [
   { label: t.protocol, href: `${prefix}/protocol/` },
   { label: t.rust,     href: `${prefix}/rust/` },
   { label: t.python,   href: `${prefix}/python/` },
+  { label: t.ts,       href: `${prefix}/ts/` },
   { label: t.docs,     href: `${prefix}/intro/` },
 ];
 ---

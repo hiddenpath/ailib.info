@@ -10,7 +10,7 @@ const locale = 'ja';
   <head>
     <meta charset="utf-8" />
     <title>ai-lib-ts | AI-Protocol TypeScript/Node.js ランタイム</title>
-    <meta name="description" content="ai-lib-ts は AI-Protocol の TypeScript/Node.js ランタイム。协议驱动、流式优先，支持 Resilience、Routing、MCP 和多模态。" />
+    <meta name="description" content="ai-lib-ts は AI-Protocol の TypeScript/Node.js ランタイムです。プロトコル駆動、ストリーミングファースト、Resilience、Routing、MCP、マルチモーダル対応。" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" href="/favicon.svg" />
   </head>
@@ -35,12 +35,100 @@ const locale = 'ja';
               <span class="text-[var(--text)]">for AI-Protocol.</span>
             </h1>
             <p class="text-lg md:text-xl text-[var(--text-dim)] max-w-2xl mb-8 leading-relaxed">
-              TypeScript/Node.js ランタイム。协议驱动、流式优先，支持 Resilience、Routing、MCP 和マルチモーダル対応。
+              プロトコル駆動、ストリーミングファーストの TypeScript/Node.js ランタイム。V2マニフェスト解析、標準エラーコード、レジリエンスパターン、モデルルーティング、MCPブリッジ、マルチモーダル対応。
             </p>
             <div class="flex flex-wrap gap-4 mb-8">
               <a href="/ja/ts/quickstart/" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all hover:no-underline">クイックスタート</a>
               <a href="https://github.com/hiddenpath/ai-lib-ts" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline">GitHub</a>
               <a href="https://www.npmjs.com/package/@hiddenpath/ai-lib-ts" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline">npm</a>
+            </div>
+
+            <!-- Quick install -->
+            <div class="bg-[#0d1117] border border-[var(--border)] rounded-lg p-4 max-w-lg">
+              <div class="text-xs text-[var(--text-muted)] mb-2 font-mono">npm install</div>
+              <code class="text-sm text-blue-300 font-mono">npm install @hiddenpath/ai-lib-ts</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Features -->
+      <section class="section-alt">
+        <div class="container">
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">主な機能</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">V2マニフェスト解析</h3>
+              <p class="text-sm text-[var(--text-dim)]">V2プロトコルマニフェストの解析とロード、標準エラーコード（13コード）対応。プロバイダー非依存の設定、ハードコードロジックゼロ。</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">レジリエンスパターン</h3>
+              <p class="text-sm text-[var(--text-dim)]">組み込みのRetryPolicy、CircuitBreaker、RateLimiter、Backpressure。PreflightCheckerによる統一リクエストゲーティング。</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">モデルルーティング</h3>
+              <p class="text-sm text-[var(--text-dim)]">ModelManagerによるCostBasedSelector、QualityBasedSelector、FallbackChain。コストと品質の最適化のためのスマートモデル選択。</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">マルチモーダル対応</h3>
+              <p class="text-sm text-[var(--text-dim)]">SttClientで音声テキスト変換、TtsClientでテキスト音声変換、RerankerClientでドキュメント再ランキング。完全なマルチモーダルコンテンツブロック対応。</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">MCPツールブリッジ</h3>
+              <p class="text-sm text-[var(--text-dim)]">MCPツールをAI-Protocol形式にブリッジ。MCPサーバーと統一ツール呼び出しインターフェースをシームレスに統合。</p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">バッチ処理とプラグイン</h3>
+              <p class="text-sm text-[var(--text-dim)]">BatchExecutorによる並列処理、設定可能な並行数。リクエスト/レスポンスインターセプトフックを持つプラグインシステム。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Code Example -->
+      <section class="section">
+        <div class="container">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            <div>
+              <h2 class="text-3xl font-bold text-[var(--text)] mb-4">シンプルで統一されたAPI</h2>
+              <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
+                同じコードが37のすべてのプロバイダーで動作します。モデル識別子を変更するだけ——プロトコルマニフェストがすべてを処理します。
+              </p>
+              <ul class="space-y-3">
+                <li class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold">1</span>
+                  <span class="text-[var(--text-dim)]">モデルIDでクライアントを作成</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold">2</span>
+                  <span class="text-[var(--text-dim)]">フルーエントAPIでチャットリクエストを構築</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold">3</span>
+                  <span class="text-[var(--text-dim)]">レスポンスを実行またはストリーミング</span>
+                </li>
+              </ul>
+            </div>
+            <div class="bg-[#0d1117] border border-[var(--border)] rounded-lg overflow-hidden">
+              <div class="bg-[var(--bg-alt)] px-4 py-2 border-b border-[var(--border)] flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+                <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
+                <span class="ml-4 text-xs text-[var(--text-muted)] font-mono">chat.ts</span>
+              </div>
+              <pre class="p-4 text-sm overflow-x-auto"><code class="text-[var(--text-dim)]"><span class="text-purple-400">import</span> { AiClient, Message } <span class="text-purple-400">from</span> <span class="text-green-300">'@hiddenpath/ai-lib-ts'</span>;
+
+<span class="text-purple-400">const</span> client = <span class="text-purple-400">await</span> AiClient.<span class="text-blue-300">new</span>(<span class="text-green-300">'openai/gpt-4o'</span>);
+
+<span class="text-purple-400">const</span> response = <span class="text-purple-400">await</span> client
+  .<span class="text-blue-300">chat</span>([
+    Message.<span class="text-blue-300">system</span>(<span class="text-green-300">'You are helpful.'</span>),
+    Message.<span class="text-blue-300">user</span>(<span class="text-green-300">'Hello!'</span>),
+  ])
+  .<span class="text-blue-300">temperature</span>(<span class="text-orange-300">0.7</span>)
+  .<span class="text-blue-300">execute</span>();
+
+console.<span class="text-blue-300">log</span>(response.content);</code></pre>
             </div>
           </div>
         </div>
@@ -52,31 +140,35 @@ const locale = 'ja';
           <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">ドキュメント</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <a href="/ja/ts/quickstart/" class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline">
-              <h3 class="font-bold text-[var(--text)] mb-2">クイックスタート</h3>
-              <p class="text-sm text-[var(--text-dim)]">数分钟内上手。</p>
+              <h3 class="font-bold text-[var(--text)] mb-2">クイックスタート →</h3>
+              <p class="text-sm text-[var(--text-dim)]">数分で始められます。</p>
             </a>
             <a href="/ja/ts/client/" class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline">
-              <h3 class="font-bold text-[var(--text)] mb-2">AiClient API</h3>
-              <p class="text-sm text-[var(--text-dim)]">完全な API 参考。</p>
+              <h3 class="font-bold text-[var(--text)] mb-2">AiClient API →</h3>
+              <p class="text-sm text-[var(--text-dim)]">完全なAPIリファレンス。</p>
             </a>
             <a href="/ja/ts/streaming/" class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline">
-              <h3 class="font-bold text-[var(--text)] mb-2">ストリーミング</h3>
-              <p class="text-sm text-[var(--text-dim)]">リア时响应处理。</p>
+              <h3 class="font-bold text-[var(--text)] mb-2">ストリーミング →</h3>
+              <p class="text-sm text-[var(--text-dim)]">リアルタイムレスポンス処理。</p>
             </a>
             <a href="/ja/ts/resilience/" class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline">
-              <h3 class="font-bold text-[var(--text)] mb-2">レジリエンス</h3>
-              <p class="text-sm text-[var(--text-dim)]">生产就绪模式。</p>
+              <h3 class="font-bold text-[var(--text)] mb-2">レジリエンス →</h3>
+              <p class="text-sm text-[var(--text-dim)]">本番環境対応パターン。</p>
             </a>
             <a href="/ja/ts/advanced/" class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline">
-              <h3 class="font-bold text-[var(--text)] mb-2">高度な機能</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">高度な機能 →</h3>
               <p class="text-sm text-[var(--text-dim)]">埋め込み、MCP、プラグイン。</p>
+            </a>
+            <a href="/ja/ts/overview/" class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline">
+              <h3 class="font-bold text-[var(--text)] mb-2">概要 →</h3>
+              <p class="text-sm text-[var(--text-dim)]">アーキテクチャとコンセプト。</p>
             </a>
           </div>
         </div>
       </section>
     </main>
 
-    <Footer />
+    <Footer locale={locale} />
   </body>
 </html>
 
