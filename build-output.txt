@@ -1,0 +1,61 @@
+﻿[2m15:11:31[22m [34m[content][39m Syncing content
+[2m15:11:31[22m [34m[content][39m Synced content
+[2m15:11:31[22m [34m[types][39m Generated [2m1.76s[22m
+[2m15:11:31[22m [34m[build][39m output: [34m"static"[39m
+[2m15:11:31[22m [34m[build][39m mode: [34m"static"[39m
+[2m15:11:31[22m [34m[build][39m directory: [34mD:\rustapp\ailib.info\dist\[39m
+[2m15:11:31[22m [34m[build][39m Collecting build info...
+[2m15:11:31[22m [34m[build][39m [32m鉁?Completed in 2.81s.[39m
+[2m15:11:31[22m [34m[build][39m Building static entrypoints...
+[2m15:11:43[22m [34m[vite][39m [32m鉁?built in 12.12s[39m
+[2m15:11:43[22m [34m[build][39m [32m鉁?Completed in 12.21s.[39m
+
+[42m[30m building client (vite) [39m[49m
+[2m15:11:44[22m [34m[vite][39m transforming...
+[2m15:11:44[22m [34m[vite][39m [32m鉁?[39m 19 modules transformed.
+[2m15:11:45[22m [34m[vite][39m rendering chunks...
+[2m15:11:45[22m [34m[vite][39m computing gzip size...
+[2m15:11:45[22m [34m[vite][39m [2mdist/[22m[32m_astro/ec.0vx5m.js                                                             [39m[1m[2m 2.52 kB[22m[1m[22m
+[2m15:11:45[22m [34m[vite][39m [2mdist/[22m[35m_astro/ec.v4551.css                                                            [39m[1m[2m18.22 kB[22m[1m[22m[2m 鈹?gzip:  3.96 kB[22m
+[2m15:11:45[22m [34m[vite][39m [2mdist/[22m[36m_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.hwBsy0Mo.js  [39m[1m[2m 0.67 kB[22m[1m[22m[2m 鈹?gzip:  0.40 kB[22m
+[2m15:11:45[22m [34m[vite][39m [2mdist/[22m[36m_astro/TableOfContents.astro_astro_type_script_index_0_lang.FuRcXuRY.js        [39m[1m[2m 2.06 kB[22m[1m[22m[2m 鈹?gzip:  0.97 kB[22m
+[2m15:11:45[22m [34m[vite][39m [2mdist/[22m[36m_astro/page.B1D-nYk3.js                                                        [39m[1m[2m 2.24 kB[22m[1m[22m[2m 鈹?gzip:  1.01 kB[22m
+[2m15:11:45[22m [34m[vite][39m [2mdist/[22m[36m_astro/Search.astro_astro_type_script_index_0_lang.cjYDvRdi.js                 [39m[1m[2m 2.69 kB[22m[1m[22m[2m 鈹?gzip:  1.38 kB[22m
+[2m15:11:45[22m [34m[vite][39m [2mdist/[22m[36m_astro/ui-core.D_Lfcn_I.js                                                     [39m[1m[2m72.93 kB[22m[1m[22m[2m 鈹?gzip: 22.86 kB[22m
+[2m15:11:45[22m [34m[vite][39m [32m鉁?built in 1.24s[39m
+
+[42m[30m generating static routes [39m[49m
+[2m15:11:45[22m [32m鈻?[39m @astrojs/starlight/routes/static/404.astro
+node.exe : Entry docs 鈫?404 was not found.
+所在位置 行:1 字符: 1
++ & "D:\Program Files\nodejs/node.exe" "D:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Entry docs 鈫?40 
+   4 was not found.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[2m15:11:45[22m   [34m鈹斺攢[39m [2m/404.html[22m [2m(+257ms)[22m 
+[2m15:11:46[22m [32m鈻?[39m src/pages/es/protocol/index.astro
+[2m15:11:46[22m   [34m鈹斺攢[39m [2m/es/protocol/index.html[22m [2m(+44ms)[22m 
+[2m15:11:46[22m [32m鈻?[39m src/pages/es/python/index.astro
+[2m15:11:46[22m   [34m鈹斺攢[39m [2m/es/python/index.html[22m [2m(+20ms)[22m 
+[2m15:11:46[22m [32m鈻?[39m src/pages/es/rust/index.astro
+[2m15:11:46[22m   [34m鈹斺攢[39m [2m/es/rust/index.html[22m [2m(+93ms)[22m 
+[2m15:11:46[22m [32m鈻?[39m src/pages/es/ts/index.astro
+AiClient is not defined
+  [1mStack trace:[22m
+[2m    at file:///D:/rustapp/ailib.info/dist/pages/es/ts.ast
+ro.mjs?time=1771744306311:16:1643
+    at callComponentAsTemplateResultOrResponse (file:///D:/ru
+stapp/ailib.info/node_modules/astro/dist/runtime/server/rende
+r/astro/render.js:96:31)
+    at renderPage (file:///D:/rustapp/ailib.info/node_modules
+/astro/dist/runtime/server/render/page.js:49:18)
+    at async file:///D:/rustapp/ailib.info/node_modules/astro
+/dist/i18n/middleware.js:49:22
+    at async RenderContext.render (file:///D:/rustapp/ailib.i
+nfo/node_modules/astro/dist/core/render-context.js:249:22)[2
+2m
+[2m15:11:46[22m   [34m鈹斺攢[39m [2m/es/ts/index.html[22m

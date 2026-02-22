@@ -85,6 +85,55 @@ const locale = 'zh-cn';
         </div>
       </section>
 
+      <!-- Code Example -->
+      <section class="section">
+        <div class="container">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            <div>
+              <h2 class="text-3xl font-bold text-[var(--text)] mb-4">简单统一的 API</h2>
+              <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
+                同样的代码适用于所有 37 个提供商。只需更改模型标识符 —— 协议清单会处理其余的一切。
+              </p>
+              <ul class="space-y-3">
+                <li class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold">1</span>
+                  <span class="text-[var(--text-dim)]">使用模型 ID 创建客户端</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold">2</span>
+                  <span class="text-[var(--text-dim)]">使用流式 API 构建聊天请求</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold">3</span>
+                  <span class="text-[var(--text-dim)]">执行请求或获取流式响应</span>
+                </li>
+              </ul>
+            </div>
+            <div class="bg-[#0d1117] border border-[var(--border)] rounded-lg overflow-hidden">
+              <div class="bg-[var(--bg-alt)] px-4 py-2 border-b border-[var(--border)] flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+                <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
+                <span class="ml-4 text-xs text-[var(--text-muted)] font-mono">chat.ts</span>
+              </div>
+              <pre class="p-4 text-sm overflow-x-auto"><code class="text-[var(--text-dim)]"><span class="text-purple-400">import</span> &#123; AiClient, Message &#125; <span class="text-purple-400">from</span> <span class="text-green-300">'@hiddenpath/ai-lib-ts'</span>;
+
+<span class="text-purple-400">const</span> client = <span class="text-purple-400">await</span> AiClient.<span class="text-blue-300">new</span>(<span class="text-green-300">'openai/gpt-4o'</span>);
+
+<span class="text-purple-400">const</span> response = <span class="text-purple-400">await</span> client
+  .<span class="text-blue-300">chat</span>([
+    Message.<span class="text-blue-300">system</span>(<span class="text-green-300">'You are helpful.'</span>),
+    Message.<span class="text-blue-300">user</span>(<span class="text-green-300">'Hello!'</span>),
+  ])
+  .<span class="text-blue-300">temperature</span>(<span class="text-orange-300">0.7</span>)
+  .<span class="text-blue-300">execute</span>();
+
+console.<span class="text-blue-300">log</span>(response.content);</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Documentation Links -->
       <section class="section-alt">
         <div class="container">
