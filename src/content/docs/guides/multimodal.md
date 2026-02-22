@@ -61,6 +61,26 @@ response = await client.chat() \
 print(response.content)
 ```
 
+### TypeScript
+
+```typescript
+import { AiClient, Message, ContentBlock } from '@hiddenpath/ai-lib-ts';
+
+const client = await AiClient.new('openai/gpt-4o');
+
+const message = Message.userWithContent([
+    ContentBlock.text("What's in this image?"),
+    ContentBlock.imageUrl('https://example.com/photo.jpg'),
+]);
+
+const response = await client
+  .chat()
+  .messages([message])
+  .execute();
+
+console.log(response.content);
+```
+
 ## Base64 Images
 
 For local images, use base64 encoding:
@@ -94,6 +114,20 @@ message = Message.user_with_content([
 ])
 ```
 
+### TypeScript
+
+```typescript
+import { readFileSync } from 'fs';
+
+const imageBuffer = readFileSync('photo.jpg');
+const imageData = imageBuffer.toString('base64');
+
+const message = Message.userWithContent([
+    ContentBlock.text('Describe this'),
+    ContentBlock.imageBase64(imageData, 'image/jpeg'),
+]);
+```
+
 ## V2 Multimodal Capabilities
 
 The V2 protocol provides a `MultimodalCapabilities` module that validates content against provider declarations before sending requests.
@@ -116,6 +150,14 @@ modalities = detect_modalities(content_blocks)
 # Returns: {Modality.TEXT, Modality.IMAGE}
 ```
 
+```typescript
+// TypeScript
+import { detectModalities, Modality } from '@hiddenpath/ai-lib-ts/multimodal';
+
+const modalities = detectModalities(contentBlocks);
+// Returns: Set { Modality.TEXT, Modality.IMAGE }
+```
+
 ### Format Validation
 
 The runtime validates formats against what the provider supports:
@@ -136,6 +178,15 @@ assert caps.validate_image_format("png")
 assert caps.validate_audio_format("wav")
 ```
 
+```typescript
+// TypeScript
+import { MultimodalCapabilities } from '@hiddenpath/ai-lib-ts/multimodal';
+
+const caps = MultimodalCapabilities.fromConfig(manifestMultimodal);
+console.assert(caps.validateImageFormat('png'));
+console.assert(caps.validateAudioFormat('wav'));
+```
+
 ### Content Validation
 
 Before sending a request, validate that the provider supports all modalities in the content:
@@ -148,6 +199,24 @@ match validate_content_modalities(&blocks, &caps) {
     Err(unsupported) => {
         eprintln!("Provider doesn't support: {:?}", unsupported);
     }
+}
+```
+
+```python
+from ai_lib_python.multimodal import validate_content_modalities
+
+# Validate content blocks against provider capabilities
+```
+
+```typescript
+// TypeScript
+import { validateContentModalities } from '@hiddenpath/ai-lib-ts/multimodal';
+
+try {
+  validateContentModalities(blocks, caps);
+  // all modalities supported
+} catch (unsupported) {
+  console.error(`Provider doesn't support: ${unsupported}`);
 }
 ```
 
