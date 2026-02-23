@@ -2,6 +2,7 @@
 import '../../../styles/global.css';
 import SiteHeader from '../../../components/SiteHeader.astro';
 import Footer from '../../../components/Footer.astro';
+import RuntimeArch from '../../../components/diagrams/RuntimeArch.astro';
 
 const locale = 'ja';
 ---
@@ -129,6 +130,60 @@ const locale = 'ja';
   .<span class="text-blue-300">execute</span>();
 
 console.<span class="text-blue-300">log</span>(response.content);</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture -->
+      <section class="section-alt">
+        <div class="container">
+          <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-[var(--text)] mb-4">内部アーキテクチャ</h2>
+            <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
+              プロトコル駆動型アーキテクチャで、型安全な実行環境、デフォルトでのレジリエンス、完全な拡張性を備えています。
+            </p>
+          </div>
+          <RuntimeArch locale={locale} variant="ts" />
+        </div>
+      </section>
+
+      <!-- Module Overview -->
+      <section class="section">
+        <div class="container">
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">モジュール概要</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">client/ + errors/</h3>
+              <p class="text-sm text-[var(--text-dim)]">AiClient, ChatRequestBuilder, ChatResponse, CallStats, CancelToken, CancellableStream, 統一エラーコード。</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">protocol/</h3>
+              <p class="text-sm text-[var(--text-dim)]">ProtocolLoader (local/fetch/GitHub), V2 マニフェスト定義, JSON Schema バリデーター, プロバイダー非依存モデル。</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">pipeline/</h3>
+              <p class="text-sm text-[var(--text-dim)]">Decoder (SSE, JSON Lines), Selector (JSONPath), Accumulator, FanOut, EventMapper (プロトコル駆動)。</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">resilience/</h3>
+              <p class="text-sm text-[var(--text-dim)]">RetryPolicy, CircuitBreaker, RateLimiter, Backpressure, PreflightChecker, SignalsSnapshot, FallbackChain。</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">routing/</h3>
+              <p class="text-sm text-[var(--text-dim)]">インテリジェントなモデル選択のための ModelManager, QualityBasedSelector, CostBasedSelector, FallbackChain。</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">mcp/</h3>
+              <p class="text-sm text-[var(--text-dim)]">Model Context Protocol サーバーをシームレスに統合するための McpBridge, McpTool 定義。</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">multimodal/</h3>
+              <p class="text-sm text-[var(--text-dim)]">SttClient, TtsClient, RerankerClient、マルチモーダル入力と専門モデルを完全にサポート。</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">plugins/ + batch/</h3>
+              <p class="text-sm text-[var(--text-dim)]">PluginRegistry, Hooks。並行制限付きのバッチ実行のための BatchExecutor。</p>
             </div>
           </div>
         </div>

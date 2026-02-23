@@ -2,12 +2,43 @@
 const { locale = 'en', variant = 'rust' } = Astro.props;
 const isZh = locale === 'zh-cn' || locale === 'zh';
 const isRust = variant === 'rust';
+const isPython = variant === 'python';
+const isTs = variant === 'ts';
 
-const color = isRust ? '#f97316' : '#10b981';
-const colorLight = isRust ? '#fb923c' : '#34d399';
-const colorDim = isRust ? 'rgba(249,115,22,0.1)' : 'rgba(16,185,129,0.1)';
-const title = isRust ? 'ai-lib-rust Runtime Architecture' : 'ai-lib-python Runtime Architecture';
-const titleZh = isRust ? 'ai-lib-rust 运行时架构' : 'ai-lib-python 运行时架构';
+let color, colorLight, colorDim, title, titleZh, clientLabels, policyLabels, resilienceLabels, transportLabels;
+
+if (isRust) {
+  color = '#f97316';
+  colorLight = '#fb923c';
+  colorDim = 'rgba(249,115,22,0.1)';
+  title = 'ai-lib-rust Runtime Architecture';
+  titleZh = 'ai-lib-rust 运行时架构';
+  clientLabels = 'AiClient &middot; AiClientBuilder &middot; ChatRequestBuilder &middot; ChatResponse';
+  policyLabels = 'Preflight &middot; Validation &middot; ErrorClassification &middot; Signals';
+  resilienceLabels = 'CircuitBreaker &middot; RateLimiter &middot; Retry';
+  transportLabels = 'HttpTransport (reqwest) &middot; Auth &middot; Middleware';
+} else if (isPython) {
+  color = '#10b981';
+  colorLight = '#34d399';
+  colorDim = 'rgba(16,185,129,0.1)';
+  title = 'ai-lib-python Runtime Architecture';
+  titleZh = 'ai-lib-python 运行时架构';
+  clientLabels = 'AiClient &middot; AiClientBuilder &middot; ChatRequestBuilder &middot; ChatResponse';
+  policyLabels = 'PreflightChecker &middot; SignalsSnapshot &middot; FallbackChain';
+  resilienceLabels = 'CircuitBreaker &middot; RateLimiter &middot; Retry';
+  transportLabels = 'HttpTransport (httpx) &middot; Auth &middot; Connection Pool';
+} else {
+  // TS
+  color = '#3b82f6';
+  colorLight = '#60a5fa';
+  colorDim = 'rgba(59,130,246,0.1)';
+  title = 'ai-lib-ts Runtime Architecture';
+  titleZh = 'ai-lib-ts 运行时架构';
+  clientLabels = 'AiClient &middot; Message &middot; ChatRequestBuilder &middot; ChatResponse';
+  policyLabels = 'PreflightChecker &middot; Validator &middot; FallbackChain';
+  resilienceLabels = 'RateLimiter &middot; Backpressure &middot; Retry';
+  transportLabels = 'HttpTransport (undici/fetch) &middot; Auth &middot; Interceptors';
+}
 ---
 
 <div class="w-full overflow-x-auto">
@@ -31,9 +62,7 @@ const titleZh = isRust ? 'ai-lib-rust 运行时架构' : 'ai-lib-python 运行�
     <g filter={`url(#shadow-${variant})`}>
       <rect x="60" y="50" width="640" height="60" rx="8" fill="#1e293b" stroke={color} stroke-width="1.5" />
       <text x="100" y="75" fill={colorLight} font-size="12" font-weight="700" font-family="Inter, system-ui, sans-serif">{isZh ? '客户端层' : 'Client Layer'}</text>
-      <text x="100" y="95" fill="#64748b" font-size="10" font-family="Inter, system-ui, sans-serif">
-        AiClient &middot; {isRust ? 'AiClientBuilder' : 'AiClientBuilder'} &middot; ChatRequestBuilder &middot; ChatResponse
-      </text>
+      <text x="100" y="95" fill="#64748b" font-size="10" font-family="Inter, system-ui, sans-serif" set:html={clientLabels}></text>
     </g>
 
     <!-- Arrow -->
@@ -43,9 +72,7 @@ const titleZh = isRust ? 'ai-lib-rust 运行时架构' : 'ai-lib-python 运行�
     <g filter={`url(#shadow-${variant})`}>
       <rect x="60" y="130" width="640" height="55" rx="8" fill="#1e293b" stroke={color} stroke-width="1" opacity="0.8" />
       <text x="100" y="155" fill={colorLight} font-size="12" font-weight="700" font-family="Inter, system-ui, sans-serif">{isZh ? '策略引擎' : 'Policy Engine'}</text>
-      <text x="100" y="172" fill="#64748b" font-size="10" font-family="Inter, system-ui, sans-serif">
-        {isRust ? 'Preflight &middot; Validation &middot; ErrorClassification &middot; Signals' : 'PreflightChecker &middot; SignalsSnapshot &middot; FallbackChain'}
-      </text>
+      <text x="100" y="172" fill="#64748b" font-size="10" font-family="Inter, system-ui, sans-serif" set:html={policyLabels}></text>
     </g>
 
     <!-- Arrow -->
@@ -64,9 +91,7 @@ const titleZh = isRust ? 'ai-lib-rust 运行时架构' : 'ai-lib-python 运行�
     <g filter={`url(#shadow-${variant})`}>
       <rect x="390" y="205" width="310" height="55" rx="8" fill="#1e293b" stroke={color} stroke-width="1" opacity="0.8" />
       <text x="425" y="230" fill={colorLight} font-size="12" font-weight="700" font-family="Inter, system-ui, sans-serif">{isZh ? '弹性层' : 'Resilience Layer'}</text>
-      <text x="425" y="247" fill="#64748b" font-size="10" font-family="Inter, system-ui, sans-serif">
-        CircuitBreaker &middot; RateLimiter &middot; Retry
-      </text>
+      <text x="425" y="247" fill="#64748b" font-size="10" font-family="Inter, system-ui, sans-serif" set:html={resilienceLabels}></text>
     </g>
 
     <!-- Arrow -->
@@ -109,9 +134,7 @@ const titleZh = isRust ? 'ai-lib-rust 运行时架构' : 'ai-lib-python 运行�
     <g filter={`url(#shadow-${variant})`}>
       <rect x="60" y="375" width="640" height="55" rx="8" fill="#1e293b" stroke={color} stroke-width="1" opacity="0.8" />
       <text x="100" y="400" fill={colorLight} font-size="12" font-weight="700" font-family="Inter, system-ui, sans-serif">{isZh ? '传输层' : 'Transport Layer'}</text>
-      <text x="100" y="417" fill="#64748b" font-size="10" font-family="Inter, system-ui, sans-serif">
-        {isRust ? 'HttpTransport (reqwest) &middot; Auth &middot; Middleware' : 'HttpTransport (httpx) &middot; Auth &middot; Connection Pool'}
-      </text>
+      <text x="100" y="417" fill="#64748b" font-size="10" font-family="Inter, system-ui, sans-serif" set:html={transportLabels}></text>
     </g>
 
     <!-- Arrow -->

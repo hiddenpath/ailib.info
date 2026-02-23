@@ -2,6 +2,7 @@
 import '../../../styles/global.css';
 import SiteHeader from '../../../components/SiteHeader.astro';
 import Footer from '../../../components/Footer.astro';
+import RuntimeArch from '../../../components/diagrams/RuntimeArch.astro';
 
 const locale = 'zh-cn';
 ---
@@ -129,6 +130,60 @@ const locale = 'zh-cn';
   .<span class="text-blue-300">execute</span>();
 
 console.<span class="text-blue-300">log</span>(response.content);</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture -->
+      <section class="section-alt">
+        <div class="container">
+          <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-[var(--text)] mb-4">内部架构</h2>
+            <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
+              协议驱动架构，提供类型安全的执行环境，默认具备弹性，且完全可扩展。
+            </p>
+          </div>
+          <RuntimeArch locale={locale} variant="ts" />
+        </div>
+      </section>
+
+      <!-- Module Overview -->
+      <section class="section">
+        <div class="container">
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">模块概览</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">client/ + errors/</h3>
+              <p class="text-sm text-[var(--text-dim)]">AiClient, ChatRequestBuilder, ChatResponse, CallStats, CancelToken, CancellableStream, 统一错误码。</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">protocol/</h3>
+              <p class="text-sm text-[var(--text-dim)]">ProtocolLoader (local/fetch/GitHub), V2 清单定义, JSON Schema 验证器, 提供商无关模型。</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">pipeline/</h3>
+              <p class="text-sm text-[var(--text-dim)]">Decoder (SSE, JSON Lines), Selector (JSONPath), Accumulator, FanOut, EventMapper (协议驱动)。</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">resilience/</h3>
+              <p class="text-sm text-[var(--text-dim)]">RetryPolicy, CircuitBreaker, RateLimiter, Backpressure, PreflightChecker, SignalsSnapshot, FallbackChain。</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">routing/</h3>
+              <p class="text-sm text-[var(--text-dim)]">ModelManager, QualityBasedSelector, CostBasedSelector, FallbackChain 用于智能模型选择。</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">mcp/</h3>
+              <p class="text-sm text-[var(--text-dim)]">McpBridge, McpTool 定义，无缝集成 Model Context Protocol 服务器。</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">multimodal/</h3>
+              <p class="text-sm text-[var(--text-dim)]">SttClient, TtsClient, RerankerClient，全面支持多模态输入和专业模型。</p>
+            </div>
+            <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">plugins/ + batch/</h3>
+              <p class="text-sm text-[var(--text-dim)]">PluginRegistry, Hooks。BatchExecutor 用于具有并发限制的并发批处理执行。</p>
             </div>
           </div>
         </div>
