@@ -44,6 +44,17 @@ println!("Total tokens: {}", stats.total_tokens);
 println!("Latency: {}ms", stats.latency_ms);
 ```
 
+## Python: Call Statistics
+
+```python
+response, stats = await client.chat() \
+    .user("Hello") \
+    .execute_with_stats()
+
+print(f"Tokens: {stats.total_tokens}")
+print(f"Latency: {stats.latency_ms}ms")
+```
+
 ## TypeScript: Call Statistics
 
 ```typescript

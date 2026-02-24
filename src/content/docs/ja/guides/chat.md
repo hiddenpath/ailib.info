@@ -145,6 +145,16 @@ client.chat()
     .execute().await?;
 ```
 
+```python
+# Python
+await client.chat() \
+    .user("Write a poem") \
+    .temperature(0.9) \
+    .max_tokens(200) \
+    .top_p(0.95) \
+    .execute()
+```
+
 ```typescript
 // TypeScript
 await client
@@ -242,6 +252,13 @@ console.log(`Latency: ${stats.latencyMs}ms`);
 let client = AiClient::new("anthropic/claude-3-5-sonnet").await?;
 let client = AiClient::new("deepseek/deepseek-chat").await?;
 let client = AiClient::new("gemini/gemini-2.0-flash").await?;
+```
+
+```python
+# Python - same pattern
+client = await AiClient.create("anthropic/claude-3-5-sonnet")
+client = await AiClient.create("deepseek/deepseek-chat")
+client = await AiClient.create("gemini/gemini-2.0-flash")
 ```
 
 ```typescript

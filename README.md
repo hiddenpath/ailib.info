@@ -1,144 +1,59 @@
-# ai-lib Website
+# AI-Lib Ecosystem Documentation (ailib.info)
 
-This is the minimal marketing & info site for **ai-lib** (Unified Multi-Provider AI SDK for Rust).
+[English](./README.md) | [简体中文](./README_zh-CN.md)
 
-## Features (MVP)
+Welcome to the official documentation repository for the **AI-Lib** ecosystem. This website ([ailib.info](https://ailib.info)) serves as the central hub for developers to understand, integrate, and master AI-protocol-driven development.
 
-- English + Simplified Chinese landing pages
-- Core value props
-- Quick Start installation snippet
-- Supported providers grid
-- Performance snapshot (from main README)
-- Simplified architecture diagram (text block)
-- Roadmap snapshot
-- Early access / support inquiry form (Formspree placeholder)
-- FAQ
-- Cloudflare Web Analytics placeholder
+## 🌟 Our Mission
 
-## Local Development
+The AI-Lib ecosystem aims to **standardize AI interaction**. We believe that "All logic is operators, all configuration is protocol." By decoupler provider-specific logic from application code, we enable developers to build resilient, provider-agnostic AI applications with zero code changes when switching models.
+
+## 📖 What's Inside?
+
+This site provides comprehensive guides and technical specifications for the entire ecosystem:
+
+### 1. AI-Protocol
+The foundation of the ecosystem. A language-agnostic specification using YAML/JSON manifests to describe AI providers, model capabilities, and interaction rules (MCP, Computer Use, Multimodal).
+
+### 2. Runtime SDKs
+- **[ai-lib-rust](https://github.com/hiddenpath/ai-lib-rust)**: A high-performance, resilient Rust implementation of the AI-Protocol.
+- **[ai-lib-python](https://github.com/hiddenpath/ai-lib-python)**: A developer-friendly, Pydantic-powered Python implementation.
+- **[ai-lib-ts](https://github.com/hiddenpath/ai-lib-ts)**: The TypeScript/JavaScript implementation for web and Node.js environments.
+
+### 3. Guides & Tutorials
+- **Quick Start**: Get your first AI request running in minutes.
+- **Core Concepts**: Understand how the streaming pipeline, capability registry, and resilience patterns work.
+- **Advanced Features**: Deep dives into MCP tool integration, Computer Use (GUI automation), and Multimodal capabilities.
+
+## 🌍 Background & Origin
+
+AI-Lib was born out of the frustration of managing fragmented AI SDKs. As the number of AI providers exploded, developers found themselves trapped in a cycle of rewriting integration code. 
+
+We started with **AI-Protocol**, a vision to move API logic into data manifests. This led to the creation of **ai-lib-rust** and **ai-lib-python**, the first runtimes to prove that a single unified API could handle dozens of disparate providers without a single `if provider == "openai"` check in the core logic.
+
+Today, AI-Lib supports over 38 providers and continues to evolve with the latest AI capabilities like MCP and Computer Use.
+
+---
+
+## 🛠️ For Maintainers
+
+This site is built with **Astro Starlight**.
+
+### Local Development
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open http://localhost:4321
+### Build & Deploy
 
-## Build
+- **Build**: `npm run build` (Static export to `dist/`)
+- **Deploy**: Automatically deployed to **Vercel** on every push to `main`.
+- **Domain**: Managed at `ailib.info` (aliased to `ailib.rs`).
 
-```bash
-npm run build
-```
+## 📜 License
 
-Output will be in `dist/` (static export).
-
-## Deploy (Vercel)
-
-1. Push repository to GitHub.
-2. In Vercel: New Project → Import.
-3. Framework auto-detected (Astro).
-4. Build Command: `astro build` (default), Output: `dist`.
-5. After deploy: add domain `ailib.rs` in Project Settings → Domains.
-
-## Domain (ailib.rs)
-
-For apex domain (root):
-
-- Add an A record:
-  - Host: `@`
-  - Value: `76.76.21.21`
-  - TTL: auto/3600
-
-Optional `www`:
-
-- CNAME: `www` → `cname.vercel-dns.com`.
-
-Then verify in Vercel.
-
-## Form Integration
-
-Replace placeholder:
-
-```html
-<form method="POST" action="https://formspree.io/f/your-form-id"></form>
-```
-
-with the Formspree form ID you create.
-
-## Next Steps (Suggested)
-
-- Add blog: create `src/pages/blog/` and markdown posts.
-- Add provider logos as actual SVG icons.
-- Automate performance benchmark JSON generation.
-- Add `/docs` or link to existing repository docs.
-- Add basic sitemap.xml (Astro integration or manual).
-- Consider Tailwind if design complexity grows.
-
-## Analytics
-
-Uncomment Cloudflare snippet in `<head>` sections and add token if you enable Cloudflare Web Analytics.
-
-## i18n Strategy
-
-Currently manual duplication:
-
-- `/src/pages/index.astro` (en)
-- `/src/pages/zh/index.astro` (zh)
-
-If content grows, migrate to an Astro i18n or content collections approach.
-
-## License
-
-Follow main project (MIT / Apache-2.0). Content here can mirror same licensing.
-
----
-
-## Continuous Integration (GitHub Actions)
-
-This repository includes a GitHub Actions workflow that:
-
-1. Runs on pushes to `main` and on all pull requests.
-2. Caches `~/.npm` for faster builds.
-3. Installs dependencies with `npm ci`.
-4. Checks formatting (`npm run format:check`).
-5. Builds the static site (`npm run build`).
-6. (Optional) Uploads the `dist/` folder as an artifact for PR preview.
-
-If you deploy with **Vercel** connected to GitHub, Vercel will build & deploy separately; this CI build is a quality gate (fast failure feedback). You can safely disable the build step in Vercel if you later introduce a multi-step pipeline, but default settings are fine.
-
-### Local parity
-
-The CI uses:
-
-```bash
-npm ci
-npm run format:check
-npm run build
-```
-
-Ensure your local Node.js version is >= the version declared in your `.nvmrc` (add one if needed) or engines field if added later.
-
-## Automated Deployment (Vercel)
-
-When the repo is linked to Vercel:
-
-- Every push to `main` triggers a Production deployment.
-- Every PR gets a Preview URL (great for design/content review).
-- Build command: `astro build`
-- Output dir: `dist`
-
-### Environment Variables
-
-Currently none required. If later you add analytics tokens or form IDs, set them in Vercel Project Settings → Environment Variables, then reference via `import.meta.env`. Re-run deployments after adding them.
-
-### Recommended Hardening
-
-- Add a `NODE_VERSION` or `engines` constraint to ensure consistent runtime.
-- Add a `sitemap.xml` generation step (Astro integration) for SEO.
-- Add a `robots.txt` rule update if you introduce staging environments.
-
-## Artifacts
-
-The CI workflow uploads `site-dist` artifact for inspection. Download from the workflow run page if you need to diff generated HTML without pulling locally.
+Content and code are licensed under **MIT / Apache-2.0**, matching the main AI-Lib projects.
 
 ---

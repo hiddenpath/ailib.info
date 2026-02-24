@@ -44,6 +44,17 @@ println!("Total tokens: {}", stats.total_tokens);
 println!("Latency: {}ms", stats.latency_ms);
 ```
 
+## Python: Estadísticas de llamadas
+
+```python
+response, stats = await client.chat() \
+    .user("Hello") \
+    .execute_with_stats()
+
+print(f"Tokens: {stats.total_tokens}")
+print(f"Latency: {stats.latency_ms}ms")
+```
+
 ## TypeScript: Estadísticas de llamadas
 
 ```typescript
@@ -202,6 +213,8 @@ Monitoree el estado del circuit breaker y el limitador de velocidad:
 let state = client.circuit_state(); // Closed, Open, HalfOpen
 let inflight = client.current_inflight();
 ```
+
+## Python: Observabilidad de resiliencia
 
 ```python
 # Python

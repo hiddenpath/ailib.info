@@ -44,6 +44,17 @@ println!("Total tokens: {}", stats.total_tokens);
 println!("Latency: {}ms", stats.latency_ms);
 ```
 
+## Python：调用统计
+
+```python
+response, stats = await client.chat() \
+    .user("Hello") \
+    .execute_with_stats()
+
+print(f"Tokens: {stats.total_tokens}")
+print(f"Latency: {stats.latency_ms}ms")
+```
+
 ## TypeScript：调用统计
 
 ```typescript
@@ -202,6 +213,8 @@ feedback.record({
 let state = client.circuit_state(); // Closed, Open, HalfOpen
 let inflight = client.current_inflight();
 ```
+
+## Python: 弹性观察
 
 ```python
 # Python
