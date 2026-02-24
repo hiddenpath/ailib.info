@@ -56,6 +56,21 @@ async for event in client.chat() \
         print(event.as_content_delta.text, end="")
 ```
 
+### TypeScript
+
+```typescript
+for await (const event of client
+  .chat()
+  .user('Solve this step by step: What is 127 * 43?')
+  .stream()) {
+  if (event.isThinkingDelta) {
+    process.stdout.write(`[thinking] ${event.text}`);
+  } else if (event.isContentDelta) {
+    process.stdout.write(event.asContentDelta.text);
+  }
+}
+```
+
 ## 工作原理
 
 1. 提供商清单声明 `capabilities.reasoning: true`

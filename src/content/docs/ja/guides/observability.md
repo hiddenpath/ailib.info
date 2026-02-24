@@ -44,6 +44,22 @@ println!("Total tokens: {}", stats.total_tokens);
 println!("Latency: {}ms", stats.latency_ms);
 ```
 
+## TypeScript：呼び出し統計
+
+```typescript
+const { response, stats } = await client
+  .chat()
+  .user('Hello')
+  .executeWithStats();
+
+console.log(`Model: ${stats.model}`);
+console.log(`Provider: ${stats.provider}`);
+console.log(`Prompt tokens: ${stats.promptTokens}`);
+console.log(`Completion tokens: ${stats.completionTokens}`);
+console.log(`Total tokens: ${stats.totalTokens}`);
+console.log(`Latency: ${stats.latencyMs}ms`);
+```
+
 ## Python：メトリクス（Prometheus）
 
 ```python
@@ -58,6 +74,22 @@ client = await AiClient.builder() \
 
 # いくつかのリクエストの後...
 prometheus_text = metrics.export_prometheus()
+```
+
+## TypeScript：メトリクス（Prometheus）
+
+```typescript
+import { MetricsCollector } from '@hiddenpath/ai-lib-ts/telemetry';
+
+const metrics = new MetricsCollector();
+
+const client = await AiClient.builder()
+  .model('openai/gpt-4o')
+  .metrics(metrics)
+  .build();
+
+// いくつかのリクエストの後...
+const prometheusText = metrics.exportPrometheus();
 ```
 
 追跡されるメトリクス：
@@ -82,6 +114,22 @@ client = await AiClient.builder() \
     .build()
 ```
 
+## TypeScript：分散トレーシング（OpenTelemetry）
+
+```typescript
+import { Tracer } from '@hiddenpath/ai-lib-ts/telemetry';
+
+const tracer = new Tracer({
+  serviceName: 'my-app',
+  endpoint: 'http://jaeger:4317',
+});
+
+const client = await AiClient.builder()
+  .model('openai/gpt-4o')
+  .tracer(tracer)
+  .build();
+```
+
 トレースには以下のスパンが含まれます：
 - プロトコル読み込み
 - リクエストコンパイル
@@ -101,6 +149,18 @@ print(f"Healthy: {status.is_healthy}")
 print(f"Details: {status.details}")
 ```
 
+## TypeScript：ヘルス監視
+
+```typescript
+import { HealthChecker } from '@hiddenpath/ai-lib-ts/telemetry';
+
+const health = new HealthChecker();
+const status = await health.check();
+
+console.log(`Healthy: ${status.isHealthy}`);
+console.log(`Details: ${status.details}`);
+```
+
 ## Python：ユーザーフィードバック
 
 AI レスポンスへのフィードバックを収集します：
@@ -118,6 +178,21 @@ feedback.record(
 )
 ```
 
+## TypeScript：ユーザーフィードバック
+
+```typescript
+import { FeedbackCollector } from '@hiddenpath/ai-lib-ts/telemetry';
+
+const feedback = new FeedbackCollector();
+
+// レスポンスを取得した後
+feedback.record({
+  requestId: stats.requestId,
+  rating: 5,
+  comment: 'Helpful response',
+});
+```
+
 ## 耐障害性のオブザーバビリティ
 
 サーキットブレーカーとレートリミッターの状態を監視します：
@@ -133,4 +208,11 @@ let inflight = client.current_inflight();
 signals = client.signals_snapshot()
 print(f"Circuit: {signals.circuit_state}")
 print(f"Inflight: {signals.current_inflight}")
+```
+
+```typescript
+// TypeScript
+const signals = client.signalsSnapshot();
+console.log(`Circuit: ${signals.circuitState}`);
+console.log(`Inflight: ${signals.currentInflight}`);
 ```

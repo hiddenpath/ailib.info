@@ -56,6 +56,21 @@ async for event in client.chat() \
         print(event.as_content_delta.text, end="")
 ```
 
+### TypeScript
+
+```typescript
+for await (const event of client
+  .chat()
+  .user('Solve this step by step: What is 127 * 43?')
+  .stream()) {
+  if (event.isThinkingDelta) {
+    process.stdout.write(`[thinking] ${event.text}`);
+  } else if (event.isContentDelta) {
+    process.stdout.write(event.asContentDelta.text);
+  }
+}
+```
+
 ## Cómo funciona
 
 1. El manifiesto del proveedor declara `capabilities.reasoning: true`

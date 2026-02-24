@@ -44,6 +44,22 @@ println!("Total tokens: {}", stats.total_tokens);
 println!("Latency: {}ms", stats.latency_ms);
 ```
 
+## TypeScript: Estadísticas de llamadas
+
+```typescript
+const { response, stats } = await client
+  .chat()
+  .user('Hello')
+  .executeWithStats();
+
+console.log(`Model: ${stats.model}`);
+console.log(`Provider: ${stats.provider}`);
+console.log(`Prompt tokens: ${stats.promptTokens}`);
+console.log(`Completion tokens: ${stats.completionTokens}`);
+console.log(`Total tokens: ${stats.totalTokens}`);
+console.log(`Latency: ${stats.latencyMs}ms`);
+```
+
 ## Python: Métricas (Prometheus)
 
 ```python
@@ -58,6 +74,22 @@ client = await AiClient.builder() \
 
 # After some requests...
 prometheus_text = metrics.export_prometheus()
+```
+
+## TypeScript: Métricas (Prometheus)
+
+```typescript
+import { MetricsCollector } from '@hiddenpath/ai-lib-ts/telemetry';
+
+const metrics = new MetricsCollector();
+
+const client = await AiClient.builder()
+  .model('openai/gpt-4o')
+  .metrics(metrics)
+  .build();
+
+// After some requests...
+const prometheusText = metrics.exportPrometheus();
 ```
 
 Métricas rastreadas:
@@ -82,6 +114,22 @@ client = await AiClient.builder() \
     .build()
 ```
 
+## TypeScript: Trazado distribuido (OpenTelemetry)
+
+```typescript
+import { Tracer } from '@hiddenpath/ai-lib-ts/telemetry';
+
+const tracer = new Tracer({
+  serviceName: 'my-app',
+  endpoint: 'http://jaeger:4317',
+});
+
+const client = await AiClient.builder()
+  .model('openai/gpt-4o')
+  .tracer(tracer)
+  .build();
+```
+
 Los trazados incluyen spans para:
 - Carga de protocolo
 - Compilación de solicitudes
@@ -101,6 +149,18 @@ print(f"Healthy: {status.is_healthy}")
 print(f"Details: {status.details}")
 ```
 
+## TypeScript: Monitoreo de salud
+
+```typescript
+import { HealthChecker } from '@hiddenpath/ai-lib-ts/telemetry';
+
+const health = new HealthChecker();
+const status = await health.check();
+
+console.log(`Healthy: ${status.isHealthy}`);
+console.log(`Details: ${status.details}`);
+```
+
 ## Python: Retroalimentación del usuario
 
 Recolecte retroalimentación sobre las respuestas de IA:
@@ -118,6 +178,21 @@ feedback.record(
 )
 ```
 
+## TypeScript: Retroalimentación del usuario
+
+```typescript
+import { FeedbackCollector } from '@hiddenpath/ai-lib-ts/telemetry';
+
+const feedback = new FeedbackCollector();
+
+// After getting a response
+feedback.record({
+  requestId: stats.requestId,
+  rating: 5,
+  comment: 'Helpful response',
+});
+```
+
 ## Observabilidad de resiliencia
 
 Monitoree el estado del circuit breaker y el limitador de velocidad:
@@ -133,4 +208,11 @@ let inflight = client.current_inflight();
 signals = client.signals_snapshot()
 print(f"Circuit: {signals.circuit_state}")
 print(f"Inflight: {signals.current_inflight}")
+```
+
+```typescript
+// TypeScript
+const signals = client.signalsSnapshot();
+console.log(`Circuit: ${signals.circuitState}`);
+console.log(`Inflight: ${signals.currentInflight}`);
 ```

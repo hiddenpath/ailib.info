@@ -58,6 +58,31 @@ get_weather = {
 }
 ```
 
+### TypeScript
+
+```typescript
+import { ToolDefinition } from '@hiddenpath/ai-lib-ts';
+
+const getWeather: ToolDefinition = {
+  name: 'get_weather',
+  description: 'Get current weather for a city',
+  parameters: {
+    type: 'object',
+    properties: {
+      city: {
+        type: 'string',
+        description: 'City name',
+      },
+      unit: {
+        type: 'string',
+        enum: ['celsius', 'fahrenheit'],
+      },
+    },
+    required: ['city'],
+  },
+};
+```
+
 ## Llamadas a herramientas sin streaming
 
 ### Rust
@@ -87,6 +112,21 @@ response = await client.chat() \
 for call in response.tool_calls:
     print(f"Function: {call.name}")
     print(f"Arguments: {call.arguments}")
+```
+
+### TypeScript
+
+```typescript
+const response = await client
+  .chat()
+  .user("What's the weather in Tokyo?")
+  .tools([getWeather])
+  .execute();
+
+for (const call of response.toolCalls) {
+  console.log(`Function: ${call.name}`);
+  console.log(`Arguments: ${call.arguments}`);
+}
 ```
 
 ## Llamadas a herramientas en streaming
@@ -136,6 +176,25 @@ async for event in client.chat() \
         print(event.as_partial_tool_call.arguments, end="")
     elif event.is_content_delta:
         print(event.as_content_delta.text, end="")
+```
+
+### TypeScript
+
+```typescript
+for await (const event of client
+  .chat()
+  .user("What's the weather?")
+  .tools([getWeather])
+  .stream()) {
+  if (event.isToolCallStarted) {
+    const call = event.asToolCallStarted;
+    console.log(`Starting: ${call.name}`);
+  } else if (event.isPartialToolCall) {
+    process.stdout.write(event.asPartialToolCall.arguments);
+  } else if (event.isContentDelta) {
+    process.stdout.write(event.asContentDelta.text);
+  }
+}
 ```
 
 ## Cómo funciona

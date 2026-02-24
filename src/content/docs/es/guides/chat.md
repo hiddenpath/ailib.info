@@ -34,6 +34,21 @@ response = await client.chat() \
 print(response.content)
 ```
 
+### TypeScript
+
+```typescript
+import { AiClient } from '@hiddenpath/ai-lib-ts';
+
+const client = await AiClient.new('openai/gpt-4o');
+
+const response = await client
+  .chat()
+  .user('Hello, world!')
+  .execute();
+
+console.log(response.content);
+```
+
 ## Mensajes
 
 ### Mensajes del sistema
@@ -54,6 +69,15 @@ await client.chat() \
     .system("You are a helpful coding assistant.") \
     .user("Explain closures") \
     .execute()
+```
+
+```typescript
+// TypeScript
+await client
+  .chat()
+  .system('You are a helpful coding assistant.')
+  .user('Explain closures')
+  .execute();
 ```
 
 ### Conversaciones multironda
@@ -88,6 +112,20 @@ messages = [
 await client.chat().messages(messages).execute()
 ```
 
+```typescript
+// TypeScript
+import { Message } from '@hiddenpath/ai-lib-ts';
+
+const messages = [
+    Message.system('You are a tutor.'),
+    Message.user('What is recursion?'),
+    Message.assistant('Recursion is when a function calls itself...'),
+    Message.user('Can you show an example?'),
+];
+
+await client.chat().messages(messages).execute();
+```
+
 ## Parámetros
 
 | Parameter | Type | Description |
@@ -105,6 +143,17 @@ client.chat()
     .max_tokens(200)
     .top_p(0.95)
     .execute().await?;
+```
+
+```typescript
+// TypeScript
+await client
+  .chat()
+  .user('Write a poem')
+  .temperature(0.9)
+  .maxTokens(200)
+  .topP(0.95)
+  .execute();
 ```
 
 ## Streaming
@@ -136,6 +185,17 @@ async for event in client.chat() \
         print(event.as_content_delta.text, end="", flush=True)
 ```
 
+```typescript
+// TypeScript
+for await (const event of client.chat()
+  .user('Tell me a story')
+  .stream()) {
+  if (event.isContentDelta) {
+    process.stdout.write(event.asContentDelta.text);
+  }
+}
+```
+
 ## Estadísticas de respuesta
 
 Rastree el uso para gestión de costos:
@@ -162,6 +222,17 @@ print(f"Tokens: {stats.total_tokens}")
 print(f"Latency: {stats.latency_ms}ms")
 ```
 
+```typescript
+// TypeScript
+const { response, stats } = await client
+  .chat()
+  .user('Hello')
+  .executeWithStats();
+
+console.log(`Tokens: ${stats.totalTokens}`);
+console.log(`Latency: ${stats.latencyMs}ms`);
+```
+
 ## Cambio de proveedores
 
 El mismo código funciona con todos los proveedores:
@@ -171,6 +242,13 @@ El mismo código funciona con todos los proveedores:
 let client = AiClient::new("anthropic/claude-3-5-sonnet").await?;
 let client = AiClient::new("deepseek/deepseek-chat").await?;
 let client = AiClient::new("gemini/gemini-2.0-flash").await?;
+```
+
+```typescript
+// TypeScript - same pattern
+const client = await AiClient.new('anthropic/claude-3-5-sonnet');
+const client = await AiClient.new('deepseek/deepseek-chat');
+const client = await AiClient.new('gemini/gemini-2.0-flash');
 ```
 
 El manifiesto del protocolo maneja las URLs de endpoints, autenticación, mapeo de parámetros y diferencias de formato de streaming automáticamente.

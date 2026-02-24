@@ -44,6 +44,22 @@ println!("Total tokens: {}", stats.total_tokens);
 println!("Latency: {}ms", stats.latency_ms);
 ```
 
+## TypeScript：调用统计
+
+```typescript
+const { response, stats } = await client
+  .chat()
+  .user('Hello')
+  .executeWithStats();
+
+console.log(`Model: ${stats.model}`);
+console.log(`Provider: ${stats.provider}`);
+console.log(`Prompt tokens: ${stats.promptTokens}`);
+console.log(`Completion tokens: ${stats.completionTokens}`);
+console.log(`Total tokens: ${stats.totalTokens}`);
+console.log(`Latency: ${stats.latencyMs}ms`);
+```
+
 ## Python：指标（Prometheus）
 
 ```python
@@ -58,6 +74,22 @@ client = await AiClient.builder() \
 
 # After some requests...
 prometheus_text = metrics.export_prometheus()
+```
+
+## TypeScript：指标（Prometheus）
+
+```typescript
+import { MetricsCollector } from '@hiddenpath/ai-lib-ts/telemetry';
+
+const metrics = new MetricsCollector();
+
+const client = await AiClient.builder()
+  .model('openai/gpt-4o')
+  .metrics(metrics)
+  .build();
+
+// After some requests...
+const prometheusText = metrics.exportPrometheus();
 ```
 
 跟踪的指标：
@@ -82,6 +114,22 @@ client = await AiClient.builder() \
     .build()
 ```
 
+## TypeScript：分布式追踪（OpenTelemetry）
+
+```typescript
+import { Tracer } from '@hiddenpath/ai-lib-ts/telemetry';
+
+const tracer = new Tracer({
+  serviceName: 'my-app',
+  endpoint: 'http://jaeger:4317',
+});
+
+const client = await AiClient.builder()
+  .model('openai/gpt-4o')
+  .tracer(tracer)
+  .build();
+```
+
 追踪包含以下 span：
 - 协议加载
 - 请求编译
@@ -101,6 +149,18 @@ print(f"Healthy: {status.is_healthy}")
 print(f"Details: {status.details}")
 ```
 
+## TypeScript：健康监控
+
+```typescript
+import { HealthChecker } from '@hiddenpath/ai-lib-ts/telemetry';
+
+const health = new HealthChecker();
+const status = await health.check();
+
+console.log(`Healthy: ${status.isHealthy}`);
+console.log(`Details: ${status.details}`);
+```
+
 ## Python：用户反馈
 
 收集 AI 响应的反馈：
@@ -118,6 +178,21 @@ feedback.record(
 )
 ```
 
+## TypeScript：用户反馈
+
+```typescript
+import { FeedbackCollector } from '@hiddenpath/ai-lib-ts/telemetry';
+
+const feedback = new FeedbackCollector();
+
+// After getting a response
+feedback.record({
+  requestId: stats.requestId,
+  rating: 5,
+  comment: 'Helpful response',
+});
+```
+
 ## 弹性可观测性
 
 监控熔断器与速率限制器状态：
@@ -133,4 +208,11 @@ let inflight = client.current_inflight();
 signals = client.signals_snapshot()
 print(f"Circuit: {signals.circuit_state}")
 print(f"Inflight: {signals.current_inflight}")
+```
+
+```typescript
+// TypeScript
+const signals = client.signalsSnapshot();
+console.log(`Circuit: ${signals.circuitState}`);
+console.log(`Inflight: ${signals.currentInflight}`);
 ```
