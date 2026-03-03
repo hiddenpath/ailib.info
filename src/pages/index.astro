@@ -44,7 +44,7 @@ const locale = 'en';
             <ProjectCard
               locale={locale}
               variant="protocol"
-              version="0.7.6"
+              version="0.7.8"
               title="AI-Protocol"
               description="The provider-agnostic specification. V2 three-ring manifests with MCP, Computer Use, and multimodal schemas — no hardcoded logic, ever."
               features={['37 provider manifests (6 V2 + 36 V1)', 'V2 three-layer pyramid architecture', 'STT / TTS / Rerank in manifests (Jina, OpenAI, Cohere)', 'MCP / Computer Use / Multimodal schemas', 'ProviderContract + pricing schema', 'CLI tool for validation & inspection', 'JSON Schema validated', 'Hot-reloadable configuration']}
@@ -54,7 +54,7 @@ const locale = 'en';
             <ProjectCard
               locale={locale}
               variant="rust"
-              version="0.8.5"
+              version="0.8.6"
               title="ai-lib-rust"
               description="High-performance Rust runtime. ProviderDriver abstraction, MCP tool bridge, Computer Use safety, extended multimodal, and operator-based streaming pipeline."
               features={['ProviderDriver (OpenAI/Anthropic/Gemini)', 'MCP tool bridge with namespace isolation', 'Computer Use + SafetyPolicy', 'Extended multimodal validation', 'Capability Registry (feature-gated)', 'Operator-based streaming pipeline', '185+ tests, published on Crates.io']}
@@ -64,7 +64,7 @@ const locale = 'en';
             <ProjectCard
               locale={locale}
               variant="python"
-              version="0.7.4"
+              version="0.7.5"
               title="ai-lib-python"
               description="Developer-friendly Python runtime. ProviderDriver abstraction, MCP tool bridge, Computer Use safety, extended multimodal, STT/TTS/Rerank extras."
               features={['ProviderDriver (OpenAI/Anthropic/Gemini)', 'MCP tool bridge with namespace isolation', 'Computer Use + SafetyPolicy', 'STT / TTS / Rerank extras', 'Capability Registry (pip extras)', 'Pydantic v2 + full async/await', '75+ V2 tests, published on PyPI']}
@@ -74,7 +74,7 @@ const locale = 'en';
             <ProjectCard
               locale={locale}
               variant="ts"
-              version="0.4.0"
+              version="0.4.1"
               title="ai-lib-ts"
               description="TypeScript/Node.js runtime for the npm ecosystem. Protocol-driven, streaming-first, with Resilience, Routing, MCP, and Multimodal support."
               features={['V2 manifest parsing + standard error codes', 'Resilience (Retry, CircuitBreaker, RateLimiter, Backpressure)', 'ModelManager + CostBasedSelector + FallbackChain', 'SttClient, TtsClient, RerankerClient', 'McpToolBridge, EmbeddingClient, Plugins', 'BatchExecutor + PreflightChecker', 'Native fetch, published on npm']}
@@ -90,7 +90,7 @@ const locale = 'en';
               <ProjectCard
                 locale={locale}
                 variant="mock"
-                version="0.1.7"
+                version="0.1.8"
                 title="ai-protocol-mock"
                 description="Unified mock server for AI-Protocol runtimes. HTTP provider mock (OpenAI + Anthropic), STT/TTS/Rerank endpoints, and MCP JSON-RPC mock for integration testing."
                 features={['Manifest-driven HTTP mock', 'OpenAI & Anthropic + STT/TTS/Rerank', 'MCP tools/list, tools/call, capabilities', 'Docker support', 'Third-party integration (ZeroClaw, CI)', 'Sync manifests from ai-protocol']}
@@ -126,6 +126,16 @@ const locale = 'en';
                 features={['Protocol-driven providers via ai-lib-rust + ai-protocol', 'Smart routing: cost, speed, quality, reliability', 'Multi-model negotiation and parallel task execution', 'Channels: Telegram, Discord, Matrix', 'Remote deployment, hardware (GPIO, STM32)']}
                 link="https://github.com/hiddenpath/zerospider"
                 github="https://github.com/hiddenpath/zerospider"
+              />
+              <ProjectCard
+                locale={locale}
+                variant="showcase"
+                version="0.3.1"
+                title="SpiderSwitch"
+                description="Intelligent prompt routing engine. Analyzes query intent to dispatch requests to the most optimal model based on cost, speed, and capability."
+                features={['Intent classification and complex query analysis', 'Dynamic routing across 37+ providers', 'Cost-performance optimization', 'Built on ai-protocol streaming architecture', 'High-throughput Rust implementation']}
+                link="https://github.com/hiddenpath/spiderswitch"
+                github="https://github.com/hiddenpath/spiderswitch"
               />
             </div>
           </div>

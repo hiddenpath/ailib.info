@@ -44,7 +44,7 @@ const locale = 'zh-cn';
             <ProjectCard
               locale={locale}
               variant="protocol"
-              version="0.7.6"
+              version="0.7.8"
               title="AI-Protocol"
               description="与供应商无关的规范。YAML 清单定义如何与每个 AI 服务商通信——零硬编码逻辑。"
               features={['37 服务商清单（6 V2 + 36 V1）', 'STT/TTS/Rerank 清单（Jina、OpenAI、Cohere）', 'JSON Schema 验证', '流式事件规范化', '错误分类标准', '热重载配置']}
@@ -54,7 +54,7 @@ const locale = 'zh-cn';
             <ProjectCard
               locale={locale}
               variant="rust"
-              version="0.8.5"
+              version="0.8.6"
               title="ai-lib-rust"
               description="高性能 Rust 运行时。V2 标准错误码、功能开关、基于算子的流式管道、编译时安全、亚毫秒级开销。"
               features={['ProviderDriver（OpenAI/Anthropic/Gemini）', 'MCP 工具桥 + 命名空间隔离', 'Computer Use + SafetyPolicy', '扩展多模态验证', '嵌入与缓存', '插件系统', '185+ 测试，发布于 Crates.io']}
@@ -64,7 +64,7 @@ const locale = 'zh-cn';
             <ProjectCard
               locale={locale}
               variant="python"
-              version="0.7.4"
+              version="0.7.5"
               title="ai-lib-python"
               description="开发者友好的 Python 运行时。V2 标准错误码、按能力扩展、完整异步支持、Pydantic v2 类型、生产级遥测。"
               features={['ProviderDriver（OpenAI/Anthropic/Gemini）', 'MCP 工具桥 + 命名空间隔离', 'Computer Use + SafetyPolicy', 'STT/TTS/Rerank 扩展', 'Pydantic v2 类型安全', '模型路由与负载均衡', '75+ V2 测试，发布于 PyPI']}
@@ -74,7 +74,7 @@ const locale = 'zh-cn';
             <ProjectCard
               locale={locale}
               variant="ts"
-              version="0.4.0"
+              version="0.4.1"
               title="ai-lib-ts"
               description="TypeScript/Node.js 运行时，面向 npm 生态。协议驱动、流式优先，支持 Resilience、Routing、MCP 与多模态。"
               features={['V2 清单解析 + 标准错误码', 'Resilience（Retry、CircuitBreaker、RateLimiter、Backpressure）', 'ModelManager + CostBasedSelector + FallbackChain', 'SttClient、TtsClient、RerankerClient', 'McpToolBridge、EmbeddingClient、Plugins', 'BatchExecutor + PreflightChecker', '原生 fetch，发布于 npm']}
@@ -88,7 +88,7 @@ const locale = 'zh-cn';
               <ProjectCard
                 locale={locale}
                 variant="mock"
-                version="0.1.7"
+                version="0.1.8"
                 title="ai-protocol-mock"
                 description="AI-Protocol 运行时统一 mock 服务。HTTP 提供方 mock（OpenAI + Anthropic 格式）与 MCP JSON-RPC mock，用于集成测试。"
                 features={['清单驱动 HTTP mock', 'OpenAI、Anthropic + STT/TTS/Rerank', 'MCP tools/list、tools/call、capabilities', 'Docker 支持', '第三方集成（ZeroClaw、CI）', '从 ai-protocol 同步清单']}
@@ -124,6 +124,16 @@ const locale = 'zh-cn';
                 features={['通过 ai-lib-rust + ai-protocol 实现协议驱动提供方', '智能路由：成本、速度、质量、可靠性', '多模型协商与并行任务执行', '通道：Telegram、Discord、Matrix', '远程部署、硬件（GPIO、STM32）']}
                 link="https://github.com/hiddenpath/zerospider"
                 github="https://github.com/hiddenpath/zerospider"
+              />
+              <ProjectCard
+                locale={locale}
+                variant="showcase"
+                version="0.3.1"
+                title="SpiderSwitch"
+                description="智能 Prompt 路由引擎。分析查询意图，基于成本、速度和能力将请求分发给最优先的模型。"
+                features={['意图分类与复杂查询分析', '跨 37+ 提供商的动态路由', '性价比最优化', '基于 ai-protocol 流式架构构建', '高吞吐量的 Rust 实现']}
+                link="https://github.com/hiddenpath/spiderswitch"
+                github="https://github.com/hiddenpath/spiderswitch"
               />
             </div>
           </div>
