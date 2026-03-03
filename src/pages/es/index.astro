@@ -120,18 +120,18 @@ const locale = 'es';
                 variant="showcase"
                 version="0.2.0"
                 title="ZeroSpider"
-                description="Runtime de agente AI autónomo impulsado por protocolo. Selección inteligente de modelos, negociación multi-modelo e integración de hardware."
-                features={['Proveedores impulsados por protocolo vía ai-lib-rust + ai-protocol', 'Enrutamiento inteligente: coste, velocidad, calidad, fiabilidad', 'Negociación multi-modelo y ejecución paralela de tareas', 'Canales: Telegram, Discord, Matrix', 'Despliegue remoto, hardware (GPIO, STM32)']}
+                description="Runtime de agente AI autónomo impulsado por protocolo, bifurcado de ZeroClaw con integración ai-protocol, enrutamiento inteligente y negociación multi-modelo."
+                features={['Bifurcado de ZeroClaw con integración del ecosistema ai-protocol', 'Enrutamiento inteligente: coste, velocidad, calidad, puntuación de fiabilidad', 'Negociación multi-modelo y ejecución paralela de tareas', 'Canales: Telegram, Discord, Matrix', 'Despliegue remoto, hardware (GPIO, STM32)']}
                 link="https://github.com/hiddenpath/zerospider"
                 github="https://github.com/hiddenpath/zerospider"
               />
               <ProjectCard
                 locale={locale}
                 variant="showcase"
-                version="0.3.1"
+                version="0.3.0"
                 title="SpiderSwitch"
-                description="Motor inteligente de enrutamiento de prompts. Analiza la intención de la consulta para enviar las peticiones al modelo más óptimo según el coste, la velocidad y la capacidad."
-                features={['Clasificación de intención y análisis de consultas complejas', 'Enrutamiento dinámico a través de 37+ proveedores', 'Optimización coste-rendimiento', 'Construido sobre la arquitectura de streaming de ai-protocol', 'Implementación de Rust de alto rendimiento']}
+                description="Servidor MCP para cambio dinámico de modelos AI. Permite a los agentes descubrir, cambiar y gestionar modelos AI entre proveedores mediante herramientas MCP estándar."
+                features={['Servidor compatible con MCP (transporte stdio)', 'Herramientas switch_model / list_models / get_status / exit_switcher', 'Impulsado por protocolo: toda la configuración desde manifiestos ai-protocol', 'Multi-proveedor: OpenAI, Anthropic, Google, DeepSeek, etc.', 'Python + ai-lib-python SDK, configuración automática del protocolo']}
                 link="https://github.com/hiddenpath/spiderswitch"
                 github="https://github.com/hiddenpath/spiderswitch"
               />

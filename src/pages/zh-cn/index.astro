@@ -46,8 +46,8 @@ const locale = 'zh-cn';
               variant="protocol"
               version="0.7.8"
               title="AI-Protocol"
-              description="与供应商无关的规范。YAML 清单定义如何与每个 AI 服务商通信——零硬编码逻辑。"
-              features={['37 服务商清单（6 V2 + 36 V1）', 'STT/TTS/Rerank 清单（Jina、OpenAI、Cohere）', 'JSON Schema 验证', '流式事件规范化', '错误分类标准', '热重载配置']}
+              description="与供应商无关的规范。V2 三环清单含 MCP、Computer Use 与多模态 Schema——零硬编码逻辑。"
+              features={['37 服务商清单（6 V2 + 36 V1）', 'V2 三层金字塔架构', 'STT/TTS/Rerank 清单（Jina、OpenAI、Cohere）', 'MCP / Computer Use / 多模态 Schema', 'ProviderContract + 定价 Schema', 'CLI 验证与检查工具', 'JSON Schema 验证', '热重载配置']}
               link="/zh-cn/protocol/"
               github="https://github.com/hiddenpath/ai-protocol"
             />
@@ -56,8 +56,8 @@ const locale = 'zh-cn';
               variant="rust"
               version="0.8.6"
               title="ai-lib-rust"
-              description="高性能 Rust 运行时。V2 标准错误码、功能开关、基于算子的流式管道、编译时安全、亚毫秒级开销。"
-              features={['ProviderDriver（OpenAI/Anthropic/Gemini）', 'MCP 工具桥 + 命名空间隔离', 'Computer Use + SafetyPolicy', '扩展多模态验证', '嵌入与缓存', '插件系统', '185+ 测试，发布于 Crates.io']}
+              description="高性能 Rust 运行时。ProviderDriver 抽象、MCP 工具桥、Computer Use 安全策略、扩展多模态与基于算子的流式管道。"
+              features={['ProviderDriver（OpenAI/Anthropic/Gemini）', 'MCP 工具桥 + 命名空间隔离', 'Computer Use + SafetyPolicy', '扩展多模态验证', 'Capability Registry（feature-gated）', '基于算子的流式管道', '185+ 测试，发布于 Crates.io']}
               link="/zh-cn/rust/"
               github="https://github.com/hiddenpath/ai-lib-rust"
             />
@@ -66,8 +66,8 @@ const locale = 'zh-cn';
               variant="python"
               version="0.7.5"
               title="ai-lib-python"
-              description="开发者友好的 Python 运行时。V2 标准错误码、按能力扩展、完整异步支持、Pydantic v2 类型、生产级遥测。"
-              features={['ProviderDriver（OpenAI/Anthropic/Gemini）', 'MCP 工具桥 + 命名空间隔离', 'Computer Use + SafetyPolicy', 'STT/TTS/Rerank 扩展', 'Pydantic v2 类型安全', '模型路由与负载均衡', '75+ V2 测试，发布于 PyPI']}
+              description="开发者友好的 Python 运行时。ProviderDriver 抽象、MCP 工具桥、Computer Use 安全策略、扩展多模态、STT/TTS/Rerank 扩展。"
+              features={['ProviderDriver（OpenAI/Anthropic/Gemini）', 'MCP 工具桥 + 命名空间隔离', 'Computer Use + SafetyPolicy', 'STT/TTS/Rerank 扩展', 'Capability Registry（pip extras）', 'Pydantic v2 + 完整 async/await', '75+ V2 测试，发布于 PyPI']}
               link="/zh-cn/python/"
                 github="https://github.com/hiddenpath/ai-lib-python"
             />
@@ -120,18 +120,18 @@ const locale = 'zh-cn';
                 variant="showcase"
                 version="0.2.0"
                 title="ZeroSpider"
-                description="协议驱动的自主 AI 智能体运行时。智能模型选择、多模型协商与硬件集成。"
-                features={['通过 ai-lib-rust + ai-protocol 实现协议驱动提供方', '智能路由：成本、速度、质量、可靠性', '多模型协商与并行任务执行', '通道：Telegram、Discord、Matrix', '远程部署、硬件（GPIO、STM32）']}
+                description="协议驱动的自主 AI 智能体运行时，从 ZeroClaw 重构而来，集成 ai-protocol 生态、智能路由与多模型协商。"
+                features={['从 ZeroClaw 重构，集成 ai-protocol 生态', '智能路由：成本、速度、质量、可靠性评分', '多模型协商与并行任务执行', '通道：Telegram、Discord、Matrix', '远程部署、硬件（GPIO、STM32）']}
                 link="https://github.com/hiddenpath/zerospider"
                 github="https://github.com/hiddenpath/zerospider"
               />
               <ProjectCard
                 locale={locale}
                 variant="showcase"
-                version="0.3.1"
+                version="0.3.0"
                 title="SpiderSwitch"
-                description="智能 Prompt 路由引擎。分析查询意图，基于成本、速度和能力将请求分发给最优先的模型。"
-                features={['意图分类与复杂查询分析', '跨 37+ 提供商的动态路由', '性价比最优化', '基于 ai-protocol 流式架构构建', '高吞吐量的 Rust 实现']}
+                description="动态 AI 模型切换的 MCP 服务器。使智能体能够通过标准 MCP 工具发现、切换和管理跨服务商的 AI 模型。"
+                features={['MCP 协议兼容，基于 stdio 传输', 'switch_model / list_models / get_status / exit_switcher 工具', '协议驱动：所有配置来自 ai-protocol 清单', '多服务商：OpenAI、Anthropic、Google、DeepSeek 等', 'Python + ai-lib-python SDK，自动协议设置']}
                 link="https://github.com/hiddenpath/spiderswitch"
                 github="https://github.com/hiddenpath/spiderswitch"
               />
