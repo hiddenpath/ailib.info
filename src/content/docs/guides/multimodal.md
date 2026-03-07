@@ -5,17 +5,18 @@ description: Using vision, audio, video, and omni-mode multimodal capabilities w
 
 # Multimodal
 
-AI-Lib supports multimodal inputs and outputs — text combined with images, audio, and video — through the same unified API. The V2 protocol provides comprehensive multimodal capabilities with format validation and provider-aware modality checking.
+AI-Lib supports multimodal inputs and outputs — text combined with images, audio, and video — through the same unified API. The V2 protocol provides comprehensive multimodal capabilities with format validation, provider-aware modality checking, and additive video-generation output contracts.
 
 ## Supported Capabilities
 
 | Capability | Direction | Providers |
 |-----------|-----------|-----------|
-| Vision (images) | Input | OpenAI, Anthropic, Gemini, Qwen, DeepSeek |
+| Vision (images) | Input | OpenAI, Anthropic, Gemini, Qwen, DeepSeek, Doubao |
 | Image generation | Output | OpenAI (DALL-E), select providers |
-| Audio input | Input | Gemini, Qwen (omni_mode) |
-| Audio output | Output | Qwen (omni_mode), select providers |
-| Video input | Input | Gemini |
+| Audio input | Input | Gemini, Qwen (omni_mode), Doubao |
+| Audio output | Output | OpenAI (TTS), Qwen (omni_mode), Doubao, select providers |
+| Video input | Input | Gemini, Qwen |
+| Video generation contract | Output schema | V2 `multimodal.output.video` |
 | Omni mode | Input + Output | Qwen (simultaneous text + audio) |
 
 ## Sending Images
@@ -235,12 +236,13 @@ try {
 
 The V2 manifest declares each provider's multimodal capabilities explicitly:
 
-| Provider | Image In | Audio In | Video In | Image Out | Audio Out | Omni |
-|----------|---------|---------|---------|----------|----------|------|
-| OpenAI | ✅ png, jpg, gif, webp | — | — | ✅ | — | — |
-| Anthropic | ✅ png, jpg, gif, webp | — | — | — | — | — |
-| Gemini | ✅ png, jpg, gif, webp | ✅ wav, mp3, flac | ✅ mp4, avi | — | — | — |
-| Qwen | ✅ png, jpg | ✅ wav, mp3 | — | — | ✅ | ✅ |
-| DeepSeek | ✅ png, jpg | — | — | — | — | — |
+| Provider | Image In | Audio In | Video In | Image Out | Audio Out | Video Out | Omni |
+|----------|----------|----------|----------|-----------|-----------|-----------|------|
+| OpenAI | ✅ png, jpg, gif, webp | ✅ mp3, wav, flac | — | ✅ | ✅ | declared (currently false) | — |
+| Anthropic | ✅ png, jpg, gif, webp | — | — | — | — | declared (currently false) | — |
+| Gemini | ✅ png, jpg, gif, webp | ✅ wav, mp3, flac | ✅ mp4, avi | ✅ | — | declared (currently false) | — |
+| Qwen | ✅ png, jpg | ✅ wav, mp3 | ✅ mp4, webm | ✅ | ✅ | declared (currently false) | ✅ |
+| DeepSeek | ✅ png, jpg | — | — | — | — | declared (currently false) | — |
+| Doubao | ✅ png, jpg | ✅ mp3, wav | — | ✅ | ✅ | declared (currently false) | — |
 
 Check `multimodal.input` and `multimodal.output` sections in the V2 provider manifest for the complete declaration.

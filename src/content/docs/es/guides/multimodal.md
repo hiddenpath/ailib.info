@@ -7,6 +7,12 @@ description: Uso de capacidades de visión y multimodales con AI-Lib.
 
 AI-Lib soporta entradas multimodales — texto combinado con imágenes — a través de la misma API unificada.
 
+## Actualización P0 (2026-03)
+
+- `ai-protocol` añadió declaraciones de capacidad generativa V2 para `Qwen` y `Doubao`.
+- El esquema `multimodal` ahora incluye `multimodal.output.video` para estandarizar la declaración de generación de video.
+- `ai-protocol-mock` incorpora rutas Gemini `generateContent / streamGenerateContent` para validar paridad semántica entre los tres runtimes.
+
 ## Capacidades compatibles
 
 | Capability | Direction | Providers |

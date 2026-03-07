@@ -7,6 +7,12 @@ description: 使用 AI-Lib 的视觉与多模态能力。
 
 AI-Lib 支持多模态输入 — 文本与图像组合 — 通过相同的统一 API。
 
+## 2026-03 P0 扩展更新
+
+- `ai-protocol` 已在 V2 清单中补齐 `Qwen` 与 `Doubao` 生成式能力声明。
+- `multimodal` schema 新增 `multimodal.output.video` 字段，用于统一视频生成能力声明（当前大多数提供商为 `supported: false`，但契约已就绪）。
+- `ai-protocol-mock` 增补 Gemini `generateContent / streamGenerateContent` 路由，便于三运行时一致性验证。
+
 ## 支持的能力
 
 | Capability | Direction | Providers |

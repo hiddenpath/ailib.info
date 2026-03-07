@@ -5,7 +5,7 @@ description: How AI-Protocol, ai-lib-rust, and ai-lib-python work together as an
 
 # Ecosystem Architecture
 
-The AI-Lib ecosystem is built on a clean three-layer architecture where each layer has a distinct responsibility. Current versions: **AI-Protocol v0.7.6**, **ai-lib-rust v0.8.5**, **ai-lib-python v0.7.4**, **ai-protocol-mock v0.1.7**.
+The AI-Lib ecosystem is built on a clean three-layer architecture where each layer has a distinct responsibility. Current versions: **AI-Protocol v0.7.6+ (P0 generative expansion train)**, **ai-lib-rust v0.8.5**, **ai-lib-python v0.7.4**, **ai-protocol-mock v0.1.7+**.
 
 ## The Three Layers
 
@@ -13,10 +13,10 @@ The AI-Lib ecosystem is built on a clean three-layer architecture where each lay
 
 The **specification** layer. YAML manifests define:
 
-- **Provider manifests** (`v1/providers/` + `v2/providers/`) — Endpoint, auth, parameter mappings, streaming decoder, error classification for 38 providers (8 V2 + 36 V1)
+- **Provider manifests** (`v1/providers/` + `v2/providers/`) — Endpoint, auth, parameter mappings, streaming decoder, error classification, and multimodal capability contracts for P0 providers (OpenAI/Anthropic/Google/DeepSeek/Qwen/Doubao)
 - **Model registry** (`models/*.yaml`) — Model instances with context windows, capabilities, pricing
 - **Core specification** (`spec.yaml`, `v2-alpha/spec.yaml`) — Standard parameters, events, error types, retry policies
-- **V2 Schemas** (`schemas/v2/`) — JSON Schema for provider, MCP, Computer Use, multimodal, context policy, and ProviderContract
+- **V2 Schemas** (`schemas/v2/`) — JSON Schema for provider, MCP, Computer Use, multimodal (including video generation output contract), context policy, and ProviderContract
 - **V2 ProviderContract** — API style declaration, capability matrix, action mapping, degradation strategy
 
 The protocol layer is **language-agnostic**. It's consumed by any runtime in any language.
@@ -147,6 +147,11 @@ V2 extends multimodal support beyond vision to include audio, video, and omni-mo
 | Audio | ✅ | ✅ (select) | OpenAI (STT/TTS), Gemini, Qwen (omni) |
 | Video | ✅ | — | Gemini |
 | Rerank | — | ✅ | Cohere, Jina |
+
+Latest expansion notes:
+- Added V2 provider manifests for **Qwen** and **Doubao** in the P0 release train.
+- Added V2 multimodal schema support for `multimodal.output.video` to standardize video generation declarations.
+- `ai-protocol-mock` now includes Gemini `generateContent` and `streamGenerateContent` routes for cross-runtime verification.
 
 The **MultimodalCapabilities** module validates content modalities against provider declarations before sending requests.
 

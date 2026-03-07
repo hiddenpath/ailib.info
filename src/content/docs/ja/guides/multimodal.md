@@ -7,6 +7,12 @@ description: AI-Lib でビジョンとマルチモーダル機能を使用する
 
 AI-Lib は、同じ統一 API でテキストと画像を組み合わせたマルチモーダル入力に対応しています。
 
+## 2026-03 P0 拡張アップデート
+
+- `ai-protocol` の V2 マニフェストに `Qwen` と `Doubao` の生成系能力宣言を追加。
+- `multimodal` スキーマに `multimodal.output.video` を追加し、動画生成能力の宣言契約を標準化。
+- `ai-protocol-mock` に Gemini の `generateContent / streamGenerateContent` ルートを追加し、3 ランタイム整合テストを強化。
+
 ## 対応機能
 
 | Capability | Direction | Providers |
