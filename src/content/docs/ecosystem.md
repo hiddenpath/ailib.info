@@ -33,19 +33,19 @@ The **execution** layer. Runtimes implement:
 
 Both runtimes share the same architecture with cross-runtime parity:
 
-| Concept | Rust | Python |
-|---------|------|--------|
-| Client | `AiClient` | `AiClient` |
-| Builder | `AiClientBuilder` | `AiClientBuilder` |
-| Request | `ChatRequestBuilder` | `ChatRequestBuilder` |
-| Events | `StreamingEvent` enum | `StreamingEvent` class |
-| Transport | reqwest (tokio) | httpx (asyncio) |
-| Types | Rust structs | Pydantic v2 models |
-| **V2 Driver** | `Box<dyn ProviderDriver>` | `ProviderDriver` ABC |
-| **Registry** | `CapabilityRegistry` (feature-gate) | `CapabilityRegistry` (pip extras) |
-| **MCP Bridge** | `McpToolBridge` | `McpToolBridge` |
-| **Computer Use** | `ComputerAction` + `SafetyPolicy` | `ComputerAction` + `SafetyPolicy` |
-| **Multimodal** | `MultimodalCapabilities` | `MultimodalCapabilities` |
+| Concept          | Rust                                | Python                            |
+| ---------------- | ----------------------------------- | --------------------------------- |
+| Client           | `AiClient`                          | `AiClient`                        |
+| Builder          | `AiClientBuilder`                   | `AiClientBuilder`                 |
+| Request          | `ChatRequestBuilder`                | `ChatRequestBuilder`              |
+| Events           | `StreamingEvent` enum               | `StreamingEvent` class            |
+| Transport        | reqwest (tokio)                     | httpx (asyncio)                   |
+| Types            | Rust structs                        | Pydantic v2 models                |
+| **V2 Driver**    | `Box<dyn ProviderDriver>`           | `ProviderDriver` ABC              |
+| **Registry**     | `CapabilityRegistry` (feature-gate) | `CapabilityRegistry` (pip extras) |
+| **MCP Bridge**   | `McpToolBridge`                     | `McpToolBridge`                   |
+| **Computer Use** | `ComputerAction` + `SafetyPolicy`   | `ComputerAction` + `SafetyPolicy` |
+| **Multimodal**   | `MultimodalCapabilities`            | `MultimodalCapabilities`          |
 
 ### 3. Application Layer — Your Code
 
@@ -105,11 +105,11 @@ V2 manifests are organized in three rings:
 
 Both runtimes implement a **ProviderDriver** abstraction that normalizes three distinct API styles:
 
-| API Style | Provider | Request Format | Streaming Format |
-|-----------|----------|----------------|------------------|
-| `OpenAiCompatible` | OpenAI, DeepSeek, Moonshot | `messages` array | SSE `data: {...}` |
-| `AnthropicMessages` | Anthropic | `messages` + `system` separate | SSE with typed events |
-| `GeminiGenerate` | Google Gemini | `contents` array | SSE `generateContent` |
+| API Style           | Provider                   | Request Format                 | Streaming Format      |
+| ------------------- | -------------------------- | ------------------------------ | --------------------- |
+| `OpenAiCompatible`  | OpenAI, DeepSeek, Moonshot | `messages` array               | SSE `data: {...}`     |
+| `AnthropicMessages` | Anthropic                  | `messages` + `system` separate | SSE with typed events |
+| `GeminiGenerate`    | Google Gemini              | `contents` array               | SSE `generateContent` |
 
 The runtime automatically selects the correct driver based on the manifest's `api_style` declaration.
 
@@ -140,18 +140,23 @@ A unified Computer Use capability normalizes GUI automation across providers:
 
 V2 extends multimodal support beyond vision to include audio, video, and omni-mode:
 
-| Modality | Input | Output | Providers |
-|----------|-------|--------|-----------|
-| Text | ✅ | ✅ | All |
-| Image | ✅ | ✅ (select) | OpenAI, Anthropic, Gemini, Qwen |
-| Audio | ✅ | ✅ (select) | OpenAI (STT/TTS), Gemini, Qwen (omni) |
-| Video | ✅ | — | Gemini |
-| Rerank | — | ✅ | Cohere, Jina |
+| Modality | Input | Output      | Providers                             |
+| -------- | ----- | ----------- | ------------------------------------- |
+| Text     | ✅    | ✅          | All                                   |
+| Image    | ✅    | ✅ (select) | OpenAI, Anthropic, Gemini, Qwen       |
+| Audio    | ✅    | ✅ (select) | OpenAI (STT/TTS), Gemini, Qwen (omni) |
+| Video    | ✅    | —           | Gemini                                |
+| Rerank   | —     | ✅          | Cohere, Jina                          |
 
 Latest expansion notes:
+
 - Added V2 provider manifests for **Qwen** and **Doubao** in the P0 release train.
 - Added V2 multimodal schema support for `multimodal.output.video` to standardize video generation declarations.
 - `ai-protocol-mock` now includes Gemini `generateContent` and `streamGenerateContent` routes for cross-runtime verification.
+- `ai-protocol-mock` now also supports video generation async-polling (`POST /v1/video/generations` + `GET /v1/video/generations/{job_id}`) for transport lifecycle testing.
+- `ai-protocol` now ships execution governance automation scripts:
+  - `npm run drift:check` for P0 provider/fixture/case drift detection
+  - `npm run release:gate` for release go/no-go gate evaluation
 
 The **MultimodalCapabilities** module validates content modalities against provider declarations before sending requests.
 

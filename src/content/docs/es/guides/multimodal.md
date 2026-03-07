@@ -15,14 +15,14 @@ AI-Lib soporta entradas multimodales — texto combinado con imágenes — a tra
 
 ## Capacidades compatibles
 
-| Capability | Direction | Providers |
-|-----------|-----------|-----------|
-| Vision (imágenes) | Input | OpenAI, Anthropic, Gemini, Qwen, DeepSeek |
-| Generación de imágenes | Output | OpenAI (DALL-E), algunos proveedores |
-| Entrada de audio | Input | Gemini, Qwen (modo omni) |
-| Salida de audio | Output | Qwen (modo omni), algunos proveedores |
-| Entrada de video | Input | Gemini |
-| Modo Omni | Input + Output | Qwen (texto y audio al unísono) |
+| Capability             | Direction      | Providers                                 |
+| ---------------------- | -------------- | ----------------------------------------- |
+| Vision (imágenes)      | Input          | OpenAI, Anthropic, Gemini, Qwen, DeepSeek |
+| Generación de imágenes | Output         | OpenAI (DALL-E), algunos proveedores      |
+| Entrada de audio       | Input          | Gemini, Qwen (modo omni)                  |
+| Salida de audio        | Output         | Qwen (modo omni), algunos proveedores     |
+| Entrada de video       | Input          | Gemini                                    |
+| Modo Omni              | Input + Output | Qwen (texto y audio al unísono)           |
 
 ## Enviar imágenes
 
@@ -75,14 +75,11 @@ import { AiClient, Message, ContentBlock } from '@hiddenpath/ai-lib-ts';
 const client = await AiClient.new('openai/gpt-4o');
 
 const message = Message.userWithContent([
-    ContentBlock.text("What's in this image?"),
-    ContentBlock.imageUrl('https://example.com/photo.jpg'),
+  ContentBlock.text("What's in this image?"),
+  ContentBlock.imageUrl('https://example.com/photo.jpg'),
 ]);
 
-const response = await client
-  .chat()
-  .messages([message])
-  .execute();
+const response = await client.chat().messages([message]).execute();
 
 console.log(response.content);
 ```
@@ -129,8 +126,8 @@ const imageBuffer = readFileSync('photo.jpg');
 const imageData = imageBuffer.toString('base64');
 
 const message = Message.userWithContent([
-    ContentBlock.text('Describe this'),
-    ContentBlock.imageBase64(imageData, 'image/jpeg'),
+  ContentBlock.text('Describe this'),
+  ContentBlock.imageBase64(imageData, 'image/jpeg'),
 ]);
 ```
 
@@ -241,12 +238,25 @@ try {
 
 El manifiesto V2 declara explícitamente las características multimodales para cada proveedor:
 
-| Proveedor | Image In | Audio In | Video In | Image Out | Audio Out | Omni |
-|----------|---------|---------|---------|----------|----------|------|
-| OpenAI | ✅ png, jpg, gif, webp | — | — | ✅ | — | — |
-| Anthropic | ✅ png, jpg, gif, webp | — | — | — | — | — |
-| Gemini | ✅ png, jpg, gif, webp | ✅ wav, mp3, flac | ✅ mp4, avi | — | — | — |
-| Qwen | ✅ png, jpg | ✅ wav, mp3 | — | — | ✅ | ✅ |
-| DeepSeek | ✅ png, jpg | — | — | — | — | — |
+| Proveedor | Image In               | Audio In          | Video In    | Image Out | Audio Out | Omni |
+| --------- | ---------------------- | ----------------- | ----------- | --------- | --------- | ---- |
+| OpenAI    | ✅ png, jpg, gif, webp | —                 | —           | ✅        | —         | —    |
+| Anthropic | ✅ png, jpg, gif, webp | —                 | —           | —         | —         | —    |
+| Gemini    | ✅ png, jpg, gif, webp | ✅ wav, mp3, flac | ✅ mp4, avi | —         | —         | —    |
+| Qwen      | ✅ png, jpg            | ✅ wav, mp3       | —           | —         | ✅        | ✅   |
+| DeepSeek  | ✅ png, jpg            | —                 | —           | —         | —         | —    |
 
 Por favor, revise las secciones `multimodal.input` y `multimodal.output` en los manifiestos de los proveedores V2 para la declaración completa.
+
+## Pruebas de generación de video asíncrona (Mock)
+
+`ai-protocol-mock` incluye un ciclo de vida asíncrono para generación de video, útil para pruebas de integración:
+
+- `POST /v1/video/generations` con `{"async": true}` devuelve `202` y un `job_id`
+- `GET /v1/video/generations/{job_id}` progresa por `queued -> running -> succeeded`
+- Encabezados de inyección de fallas soportados:
+  - `X-Mock-Status`
+  - `X-Mock-Timeout-Ms`
+  - `X-Mock-Invalid-Content-Type`
+
+Esto permite validar de forma determinista polling, manejo de timeout y parsing de estados terminales antes de habilitar endpoints reales.

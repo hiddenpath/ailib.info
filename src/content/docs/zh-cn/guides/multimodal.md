@@ -15,14 +15,14 @@ AI-Lib 支持多模态输入 — 文本与图像组合 — 通过相同的统一
 
 ## 支持的能力
 
-| Capability | Direction | Providers |
-|-----------|-----------|-----------|
-| Vision（图像） | Input | OpenAI, Anthropic, Gemini, Qwen, DeepSeek |
-| Image generation | Output | OpenAI (DALL-E), 部分提供商 |
-| Audio input | Input | Gemini, Qwen (omni_mode) |
-| Audio output | Output | Qwen (omni_mode), 部分提供商 |
-| Video input | Input | Gemini |
-| Omni mode | Input + Output | Qwen (文本+音频同步) |
+| Capability       | Direction      | Providers                                 |
+| ---------------- | -------------- | ----------------------------------------- |
+| Vision（图像）   | Input          | OpenAI, Anthropic, Gemini, Qwen, DeepSeek |
+| Image generation | Output         | OpenAI (DALL-E), 部分提供商               |
+| Audio input      | Input          | Gemini, Qwen (omni_mode)                  |
+| Audio output     | Output         | Qwen (omni_mode), 部分提供商              |
+| Video input      | Input          | Gemini                                    |
+| Omni mode        | Input + Output | Qwen (文本+音频同步)                      |
 
 ## 发送图像
 
@@ -75,14 +75,11 @@ import { AiClient, Message, ContentBlock } from '@hiddenpath/ai-lib-ts';
 const client = await AiClient.new('openai/gpt-4o');
 
 const message = Message.userWithContent([
-    ContentBlock.text("What's in this image?"),
-    ContentBlock.imageUrl('https://example.com/photo.jpg'),
+  ContentBlock.text("What's in this image?"),
+  ContentBlock.imageUrl('https://example.com/photo.jpg'),
 ]);
 
-const response = await client
-  .chat()
-  .messages([message])
-  .execute();
+const response = await client.chat().messages([message]).execute();
 
 console.log(response.content);
 ```
@@ -129,8 +126,8 @@ const imageBuffer = readFileSync('photo.jpg');
 const imageData = imageBuffer.toString('base64');
 
 const message = Message.userWithContent([
-    ContentBlock.text('Describe this'),
-    ContentBlock.imageBase64(imageData, 'image/jpeg'),
+  ContentBlock.text('Describe this'),
+  ContentBlock.imageBase64(imageData, 'image/jpeg'),
 ]);
 ```
 
@@ -241,12 +238,25 @@ try {
 
 V2 清单在配置中显式声明了每个提供商的多模态功能：
 
-| Provider | Image In | Audio In | Video In | Image Out | Audio Out | Omni |
-|----------|---------|---------|---------|----------|----------|------|
-| OpenAI | ✅ png, jpg, gif, webp | — | — | ✅ | — | — |
-| Anthropic | ✅ png, jpg, gif, webp | — | — | — | — | — |
-| Gemini | ✅ png, jpg, gif, webp | ✅ wav, mp3, flac | ✅ mp4, avi | — | — | — |
-| Qwen | ✅ png, jpg | ✅ wav, mp3 | — | — | ✅ | ✅ |
-| DeepSeek | ✅ png, jpg | — | — | — | — | — |
+| Provider  | Image In               | Audio In          | Video In    | Image Out | Audio Out | Omni |
+| --------- | ---------------------- | ----------------- | ----------- | --------- | --------- | ---- |
+| OpenAI    | ✅ png, jpg, gif, webp | —                 | —           | ✅        | —         | —    |
+| Anthropic | ✅ png, jpg, gif, webp | —                 | —           | —         | —         | —    |
+| Gemini    | ✅ png, jpg, gif, webp | ✅ wav, mp3, flac | ✅ mp4, avi | —         | —         | —    |
+| Qwen      | ✅ png, jpg            | ✅ wav, mp3       | —           | —         | ✅        | ✅   |
+| DeepSeek  | ✅ png, jpg            | —                 | —           | —         | —         | —    |
 
 请查看 V2 提供商清单中的 `multimodal.input` 和 `multimodal.output` 部分获取完整声明。
+
+## Async 视频生成测试（Mock）
+
+`ai-protocol-mock` 新增了可用于集成测试的异步视频生成生命周期：
+
+- `POST /v1/video/generations`（`{"async": true}`）返回 `202` 和 `job_id`
+- `GET /v1/video/generations/{job_id}` 按 `queued -> running -> succeeded` 进入终态
+- 支持失败注入请求头：
+  - `X-Mock-Status`
+  - `X-Mock-Timeout-Ms`
+  - `X-Mock-Invalid-Content-Type`
+
+该能力可用于在接入真实 provider 前，先验证轮询流程、超时处理和终态解析逻辑。

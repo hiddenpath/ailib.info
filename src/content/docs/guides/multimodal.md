@@ -9,15 +9,15 @@ AI-Lib supports multimodal inputs and outputs — text combined with images, aud
 
 ## Supported Capabilities
 
-| Capability | Direction | Providers |
-|-----------|-----------|-----------|
-| Vision (images) | Input | OpenAI, Anthropic, Gemini, Qwen, DeepSeek, Doubao |
-| Image generation | Output | OpenAI (DALL-E), select providers |
-| Audio input | Input | Gemini, Qwen (omni_mode), Doubao |
-| Audio output | Output | OpenAI (TTS), Qwen (omni_mode), Doubao, select providers |
-| Video input | Input | Gemini, Qwen |
-| Video generation contract | Output schema | V2 `multimodal.output.video` |
-| Omni mode | Input + Output | Qwen (simultaneous text + audio) |
+| Capability                | Direction      | Providers                                                |
+| ------------------------- | -------------- | -------------------------------------------------------- |
+| Vision (images)           | Input          | OpenAI, Anthropic, Gemini, Qwen, DeepSeek, Doubao        |
+| Image generation          | Output         | OpenAI (DALL-E), select providers                        |
+| Audio input               | Input          | Gemini, Qwen (omni_mode), Doubao                         |
+| Audio output              | Output         | OpenAI (TTS), Qwen (omni_mode), Doubao, select providers |
+| Video input               | Input          | Gemini, Qwen                                             |
+| Video generation contract | Output schema  | V2 `multimodal.output.video`                             |
+| Omni mode                 | Input + Output | Qwen (simultaneous text + audio)                         |
 
 ## Sending Images
 
@@ -70,14 +70,11 @@ import { AiClient, Message, ContentBlock } from '@hiddenpath/ai-lib-ts';
 const client = await AiClient.new('openai/gpt-4o');
 
 const message = Message.userWithContent([
-    ContentBlock.text("What's in this image?"),
-    ContentBlock.imageUrl('https://example.com/photo.jpg'),
+  ContentBlock.text("What's in this image?"),
+  ContentBlock.imageUrl('https://example.com/photo.jpg'),
 ]);
 
-const response = await client
-  .chat()
-  .messages([message])
-  .execute();
+const response = await client.chat().messages([message]).execute();
 
 console.log(response.content);
 ```
@@ -124,8 +121,8 @@ const imageBuffer = readFileSync('photo.jpg');
 const imageData = imageBuffer.toString('base64');
 
 const message = Message.userWithContent([
-    ContentBlock.text('Describe this'),
-    ContentBlock.imageBase64(imageData, 'image/jpeg'),
+  ContentBlock.text('Describe this'),
+  ContentBlock.imageBase64(imageData, 'image/jpeg'),
 ]);
 ```
 
@@ -236,13 +233,26 @@ try {
 
 The V2 manifest declares each provider's multimodal capabilities explicitly:
 
-| Provider | Image In | Audio In | Video In | Image Out | Audio Out | Video Out | Omni |
-|----------|----------|----------|----------|-----------|-----------|-----------|------|
-| OpenAI | ✅ png, jpg, gif, webp | ✅ mp3, wav, flac | — | ✅ | ✅ | declared (currently false) | — |
-| Anthropic | ✅ png, jpg, gif, webp | — | — | — | — | declared (currently false) | — |
-| Gemini | ✅ png, jpg, gif, webp | ✅ wav, mp3, flac | ✅ mp4, avi | ✅ | — | declared (currently false) | — |
-| Qwen | ✅ png, jpg | ✅ wav, mp3 | ✅ mp4, webm | ✅ | ✅ | declared (currently false) | ✅ |
-| DeepSeek | ✅ png, jpg | — | — | — | — | declared (currently false) | — |
-| Doubao | ✅ png, jpg | ✅ mp3, wav | — | ✅ | ✅ | declared (currently false) | — |
+| Provider  | Image In               | Audio In          | Video In     | Image Out | Audio Out | Video Out                  | Omni |
+| --------- | ---------------------- | ----------------- | ------------ | --------- | --------- | -------------------------- | ---- |
+| OpenAI    | ✅ png, jpg, gif, webp | ✅ mp3, wav, flac | —            | ✅        | ✅        | declared (currently false) | —    |
+| Anthropic | ✅ png, jpg, gif, webp | —                 | —            | —         | —         | declared (currently false) | —    |
+| Gemini    | ✅ png, jpg, gif, webp | ✅ wav, mp3, flac | ✅ mp4, avi  | ✅        | —         | declared (currently false) | —    |
+| Qwen      | ✅ png, jpg            | ✅ wav, mp3       | ✅ mp4, webm | ✅        | ✅        | declared (currently false) | ✅   |
+| DeepSeek  | ✅ png, jpg            | —                 | —            | —         | —         | declared (currently false) | —    |
+| Doubao    | ✅ png, jpg            | ✅ mp3, wav       | —            | ✅        | ✅        | declared (currently false) | —    |
 
 Check `multimodal.input` and `multimodal.output` sections in the V2 provider manifest for the complete declaration.
+
+## Async Video Generation Testing (Mock)
+
+For integration and compliance pipelines, `ai-protocol-mock` provides an async video generation lifecycle:
+
+- `POST /v1/video/generations` with `{"async": true}` returns `202` with a `job_id`
+- `GET /v1/video/generations/{job_id}` transitions `queued -> running -> succeeded`
+- Failure simulation headers are available:
+  - `X-Mock-Status`
+  - `X-Mock-Timeout-Ms`
+  - `X-Mock-Invalid-Content-Type`
+
+This enables deterministic testing for polling behavior, timeout handling, and terminal-state parsing before enabling real provider endpoints.
