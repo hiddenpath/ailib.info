@@ -5,7 +5,7 @@ description: How AI-Protocol, ai-lib-rust, and ai-lib-python work together as an
 
 # Ecosystem Architecture
 
-The AI-Lib ecosystem is built on a clean three-layer architecture where each layer has a distinct responsibility. Current versions: **AI-Protocol v0.7.6+ (P0 generative expansion train)**, **ai-lib-rust v0.8.5**, **ai-lib-python v0.7.4**, **ai-protocol-mock v0.1.7+**.
+The AI-Lib ecosystem is built on a clean three-layer architecture where each layer has a distinct responsibility. Current versions: **AI-Protocol v0.8.0 (generative fullchain upgrade)**, **ai-lib-rust v0.9.0**, **ai-lib-python v0.8.0**, **ai-lib-ts v0.5.0**, **ai-protocol-mock v0.1.7+**.
 
 ## The Three Layers
 
