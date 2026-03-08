@@ -1,6 +1,6 @@
 ---
 title: Introducción
-description: Visión general del ecosistema AI-Lib — especificación AI-Protocol y sus implementaciones en tiempo de ejecución en Rust y Python.
+description: Visión general del ecosistema AI-Lib — especificación AI-Protocol y sus implementaciones runtime en Rust, Python y TypeScript.
 ---
 
 # Bienvenido a AI-Lib
@@ -16,18 +16,20 @@ Los SDKs de IA tradicionales incorporan lógica específica del proveedor en el 
 AI-Lib adopta un enfoque diferente:
 
 - **AI-Protocol** define cómo comunicarse con cada proveedor en manifiestos YAML
-- **Implementaciones en tiempo de ejecución** (Rust, Python) leen estos manifiestos y ejecutan las solicitudes
+- **Implementaciones en tiempo de ejecución** (Rust, Python, TypeScript) leen estos manifiestos y ejecutan las solicitudes
 - **Lógica sin codificar** — ninguna rama `if provider == "openai"` en ningún lugar
 
-## Tres proyectos, un ecosistema
+## Cinco proyectos, un ecosistema
 
 | Project | Role | Language | Version | Distribution |
 |---------|------|----------|---------|---------------|
-| **[AI-Protocol](/protocol/)** | Capa de especificación | YAML/JSON | v0.7.0 | GitHub |
-| **[ai-lib-rust](/rust/)** | Implementación en tiempo de ejecución | Rust | v0.8.0 | [Crates.io](https://crates.io/crates/ai-lib) |
-| **[ai-lib-python](/python/)** | Implementación en tiempo de ejecución | Python | v0.7.0 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| **[AI-Protocol](/protocol/)** | Capa de especificación | YAML/JSON | v0.8.1 | GitHub |
+| **[ai-lib-rust](/rust/)** | Implementación runtime | Rust | v0.9.1 | [Crates.io](https://crates.io/crates/ai-lib) |
+| **[ai-lib-python](/python/)** | Implementación runtime | Python | v0.8.1 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| **[ai-lib-ts](/ts/)** | Implementación runtime | TypeScript | v0.5.1 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
+| **ai-protocol-mock** | Capa de mock/testing | Python | v0.1.9 | GitHub |
 
-La versión v0.7.0 del protocolo introduce las **funcionalidades del protocolo V2**: una arquitectura de tres capas, códigos de error estandarizados, banderas de características para extensiones de capacidades y un conjunto de pruebas de conformidad que garantiza un comportamiento idéntico entre los tiempos de ejecución.
+El ciclo actual de releases extiende V2 con gates de gobernanza ejecutable: `drift`, `manifest-consumption`, `compliance-matrix`, `fullchain` y `release-gate`, incluyendo modo `--report-only` para adopción por etapas.
 
 ### AI-Protocol (Especificación)
 
@@ -40,6 +42,10 @@ Tiempo de ejecución de alto rendimiento. La canalización de streaming basada e
 ### ai-lib-python (Tiempo de ejecución Python)
 
 Tiempo de ejecución orientado al desarrollador. Soporte completo async/await, seguridad de tipos con Pydantic v2, telemetría de nivel producción (OpenTelemetry + Prometheus) y enrutamiento inteligente de modelos. Publicado en PyPI.
+
+### ai-lib-ts (Tiempo de ejecución TypeScript)
+
+Runtime para Node.js/npm con parsing V2 de manifiestos, errores estandarizados, streaming y módulos de resiliencia, alineado con la matriz de compliance de Rust/Python.
 
 ## Características principales
 
@@ -59,3 +65,4 @@ Tiempo de ejecución orientado al desarrollador. Soporte completo async/await, s
 - **[AI-Protocol](/protocol/overview/)** — Profundice en la especificación
 - **[SDK Rust](/rust/overview/)** — Comience con Rust
 - **[SDK Python](/python/overview/)** — Comience con Python
+- **[SDK TypeScript](/ts/overview/)** — Comience con TypeScript

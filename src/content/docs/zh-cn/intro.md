@@ -1,6 +1,6 @@
 ---
 title: 简介
-description: AI-Lib 生态系统概览 —— AI-Protocol 规范及其 Rust 与 Python 运行时实现。
+description: AI-Lib 生态系统概览 —— AI-Protocol 规范及其 Rust、Python、TypeScript 运行时实现。
 ---
 
 # 欢迎使用 AI-Lib
@@ -16,18 +16,20 @@ description: AI-Lib 生态系统概览 —— AI-Protocol 规范及其 Rust 与 
 AI-Lib 采用了不同的方法：
 
 - **AI-Protocol** 在 YAML 清单中定义如何与每个供应商通信
-- **运行时实现**（Rust、Python）读取这些清单并执行请求
+- **运行时实现**（Rust、Python、TypeScript）读取这些清单并执行请求
 - **零硬编码逻辑** — 代码中没有任何 `if provider == "openai"` 之类的分支
 
-## 三个项目，一个生态系统
+## 五个项目，一个生态系统
 
 | 项目 | 角色 | 语言 | 版本 | 分发渠道 |
 |---------|------|----------|---------|---------------|
-| **[AI-Protocol](/protocol/)** | 规范层 | YAML/JSON | v0.7.0 | GitHub |
-| **[ai-lib-rust](/rust/)** | 运行时实现 | Rust | v0.8.0 | [Crates.io](https://crates.io/crates/ai-lib) |
-| **[ai-lib-python](/python/)** | 运行时实现 | Python | v0.7.0 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| **[AI-Protocol](/protocol/)** | 规范层 | YAML/JSON | v0.8.1 | GitHub |
+| **[ai-lib-rust](/rust/)** | 运行时实现 | Rust | v0.9.1 | [Crates.io](https://crates.io/crates/ai-lib) |
+| **[ai-lib-python](/python/)** | 运行时实现 | Python | v0.8.1 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| **[ai-lib-ts](/ts/)** | 运行时实现 | TypeScript | v0.5.1 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
+| **ai-protocol-mock** | mock/测试层 | Python | v0.1.9 | GitHub |
 
-协议 v0.7.0 版本引入了 **V2 协议特性**：三层架构、标准化错误码、用于能力扩展的特性标志，以及确保各运行时行为一致的一致性测试套件。
+当前发布周期在 V2 架构能力基础上，补齐了执行治理门禁：`drift`、`manifest-consumption`、`compliance-matrix`、`fullchain`、`release-gate`，并支持 `--report-only` 分级治理。
 
 ### AI-Protocol（规范）
 
@@ -40,6 +42,10 @@ AI-Lib 采用了不同的方法：
 ### ai-lib-python（Python 运行时）
 
 开发者友好的运行时。完整的 async/await 支持、Pydantic v2 类型安全、生产级遥测（OpenTelemetry + Prometheus）以及智能模型路由。发布于 PyPI。
+
+### ai-lib-ts（TypeScript 运行时）
+
+面向 Node.js/npm 的运行时实现。支持 V2 清单加载、统一错误语义、流式处理、弹性模块与跨运行时合规矩阵执行。
 
 ## 核心特性
 
@@ -60,3 +66,4 @@ AI-Lib 采用了不同的方法：
 - **[AI-Protocol](/protocol/overview/)** — 深入了解规范
 - **[Rust SDK](/rust/overview/)** — 从 Rust 开始
 - **[Python SDK](/python/overview/)** — 从 Python 开始
+- **[TypeScript SDK](/ts/overview/)** — 从 TypeScript 开始

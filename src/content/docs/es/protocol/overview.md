@@ -18,8 +18,8 @@ Cada comportamiento específico del proveedor — endpoints, autenticación, nom
 ```
 ai-protocol/
 ├── v1/
-│   ├── spec.yaml          # Core specification (v0.7.0)
-│   ├── providers/          # 37 provider manifests
+│   ├── spec.yaml          # Core specification
+│   ├── providers/          # Manifiestos de proveedores V1
 │   │   ├── openai.yaml
 │   │   ├── anthropic.yaml
 │   │   ├── gemini.yaml
@@ -29,8 +29,17 @@ ai-protocol/
 │       ├── gpt.yaml
 │       ├── claude.yaml
 │       └── ...
+├── v2/
+│   └── providers/          # Manifiestos V2 (conjunto generativo P0)
 ├── schemas/                # JSON Schema validation
 │   ├── v1.json
+│   ├── v2/
+│   │   ├── provider.json
+│   │   ├── provider-contract.json
+│   │   ├── mcp.json
+│   │   ├── computer-use.json
+│   │   ├── multimodal.json
+│   │   └── context-policy.json
 │   └── spec.json
 ├── dist/                   # Pre-compiled JSON (generated)
 ├── scripts/                # Build & validation tools
@@ -121,13 +130,13 @@ npm run build       # Compile YAML → JSON
 
 AI-Protocol utiliza versionado en capas:
 
-1. **Versión de la especificación** (`v1/spec.yaml`) — Versión de la estructura del esquema (actualmente v0.7.0)
-2. **Versión del protocolo** (en manifiestos) — Características del protocolo utilizadas (actualmente 0.7)
-3. **Versión de lanzamiento** (`package.json`) — SemVer para el paquete de especificación (v0.7.0)
+1. **Versión de la especificación** (`v1/spec.yaml`) — versión de estructura de esquema
+2. **Versión del protocolo** (en manifiestos) — capacidades usadas (`1.x` / `2.x`)
+3. **Versión de lanzamiento** (`package.json`) — SemVer del paquete (actual: **v0.8.1**)
 
 ## Arquitectura del protocolo V2
 
-La versión v0.7.0 del protocolo introduce la **arquitectura V2** — una separación limpia de responsabilidades entre capas y un modelo de manifiesto concéntrico.
+La evolución hasta **v0.8.1** consolida la arquitectura V2 y agrega gates ejecutables de gobernanza para release.
 
 ### Pirámide de tres capas
 
@@ -141,9 +150,28 @@ La versión v0.7.0 del protocolo introduce la **arquitectura V2** — una separa
 - **Anillo 2 Mapeo de capacidades** (condicional) — Config de streaming, mapeo de tools, parámetros de visión — presente cuando el proveedor los soporta
 - **Anillo 3 Extensiones avanzadas** (opcional) — Encabezados personalizados, encabezados de límite de velocidad, políticas de reintento avanzadas
 
-### Proveedores V2-Alpha
+### Conjunto generativo V2 (P0)
 
-OpenAI, Anthropic y Gemini ya están disponibles en formato **v2-alpha**. Estos manifiestos utilizan la estructura Anillo 1/2/3 y pueden usarse junto con manifiestos v1.
+El conjunto P0 para cobertura generativa en V2 incluye:
+
+- OpenAI
+- Anthropic
+- Google Gemini
+- DeepSeek
+- Qwen
+- Doubao
+
+### Gates de gobernanza de ejecución
+
+`ai-protocol` incluye gates de ejecución:
+
+- `npm run drift:check`
+- `npm run gate:manifest-consumption`
+- `npm run gate:compliance-matrix`
+- `npm run gate:fullchain`
+- `npm run release:gate`
+
+Todos soportan `--report-only` para adopción gradual antes del modo bloqueante.
 
 ### Códigos de error estándar
 
@@ -151,7 +179,7 @@ V2 define 13 códigos de error estandarizados (E1001–E9999) en 5 categorías: 
 
 ### Consistencia entre tiempos de ejecución
 
-Un **conjunto de pruebas de conformidad** garantiza un comportamiento idéntico entre los tiempos de ejecución Rust y Python. Todos los proveedores V2 pasan la misma matriz de pruebas en ambas implementaciones.
+La conformidad cross-runtime ya cubre Rust / Python / TypeScript en dimensiones de protocol loading, error classification, retry, message, stream y request.
 
 ## Próximos pasos
 

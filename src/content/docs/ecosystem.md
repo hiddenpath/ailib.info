@@ -1,6 +1,6 @@
 ---
 title: Ecosystem Architecture
-description: How AI-Protocol, ai-lib-rust, and ai-lib-python work together as an integrated ecosystem.
+description: How AI-Protocol, ai-lib-rust, ai-lib-python, and ai-lib-ts work together as an integrated ecosystem.
 ---
 
 # Ecosystem Architecture
@@ -21,7 +21,7 @@ The **specification** layer. YAML manifests define:
 
 The protocol layer is **language-agnostic**. It's consumed by any runtime in any language.
 
-### 2. Runtime Layer — Rust & Python SDKs
+### 2. Runtime Layer — Rust, Python, and TypeScript SDKs
 
 The **execution** layer. Runtimes implement:
 
@@ -31,21 +31,20 @@ The **execution** layer. Runtimes implement:
 - **Resilience** — Circuit breaker, rate limiting, retry, fallback
 - **Extensions** — Embeddings, caching, batching, plugins
 
-Both runtimes share the same architecture with cross-runtime parity:
+All runtimes share the same protocol-driven architecture with cross-runtime parity:
 
-| Concept          | Rust                                | Python                            |
-| ---------------- | ----------------------------------- | --------------------------------- |
-| Client           | `AiClient`                          | `AiClient`                        |
-| Builder          | `AiClientBuilder`                   | `AiClientBuilder`                 |
-| Request          | `ChatRequestBuilder`                | `ChatRequestBuilder`              |
-| Events           | `StreamingEvent` enum               | `StreamingEvent` class            |
-| Transport        | reqwest (tokio)                     | httpx (asyncio)                   |
-| Types            | Rust structs                        | Pydantic v2 models                |
-| **V2 Driver**    | `Box<dyn ProviderDriver>`           | `ProviderDriver` ABC              |
-| **Registry**     | `CapabilityRegistry` (feature-gate) | `CapabilityRegistry` (pip extras) |
-| **MCP Bridge**   | `McpToolBridge`                     | `McpToolBridge`                   |
-| **Computer Use** | `ComputerAction` + `SafetyPolicy`   | `ComputerAction` + `SafetyPolicy` |
-| **Multimodal**   | `MultimodalCapabilities`            | `MultimodalCapabilities`          |
+| Concept          | Rust                                | Python                            | TypeScript                        |
+| ---------------- | ----------------------------------- | --------------------------------- | --------------------------------- |
+| Client           | `AiClient`                          | `AiClient`                        | `AiClient`                        |
+| Builder          | `AiClientBuilder`                   | `AiClientBuilder`                 | `AiClientBuilder`                 |
+| Request          | `ChatRequestBuilder`                | `ChatRequestBuilder`              | `ChatBuilder`                     |
+| Events           | `StreamingEvent` enum               | `StreamingEvent` class            | unified streaming events          |
+| Transport        | reqwest (tokio)                     | httpx (asyncio)                   | fetch (Node.js)                   |
+| Types            | Rust structs                        | Pydantic v2 models                | TypeScript interfaces             |
+| **V2 Driver**    | `Box<dyn ProviderDriver>`           | `ProviderDriver` ABC              | manifest-driven parser/loader     |
+| **Registry**     | `CapabilityRegistry` (feature-gate) | `CapabilityRegistry` (pip extras) | capability modules                |
+| **MCP Bridge**   | `McpToolBridge`                     | `McpToolBridge`                   | `McpToolBridge`                   |
+| **Multimodal**   | `MultimodalCapabilities`            | `MultimodalCapabilities`          | STT/TTS/Rerank + multimodal types |
 
 ### 3. Application Layer — Your Code
 
@@ -74,7 +73,7 @@ Here's what happens when you call `client.chat().user("Hello").stream()`:
 
 ## Protocol Loading
 
-Both runtimes search for protocol manifests in this order:
+All runtimes search for protocol manifests in this order:
 
 1. **Custom path** — Explicitly set in builder
 2. **Environment variable** — `AI_PROTOCOL_DIR` or `AI_PROTOCOL_PATH`
@@ -85,7 +84,7 @@ This means you can start developing without any local setup — the runtimes wil
 
 ## V2 Protocol Architecture
 
-The V2 protocol (v0.7.0) delivers a complete **three-layer pyramid** with three new capability modules:
+The V2 protocol baseline (upgraded through v0.8.1 governance closure) delivers a complete **three-layer pyramid** with extended execution governance:
 
 ### Three-Layer Pyramid
 
@@ -103,7 +102,7 @@ V2 manifests are organized in three rings:
 
 ### ProviderDriver Abstraction
 
-Both runtimes implement a **ProviderDriver** abstraction that normalizes three distinct API styles:
+The runtime layer implements a **ProviderDriver** abstraction that normalizes three distinct API styles:
 
 | API Style           | Provider                   | Request Format                 | Streaming Format      |
 | ------------------- | -------------------------- | ------------------------------ | --------------------- |
@@ -154,9 +153,16 @@ Latest expansion notes:
 - Added V2 multimodal schema support for `multimodal.output.video` to standardize video generation declarations.
 - `ai-protocol-mock` now includes Gemini `generateContent` and `streamGenerateContent` routes for cross-runtime verification.
 - `ai-protocol-mock` now also supports video generation async-polling (`POST /v1/video/generations` + `GET /v1/video/generations/{job_id}`) for transport lifecycle testing.
-- `ai-protocol` now ships execution governance automation scripts:
-  - `npm run drift:check` for P0 provider/fixture/case drift detection
-  - `npm run release:gate` for release go/no-go gate evaluation
+- `ai-protocol` now ships full execution governance gate scripts:
+  - `npm run drift:check`
+  - `npm run gate:manifest-consumption`
+  - `npm run gate:compliance-matrix`
+  - `npm run gate:fullchain`
+  - `npm run release:gate`
+- Governance scripts support staged adoption with `--report-only` mode for advisory rollout.
+- `ai-protocol-mock` video async lifecycle supports deterministic terminal states:
+  - `succeeded`, `failed`, `cancelled`
+  - control via `X-Mock-Video-Terminal` or `terminal_state`
 
 The **MultimodalCapabilities** module validates content modalities against provider declarations before sending requests.
 
@@ -173,10 +179,11 @@ ai-protocol-cli check-compat <manifest> # Check runtime compatibility
 
 ### Cross-Runtime Consistency
 
-The **compliance test suite** now includes 230+ tests across both runtimes, with 12 dedicated V2 integration tests (6 per runtime) that validate the full chain from manifest loading through MCP bridging, Computer Use safety, and multimodal validation.
+The **compliance suite** is executed across Rust, Python, and TypeScript, covering protocol loading, error classification, retry decisions, message building, stream decoding, event mapping, and tool accumulation for fullchain consistency.
 
 ## Next Steps
 
 - **[AI-Protocol Overview](/protocol/overview/)** — Deep dive into the specification
 - **[Rust SDK](/rust/overview/)** — Explore the Rust runtime
 - **[Python SDK](/python/overview/)** — Explore the Python runtime
+- **[TypeScript SDK](/ts/overview/)** — Explore the TypeScript runtime

@@ -1,6 +1,6 @@
 ---
 title: はじめに
-description: AI-Lib エコシステムの概要 — AI-Protocol 仕様と Rust / Python ランタイム実装。
+description: AI-Lib エコシステムの概要 — AI-Protocol 仕様と Rust / Python / TypeScript ランタイム実装。
 ---
 
 # AI-Lib へようこそ
@@ -16,18 +16,20 @@ description: AI-Lib エコシステムの概要 — AI-Protocol 仕様と Rust /
 AI-Lib は別のアプローチを取ります：
 
 - **AI-Protocol** は YAML マニフェストで各プロバイダーとの通信方法を定義します
-- **ランタイム実装**（Rust、Python）はこれらのマニフェストを読み取り、リクエストを実行します
+- **ランタイム実装**（Rust、Python、TypeScript）はこれらのマニフェストを読み取り、リクエストを実行します
 - **ハードコーディングされたロジックはゼロ** — `if provider == "openai"` のような分岐はどこにもありません
 
-## 3 つのプロジェクト、1 つのエコシステム
+## 5 つのプロジェクト、1 つのエコシステム
 
 | プロジェクト | 役割 | 言語 | バージョン | 配布 |
 |-------------|------|------|------------|------|
-| **[AI-Protocol](/protocol/)** | 仕様レイヤー | YAML/JSON | v0.7.0 | GitHub |
-| **[ai-lib-rust](/rust/)** | ランタイム実装 | Rust | v0.8.0 | [Crates.io](https://crates.io/crates/ai-lib) |
-| **[ai-lib-python](/python/)** | ランタイム実装 | Python | v0.7.0 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| **[AI-Protocol](/protocol/)** | 仕様レイヤー | YAML/JSON | v0.8.1 | GitHub |
+| **[ai-lib-rust](/rust/)** | ランタイム実装 | Rust | v0.9.1 | [Crates.io](https://crates.io/crates/ai-lib) |
+| **[ai-lib-python](/python/)** | ランタイム実装 | Python | v0.8.1 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| **[ai-lib-ts](/ts/)** | ランタイム実装 | TypeScript | v0.5.1 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
+| **ai-protocol-mock** | mock/テスト層 | Python | v0.1.9 | GitHub |
 
-プロトコル v0.7.0 リリースでは **V2 プロトコル機能** を導入しています：3 層アーキテクチャ、標準化されたエラーコード、機能拡張用のフィーチャーフラグ、ランタイム間で同一の動作を保証するコンプライアンステストスイート。
+現在のリリースでは V2 能力に加えて、`drift`、`manifest-consumption`、`compliance-matrix`、`fullchain`、`release-gate` の実行ガバナンス・ゲートが統合され、`--report-only` で段階導入できます。
 
 ### AI-Protocol（仕様）
 
@@ -40,6 +42,10 @@ AI-Lib は別のアプローチを取ります：
 ### ai-lib-python（Python ランタイム）
 
 開発者フレンドリーなランタイムです。完全な async/await サポート、Pydantic v2 による型安全性、本番グレードのテレメトリ（OpenTelemetry + Prometheus）、インテリジェントなモデルルーティング。PyPI で公開されています。
+
+### ai-lib-ts（TypeScript ランタイム）
+
+Node.js/npm 向けランタイム。V2 マニフェスト読み込み、統一エラー、ストリーミング、レジリエンス、そして Rust/Python と整合するコンプライアンス行列を提供します。
 
 ## 主な機能
 
@@ -59,3 +65,4 @@ AI-Lib は別のアプローチを取ります：
 - **[AI-Protocol](/protocol/overview/)** — 仕様を詳しく学ぶ
 - **[Rust SDK](/rust/overview/)** — Rust で始める
 - **[Python SDK](/python/overview/)** — Python で始める
+- **[TypeScript SDK](/ts/overview/)** — TypeScript で始める

@@ -18,8 +18,8 @@ AI-Protocol 是一个**与供应商无关的规范**，用于标准化与 AI 模
 ```
 ai-protocol/
 ├── v1/
-│   ├── spec.yaml          # Core specification (v0.7.0)
-│   ├── providers/          # 37 provider manifests (6 V2 + 36 V1)
+│   ├── spec.yaml          # Core specification
+│   ├── providers/          # V1 provider manifests
 │   │   ├── openai.yaml
 │   │   ├── anthropic.yaml
 │   │   ├── gemini.yaml
@@ -29,8 +29,17 @@ ai-protocol/
 │       ├── gpt.yaml
 │       ├── claude.yaml
 │       └── ...
+├── v2/
+│   └── providers/          # V2 provider manifests（P0 生成式集合）
 ├── schemas/                # JSON Schema validation
 │   ├── v1.json
+│   ├── v2/
+│   │   ├── provider.json
+│   │   ├── provider-contract.json
+│   │   ├── mcp.json
+│   │   ├── computer-use.json
+│   │   ├── multimodal.json
+│   │   └── context-policy.json
 │   └── spec.json
 ├── dist/                   # Pre-compiled JSON (generated)
 ├── scripts/                # Build & validation tools
@@ -121,13 +130,13 @@ npm run build       # Compile YAML → JSON
 
 AI-Protocol 使用分层版本控制：
 
-1. **规范版本**（`v1/spec.yaml`）— 模式结构版本（当前为 v0.7.0）
-2. **协议版本**（在清单中）— 使用的协议特性（当前为 0.7）
-3. **发布版本**（`package.json`）— 规范包的 SemVer（v0.7.0）
+1. **规范版本**（`v1/spec.yaml`）— 模式结构版本
+2. **协议版本**（在清单中）— 清单使用的协议能力（`1.x` / `2.x`）
+3. **发布版本**（`package.json`）— 规范包的 SemVer（当前：**v0.8.1**）
 
 ## V2 协议架构
 
-协议 v0.7.0 引入了 **V2 架构** —— 跨层关注点清晰分离，以及同心圆清单模型。
+协议在 **v0.8.1** 阶段完成了 V2 架构能力与执行治理门禁的一体化闭环。
 
 ### 三层金字塔
 
@@ -141,20 +150,28 @@ AI-Protocol 使用分层版本控制：
 - **环 2 能力映射**（条件）— 流式配置、工具映射、视觉参数 —— 供应商支持时提供
 - **环 3 高级扩展**（可选）— 自定义头部、限流头部、高级重试策略
 
-### V2-Alpha 供应商
+### V2 生成式供应商集合（P0）
 
-OpenAI、Anthropic 和 Gemini 已提供 **v2-alpha** 格式。这些清单使用 Ring 1/2/3 结构，可与 v1 清单一起使用。
+当前 P0 生成式供应商集合已在 V2 清单中对齐：
 
-### V2 扩展能力
+- OpenAI
+- Anthropic
+- Google Gemini
+- DeepSeek
+- Qwen
+- Doubao
 
-V2 架构引入了多项扩展能力：
+### 执行治理门禁（Release Governance）
 
-- **MCP 工具桥接** — 与 Model Context Protocol 集成，支持工具注册和上下文管理
-- **Computer Use 抽象** — 标准化计算机操作接口，支持跨供应商的统一计算机使用能力
-- **扩展多模态** — 增强的多模态模式定义，支持更丰富的视觉和多媒体交互
-- **ProviderDriver** — 可插拔的供应商驱动架构，便于扩展和自定义
-- **能力注册表** — 统一的能力发现和管理机制
-- **CLI 工具** — 命令行工具支持协议验证、清单管理和测试
+`ai-protocol` 提供了可执行门禁脚本：
+
+- `npm run drift:check`
+- `npm run gate:manifest-consumption`
+- `npm run gate:compliance-matrix`
+- `npm run gate:fullchain`
+- `npm run release:gate`
+
+并支持 `--report-only` 模式，用于从“报告优先”逐步升级到“强阻断”治理。
 
 ### 标准错误码
 
@@ -162,7 +179,7 @@ V2 定义了 13 个标准化错误码（E1001–E9999），分为 5 类：客户
 
 ### 跨运行时一致性
 
-**一致性测试套件**确保 Rust 和 Python 运行时的行为一致。所有 V2 供应商在两个实现中均通过相同的测试矩阵。
+跨运行时一致性已扩展到 Rust / Python / TypeScript，重点覆盖 protocol loading、error classification、retry、message、stream、request 等合规维度。
 
 ## 下一步
 

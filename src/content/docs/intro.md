@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: Overview of the AI-Lib ecosystem — AI-Protocol specification and its Rust and Python runtime implementations.
+description: Overview of the AI-Lib ecosystem — AI-Protocol specification and its Rust, Python, and TypeScript runtime implementations.
 ---
 
 # Welcome to AI-Lib
@@ -16,18 +16,20 @@ Traditional AI SDKs embed provider-specific logic in code: different HTTP endpoi
 AI-Lib takes a different approach:
 
 - **AI-Protocol** defines how to talk to each provider in YAML manifests
-- **Runtime implementations** (Rust, Python) read these manifests and execute requests
+- **Runtime implementations** (Rust, Python, TypeScript) read these manifests and execute requests
 - **Zero hardcoded logic** — no `if provider == "openai"` branches anywhere
 
-## Three Projects, One Ecosystem
+## Five Projects, One Ecosystem
 
 | Project | Role | Language | Version | Distribution |
 |---------|------|----------|---------|---------------|
-| **[AI-Protocol](/protocol/)** | Specification layer | YAML/JSON | v0.7.0 | GitHub |
-| **[ai-lib-rust](/rust/)** | Runtime implementation | Rust | v0.8.0 | [Crates.io](https://crates.io/crates/ai-lib) |
-| **[ai-lib-python](/python/)** | Runtime implementation | Python | v0.7.0 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| **[AI-Protocol](/protocol/)** | Specification layer | YAML/JSON | v0.8.1 | GitHub |
+| **[ai-lib-rust](/rust/)** | Runtime implementation | Rust | v0.9.1 | [Crates.io](https://crates.io/crates/ai-lib) |
+| **[ai-lib-python](/python/)** | Runtime implementation | Python | v0.8.1 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| **[ai-lib-ts](/ts/)** | Runtime implementation | TypeScript | v0.5.1 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
+| **ai-protocol-mock** | Mock/testing layer | Python | v0.1.9 | GitHub |
 
-The latest release delivers the full **V2 protocol** with three major new capabilities: **MCP tool integration**, **Computer Use abstraction**, and **Extended Multimodal** support. Both runtimes feature ProviderDriver abstraction, Capability Registry, and 230+ tests ensuring cross-runtime consistency.
+The latest release cycle delivers full **V2 protocol** execution with governance gates: **MCP**, **Computer Use**, **Extended Multimodal**, and script-based release gates (`drift`, `manifest-consumption`, `compliance-matrix`, `fullchain`, `release-gate`) with `--report-only` staged rollout.
 
 ### AI-Protocol (Specification)
 
@@ -40,6 +42,10 @@ High-performance runtime. Operator-based streaming pipeline processes responses 
 ### ai-lib-python (Python Runtime)
 
 Developer-friendly runtime. Full async/await support, Pydantic v2 type safety, production-grade telemetry (OpenTelemetry + Prometheus), and intelligent model routing. Published on PyPI.
+
+### ai-lib-ts (TypeScript Runtime)
+
+Node.js runtime for the npm ecosystem. Manifest-driven V2 parsing, standardized errors, streaming, resilience modules, and compliance matrix execution aligned with Rust/Python.
 
 ## Key Features
 
@@ -65,3 +71,4 @@ Developer-friendly runtime. Full async/await support, Pydantic v2 type safety, p
 - **[AI-Protocol](/protocol/overview/)** — Dive into the specification
 - **[Rust SDK](/rust/overview/)** — Start with Rust
 - **[Python SDK](/python/overview/)** — Start with Python
+- **[TypeScript SDK](/ts/overview/)** — Start with TypeScript

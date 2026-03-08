@@ -1,6 +1,6 @@
 ---
 title: Arquitectura del ecosistema
-description: Cómo AI-Protocol, ai-lib-rust y ai-lib-python funcionan juntos como un ecosistema integrado.
+description: Cómo AI-Protocol, ai-lib-rust, ai-lib-python y ai-lib-ts funcionan juntos como un ecosistema integrado.
 ---
 
 # Arquitectura del ecosistema
@@ -20,7 +20,7 @@ La capa de **especificación**. Los manifiestos YAML definen:
 
 La capa de protocolo es **independiente del lenguaje**. Cualquier tiempo de ejecución en cualquier lenguaje la consume.
 
-### 2. Capa de tiempo de ejecución — SDKs Rust y Python
+### 2. Capa de tiempo de ejecución — SDKs Rust, Python y TypeScript
 
 La capa de **ejecución**. Los tiempos de ejecución implementan:
 
@@ -30,16 +30,16 @@ La capa de **ejecución**. Los tiempos de ejecución implementan:
 - **Resiliencia** — Circuit breaker, limitación de velocidad, reintentos, fallback
 - **Extensiones** — Embeddings, caché, procesamiento por lotes, plugins
 
-Ambos tiempos de ejecución comparten la misma arquitectura:
+Los tres runtimes comparten la misma arquitectura impulsada por protocolo:
 
-| Concepto | Rust | Python |
-|----------|------|--------|
-| Cliente | `AiClient` | `AiClient` |
-| Constructor | `AiClientBuilder` | `AiClientBuilder` |
-| Solicitud | `ChatRequestBuilder` | `ChatRequestBuilder` |
-| Eventos | Enumeración `StreamingEvent` | Clase `StreamingEvent` |
-| Transporte | reqwest (tokio) | httpx (asyncio) |
-| Tipos | Estructuras Rust | Modelos Pydantic v2 |
+| Concepto | Rust | Python | TypeScript |
+|----------|------|--------|------------|
+| Cliente | `AiClient` | `AiClient` | `AiClient` |
+| Constructor | `AiClientBuilder` | `AiClientBuilder` | `AiClientBuilder` |
+| Solicitud | `ChatRequestBuilder` | `ChatRequestBuilder` | `ChatBuilder` |
+| Eventos | Enumeración `StreamingEvent` | Clase `StreamingEvent` | eventos unificados de streaming |
+| Transporte | reqwest (tokio) | httpx (asyncio) | fetch (Node.js) |
+| Tipos | Estructuras Rust | Modelos Pydantic v2 | interfaces TypeScript |
 
 ### 3. Capa de aplicación — Su código
 
@@ -68,7 +68,7 @@ Esto es lo que ocurre cuando llama a `client.chat().user("Hello").stream()`:
 
 ## Carga del protocolo
 
-Ambos tiempos de ejecución buscan manifiestos del protocolo en este orden:
+Los tres runtimes buscan manifiestos del protocolo en este orden:
 
 1. **Ruta personalizada** — Establecida explícitamente en el constructor
 2. **Variable de entorno** — `AI_PROTOCOL_DIR` o `AI_PROTOCOL_PATH`
@@ -77,15 +77,27 @@ Ambos tiempos de ejecución buscan manifiestos del protocolo en este orden:
 
 Esto significa que puede comenzar a desarrollar sin ninguna configuración local — los tiempos de ejecución obtendrán los manifiestos de GitHub automáticamente.
 
-## Evolución del protocolo V2
+## Evolución del protocolo V2 y mejoras de gobernanza
 
-La versión v0.7.0 del protocolo introduce una arquitectura de **pirámide de tres capas**:
+La base V2 se amplía en `v0.8.1` con cierre de gobernanza fullchain para capacidades generativas:
 
 - **L1 Protocolo principal** — Formato de mensaje, códigos de error estándar (E1001–E9999), declaración de versión
-- **L2 Extensiones de capacidades** — Streaming, visión, herramientas — cada una controlada por banderas de características
+- **L2 Extensiones de capacidades** — Streaming, visión, herramientas, MCP, Computer Use y multimodal
 - **L3 Perfil de entorno** — Claves API, endpoints, políticas de reintento — configuración específica del entorno
 
-El **conjunto de pruebas de conformidad** (42 casos de prueba, 20/20 aprobados en ambos tiempos de ejecución) garantiza un comportamiento idéntico entre las implementaciones Rust y Python.
+Scripts de gate de gobernanza ahora disponibles:
+
+- `npm run drift:check`
+- `npm run gate:manifest-consumption`
+- `npm run gate:compliance-matrix`
+- `npm run gate:fullchain`
+- `npm run release:gate`
+
+También soportan modo `--report-only` para adopción gradual sin bloqueo inmediato.
+
+El ciclo async de video en `ai-protocol-mock` soporta estados terminales deterministas `succeeded` / `failed` / `cancelled`, controlados por `X-Mock-Video-Terminal` o `terminal_state`.
+
+La matriz de compliance entre Rust/Python/TypeScript cubre protocol loading, error classification, retry, message, stream y request.
 
 ## Relación con MCP
 
@@ -101,3 +113,4 @@ Operan en capas diferentes y pueden usarse conjuntamente.
 - **[Visión general de AI-Protocol](/protocol/overview/)** — Profundice en la especificación
 - **[SDK Rust](/rust/overview/)** — Explore el tiempo de ejecución Rust
 - **[SDK Python](/python/overview/)** — Explore el tiempo de ejecución Python
+- **[SDK TypeScript](/ts/overview/)** — Explore el tiempo de ejecución TypeScript

@@ -19,13 +19,13 @@ Every piece of provider-specific behavior — endpoints, authentication, paramet
 ai-protocol/
 ├── v1/
 │   ├── spec.yaml            # V1 core specification
-│   ├── providers/            # 36 V1 provider manifests
+│   ├── providers/            # V1 provider manifests
 │   │   ├── openai.yaml
 │   │   ├── anthropic.yaml
 │   │   └── ...
 │   └── models/               # Model instance registry
 ├── v2/
-│   └── providers/            # 6 V2 provider manifests
+│   └── providers/            # V2 provider manifests (P0 generative set)
 │       ├── openai.yaml       # Ring 1/2/3 + MCP/CU/MM declarations
 │       ├── anthropic.yaml
 │       ├── gemini.yaml
@@ -136,13 +136,13 @@ npm run build       # Compile YAML → JSON
 
 AI-Protocol uses layered versioning:
 
-1. **Spec version** (`v1/spec.yaml`) — Schema structure version (currently v0.7.0)
-2. **Protocol version** (in manifests) — Protocol features used (currently 0.7)
-3. **Release version** (`package.json`) — SemVer for the specification package (v0.7.0)
+1. **Spec version** (`v1/spec.yaml`) — Schema structure version.
+2. **Protocol version** (in manifests) — Protocol features used by each manifest (`1.x` / `2.x`).
+3. **Release version** (`package.json`) — SemVer for the specification package (current: **v0.8.1**).
 
 ## V2 Protocol Architecture
 
-Protocol v0.7.0 delivers the full **V2 architecture** — a complete separation of concerns across layers, a concentric manifest model, and three new capability modules.
+Protocol evolution through **v0.8.1** delivers the full **V2 architecture** plus execution governance gates for release readiness.
 
 ### Three-Layer Pyramid
 
@@ -158,18 +158,18 @@ Protocol v0.7.0 delivers the full **V2 architecture** — a complete separation 
 
 ### V2 Providers
 
-Six providers are available in **V2 format**, each with full Ring 1/2/3 structure and MCP/CU/Multimodal declarations:
+The P0 generative provider set is available in **V2 manifests**, with Ring 1/2/3 structure and multimodal declarations:
 
-| Provider | API Style | MCP | Computer Use | Multimodal |
-|----------|-----------|-----|-------------|------------|
-| OpenAI | `OpenAiCompatible` | ✅ (tool_parameter) | ✅ (screen_based) | Vision, Audio |
-| Anthropic | `AnthropicMessages` | ✅ (sdk_config) | ✅ (screen_based) | Vision |
-| Gemini | `GeminiGenerate` | ✅ (sdk_config) | ✅ (tool_based) | Vision, Audio, Video |
-| DeepSeek | `OpenAiCompatible` | — | — | Vision |
-| Moonshot | `OpenAiCompatible` | — | — | Vision |
-| Zhipu | `OpenAiCompatible` | — | — | Vision |
+| Provider | API Style | Multimodal Focus |
+|----------|-----------|------------------|
+| OpenAI | `OpenAiCompatible` | text/vision/audio |
+| Anthropic | `AnthropicMessages` | text/vision |
+| Google Gemini | `GeminiGenerate` | text/vision/audio/video-in |
+| DeepSeek | `OpenAiCompatible` | text/vision |
+| Qwen | `OpenAiCompatible` | text/vision/audio-in |
+| Doubao | `OpenAiCompatible` | text/vision |
 
-V2 manifests are fully backward compatible — V1 manifests continue to work and can be auto-promoted via `CapabilitiesV2.from_legacy()`.
+V2 manifests remain backward-compatible with V1 loading paths in runtimes, while governance gates ensure staged release safety.
 
 ### ProviderContract
 
@@ -210,7 +210,19 @@ ai-protocol-cli check-compat <manifest> # Check runtime feature compatibility
 
 ### Cross-Runtime Consistency
 
-A **compliance test suite** with 230+ tests ensures identical behavior across Rust and Python runtimes. The V2 integration tests validate the full chain: Manifest parsing → ProviderDriver selection → Capability Registry → MCP bridge → Computer Use safety → Multimodal validation.
+A cross-runtime **compliance suite** now validates Rust, Python, and TypeScript runtimes across protocol loading, error classification, retry decisions, message building, stream decoding, event mapping, and tool accumulation.
+
+## Execution Governance
+
+Release execution is guarded by script-based gates:
+
+- `npm run drift:check`
+- `npm run gate:manifest-consumption`
+- `npm run gate:compliance-matrix`
+- `npm run gate:fullchain`
+- `npm run release:gate`
+
+Each gate supports `--report-only` mode for advisory rollout before strict blocking enforcement.
 
 ## Next Steps
 
