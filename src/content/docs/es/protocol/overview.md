@@ -132,11 +132,11 @@ AI-Protocol utiliza versionado en capas:
 
 1. **Versión de la especificación** (`v1/spec.yaml`) — versión de estructura de esquema
 2. **Versión del protocolo** (en manifiestos) — capacidades usadas (`1.x` / `2.x`)
-3. **Versión de lanzamiento** (`package.json`) — SemVer del paquete (actual: **v0.8.1**)
+3. **Versión de lanzamiento** (`package.json`) — SemVer del paquete (actual: **v0.8.2**)
 
 ## Arquitectura del protocolo V2
 
-La evolución hasta **v0.8.1** consolida la arquitectura V2 y agrega gates ejecutables de gobernanza para release.
+La evolución hasta **v0.8.2** consolida la arquitectura V2 y agrega gates ejecutables de gobernanza para release.
 
 ### Pirámide de tres capas
 

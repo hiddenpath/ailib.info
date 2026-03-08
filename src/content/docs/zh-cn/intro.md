@@ -23,11 +23,11 @@ AI-Lib 采用了不同的方法：
 
 | 项目 | 角色 | 语言 | 版本 | 分发渠道 |
 |---------|------|----------|---------|---------------|
-| **[AI-Protocol](/protocol/)** | 规范层 | YAML/JSON | v0.8.1 | GitHub |
-| **[ai-lib-rust](/rust/)** | 运行时实现 | Rust | v0.9.1 | [Crates.io](https://crates.io/crates/ai-lib) |
-| **[ai-lib-python](/python/)** | 运行时实现 | Python | v0.8.1 | [PyPI](https://pypi.org/project/ai-lib-python/) |
-| **[ai-lib-ts](/ts/)** | 运行时实现 | TypeScript | v0.5.1 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
-| **ai-protocol-mock** | mock/测试层 | Python | v0.1.9 | GitHub |
+| **[AI-Protocol](/protocol/)** | 规范层 | YAML/JSON | v0.8.2 | GitHub |
+| **[ai-lib-rust](/rust/)** | 运行时实现 | Rust | v0.9.2 | [Crates.io](https://crates.io/crates/ai-lib) |
+| **[ai-lib-python](/python/)** | 运行时实现 | Python | v0.8.2 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| **[ai-lib-ts](/ts/)** | 运行时实现 | TypeScript | v0.5.2 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
+| **ai-protocol-mock** | mock/测试层 | Python | v0.1.10 | GitHub |
 
 当前发布周期在 V2 架构能力基础上，补齐了执行治理门禁：`drift`、`manifest-consumption`、`compliance-matrix`、`fullchain`、`release-gate`，并支持 `--report-only` 分级治理。
 

@@ -5,7 +5,7 @@ description: How AI-Protocol, ai-lib-rust, ai-lib-python, and ai-lib-ts work tog
 
 # Ecosystem Architecture
 
-The AI-Lib ecosystem is built on a clean three-layer architecture where each layer has a distinct responsibility. Current versions: **AI-Protocol v0.8.1**, **ai-lib-rust v0.9.1**, **ai-lib-python v0.8.1**, **ai-lib-ts v0.5.1**, **ai-protocol-mock v0.1.9**.
+The AI-Lib ecosystem is built on a clean three-layer architecture where each layer has a distinct responsibility. Current versions: **AI-Protocol v0.8.2**, **ai-lib-rust v0.9.2**, **ai-lib-python v0.8.2**, **ai-lib-ts v0.5.2**, **ai-protocol-mock v0.1.10**.
 
 ## The Three Layers
 
@@ -84,7 +84,7 @@ This means you can start developing without any local setup — the runtimes wil
 
 ## V2 Protocol Architecture
 
-The V2 protocol baseline (upgraded through v0.8.1 governance closure) delivers a complete **three-layer pyramid** with extended execution governance:
+The V2 protocol baseline (upgraded through v0.8.2 governance closure) delivers a complete **three-layer pyramid** with extended execution governance:
 
 ### Three-Layer Pyramid
 

@@ -5,7 +5,7 @@ description: Cómo AI-Protocol, ai-lib-rust, ai-lib-python y ai-lib-ts funcionan
 
 # Arquitectura del ecosistema
 
-El ecosistema AI-Lib se basa en una arquitectura limpia de tres capas donde cada capa tiene una responsabilidad distinta. Versiones actuales: **AI-Protocol v0.8.1**, **ai-lib-rust v0.9.1**, **ai-lib-python v0.8.1**, **ai-lib-ts v0.5.1**, **ai-protocol-mock v0.1.9**.
+El ecosistema AI-Lib se basa en una arquitectura limpia de tres capas donde cada capa tiene una responsabilidad distinta. Versiones actuales: **AI-Protocol v0.8.2**, **ai-lib-rust v0.9.2**, **ai-lib-python v0.8.2**, **ai-lib-ts v0.5.2**, **ai-protocol-mock v0.1.10**.
 
 ## Las tres capas
 
@@ -79,7 +79,7 @@ Esto significa que puede comenzar a desarrollar sin ninguna configuración local
 
 ## Evolución del protocolo V2 y mejoras de gobernanza
 
-La base V2 se amplía en `v0.8.1` con cierre de gobernanza fullchain para capacidades generativas:
+La base V2 se amplía en `v0.8.2` con cierre de gobernanza fullchain para capacidades generativas:
 
 - **L1 Protocolo principal** — Formato de mensaje, códigos de error estándar (E1001–E9999), declaración de versión
 - **L2 Extensiones de capacidades** — Streaming, visión, herramientas, MCP, Computer Use y multimodal

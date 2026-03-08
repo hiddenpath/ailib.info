@@ -23,11 +23,11 @@ AI-Lib takes a different approach:
 
 | Project | Role | Language | Version | Distribution |
 |---------|------|----------|---------|---------------|
-| **[AI-Protocol](/protocol/)** | Specification layer | YAML/JSON | v0.8.1 | GitHub |
-| **[ai-lib-rust](/rust/)** | Runtime implementation | Rust | v0.9.1 | [Crates.io](https://crates.io/crates/ai-lib) |
-| **[ai-lib-python](/python/)** | Runtime implementation | Python | v0.8.1 | [PyPI](https://pypi.org/project/ai-lib-python/) |
-| **[ai-lib-ts](/ts/)** | Runtime implementation | TypeScript | v0.5.1 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
-| **ai-protocol-mock** | Mock/testing layer | Python | v0.1.9 | GitHub |
+| **[AI-Protocol](/protocol/)** | Specification layer | YAML/JSON | v0.8.2 | GitHub |
+| **[ai-lib-rust](/rust/)** | Runtime implementation | Rust | v0.9.2 | [Crates.io](https://crates.io/crates/ai-lib) |
+| **[ai-lib-python](/python/)** | Runtime implementation | Python | v0.8.2 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| **[ai-lib-ts](/ts/)** | Runtime implementation | TypeScript | v0.5.2 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
+| **ai-protocol-mock** | Mock/testing layer | Python | v0.1.10 | GitHub |
 
 The latest release cycle delivers full **V2 protocol** execution with governance gates: **MCP**, **Computer Use**, **Extended Multimodal**, and script-based release gates (`drift`, `manifest-consumption`, `compliance-matrix`, `fullchain`, `release-gate`) with `--report-only` staged rollout.
 

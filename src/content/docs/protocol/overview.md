@@ -138,11 +138,11 @@ AI-Protocol uses layered versioning:
 
 1. **Spec version** (`v1/spec.yaml`) — Schema structure version.
 2. **Protocol version** (in manifests) — Protocol features used by each manifest (`1.x` / `2.x`).
-3. **Release version** (`package.json`) — SemVer for the specification package (current: **v0.8.1**).
+3. **Release version** (`package.json`) — SemVer for the specification package (current: **v0.8.2**).
 
 ## V2 Protocol Architecture
 
-Protocol evolution through **v0.8.1** delivers the full **V2 architecture** plus execution governance gates for release readiness.
+Protocol evolution through **v0.8.2** delivers the full **V2 architecture** plus execution governance gates for release readiness.
 
 ### Three-Layer Pyramid
 

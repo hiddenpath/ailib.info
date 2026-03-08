@@ -23,11 +23,11 @@ AI-Lib は別のアプローチを取ります：
 
 | プロジェクト | 役割 | 言語 | バージョン | 配布 |
 |-------------|------|------|------------|------|
-| **[AI-Protocol](/protocol/)** | 仕様レイヤー | YAML/JSON | v0.8.1 | GitHub |
-| **[ai-lib-rust](/rust/)** | ランタイム実装 | Rust | v0.9.1 | [Crates.io](https://crates.io/crates/ai-lib) |
-| **[ai-lib-python](/python/)** | ランタイム実装 | Python | v0.8.1 | [PyPI](https://pypi.org/project/ai-lib-python/) |
-| **[ai-lib-ts](/ts/)** | ランタイム実装 | TypeScript | v0.5.1 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
-| **ai-protocol-mock** | mock/テスト層 | Python | v0.1.9 | GitHub |
+| **[AI-Protocol](/protocol/)** | 仕様レイヤー | YAML/JSON | v0.8.2 | GitHub |
+| **[ai-lib-rust](/rust/)** | ランタイム実装 | Rust | v0.9.2 | [Crates.io](https://crates.io/crates/ai-lib) |
+| **[ai-lib-python](/python/)** | ランタイム実装 | Python | v0.8.2 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| **[ai-lib-ts](/ts/)** | ランタイム実装 | TypeScript | v0.5.2 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
+| **ai-protocol-mock** | mock/テスト層 | Python | v0.1.10 | GitHub |
 
 現在のリリースでは V2 能力に加えて、`drift`、`manifest-consumption`、`compliance-matrix`、`fullchain`、`release-gate` の実行ガバナンス・ゲートが統合され、`--report-only` で段階導入できます。
 
