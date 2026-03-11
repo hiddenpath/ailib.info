@@ -1,11 +1,11 @@
 ---
 title: Ecosystem Architecture
-description: How AI-Protocol, ai-lib-rust, ai-lib-python, and ai-lib-ts work together as an integrated ecosystem.
+description: How AI-Protocol, ai-lib-rust, ai-lib-python, ai-lib-ts, and ai-lib-go work together as an integrated ecosystem.
 ---
 
 # Ecosystem Architecture
 
-The AI-Lib ecosystem is built on a clean three-layer architecture where each layer has a distinct responsibility. Current versions: **AI-Protocol v0.8.2**, **ai-lib-rust v0.9.2**, **ai-lib-python v0.8.2**, **ai-lib-ts v0.5.2**, **ai-protocol-mock v0.1.10**.
+The AI-Lib ecosystem is built on a clean three-layer architecture where each layer has a distinct responsibility. Current versions: **AI-Protocol v0.8.3**, **ai-lib-rust v0.9.3**, **ai-lib-python v0.8.3**, **ai-lib-ts v0.5.3**, **ai-lib-go v0.0.1**, **ai-protocol-mock v0.1.11**.
 
 ## The Three Layers
 
@@ -21,7 +21,7 @@ The **specification** layer. YAML manifests define:
 
 The protocol layer is **language-agnostic**. It's consumed by any runtime in any language.
 
-### 2. Runtime Layer — Rust, Python, and TypeScript SDKs
+### 2. Runtime Layer — Rust, Python, TypeScript, and Go SDKs
 
 The **execution** layer. Runtimes implement:
 

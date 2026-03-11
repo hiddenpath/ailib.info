@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: Overview of the AI-Lib ecosystem — AI-Protocol specification and its Rust, Python, and TypeScript runtime implementations.
+description: Overview of the AI-Lib ecosystem — AI-Protocol specification and its Rust, Python, TypeScript, and Go runtime implementations.
 ---
 
 # Welcome to AI-Lib
@@ -16,18 +16,19 @@ Traditional AI SDKs embed provider-specific logic in code: different HTTP endpoi
 AI-Lib takes a different approach:
 
 - **AI-Protocol** defines how to talk to each provider in YAML manifests
-- **Runtime implementations** (Rust, Python, TypeScript) read these manifests and execute requests
+- **Runtime implementations** (Rust, Python, TypeScript, Go) read these manifests and execute requests
 - **Zero hardcoded logic** — no `if provider == "openai"` branches anywhere
 
-## Five Projects, One Ecosystem
+## Six Projects, One Ecosystem
 
 | Project | Role | Language | Version | Distribution |
 |---------|------|----------|---------|---------------|
-| **[AI-Protocol](/protocol/)** | Specification layer | YAML/JSON | v0.8.2 | GitHub |
-| **[ai-lib-rust](/rust/)** | Runtime implementation | Rust | v0.9.2 | [Crates.io](https://crates.io/crates/ai-lib) |
-| **[ai-lib-python](/python/)** | Runtime implementation | Python | v0.8.2 | [PyPI](https://pypi.org/project/ai-lib-python/) |
-| **[ai-lib-ts](/ts/)** | Runtime implementation | TypeScript | v0.5.2 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
-| **ai-protocol-mock** | Mock/testing layer | Python | v0.1.10 | GitHub |
+| **[AI-Protocol](/protocol/)** | Specification layer | YAML/JSON | v0.8.3 | GitHub |
+| **[ai-lib-rust](/rust/)** | Runtime implementation | Rust | v0.9.3 | [Crates.io](https://crates.io/crates/ai-lib-rust) |
+| **[ai-lib-python](/python/)** | Runtime implementation | Python | v0.8.3 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| **[ai-lib-ts](/ts/)** | Runtime implementation | TypeScript | v0.5.3 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
+| **ai-lib-go** | Runtime implementation | Go | v0.0.1 | [Go Modules](https://pkg.go.dev/github.com/hiddenpath/ai-lib-go) |
+| **ai-protocol-mock** | Mock/testing layer | Python | v0.1.11 | [PyPI](https://pypi.org/project/ai-protocol-mock/) |
 
 The latest release cycle delivers full **V2 protocol** execution with governance gates: **MCP**, **Computer Use**, **Extended Multimodal**, and script-based release gates (`drift`, `manifest-consumption`, `compliance-matrix`, `fullchain`, `release-gate`) with `--report-only` staged rollout.
 

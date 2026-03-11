@@ -1,6 +1,6 @@
 ---
 title: 简介
-description: AI-Lib 生态系统概览 —— AI-Protocol 规范及其 Rust、Python、TypeScript 运行时实现。
+description: AI-Lib 生态系统概览 —— AI-Protocol 规范及其 Rust、Python、TypeScript、Go 运行时实现。
 ---
 
 # 欢迎使用 AI-Lib
@@ -16,18 +16,19 @@ description: AI-Lib 生态系统概览 —— AI-Protocol 规范及其 Rust、Py
 AI-Lib 采用了不同的方法：
 
 - **AI-Protocol** 在 YAML 清单中定义如何与每个供应商通信
-- **运行时实现**（Rust、Python、TypeScript）读取这些清单并执行请求
+- **运行时实现**（Rust、Python、TypeScript、Go）读取这些清单并执行请求
 - **零硬编码逻辑** — 代码中没有任何 `if provider == "openai"` 之类的分支
 
-## 五个项目，一个生态系统
+## 六个项目，一个生态系统
 
 | 项目 | 角色 | 语言 | 版本 | 分发渠道 |
 |---------|------|----------|---------|---------------|
-| **[AI-Protocol](/protocol/)** | 规范层 | YAML/JSON | v0.8.2 | GitHub |
-| **[ai-lib-rust](/rust/)** | 运行时实现 | Rust | v0.9.2 | [Crates.io](https://crates.io/crates/ai-lib) |
-| **[ai-lib-python](/python/)** | 运行时实现 | Python | v0.8.2 | [PyPI](https://pypi.org/project/ai-lib-python/) |
-| **[ai-lib-ts](/ts/)** | 运行时实现 | TypeScript | v0.5.2 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
-| **ai-protocol-mock** | mock/测试层 | Python | v0.1.10 | GitHub |
+| **[AI-Protocol](/protocol/)** | 规范层 | YAML/JSON | v0.8.3 | GitHub |
+| **[ai-lib-rust](/rust/)** | 运行时实现 | Rust | v0.9.3 | [Crates.io](https://crates.io/crates/ai-lib-rust) |
+| **[ai-lib-python](/python/)** | 运行时实现 | Python | v0.8.3 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| **[ai-lib-ts](/ts/)** | 运行时实现 | TypeScript | v0.5.3 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
+| **ai-lib-go** | 运行时实现 | Go | v0.0.1 | [Go Modules](https://pkg.go.dev/github.com/hiddenpath/ai-lib-go) |
+| **ai-protocol-mock** | mock/测试层 | Python | v0.1.11 | [PyPI](https://pypi.org/project/ai-protocol-mock/) |
 
 当前发布周期在 V2 架构能力基础上，补齐了执行治理门禁：`drift`、`manifest-consumption`、`compliance-matrix`、`fullchain`、`release-gate`，并支持 `--report-only` 分级治理。
 
