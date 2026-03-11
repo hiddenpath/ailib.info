@@ -30,12 +30,12 @@ for await (const event of stream) {
 
 ## 流式事件
 
-| 事件 | 描述 | 关键字段 |
-|------|------|---------|
-| `PartialContentDelta` | 增量文本 | `content` |
-| `ToolCallStarted` | 工具调用已启动 | `toolCallId`, `name` |
-| `PartialToolCall` | 增量工具参数 | `toolCallId`, `arguments` |
-| `StreamEnd` | 流已结束 | `finishReason` |
+| 事件                  | 描述           | 关键字段                  |
+| --------------------- | -------------- | ------------------------- |
+| `PartialContentDelta` | 增量文本       | `content`                 |
+| `ToolCallStarted`     | 工具调用已启动 | `toolCallId`, `name`      |
+| `PartialToolCall`     | 增量工具参数   | `toolCallId`, `arguments` |
+| `StreamEnd`           | 流已结束       | `finishReason`            |
 
 ## 事件处理
 
@@ -47,15 +47,15 @@ for await (const event of stream) {
     case 'PartialContentDelta':
       process.stdout.write(event.content);
       break;
-    
+
     case 'ToolCallStarted':
       console.log(`\n调用工具: ${event.name}`);
       break;
-    
+
     case 'PartialToolCall':
       process.stdout.write(event.arguments);
       break;
-    
+
     case 'StreamEnd':
       console.log(`\n完成: ${event.finishReason}`);
       break;
@@ -101,6 +101,7 @@ const stream = client
 ## 最佳实践
 
 1. **始终处理流中的错误**
+
 ```typescript
 try {
   for await (const event of stream) {
@@ -112,6 +113,7 @@ try {
 ```
 
 2. **用户主动停止时使用取消**
+
 ```typescript
 // UI: 用户点击"停止"按钮
 cancelHandle.cancel();

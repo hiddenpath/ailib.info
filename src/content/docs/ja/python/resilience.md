@@ -119,12 +119,12 @@ print(f"Rate remaining: {signals.rate_remaining}")
 
 ## 環境変数
 
-| 変数 | 目的 |
-|------|------|
-| `AI_LIB_RPS` | レート制限（1 秒あたりのリクエスト数） |
-| `AI_LIB_BREAKER_FAILURE_THRESHOLD` | サーキットブレーカーのしきい値 |
-| `AI_LIB_BREAKER_COOLDOWN_SECS` | クールダウン期間 |
-| `AI_LIB_MAX_INFLIGHT` | 最大同時リクエスト数 |
+| 変数                               | 目的                                   |
+| ---------------------------------- | -------------------------------------- |
+| `AI_LIB_RPS`                       | レート制限（1 秒あたりのリクエスト数） |
+| `AI_LIB_BREAKER_FAILURE_THRESHOLD` | サーキットブレーカーのしきい値         |
+| `AI_LIB_BREAKER_COOLDOWN_SECS`     | クールダウン期間                       |
+| `AI_LIB_MAX_INFLIGHT`              | 最大同時リクエスト数                   |
 
 ## 次のステップ
 

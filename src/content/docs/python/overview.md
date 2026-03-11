@@ -12,6 +12,7 @@ description: Architecture and design of ai-lib-python — the developer-friendly
 The Python SDK mirrors the Rust runtime's layered architecture:
 
 ### Client Layer (`client/`)
+
 - **AiClient** — Main entry point with factory methods
 - **AiClientBuilder** — Fluent configuration builder
 - **ChatRequestBuilder** — Request construction
@@ -19,11 +20,13 @@ The Python SDK mirrors the Rust runtime's layered architecture:
 - **CancelToken** / **CancellableStream** — Stream cancellation
 
 ### Protocol Layer (`protocol/`)
+
 - **ProtocolLoader** — Loads manifests from local/env/GitHub with caching
 - **ProtocolManifest** — Pydantic models for provider configurations
 - **Validator** — JSON Schema validation (fastjsonschema)
 
 ### Pipeline Layer (`pipeline/`)
+
 - **Decoder** — SSE, JSON Lines, Anthropic SSE decoders
 - **Selector** — JSONPath-based frame selection (jsonpath-ng)
 - **Accumulator** — Tool call assembly
@@ -31,11 +34,13 @@ The Python SDK mirrors the Rust runtime's layered architecture:
 - **EventMapper** — Protocol-driven, Default, and Anthropic mappers
 
 ### Transport Layer (`transport/`)
+
 - **HttpTransport** — httpx-based async HTTP with streaming
 - **Auth** — API key resolution from env vars and keyring
 - **ConnectionPool** — Connection pooling for performance
 
 ### Resilience Layer (`resilience/`)
+
 - **ResilientExecutor** — Combines all patterns
 - **RetryPolicy** — Exponential backoff
 - **RateLimiter** — Token bucket
@@ -45,11 +50,13 @@ The Python SDK mirrors the Rust runtime's layered architecture:
 - **PreflightChecker** — Unified request gating
 
 ### Routing Layer (`routing/`)
+
 - **ModelManager** — Model registration and selection
 - **ModelArray** — Load balancing across endpoints
 - **Selection strategies** — Round-robin, weighted, cost-based, quality-based
 
 ### Telemetry Layer (`telemetry/`)
+
 - **MetricsCollector** — Prometheus metrics export
 - **Tracer** — OpenTelemetry distributed tracing
 - **Logger** — Structured logging
@@ -66,6 +73,7 @@ The Python SDK mirrors the Rust runtime's layered architecture:
 - **multimodal/** — `MultimodalCapabilities` for modality detection, format validation, and content block checking
 
 ### Additional Modules
+
 - **embeddings/** — EmbeddingClient with vector operations
 - **cache/** — Multi-backend caching (memory, disk)
 - **tokens/** — TokenCounter (tiktoken) and cost estimation
@@ -76,22 +84,22 @@ The Python SDK mirrors the Rust runtime's layered architecture:
 
 ## Key Dependencies
 
-| Package | Purpose |
-|---------|---------|
-| `httpx` | Async HTTP client |
-| `pydantic` | Data validation and types |
-| `pydantic-settings` | Settings management |
-| `fastjsonschema` | Manifest validation |
-| `jsonpath-ng` | JSONPath expressions |
-| `pyyaml` | YAML parsing |
+| Package             | Purpose                   |
+| ------------------- | ------------------------- |
+| `httpx`             | Async HTTP client         |
+| `pydantic`          | Data validation and types |
+| `pydantic-settings` | Settings management       |
+| `fastjsonschema`    | Manifest validation       |
+| `jsonpath-ng`       | JSONPath expressions      |
+| `pyyaml`            | YAML parsing              |
 
 ### Optional
 
-| Extra | Packages |
-|-------|----------|
-| `[telemetry]` | OpenTelemetry, Prometheus |
-| `[tokenizer]` | tiktoken |
-| `[full]` | All of the above + watchdog, keyring |
+| Extra         | Packages                             |
+| ------------- | ------------------------------------ |
+| `[telemetry]` | OpenTelemetry, Prometheus            |
+| `[tokenizer]` | tiktoken                             |
+| `[full]`      | All of the above + watchdog, keyring |
 
 ## V2 Protocol Alignment
 

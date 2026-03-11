@@ -21,7 +21,9 @@ ai-lib-rust v0.8.0 与 AI-Protocol V2 规范对齐：
 SDK 划分为不同的层级：
 
 ### 客户端层（`client/`）
+
 面向用户的 API：
+
 - **AiClient** — 主入口，从模型标识符创建
 - **AiClientBuilder** — 带弹性配置的构建器
 - **ChatRequestBuilder** — 用于构建聊天请求的流式 API
@@ -29,14 +31,18 @@ SDK 划分为不同的层级：
 - **CancelHandle** — 优雅的流取消
 
 ### 协议层（`protocol/`）
+
 加载并解析 AI-Protocol 清单：
+
 - **ProtocolLoader** — 从本地文件、环境变量或 GitHub 加载
 - **ProtocolManifest** — 解析后的提供商配置
 - **Validator** — JSON Schema 验证
 - **UnifiedRequest** — 编译为提供商特定 JSON 的标准请求格式
 
 ### 管道层（`pipeline/`）
+
 流式处理的核心 — 基于算子的管道：
+
 - **Decoder** — 将字节流转换为 JSON 帧（SSE、JSON Lines）
 - **Selector** — 使用 JSONPath 表达式过滤帧
 - **Accumulator** — 有状态地组装来自部分块的工具调用
@@ -45,18 +51,23 @@ SDK 划分为不同的层级：
 - **Retry/Fallback** — 管道级重试与回退算子
 
 ### 传输层（`transport/`）
+
 HTTP 通信：
+
 - **HttpTransport** — 基于 reqwest 的 HTTP 客户端
 - **Auth** — API 密钥解析（OS keyring → 环境变量）
 - **Middleware** — 用于日志、指标的传输中间件
 
 ### 弹性层（`resilience/`）
+
 生产级可靠性模式：
+
 - **CircuitBreaker** — 开/半开/闭故障隔离
 - **RateLimiter** — 令牌桶算法
 - **Backpressure** — max_inflight 信号量
 
 ### 额外模块
+
 - **embeddings/** — 带向量操作的 EmbeddingClient
 - **cache/** — 带 TTL 的响应缓存（MemoryCache）
 - **batch/** — BatchCollector 与 BatchExecutor
@@ -68,41 +79,41 @@ HTTP 通信：
 
 ## 核心依赖
 
-| Crate | 用途 |
-|-------|---------|
-| `tokio` | 异步运行时 |
-| `reqwest` | HTTP 客户端 |
-| `serde` / `serde_json` / `serde_yaml` | 序列化 |
-| `jsonschema` | 清单验证 |
-| `tracing` | 结构化日志 |
-| `arc-swap` | 热重载支持 |
-| `notify` | 文件监听 |
-| `keyring` | OS 密钥环集成 |
+| Crate                                 | 用途          |
+| ------------------------------------- | ------------- |
+| `tokio`                               | 异步运行时    |
+| `reqwest`                             | HTTP 客户端   |
+| `serde` / `serde_json` / `serde_yaml` | 序列化        |
+| `jsonschema`                          | 清单验证      |
+| `tracing`                             | 结构化日志    |
+| `arc-swap`                            | 热重载支持    |
+| `notify`                              | 文件监听      |
+| `keyring`                             | OS 密钥环集成 |
 
 ## 功能标志
 
 通过 Cargo 启用可选功能（使用 `full` 启用全部）：
 
-| 功能 | 启用内容 |
-|---------|----------------|
-| `embeddings` | EmbeddingClient、向量操作 |
-| `batch` | BatchCollector、BatchExecutor |
-| `guardrails` | 内容过滤、PII 检测 |
-| `tokens` | Token 计数、成本估算 |
-| `telemetry` | 高级可观测性接收器 |
-| `routing_mvp` | CustomModelManager、ModelArray、负载均衡策略 |
-| `interceptors` | 用于日志、指标、审计的 InterceptorPipeline |
+| 功能           | 启用内容                                     |
+| -------------- | -------------------------------------------- |
+| `embeddings`   | EmbeddingClient、向量操作                    |
+| `batch`        | BatchCollector、BatchExecutor                |
+| `guardrails`   | 内容过滤、PII 检测                           |
+| `tokens`       | Token 计数、成本估算                         |
+| `telemetry`    | 高级可观测性接收器                           |
+| `routing_mvp`  | CustomModelManager、ModelArray、负载均衡策略 |
+| `interceptors` | 用于日志、指标、审计的 InterceptorPipeline   |
 
 ## 环境变量
 
-| 变量 | 用途 |
-|----------|---------|
-| `AI_PROTOCOL_DIR` | 协议清单目录 |
-| `<PROVIDER>_API_KEY` | 提供商 API 密钥（如 `OPENAI_API_KEY`） |
-| `AI_LIB_RPS` | 速率限制（每秒请求数） |
-| `AI_LIB_BREAKER_FAILURE_THRESHOLD` | 熔断器阈值 |
-| `AI_LIB_MAX_INFLIGHT` | 最大并发请求数 |
-| `AI_HTTP_TIMEOUT_SECS` | HTTP 超时 |
+| 变量                               | 用途                                   |
+| ---------------------------------- | -------------------------------------- |
+| `AI_PROTOCOL_DIR`                  | 协议清单目录                           |
+| `<PROVIDER>_API_KEY`               | 提供商 API 密钥（如 `OPENAI_API_KEY`） |
+| `AI_LIB_RPS`                       | 速率限制（每秒请求数）                 |
+| `AI_LIB_BREAKER_FAILURE_THRESHOLD` | 熔断器阈值                             |
+| `AI_LIB_MAX_INFLIGHT`              | 最大并发请求数                         |
+| `AI_HTTP_TIMEOUT_SECS`             | HTTP 超时                              |
 
 ## 下一步
 

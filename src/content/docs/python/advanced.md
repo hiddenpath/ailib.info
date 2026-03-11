@@ -9,17 +9,17 @@ description: Telemetry, model routing, embeddings, caching, plugins, and structu
 
 Install optional features via pip extras (v0.7.0+):
 
-| Extra | Purpose |
-|-------|---------|
-| `vision` | Image processing (Pillow) |
-| `audio` | Audio processing (soundfile) |
-| `embeddings` | Embedding generation |
-| `structured` | Structured output / JSON mode |
-| `batch` | Batch processing |
-| `agentic` | Agent workflow support |
-| `telemetry` | OpenTelemetry integration |
-| `tokenizer` | Token counting (tiktoken) |
-| `full` | All features + watchdog + keyring |
+| Extra        | Purpose                           |
+| ------------ | --------------------------------- |
+| `vision`     | Image processing (Pillow)         |
+| `audio`      | Audio processing (soundfile)      |
+| `embeddings` | Embedding generation              |
+| `structured` | Structured output / JSON mode     |
+| `batch`      | Batch processing                  |
+| `agentic`    | Agent workflow support            |
+| `telemetry`  | OpenTelemetry integration         |
+| `tokenizer`  | Token counting (tiktoken)         |
+| `full`       | All features + watchdog + keyring |
 
 ```bash
 pip install ai-lib-python[full]   # All features
@@ -122,13 +122,13 @@ anthropic_models = create_anthropic_models()
 
 ### Selection Strategies
 
-| Strategy | Description |
-|----------|-------------|
-| `round_robin` | Rotates through models |
-| `weighted` | Probability-based selection |
-| `cost_based` | Prefers cheaper models |
+| Strategy        | Description                   |
+| --------------- | ----------------------------- |
+| `round_robin`   | Rotates through models        |
+| `weighted`      | Probability-based selection   |
+| `cost_based`    | Prefers cheaper models        |
 | `quality_based` | Prefers higher-quality models |
-| `latency_based` | Prefers faster models |
+| `latency_based` | Prefers faster models         |
 
 ## Embeddings
 

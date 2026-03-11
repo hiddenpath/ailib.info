@@ -21,20 +21,18 @@ AI-Lib takes a different approach:
 
 ## Six Projects, One Ecosystem
 
-| Project | Role | Language | Version | Distribution |
-|---------|------|----------|---------|---------------|
-| **[AI-Protocol](/protocol/)** | Specification layer | YAML/JSON | v0.8.3 | GitHub |
-| **[ai-lib-rust](/rust/)** | Runtime implementation | Rust | v0.9.3 | [Crates.io](https://crates.io/crates/ai-lib-rust) |
-| **[ai-lib-python](/python/)** | Runtime implementation | Python | v0.8.3 | [PyPI](https://pypi.org/project/ai-lib-python/) |
-| **[ai-lib-ts](/ts/)** | Runtime implementation | TypeScript | v0.5.3 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
-| **ai-lib-go** | Runtime implementation | Go | v0.0.1 | [Go Modules](https://pkg.go.dev/github.com/hiddenpath/ai-lib-go) |
-| **ai-protocol-mock** | Mock/testing layer | Python | v0.1.11 | [PyPI](https://pypi.org/project/ai-protocol-mock/) |
+- **ai-protocol** (v0.8.3): The provider-agnostic specification. Core schemas, V2 manifests, and validation tools.
+- **ai-lib-rust** (v0.9.3): High-performance Rust runtime, published on crates.io.
+- **ai-lib-python** (v0.8.3): Developer-friendly Python runtime, published on PyPI.
+- **ai-lib-ts** (v0.5.3): TypeScript/Node.js runtime, published on npm.
+- **ai-lib-go** (v0.0.1): High-concurrency Go runtime mapping to the V2 spec.
+- **ai-protocol-mock** (v0.1.11): Unified mock server for integration testing across all runtimes.
 
 The latest release cycle delivers full **V2 protocol** execution with governance gates: **MCP**, **Computer Use**, **Extended Multimodal**, and script-based release gates (`drift`, `manifest-consumption`, `compliance-matrix`, `fullchain`, `release-gate`) with `--report-only` staged rollout.
 
 ### AI-Protocol (Specification)
 
-The foundation. YAML manifests describe 37 AI providers (6 V2 + 36 V1): their endpoints, authentication, parameter mappings, streaming decoder configurations, error classification rules, MCP/CU/multimodal capabilities, and more. JSON Schema validates everything.
+Since the v0.8.x milestone, **AI-Protocol V2** relies heavily on declarative configuration (`v2/providers/*.yaml`). Instead of burying provider-specific quirks in code, the ecosystem supports 37+ total providers (10 V2 + 27 V1) mapping directly via schema.
 
 ### ai-lib-rust (Rust Runtime)
 
@@ -48,9 +46,13 @@ Developer-friendly runtime. Full async/await support, Pydantic v2 type safety, p
 
 Node.js runtime for the npm ecosystem. Manifest-driven V2 parsing, standardized errors, streaming, resilience modules, and compliance matrix execution aligned with Rust/Python.
 
+### ai-lib-go (Go Runtime)
+
+High-concurrency runtime optimized for server-side deployments. Direct V2 specification mapping, context-aware resilience, and efficient streaming interfaces.
+
 ## Key Features
 
-- **37 providers** — OpenAI, Anthropic, Gemini, DeepSeek, Qwen, Moonshot, Zhipu, and many more (6 V2 + 36 V1)
+- **37 providers** — OpenAI, Anthropic, Gemini, DeepSeek, Qwen, Moonshot, Zhipu, and many more (10 V2 + 27 V1)
 - **Unified streaming** — Same `StreamingEvent` types regardless of provider
 - **Protocol-driven** — All behavior defined in YAML, not code
 - **MCP integration** — Built-in MCP tool bridge: convert MCP server tools to AI-Protocol format automatically
@@ -63,7 +65,17 @@ Node.js runtime for the npm ecosystem. Manifest-driven V2 parsing, standardized 
 - **Resilience** — Circuit breaker, rate limiting, retry, fallback
 - **Tool calling** — Unified function calling across providers
 - **Embeddings** — Vector operations and similarity search
-- **Type safety** — Compile-time (Rust) and runtime (Pydantic) validation
+- **Type safety** — Compile-time (Rust/Go) and runtime (Pydantic/TS) validation
+
+## Runtime Comparison
+
+| Capability       | Protocol Standard | Rust SDK                      | Python SDK            | TypeScript SDK              | Go SDK                       |
+| ---------------- | ----------------- | ----------------------------- | --------------------- | --------------------------- | ---------------------------- |
+| **Type System**  | JSON Schema       | Compile-time validation       | Runtime (Pydantic v2) | Compile-time (TypeScript)   | Compile-time (Go Structs)    |
+| **Streaming**    | SSE / NDJSON      | tokio async streams           | async generators      | AsyncIterator + fetch       | Iterators (iter.Seq2)        |
+| **Resilience**   | Retry policy spec | Circuit breaker, backpressure | ResilientExecutor     | RetryPolicy, CircuitBreaker | Context timeouts, auto-retry |
+| **MCP**          | mcp.json spec     | McpToolBridge                 | McpToolBridge         | McpToolBridge               | To be implemented            |
+| **Distribution** | GitHub / npm      | Crates.io                     | PyPI                  | npm                         | goproxy                      |
 
 ## Next Steps
 
@@ -73,3 +85,4 @@ Node.js runtime for the npm ecosystem. Manifest-driven V2 parsing, standardized 
 - **[Rust SDK](/rust/overview/)** — Start with Rust
 - **[Python SDK](/python/overview/)** — Start with Python
 - **[TypeScript SDK](/ts/overview/)** — Start with TypeScript
+- **[Go SDK](/go/overview/)** — Start with Go

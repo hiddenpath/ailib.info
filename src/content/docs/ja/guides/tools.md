@@ -181,11 +181,7 @@ async for event in client.chat() \
 ### TypeScript
 
 ```typescript
-for await (const event of client
-  .chat()
-  .user("What's the weather?")
-  .tools([getWeather])
-  .stream()) {
+for await (const event of client.chat().user("What's the weather?").tools([getWeather]).stream()) {
   if (event.isToolCallStarted) {
     const call = event.asToolCallStarted;
     console.log(`Starting: ${call.name}`);
@@ -210,13 +206,13 @@ for await (const event of client
 ツールを使用する前にプロバイダーの機能を確認してください：
 
 | プロバイダー | ツール呼び出し |
-|--------------|----------------|
-| OpenAI | サポート |
-| Anthropic | サポート |
-| Gemini | サポート |
-| DeepSeek | サポート |
-| Groq | サポート |
-| Mistral | サポート |
-| Qwen | サポート |
+| ------------ | -------------- |
+| OpenAI       | サポート       |
+| Anthropic    | サポート       |
+| Gemini       | サポート       |
+| DeepSeek     | サポート       |
+| Groq         | サポート       |
+| Mistral      | サポート       |
+| Qwen         | サポート       |
 
 マニフェストの `capabilities.tools: true` フラグがサポートを示します。

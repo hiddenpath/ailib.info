@@ -22,6 +22,7 @@ let client = AiClient::new("openai/gpt-4o").await?;
 ```
 
 ログレベル：
+
 - `INFO` — リクエスト/レスポンスサマリー
 - `DEBUG` — プロトコル読み込み、パイプラインステージ
 - `TRACE` — 個々のフレーム、JSONPath マッチ
@@ -58,10 +59,7 @@ print(f"Latency: {stats.latency_ms}ms")
 ## TypeScript：呼び出し統計
 
 ```typescript
-const { response, stats } = await client
-  .chat()
-  .user('Hello')
-  .executeWithStats();
+const { response, stats } = await client.chat().user('Hello').executeWithStats();
 
 console.log(`Model: ${stats.model}`);
 console.log(`Provider: ${stats.provider}`);
@@ -94,16 +92,14 @@ import { MetricsCollector } from '@hiddenpath/ai-lib-ts/telemetry';
 
 const metrics = new MetricsCollector();
 
-const client = await AiClient.builder()
-  .model('openai/gpt-4o')
-  .metrics(metrics)
-  .build();
+const client = await AiClient.builder().model('openai/gpt-4o').metrics(metrics).build();
 
 // いくつかのリクエストの後...
 const prometheusText = metrics.exportPrometheus();
 ```
 
 追跡されるメトリクス：
+
 - `ai_lib_requests_total` — モデル/プロバイダー別リクエスト数
 - `ai_lib_request_duration_seconds` — レイテンシヒストグラム
 - `ai_lib_tokens_total` — タイプ別トークン使用量
@@ -135,13 +131,11 @@ const tracer = new Tracer({
   endpoint: 'http://jaeger:4317',
 });
 
-const client = await AiClient.builder()
-  .model('openai/gpt-4o')
-  .tracer(tracer)
-  .build();
+const client = await AiClient.builder().model('openai/gpt-4o').tracer(tracer).build();
 ```
 
 トレースには以下のスパンが含まれます：
+
 - プロトコル読み込み
 - リクエストコンパイル
 - HTTP トランスポート

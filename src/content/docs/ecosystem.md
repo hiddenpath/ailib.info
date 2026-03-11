@@ -33,18 +33,18 @@ The **execution** layer. Runtimes implement:
 
 All runtimes share the same protocol-driven architecture with cross-runtime parity:
 
-| Concept          | Rust                                | Python                            | TypeScript                        |
-| ---------------- | ----------------------------------- | --------------------------------- | --------------------------------- |
-| Client           | `AiClient`                          | `AiClient`                        | `AiClient`                        |
-| Builder          | `AiClientBuilder`                   | `AiClientBuilder`                 | `AiClientBuilder`                 |
-| Request          | `ChatRequestBuilder`                | `ChatRequestBuilder`              | `ChatBuilder`                     |
-| Events           | `StreamingEvent` enum               | `StreamingEvent` class            | unified streaming events          |
-| Transport        | reqwest (tokio)                     | httpx (asyncio)                   | fetch (Node.js)                   |
-| Types            | Rust structs                        | Pydantic v2 models                | TypeScript interfaces             |
-| **V2 Driver**    | `Box<dyn ProviderDriver>`           | `ProviderDriver` ABC              | manifest-driven parser/loader     |
-| **Registry**     | `CapabilityRegistry` (feature-gate) | `CapabilityRegistry` (pip extras) | capability modules                |
-| **MCP Bridge**   | `McpToolBridge`                     | `McpToolBridge`                   | `McpToolBridge`                   |
-| **Multimodal**   | `MultimodalCapabilities`            | `MultimodalCapabilities`          | STT/TTS/Rerank + multimodal types |
+| Concept        | Rust                                | Python                            | TypeScript                        | Go                       |
+| -------------- | ----------------------------------- | --------------------------------- | --------------------------------- | ------------------------ |
+| Client         | `AiClient`                          | `AiClient`                        | `AiClient`                        | `AiClient`               |
+| Builder        | `AiClientBuilder`                   | `AiClientBuilder`                 | `AiClientBuilder`                 | `AiClientBuilder`        |
+| Request        | `ChatRequestBuilder`                | `ChatRequestBuilder`              | `ChatBuilder`                     | `ChatRequestBuilder`     |
+| Events         | `StreamingEvent` enum               | `StreamingEvent` class            | unified streaming events          | `StreamingEvent` struct  |
+| Transport      | reqwest (tokio)                     | httpx (asyncio)                   | fetch (Node.js)                   | net/http                 |
+| Types          | Rust structs                        | Pydantic v2 models                | TypeScript interfaces             | Go structs               |
+| **V2 Driver**  | `Box<dyn ProviderDriver>`           | `ProviderDriver` ABC              | manifest-driven parser/loader     | ProviderDriver interface |
+| **Registry**   | `CapabilityRegistry` (feature-gate) | `CapabilityRegistry` (pip extras) | capability modules                | `CapabilityRegistry`     |
+| **MCP Bridge** | `McpToolBridge`                     | `McpToolBridge`                   | `McpToolBridge`                   | To be implemented        |
+| **Multimodal** | `MultimodalCapabilities`            | `MultimodalCapabilities`          | STT/TTS/Rerank + multimodal types | `MultimodalCapabilities` |
 
 ### 3. Application Layer — Your Code
 
@@ -187,3 +187,4 @@ The **compliance suite** is executed across Rust, Python, and TypeScript, coveri
 - **[Rust SDK](/rust/overview/)** — Explore the Rust runtime
 - **[Python SDK](/python/overview/)** — Explore the Python runtime
 - **[TypeScript SDK](/ts/overview/)** — Explore the TypeScript runtime
+- **[Go SDK](/go/overview/)** — Explore the Go runtime

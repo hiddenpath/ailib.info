@@ -30,12 +30,12 @@ for await (const event of stream) {
 
 ## Streaming Events
 
-| Event | Description | Key Fields |
-|-------|-------------|------------|
-| `PartialContentDelta` | Incremental text | `content` |
-| `ToolCallStarted` | Tool call initiated | `toolCallId`, `name` |
-| `PartialToolCall` | Incremental tool args | `toolCallId`, `arguments` |
-| `StreamEnd` | Stream completed | `finishReason` |
+| Event                 | Description           | Key Fields                |
+| --------------------- | --------------------- | ------------------------- |
+| `PartialContentDelta` | Incremental text      | `content`                 |
+| `ToolCallStarted`     | Tool call initiated   | `toolCallId`, `name`      |
+| `PartialToolCall`     | Incremental tool args | `toolCallId`, `arguments` |
+| `StreamEnd`           | Stream completed      | `finishReason`            |
 
 ## Event Handling
 
@@ -47,15 +47,15 @@ for await (const event of stream) {
     case 'PartialContentDelta':
       process.stdout.write(event.content);
       break;
-    
+
     case 'ToolCallStarted':
       console.log(`\nCalling tool: ${event.name}`);
       break;
-    
+
     case 'PartialToolCall':
       process.stdout.write(event.arguments);
       break;
-    
+
     case 'StreamEnd':
       console.log(`\nFinished: ${event.finishReason}`);
       break;
@@ -150,6 +150,7 @@ const stream = client
 ## Best Practices
 
 1. **Always handle errors in streams**
+
 ```typescript
 try {
   for await (const event of stream) {
@@ -161,12 +162,14 @@ try {
 ```
 
 2. **Use cancellation for user-initiated stops**
+
 ```typescript
 // UI: user clicks "Stop" button
 cancelHandle.cancel();
 ```
 
 3. **Buffer for rate limiting**
+
 ```typescript
 let buffer = '';
 for await (const event of stream) {

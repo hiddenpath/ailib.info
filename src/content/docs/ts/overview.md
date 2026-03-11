@@ -11,12 +11,12 @@ ai-lib-ts is the official TypeScript/Node.js runtime for AI-Protocol. It provide
 
 ## Design Philosophy
 
-| Principle | Description |
-|-----------|-------------|
-| **Protocol-Driven** | All behavior is configured through protocol manifests, not code |
+| Principle             | Description                                                                     |
+| --------------------- | ------------------------------------------------------------------------------- |
+| **Protocol-Driven**   | All behavior is configured through protocol manifests, not code                 |
 | **Provider-Agnostic** | Unified interface across OpenAI, Anthropic, Google, DeepSeek, and 30+ providers |
-| **Streaming-First** | Native support for Server-Sent Events (SSE) streaming |
-| **Type-Safe** | Strongly typed request/response handling with comprehensive error types |
+| **Streaming-First**   | Native support for Server-Sent Events (SSE) streaming                           |
+| **Type-Safe**         | Strongly typed request/response handling with comprehensive error types         |
 
 ## Architecture
 
@@ -87,12 +87,12 @@ const msg = Message.user([
 
 Real-time streaming with typed events:
 
-| Event | Description |
-|-------|-------------|
-| `PartialContentDelta` | Incremental text content |
-| `PartialToolCall` | Incremental tool call arguments |
-| `ToolCallStarted` | Tool call initiated |
-| `StreamEnd` | Stream completed |
+| Event                 | Description                     |
+| --------------------- | ------------------------------- |
+| `PartialContentDelta` | Incremental text content        |
+| `PartialToolCall`     | Incremental tool call arguments |
+| `ToolCallStarted`     | Tool call initiated             |
+| `StreamEnd`           | Stream completed                |
 
 ### Resilience
 

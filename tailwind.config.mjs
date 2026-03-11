@@ -5,28 +5,28 @@ export default {
     extend: {
       colors: {
         'deep-space': '#0a0c10',
-        'midnight': '#0d1117',
-        'slate': {
+        midnight: '#0d1117',
+        slate: {
           850: '#1b2332',
           950: '#0f172a',
         },
-        'accent': {
+        accent: {
           DEFAULT: '#3b82f6',
           light: '#60a5fa',
           dark: '#2563eb',
           50: '#eff6ff',
         },
-        'rust': {
+        rust: {
           DEFAULT: '#f97316',
           light: '#fb923c',
           dark: '#ea580c',
         },
-        'python': {
+        python: {
           DEFAULT: '#10b981',
           light: '#34d399',
           dark: '#059669',
         },
-        'protocol': {
+        protocol: {
           DEFAULT: '#8b5cf6',
           light: '#a78bfa',
           dark: '#7c3aed',
@@ -40,7 +40,7 @@ export default {
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out',
         'slide-up': 'slideUp 0.6s ease-out',
-        'float': 'float 6s ease-in-out infinite',
+        float: 'float 6s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -59,4 +59,4 @@ export default {
     },
   },
   plugins: [],
-}
+};

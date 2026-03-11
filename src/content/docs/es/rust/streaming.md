@@ -19,19 +19,19 @@ Cada operador es una etapa en la canalización:
 
 Convierte flujos de bytes sin procesar en frames JSON.
 
-| Format | Description |
-|--------|-------------|
-| `sse` | Server-Sent Events (OpenAI, Groq, etc.) |
-| `ndjson` | JSON delimitado por líneas nuevas |
-| `anthropic_sse` | Formato SSE personalizado de Anthropic |
+| Format          | Description                             |
+| --------------- | --------------------------------------- |
+| `sse`           | Server-Sent Events (OpenAI, Groq, etc.) |
+| `ndjson`        | JSON delimitado por líneas nuevas       |
+| `anthropic_sse` | Formato SSE personalizado de Anthropic  |
 
 El formato del decodificador se especifica en el manifiesto del proveedor:
 
 ```yaml
 streaming:
   decoder:
-    format: "sse"
-    done_signal: "[DONE]"
+    format: 'sse'
+    done_signal: '[DONE]'
 ```
 
 ### 2. Selector
@@ -40,8 +40,8 @@ Filtra frames JSON usando expresiones JSONPath definidas en `event_map` del mani
 
 ```yaml
 event_map:
-  - match: "$.choices[0].delta.content"
-    emit: "PartialContentDelta"
+  - match: '$.choices[0].delta.content'
+    emit: 'PartialContentDelta'
 ```
 
 ### 3. Accumulator

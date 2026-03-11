@@ -25,9 +25,9 @@ DeepSeek、Qwen（阿里巴巴）、智谱 GLM、豆包（字节跳动）、百�
 
 ```yaml
 endpoint:
-  base_url: "https://api.openai.com/v1"
-  chat_path: "/chat/completions"
-  protocol: "https"
+  base_url: 'https://api.openai.com/v1'
+  chat_path: '/chat/completions'
+  protocol: 'https'
   timeout_ms: 60000
 ```
 
@@ -61,12 +61,12 @@ auth:
 
 ```yaml
 parameter_mappings:
-  temperature: "temperature"
-  max_tokens: "max_completion_tokens"  # OpenAI uses different name
-  stream: "stream"
-  tools: "tools"
-  tool_choice: "tool_choice"
-  response_format: "response_format"
+  temperature: 'temperature'
+  max_tokens: 'max_completion_tokens' # OpenAI uses different name
+  stream: 'stream'
+  tools: 'tools'
+  tool_choice: 'tool_choice'
+  response_format: 'response_format'
 ```
 
 ### 流式配置
@@ -76,21 +76,21 @@ parameter_mappings:
 ```yaml
 streaming:
   decoder:
-    format: "sse"              # "sse", "ndjson", or "anthropic_sse"
-    done_signal: "[DONE]"      # Stream termination marker
+    format: 'sse' # "sse", "ndjson", or "anthropic_sse"
+    done_signal: '[DONE]' # Stream termination marker
   event_map:
-    - match: "$.choices[0].delta.content"
-      emit: "PartialContentDelta"
+    - match: '$.choices[0].delta.content'
+      emit: 'PartialContentDelta'
       extract:
-        content: "$.choices[0].delta.content"
-    - match: "$.choices[0].delta.tool_calls"
-      emit: "PartialToolCall"
+        content: '$.choices[0].delta.content'
+    - match: '$.choices[0].delta.tool_calls'
+      emit: 'PartialToolCall'
       extract:
-        tool_calls: "$.choices[0].delta.tool_calls"
-    - match: "$.choices[0].finish_reason"
-      emit: "StreamEnd"
+        tool_calls: '$.choices[0].delta.tool_calls'
+    - match: '$.choices[0].finish_reason'
+      emit: 'StreamEnd'
       extract:
-        finish_reason: "$.choices[0].finish_reason"
+        finish_reason: '$.choices[0].finish_reason'
 ```
 
 ### 错误分类
@@ -100,16 +100,16 @@ streaming:
 ```yaml
 error_classification:
   by_http_status:
-    "400": "invalid_request"
-    "401": "authentication"
-    "403": "permission"
-    "404": "not_found"
-    "429": "rate_limited"
-    "500": "server_error"
-    "503": "overloaded"
+    '400': 'invalid_request'
+    '401': 'authentication'
+    '403': 'permission'
+    '404': 'not_found'
+    '429': 'rate_limited'
+    '500': 'server_error'
+    '503': 'overloaded'
   by_error_code:
-    "context_length_exceeded": "context_length"
-    "content_filter": "content_filter"
+    'context_length_exceeded': 'context_length'
+    'content_filter': 'content_filter'
 ```
 
 ### 能力

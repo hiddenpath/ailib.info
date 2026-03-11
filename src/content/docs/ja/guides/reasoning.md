@@ -9,12 +9,12 @@ description: AI-Lib で拡張思考・推論モデルを使用する方法です
 
 ## 対応モデル
 
-| Model | Provider | Reasoning |
-|-------|----------|-----------|
-| o1, o1-mini, o3 | OpenAI | Extended thinking |
-| Claude 3.5 Sonnet | Anthropic | Extended thinking |
-| DeepSeek R1 | DeepSeek | Chain-of-thought |
-| Gemini 2.0 Flash Thinking | Google | Thinking mode |
+| Model                     | Provider  | Reasoning         |
+| ------------------------- | --------- | ----------------- |
+| o1, o1-mini, o3           | OpenAI    | Extended thinking |
+| Claude 3.5 Sonnet         | Anthropic | Extended thinking |
+| DeepSeek R1               | DeepSeek  | Chain-of-thought  |
+| Gemini 2.0 Flash Thinking | Google    | Thinking mode     |
 
 ## 使用方法
 

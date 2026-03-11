@@ -12,6 +12,7 @@ description: Arquitectura y diseño de ai-lib-python — el tiempo de ejecución
 El SDK Python refleja la arquitectura en capas del tiempo de ejecución Rust:
 
 ### Capa de cliente (`client/`)
+
 - **AiClient** — Punto de entrada principal con métodos de fábrica
 - **AiClientBuilder** — Constructor de configuración fluido
 - **ChatRequestBuilder** — Construcción de solicitudes
@@ -19,11 +20,13 @@ El SDK Python refleja la arquitectura en capas del tiempo de ejecución Rust:
 - **CancelToken** / **CancellableStream** — Cancelación de flujo
 
 ### Capa de protocolo (`protocol/`)
+
 - **ProtocolLoader** — Carga manifiestos desde local/env/GitHub con caché
 - **ProtocolManifest** — Modelos Pydantic para configuraciones de proveedores
 - **Validator** — Validación JSON Schema (fastjsonschema)
 
 ### Capa de canalización (`pipeline/`)
+
 - **Decoder** — Decodificadores SSE, JSON Lines, Anthropic SSE
 - **Selector** — Selección de frames basada en JSONPath (jsonpath-ng)
 - **Accumulator** — Ensamblaje de llamadas a herramientas
@@ -31,11 +34,13 @@ El SDK Python refleja la arquitectura en capas del tiempo de ejecución Rust:
 - **EventMapper** — Mapeadores impulsados por protocolo, Default y Anthropic
 
 ### Capa de transporte (`transport/`)
+
 - **HttpTransport** — HTTP asíncrono basado en httpx con streaming
 - **Auth** — Resolución de API key desde variables de entorno y keyring
 - **ConnectionPool** — Pool de conexiones para rendimiento
 
 ### Capa de resiliencia (`resilience/`)
+
 - **ResilientExecutor** — Combina todos los patrones
 - **RetryPolicy** — Backoff exponencial
 - **RateLimiter** — Token bucket
@@ -45,11 +50,13 @@ El SDK Python refleja la arquitectura en capas del tiempo de ejecución Rust:
 - **PreflightChecker** — Control unificado antes de la ejecución
 
 ### Capa de enrutamiento (`routing/`)
+
 - **ModelManager** — Registro y selección de modelos
 - **ModelArray** — Balanceo de carga entre endpoints
 - **Estrategias de selección** — Round-robin, ponderado, basado en costo, basado en calidad
 
 ### Capa de telemetría (`telemetry/`)
+
 - **MetricsCollector** — Exportación de métricas Prometheus
 - **Tracer** — Trazado distribuido OpenTelemetry
 - **Logger** — Registro estructurado
@@ -57,6 +64,7 @@ El SDK Python refleja la arquitectura en capas del tiempo de ejecución Rust:
 - **FeedbackCollector** — Retroalimentación del usuario
 
 ### Módulos adicionales
+
 - **embeddings/** — EmbeddingClient con operaciones vectoriales
 - **cache/** — Caché multibackend (memoria, disco)
 - **tokens/** — TokenCounter (tiktoken) y estimación de costos
@@ -67,22 +75,22 @@ El SDK Python refleja la arquitectura en capas del tiempo de ejecución Rust:
 
 ## Dependencias principales
 
-| Package | Propósito |
-|---------|-----------|
-| `httpx` | Cliente HTTP asíncrono |
-| `pydantic` | Validación de datos y tipos |
-| `pydantic-settings` | Gestión de configuración |
-| `fastjsonschema` | Validación de manifiestos |
-| `jsonpath-ng` | Expresiones JSONPath |
-| `pyyaml` | Análisis de YAML |
+| Package             | Propósito                   |
+| ------------------- | --------------------------- |
+| `httpx`             | Cliente HTTP asíncrono      |
+| `pydantic`          | Validación de datos y tipos |
+| `pydantic-settings` | Gestión de configuración    |
+| `fastjsonschema`    | Validación de manifiestos   |
+| `jsonpath-ng`       | Expresiones JSONPath        |
+| `pyyaml`            | Análisis de YAML            |
 
 ### Opcional
 
-| Extra | Paquetes |
-|-------|----------|
-| `[telemetry]` | OpenTelemetry, Prometheus |
-| `[tokenizer]` | tiktoken |
-| `[full]` | Todo lo anterior + watchdog, keyring |
+| Extra         | Paquetes                             |
+| ------------- | ------------------------------------ |
+| `[telemetry]` | OpenTelemetry, Prometheus            |
+| `[tokenizer]` | tiktoken                             |
+| `[full]`      | Todo lo anterior + watchdog, keyring |
 
 ## Alineación con el protocolo V2
 

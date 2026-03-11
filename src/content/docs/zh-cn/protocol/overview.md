@@ -50,50 +50,50 @@ ai-protocol/
 
 每个供应商都有一个 YAML 清单，声明运行时所需的全部信息：
 
-| 部分 | 用途 |
-|---------|---------|
-| `endpoint` | 基础 URL、聊天路径、协议 |
-| `auth` | 认证类型、token 环境变量、头部 |
-| `parameter_mappings` | 标准 → 供应商特定参数名 |
-| `streaming` | 解码器格式（SSE/NDJSON）、事件映射规则（JSONPath） |
-| `error_classification` | HTTP 状态 → 标准错误类型 |
-| `retry_policy` | 策略、延迟、重试条件 |
-| `rate_limit_headers` | 限流信息的头部名称 |
-| `capabilities` | 特性标志（流式、工具、视觉、推理） |
+| 部分                   | 用途                                               |
+| ---------------------- | -------------------------------------------------- |
+| `endpoint`             | 基础 URL、聊天路径、协议                           |
+| `auth`                 | 认证类型、token 环境变量、头部                     |
+| `parameter_mappings`   | 标准 → 供应商特定参数名                            |
+| `streaming`            | 解码器格式（SSE/NDJSON）、事件映射规则（JSONPath） |
+| `error_classification` | HTTP 状态 → 标准错误类型                           |
+| `retry_policy`         | 策略、延迟、重试条件                               |
+| `rate_limit_headers`   | 限流信息的头部名称                                 |
+| `capabilities`         | 特性标志（流式、工具、视觉、推理）                 |
 
 ### 示例：Anthropic 供应商
 
 ```yaml
 id: anthropic
-protocol_version: "0.7"
+protocol_version: '0.7'
 endpoint:
-  base_url: "https://api.anthropic.com/v1"
-  chat_path: "/messages"
+  base_url: 'https://api.anthropic.com/v1'
+  chat_path: '/messages'
 auth:
   type: bearer
-  token_env: "ANTHROPIC_API_KEY"
+  token_env: 'ANTHROPIC_API_KEY'
   headers:
-    anthropic-version: "2023-06-01"
+    anthropic-version: '2023-06-01'
 parameter_mappings:
-  temperature: "temperature"
-  max_tokens: "max_tokens"
-  stream: "stream"
-  tools: "tools"
+  temperature: 'temperature'
+  max_tokens: 'max_tokens'
+  stream: 'stream'
+  tools: 'tools'
 streaming:
   decoder:
-    format: "anthropic_sse"
+    format: 'anthropic_sse'
   event_map:
     - match: "$.type == 'content_block_delta'"
-      emit: "PartialContentDelta"
+      emit: 'PartialContentDelta'
       extract:
-        content: "$.delta.text"
+        content: '$.delta.text'
     - match: "$.type == 'message_stop'"
-      emit: "StreamEnd"
+      emit: 'StreamEnd'
 error_classification:
   by_http_status:
-    "429": "rate_limited"
-    "401": "authentication"
-    "529": "overloaded"
+    '429': 'rate_limited'
+    '401': 'authentication'
+    '529': 'overloaded'
 capabilities:
   streaming: true
   tools: true
@@ -109,7 +109,7 @@ capabilities:
 models:
   claude-3-5-sonnet:
     provider: anthropic
-    model_id: "claude-3-5-sonnet-20241022"
+    model_id: 'claude-3-5-sonnet-20241022'
     context_window: 200000
     capabilities: [chat, vision, tools, streaming, reasoning]
     pricing:

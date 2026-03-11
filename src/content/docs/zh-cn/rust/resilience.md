@@ -12,6 +12,7 @@ ai-lib-rust（v0.8.0）开箱即用提供生产级可靠性模式。重试与回
 通过停止向故障提供商发送请求来防止级联故障：
 
 **状态：**
+
 - **Closed（闭合）** — 正常操作，请求通过
 - **Open（打开）** — 故障过多，请求立即被拒绝
 - **Half-Open（半开）** — 冷却后允许一次测试请求
@@ -53,14 +54,14 @@ export AI_LIB_MAX_INFLIGHT=50
 ```yaml
 # In the provider manifest
 retry_policy:
-  strategy: "exponential_backoff"
+  strategy: 'exponential_backoff'
   max_retries: 3
   initial_delay_ms: 1000
   max_delay_ms: 30000
   retryable_errors:
-    - "rate_limited"
-    - "overloaded"
-    - "server_error"
+    - 'rate_limited'
+    - 'overloaded'
+    - 'server_error'
 ```
 
 只有被归类为可重试的错误才会触发重试。例如，身份验证错误会立即失败。

@@ -15,10 +15,16 @@ const locale = 'ja';
   <head>
     <meta charset="utf-8" />
     <title>AI-Lib | ワンプロトコル、すべてのAIプロバイダー</title>
-    <meta name="description" content="AI-LibはAIモデルインタラクションを標準化するオープンソースエコシステムです。Rust、Python、TypeScriptの3ランタイムでMCP、STT/TTS/Rerank、マルチモーダルをサポート — 37プロバイダー対応。" />
+    <meta
+      name="description"
+      content="AI-LibはAIモデルインタラクションを標準化するオープンソースエコシステムです。Rust、Python、TypeScriptの3ランタイムでMCP、STT/TTS/Rerank、マルチモーダルをサポート — 37プロバイダー対応。"
+    />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta property="og:title" content="AI-Lib | ワンプロトコル、すべてのAIプロバイダー" />
-    <meta property="og:description" content="AIモデルインタラクションを標準化するオープンソースエコシステム。1つのプロトコル、複数のランタイム。" />
+    <meta
+      property="og:description"
+      content="AIモデルインタラクションを標準化するオープンソースエコシステム。1つのプロトコル、複数のランタイム。"
+    />
     <meta property="og:image" content="/og-image-ja.png" />
     <link rel="icon" href="/favicon.svg" />
   </head>
@@ -33,10 +39,10 @@ const locale = 'ja';
         <div class="container">
           <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
-              5つのプロジェクト、1つのエコシステム
+              6つのプロジェクト、1つのエコシステム
             </h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
-              仕様レイヤーがルールを定義し、3つのランタイム実装（Rust、Python、TypeScript）がそれを実現します。
+              仕様レイヤーがルールを定義し、4つのランタイム実装（Rust、Python、TypeScript、Go）がそれを実現します。
             </p>
           </div>
 
@@ -44,42 +50,91 @@ const locale = 'ja';
             <ProjectCard
               locale={locale}
               variant="protocol"
-              version="0.8.1"
+              version="0.8.3"
               title="AI-Protocol"
               description="V2仕様：三リングマニフェスト、MCP、Computer Use、マルチモーダルスキーマ——ハードコードされたロジックは一切ありません。"
-              features={['37プロバイダーマニフェスト (6 V2 + 36 V1)', 'STT/TTS/Rerank マニフェスト（Jina、OpenAI、Cohere）', 'MCP / CU / マルチモーダルスキーマ', 'CLI検証ツール', 'ホットリロード可能な設定']}
+              features={[
+                '37+ プロバイダーマニフェスト (10 V2 + 27 V1)',
+                'V2 三層ピラミッドアーキテクチャ',
+                'STT/TTS/Rerank マニフェスト（Jina、OpenAI、Cohere）',
+                'MCP / CU / マルチモーダルスキーマ',
+                'ProviderContract + 価格設定スキーマ',
+                'CLI検証ツール',
+                'JSON Schema 検証',
+                'ホットリロード可能な設定',
+              ]}
               link="/ja/protocol/"
               github="https://github.com/hiddenpath/ai-protocol"
             />
             <ProjectCard
               locale={locale}
               variant="rust"
-              version="0.9.1"
+              version="0.9.3"
               title="ai-lib-rust"
               description="高性能Rustランタイム。V2標準エラーコード、機能フラグ、オペレータベースのストリーミングパイプライン、コンパイル時安全性、サブミリ秒オーバーヘッド。"
-              features={['ProviderDriver（OpenAI/Anthropic/Gemini）', 'MCPツールブリッジ + 名前空間分離', 'Computer Use + SafetyPolicy', '拡張マルチモーダル検証', '埋め込みとキャッシュ', 'プラグインシステム', '185+ テスト、Crates.ioで公開']}
+              features={[
+                'ProviderDriver（OpenAI/Anthropic/Gemini）',
+                'MCPツールブリッジ + 名前空間分離',
+                'Computer Use + SafetyPolicy',
+                '拡張マルチモーダル検証',
+                '埋め込みとキャッシュ',
+                'プラグインシステム',
+                '185+ テスト、Crates.ioで公開',
+              ]}
               link="/ja/rust/"
               github="https://github.com/hiddenpath/ai-lib-rust"
             />
             <ProjectCard
               locale={locale}
               variant="python"
-              version="0.8.1"
+              version="0.8.3"
               title="ai-lib-python"
               description="開発者フレンドリーなPythonランタイム。V2標準エラーコード、機能ベースのエクストラ、完全な非同期サポート、Pydantic v2型、本番グレードのテレメトリ。"
-              features={['ProviderDriver（OpenAI/Anthropic/Gemini）', 'MCPツールブリッジ + 名前空間分離', 'Computer Use + SafetyPolicy', 'STT/TTS/Rerank エクストラ', 'Pydantic v2型安全性', 'モデルルーティングとロードバランシング', '75+ V2テスト、PyPIで公開']}
+              features={[
+                'ProviderDriver（OpenAI/Anthropic/Gemini）',
+                'MCPツールブリッジ + 名前空間分離',
+                'Computer Use + SafetyPolicy',
+                'STT/TTS/Rerank エクストラ',
+                'Pydantic v2型安全性',
+                'モデルルーティングとロードバランシング',
+                '75+ V2テスト、PyPIで公開',
+              ]}
               link="/ja/python/"
-                github="https://github.com/hiddenpath/ai-lib-python"
+              github="https://github.com/hiddenpath/ai-lib-python"
             />
             <ProjectCard
               locale={locale}
               variant="ts"
-              version="0.5.1"
+              version="0.5.3"
               title="ai-lib-ts"
               description="TypeScript/Node.jsランタイム、npmエコシステム向け。プロトコル駆動、ストリーミングファースト、Resilience、Routing、MCP、マルチモーダル対応。"
-              features={['V2マニフェスト解析 + 標準エラーコード', 'Resilience（Retry、CircuitBreaker、RateLimiter、Backpressure）', 'ModelManager + CostBasedSelector + FallbackChain', 'SttClient、TtsClient、RerankerClient', 'McpToolBridge、EmbeddingClient、Plugins', 'BatchExecutor + PreflightChecker', 'ネイティブfetch、npmで公開']}
+              features={[
+                'V2マニフェスト解析 + 標準エラーコード',
+                'Resilience（Retry、CircuitBreaker、RateLimiter、Backpressure）',
+                'ModelManager + CostBasedSelector + FallbackChain',
+                'SttClient、TtsClient、RerankerClient',
+                'McpToolBridge、EmbeddingClient、Plugins',
+                'BatchExecutor + PreflightChecker',
+                'ネイティブfetch、npmで公開',
+              ]}
               link="/ja/ts/"
               github="https://github.com/hiddenpath/ai-lib-ts"
+            />
+            <ProjectCard
+              locale={locale}
+              variant="go"
+              version="0.0.1"
+              title="ai-lib-go"
+              description="サーバーサイドデプロイメントに最適化された高並行Goランタイム。エレガントなイテレータによる直接的なV2仕様マッピング。"
+              features={[
+                'ProviderDriverアーキテクチャ',
+                'Go 1.23+ iter.Seq2ストリーミング',
+                'コンテキストアウェアなレジリエンス',
+                '厳密なJSON Schemaから構造体へのマッピング',
+                'ネイティブなnet/httpトランスポート',
+              ]}
+              link="/ja/go/"
+              github="https://github.com/hiddenpath/ai-lib-go"
             />
           </div>
           <div class="mt-12 pt-8 border-t border-[var(--border)]">
@@ -88,10 +143,17 @@ const locale = 'ja';
               <ProjectCard
                 locale={locale}
                 variant="mock"
-                version="0.1.9"
+                version="0.1.11"
                 title="ai-protocol-mock"
                 description="AI-Protocol ランタイム用統合モックサーバー。HTTPプロバイダーモック（OpenAI + Anthropic形式）とMCP JSON-RPCモックで統合テストをサポート。"
-                features={['マニフェスト駆動HTTPモック', 'OpenAI、Anthropic + STT/TTS/Rerank', 'MCP tools/list、tools/call、capabilities', 'Dockerサポート', 'サードパーティ統合（ZeroClaw、CI）', 'ai-protocolからマニフェスト同期']}
+                features={[
+                  'マニフェスト駆動HTTPモック',
+                  'OpenAI、Anthropic + STT/TTS/Rerank',
+                  'MCP tools/list、tools/call、capabilities',
+                  'Dockerサポート',
+                  'サードパーティ統合（ZeroClaw、CI）',
+                  'ai-protocolからマニフェスト同期',
+                ]}
                 link="https://github.com/hiddenpath/ai-protocol-mock"
                 github="https://github.com/hiddenpath/ai-protocol-mock"
               />
@@ -111,7 +173,13 @@ const locale = 'ja';
                 version="0.3.1"
                 title="AI Debate"
                 description="マルチモデルAIディベートアリーナ。賛成 vs 反対が4ラウンドで議論し、審判が判定。ai-lib-rustとai-protocolで構築。"
-                features={['4ラウンドディベート（開陳→反論→防御→結論→判定）', 'TavilyによるWeb検索ツール呼び出し（オプション）', 'マルチプロバイダー：DeepSeek、智譜、Groq、Mistral、OpenAI、Anthropic', '自動フォールバック、リアルタイムSSEストリーミング', 'Axum + SQLite、モダンなダークUI']}
+                features={[
+                  '4ラウンドディベート（開陳→反論→防御→結論→判定）',
+                  'TavilyによるWeb検索ツール呼び出し（オプション）',
+                  'マルチプロバイダー：DeepSeek、智譜、Groq、Mistral、OpenAI、Anthropic',
+                  '自動フォールバック、リアルタイムSSEストリーミング',
+                  'Axum + SQLite、モダンなダークUI',
+                ]}
                 link="https://github.com/hiddenpath/aidebate"
                 github="https://github.com/hiddenpath/aidebate"
               />
@@ -121,7 +189,13 @@ const locale = 'ja';
                 version="0.2.0"
                 title="ZeroSpider"
                 description="プロトコル駆動の自律AIエージェントランタイム。ZeroClawからフォークし、ai-protocol統合、スマートルーティング、マルチモデルネゴシエーションを追加。"
-                features={['ZeroClawからフォーク、ai-protocolエコシステム統合', 'スマートルーティング：コスト、速度、品質、信頼性スコアリング', 'マルチモデルネゴシエーションと並列タスク実行', 'チャネル：Telegram、Discord、Matrix', 'リモートデプロイ、ハードウェア（GPIO、STM32）']}
+                features={[
+                  'ZeroClawからフォーク、ai-protocolエコシステム統合',
+                  'スマートルーティング：コスト、速度、品質、信頼性スコアリング',
+                  'マルチモデルネゴシエーションと並列タスク実行',
+                  'チャネル：Telegram、Discord、Matrix',
+                  'リモートデプロイ、ハードウェア（GPIO、STM32）',
+                ]}
                 link="https://github.com/hiddenpath/zerospider"
                 github="https://github.com/hiddenpath/zerospider"
               />
@@ -131,7 +205,13 @@ const locale = 'ja';
                 version="0.3.0"
                 title="SpiderSwitch"
                 description="動的AIモデル切り替えのMCPサーバー。エージェントが標準MCPツールでプロバイダー横断的にAIモデルを検出・切替・管理できます。"
-                features={['MCP準拠サーバー（stdioトランスポート）', 'switch_model / list_models / get_status / exit_switcher ツール', 'プロトコル駆動：全設定はai-protocolマニフェストから', 'マルチプロバイダー：OpenAI、Anthropic、Google、DeepSeek等', 'Python + ai-lib-python SDK、自動プロトコルセットアップ']}
+                features={[
+                  'MCP準拠サーバー（stdioトランスポート）',
+                  'switch_model / list_models / get_status / exit_switcher ツール',
+                  'プロトコル駆動：全設定はai-protocolマニフェストから',
+                  'マルチプロバイダー：OpenAI、Anthropic、Google、DeepSeek等',
+                  'Python + ai-lib-python SDK、自動プロトコルセットアップ',
+                ]}
                 link="https://github.com/hiddenpath/spiderswitch"
                 github="https://github.com/hiddenpath/spiderswitch"
               />
@@ -154,33 +234,71 @@ const locale = 'ja';
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="p-6 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4">
-                <svg class="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              <div
+                class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-5 h-5 text-purple-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  ></path>
                 </svg>
               </div>
               <h3 class="text-lg font-bold text-[var(--text)] mb-2">宣言的設定</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                プロバイダーエンドポイント、認証、パラメータマッピング、ストリーミングデコーダー、エラーハンドリング——すべてYAMLマニフェストで宣言され、JSON Schemaで検証されます。
+                プロバイダーエンドポイント、認証、パラメータマッピング、ストリーミングデコーダー、エラーハンドリング——すべてYAMLマニフェストで宣言され、JSON
+                Schemaで検証されます。
               </p>
             </div>
 
             <div class="p-6 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4">
-                <svg class="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              <div
+                class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-5 h-5 text-blue-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
               </div>
-              <h3 class="text-lg font-bold text-[var(--text)] mb-2">オペレータベースパイプライン</h3>
+              <h3 class="text-lg font-bold text-[var(--text)] mb-2">
+                オペレータベースパイプライン
+              </h3>
               <p class="text-sm text-[var(--text-dim)]">
                 ストリーミングレスポンスは構成可能なオペレータを通過します：Decoder、Selector、Accumulator、FanOut、EventMapper。各オペレータはプロトコル駆動です。
               </p>
             </div>
 
             <div class="p-6 rounded-2xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-4">
-                <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              <div
+                class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-5 h-5 text-emerald-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  ></path>
                 </svg>
               </div>
               <h3 class="text-lg font-bold text-[var(--text)] mb-2">ホットリロード対応</h3>
@@ -211,9 +329,7 @@ const locale = 'ja';
       <section class="section">
         <div class="container">
           <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
-              しくみ
-            </h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">しくみ</h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
               ユーザーリクエストから統一ストリーミングイベントまで——すべてのステップがプロトコル駆動です。
             </p>
@@ -226,9 +342,7 @@ const locale = 'ja';
       <section class="section-alt">
         <div class="container">
           <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
-              ランタイムを選ぶ
-            </h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">ランタイムを選ぶ</h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
               同じプロトコル、異なる強み。スタックに合うランタイムを選んでください。
             </p>
@@ -238,11 +352,30 @@ const locale = 'ja';
             <table class="w-full text-left border-collapse">
               <thead>
                 <tr class="bg-[var(--bg-card)]">
-                  <th class="p-4 text-sm font-semibold text-[var(--text)] border-b border-[var(--border)]">機能</th>
-                  <th class="p-4 text-sm font-semibold text-purple-400 border-b border-[var(--border)]">AI-Protocol</th>
-                  <th class="p-4 text-sm font-semibold text-orange-400 border-b border-[var(--border)]">Rust SDK</th>
-                  <th class="p-4 text-sm font-semibold text-emerald-400 border-b border-[var(--border)]">Python SDK</th>
-                  <th class="p-4 text-sm font-semibold text-blue-400 border-b border-[var(--border)]">TypeScript SDK</th>
+                  <th
+                    class="p-4 text-sm font-semibold text-[var(--text)] border-b border-[var(--border)]"
+                    >機能</th
+                  >
+                  <th
+                    class="p-4 text-sm font-semibold text-purple-400 border-b border-[var(--border)]"
+                    >AI-Protocol</th
+                  >
+                  <th
+                    class="p-4 text-sm font-semibold text-orange-400 border-b border-[var(--border)]"
+                    >Rust SDK</th
+                  >
+                  <th
+                    class="p-4 text-sm font-semibold text-emerald-400 border-b border-[var(--border)]"
+                    >Python SDK</th
+                  >
+                  <th
+                    class="p-4 text-sm font-semibold text-blue-400 border-b border-[var(--border)]"
+                    >TypeScript SDK</th
+                  >
+                  <th
+                    class="p-4 text-sm font-semibold text-cyan-400 border-b border-[var(--border)]"
+                    >Go SDK</th
+                  >
                 </tr>
               </thead>
               <tbody class="text-sm">
@@ -252,6 +385,7 @@ const locale = 'ja';
                   <td class="p-4 text-[var(--text-dim)]">コンパイル時（Rust）</td>
                   <td class="p-4 text-[var(--text-dim)]">実行時（Pydantic v2）</td>
                   <td class="p-4 text-[var(--text-dim)]">コンパイル時（TypeScript）</td>
+                  <td class="p-4 text-[var(--text-dim)]">コンパイル時（Go Structs）</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">ストリーミング</td>
@@ -259,13 +393,19 @@ const locale = 'ja';
                   <td class="p-4 text-[var(--text-dim)]">tokio async streams</td>
                   <td class="p-4 text-[var(--text-dim)]">async generators</td>
                   <td class="p-4 text-[var(--text-dim)]">AsyncIterator + fetch</td>
+                  <td class="p-4 text-[var(--text-dim)]">イテレータ (iter.Seq2)</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">レジリエンス</td>
                   <td class="p-4 text-[var(--text-dim)]">リトライポリシー仕様</td>
-                  <td class="p-4 text-[var(--text-dim)]">サーキットブレーカー、レートリミッター、バックプレッシャー</td>
+                  <td class="p-4 text-[var(--text-dim)]"
+                    >サーキットブレーカー、レートリミッター、バックプレッシャー</td
+                  >
                   <td class="p-4 text-[var(--text-dim)]">全パターン対応 ResilientExecutor</td>
-                  <td class="p-4 text-[var(--text-dim)]">RetryPolicy、CircuitBreaker、RateLimiter</td>
+                  <td class="p-4 text-[var(--text-dim)]"
+                    >RetryPolicy、CircuitBreaker、RateLimiter</td
+                  >
+                  <td class="p-4 text-[var(--text-dim)]">コンテキストタイムアウト、自動リトライ</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">V2ドライバー</td>
@@ -273,6 +413,7 @@ const locale = 'ja';
                   <td class="p-4 text-[var(--text-dim)]">Box&lt;dyn ProviderDriver&gt;</td>
                   <td class="p-4 text-[var(--text-dim)]">ProviderDriver ABC</td>
                   <td class="p-4 text-[var(--text-dim)]">ManifestV2 + HttpTransport</td>
+                  <td class="p-4 text-[var(--text-dim)]">ProviderDriver インターフェース</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">MCP</td>
@@ -280,12 +421,14 @@ const locale = 'ja';
                   <td class="p-4 text-[var(--text-dim)]">McpToolBridge</td>
                   <td class="p-4 text-[var(--text-dim)]">McpToolBridge</td>
                   <td class="p-4 text-[var(--text-dim)]">McpToolBridge</td>
+                  <td class="p-4 text-[var(--text-dim)]">実装予定</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">Computer Use</td>
                   <td class="p-4 text-[var(--text-dim)]">computer-use.jsonスキーマ</td>
                   <td class="p-4 text-[var(--text-dim)]">ComputerAction + SafetyPolicy</td>
                   <td class="p-4 text-[var(--text-dim)]">ComputerAction + SafetyPolicy</td>
+                  <td class="p-4 text-[var(--text-dim)]">—</td>
                   <td class="p-4 text-[var(--text-dim)]">—</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
@@ -294,12 +437,14 @@ const locale = 'ja';
                   <td class="p-4 text-[var(--text-dim)]">MultimodalCapabilities</td>
                   <td class="p-4 text-[var(--text-dim)]">MultimodalCapabilities</td>
                   <td class="p-4 text-[var(--text-dim)]">SttClient、TtsClient、RerankerClient</td>
+                  <td class="p-4 text-[var(--text-dim)]">MultimodalCapabilities</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">埋め込み</td>
                   <td class="p-4 text-[var(--text-dim)]">—</td>
                   <td class="p-4 text-[var(--text-dim)]">ベクトル演算、類似度</td>
                   <td class="p-4 text-[var(--text-dim)]">ベクトル演算、類似度</td>
+                  <td class="p-4 text-[var(--text-dim)]">EmbeddingClient</td>
                   <td class="p-4 text-[var(--text-dim)]">EmbeddingClient</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
@@ -308,13 +453,20 @@ const locale = 'ja';
                   <td class="p-4 text-[var(--text-dim)]">Crates.io</td>
                   <td class="p-4 text-[var(--text-dim)]">PyPI</td>
                   <td class="p-4 text-[var(--text-dim)]">npm</td>
+                  <td class="p-4 text-[var(--text-dim)]">goproxy</td>
                 </tr>
                 <tr>
                   <td class="p-4 font-medium text-[var(--text)]">最適な用途</td>
                   <td class="p-4 text-[var(--text-dim)] italic">仕様と標準</td>
                   <td class="p-4 text-[var(--text-dim)] italic">システム、パフォーマンス重視</td>
-                  <td class="p-4 text-[var(--text-dim)] italic">ML、データサイエンス、プロトタイピング</td>
-                  <td class="p-4 text-[var(--text-dim)] italic">Node.js、npmエコシステム、フルスタック</td>
+                  <td class="p-4 text-[var(--text-dim)] italic"
+                    >ML、データサイエンス、プロトタイピング</td
+                  >
+                  <td class="p-4 text-[var(--text-dim)] italic"
+                    >Node.js、npmエコシステム、フルスタック</td
+                  >
+                  <td class="p-4 text-[var(--text-dim)] italic">高並行サーバー、マイクロサービス</td
+                  >
                 </tr>
               </tbody>
             </table>
@@ -328,16 +480,25 @@ const locale = 'ja';
       <!-- CTA -->
       <section class="section">
         <div class="container">
-          <div class="text-center p-12 rounded-2xl border border-[var(--border)] bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-alt)]">
+          <div
+            class="text-center p-12 rounded-2xl border border-[var(--border)] bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-alt)]"
+          >
             <h2 class="text-3xl font-bold text-[var(--text)] mb-4">始める準備はできましたか？</h2>
             <p class="text-lg text-[var(--text-dim)] mb-8 max-w-xl mx-auto">
-              ドキュメントを読み、ランタイム（Rust、Python、TypeScript）を選び、今日から37のAIプロバイダーで開発を始めましょう。
+              ドキュメントを読み、ランタイム（Rust、Python、TypeScript、または
+              Go）を選び、今日から37+のAIプロバイダーで開発を始めましょう。
             </p>
             <div class="flex flex-wrap gap-4 justify-center">
-              <a href="/ja/quickstart/" class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:brightness-110 transition-all hover:no-underline">
+              <a
+                href="/ja/quickstart/"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:brightness-110 transition-all hover:no-underline"
+              >
                 クイックスタートガイド
               </a>
-              <a href="/ja/intro/" class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline">
+              <a
+                href="/ja/intro/"
+                class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline"
+              >
                 ドキュメントを読む
               </a>
             </div>

@@ -21,7 +21,9 @@ ai-lib-rust v0.8.0 は AI-Protocol V2 仕様に対応しています：
 SDK は明確なレイヤーに整理されています：
 
 ### クライアントレイヤー（`client/`）
+
 ユーザー向け API：
+
 - **AiClient** — メインエントリポイント、モデル識別子から作成
 - **AiClientBuilder** — 耐障害性設定を含む設定ビルダー
 - **ChatRequestBuilder** — チャットリクエスト構築のための fluent API
@@ -29,14 +31,18 @@ SDK は明確なレイヤーに整理されています：
 - **CancelHandle** — グラースフルなストリームキャンセル
 
 ### プロトコルレイヤー（`protocol/`）
+
 AI-Protocol マニフェストの読み込みと解釈：
+
 - **ProtocolLoader** — ローカルファイル、環境変数、または GitHub から読み込み
 - **ProtocolManifest** — パース済みプロバイダー設定
 - **Validator** — JSON Schema 検証
 - **UnifiedRequest** — プロバイダー固有の JSON にコンパイルされる標準リクエスト形式
 
 ### パイプラインレイヤー（`pipeline/`）
+
 ストリーミング処理の中核 — オペレーターベースのパイプライン：
+
 - **Decoder** — バイトストリームを JSON フレーム（SSE、JSON Lines）に変換
 - **Selector** — JSONPath 式でフレームをフィルタリング
 - **Accumulator** — 部分チャンクからツール呼び出しを状態を持って組み立てる
@@ -45,18 +51,23 @@ AI-Protocol マニフェストの読み込みと解釈：
 - **Retry/Fallback** — パイプラインレベルのリトライおよびフォールバックオペレーター
 
 ### トランスポートレイヤー（`transport/`）
+
 HTTP 通信：
+
 - **HttpTransport** — reqwest ベースの HTTP クライアント
 - **Auth** — API キー解決（OS キーリング → 環境変数）
 - **Middleware** — ログ、メトリクス用のトランスポートミドルウェア
 
 ### 耐障害性レイヤー（`resilience/`）
+
 本番の信頼性パターン：
+
 - **CircuitBreaker** — オープン/ハーフオープン/クローズの障害分離
 - **RateLimiter** — トークンバケットアルゴリズム
 - **Backpressure** — max_inflight セマフォ
 
 ### 追加モジュール
+
 - **embeddings/** — ベクトル操作付き EmbeddingClient
 - **cache/** — TTL 付きレスポンスキャッシュ（MemoryCache）
 - **batch/** — BatchCollector と BatchExecutor
@@ -68,41 +79,41 @@ HTTP 通信：
 
 ## 主要な依存関係
 
-| Crate | 目的 |
-|-------|------|
-| `tokio` | 非同期ランタイム |
-| `reqwest` | HTTP クライアント |
-| `serde` / `serde_json` / `serde_yaml` | シリアライゼーション |
-| `jsonschema` | マニフェスト検証 |
-| `tracing` | 構造化ログ |
-| `arc-swap` | ホットリロードサポート |
-| `notify` | ファイル監視 |
-| `keyring` | OS キーリング統合 |
+| Crate                                 | 目的                   |
+| ------------------------------------- | ---------------------- |
+| `tokio`                               | 非同期ランタイム       |
+| `reqwest`                             | HTTP クライアント      |
+| `serde` / `serde_json` / `serde_yaml` | シリアライゼーション   |
+| `jsonschema`                          | マニフェスト検証       |
+| `tracing`                             | 構造化ログ             |
+| `arc-swap`                            | ホットリロードサポート |
+| `notify`                              | ファイル監視           |
+| `keyring`                             | OS キーリング統合      |
 
 ## フィーチャーフラグ
 
 Cargo 経由で有効化できるオプション機能（すべて有効にするには `full` を使用）：
 
-| 機能 | 有効化するもの |
-|------|----------------|
-| `embeddings` | EmbeddingClient、ベクトル操作 |
-| `batch` | BatchCollector、BatchExecutor |
-| `guardrails` | コンテンツフィルタリング、PII 検出 |
-| `tokens` | トークンカウント、コスト見積もり |
-| `telemetry` | 高度なオブザーバビリティシンク |
-| `routing_mvp` | CustomModelManager、ModelArray、ロードバランシング戦略 |
-| `interceptors` | ログ、メトリクス、監査用の InterceptorPipeline |
+| 機能           | 有効化するもの                                         |
+| -------------- | ------------------------------------------------------ |
+| `embeddings`   | EmbeddingClient、ベクトル操作                          |
+| `batch`        | BatchCollector、BatchExecutor                          |
+| `guardrails`   | コンテンツフィルタリング、PII 検出                     |
+| `tokens`       | トークンカウント、コスト見積もり                       |
+| `telemetry`    | 高度なオブザーバビリティシンク                         |
+| `routing_mvp`  | CustomModelManager、ModelArray、ロードバランシング戦略 |
+| `interceptors` | ログ、メトリクス、監査用の InterceptorPipeline         |
 
 ## 環境変数
 
-| 変数 | 目的 |
-|------|------|
-| `AI_PROTOCOL_DIR` | プロトコルマニフェストディレクトリ |
-| `<PROVIDER>_API_KEY` | プロバイダー API キー（例：`OPENAI_API_KEY`） |
-| `AI_LIB_RPS` | レート制限（1 秒あたりのリクエスト数） |
-| `AI_LIB_BREAKER_FAILURE_THRESHOLD` | サーキットブレーカーのしきい値 |
-| `AI_LIB_MAX_INFLIGHT` | 最大同時リクエスト数 |
-| `AI_HTTP_TIMEOUT_SECS` | HTTP タイムアウト |
+| 変数                               | 目的                                          |
+| ---------------------------------- | --------------------------------------------- |
+| `AI_PROTOCOL_DIR`                  | プロトコルマニフェストディレクトリ            |
+| `<PROVIDER>_API_KEY`               | プロバイダー API キー（例：`OPENAI_API_KEY`） |
+| `AI_LIB_RPS`                       | レート制限（1 秒あたりのリクエスト数）        |
+| `AI_LIB_BREAKER_FAILURE_THRESHOLD` | サーキットブレーカーのしきい値                |
+| `AI_LIB_MAX_INFLIGHT`              | 最大同時リクエスト数                          |
+| `AI_HTTP_TIMEOUT_SECS`             | HTTP タイムアウト                             |
 
 ## 次のステップ
 

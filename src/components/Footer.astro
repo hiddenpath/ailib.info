@@ -5,10 +5,45 @@ const year = new Date().getFullYear();
 const prefix = locale === 'en' ? '' : `/${locale}`;
 
 const t: Record<string, Record<string, string>> = {
-  en:      { brand: 'Open-source ecosystem for standardized AI model interactions. One protocol, multiple runtimes.', projects: 'Projects', docs: 'Documentation', community: 'Community', started: 'Getting Started', spec: 'Protocol Spec', guides: 'Developer Guides' },
-  'zh-cn': { brand: '开源 AI 模型交互标准化生态系统。一套协议，多种运行时。', projects: '项目', docs: '文档', community: '社区', started: '入门指南', spec: '协议规范', guides: '开发者指南' },
-  ja:      { brand: 'AIモデルインタラクションを標準化するオープンソースエコシステム。一つのプロトコル、複数のランタイム。', projects: 'プロジェクト', docs: 'ドキュメント', community: 'コミュニティ', started: '入門ガイド', spec: 'プロトコル仕様', guides: '開発者ガイド' },
-  es:      { brand: 'Ecosistema de código abierto para interacciones estandarizadas con modelos de IA. Un protocolo, múltiples runtimes.', projects: 'Proyectos', docs: 'Documentación', community: 'Comunidad', started: 'Primeros pasos', spec: 'Especificación', guides: 'Guías para desarrolladores' },
+  en: {
+    brand:
+      'Open-source ecosystem for standardized AI model interactions. One protocol, multiple runtimes.',
+    projects: 'Projects',
+    docs: 'Documentation',
+    community: 'Community',
+    started: 'Getting Started',
+    spec: 'Protocol Spec',
+    guides: 'Developer Guides',
+  },
+  'zh-cn': {
+    brand: '开源 AI 模型交互标准化生态系统。一套协议，多种运行时。',
+    projects: '项目',
+    docs: '文档',
+    community: '社区',
+    started: '入门指南',
+    spec: '协议规范',
+    guides: '开发者指南',
+  },
+  ja: {
+    brand:
+      'AIモデルインタラクションを標準化するオープンソースエコシステム。一つのプロトコル、複数のランタイム。',
+    projects: 'プロジェクト',
+    docs: 'ドキュメント',
+    community: 'コミュニティ',
+    started: '入門ガイド',
+    spec: 'プロトコル仕様',
+    guides: '開発者ガイド',
+  },
+  es: {
+    brand:
+      'Ecosistema de código abierto para interacciones estandarizadas con modelos de IA. Un protocolo, múltiples runtimes.',
+    projects: 'Proyectos',
+    docs: 'Documentación',
+    community: 'Comunidad',
+    started: 'Primeros pasos',
+    spec: 'Especificación',
+    guides: 'Guías para desarrolladores',
+  },
 };
 const i = t[locale] || t.en;
 ---
@@ -19,20 +54,31 @@ const i = t[locale] || t.en;
       <!-- Brand -->
       <div class="md:col-span-1">
         <div class="flex items-center gap-2 mb-4 text-[var(--text)]">
-          <svg class="w-7 h-7 shrink-0" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="AI-Lib">
-            <path fill="#1f5fbf" d="M100 66l-16 9-1 25-8 7-2 30 27 20 27-20-2-30-8-7-1-25z" />
-            <g stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-              <path d="M90 95 60 66 75 22" />
-              <path d="M90 95 46 78 46 40" />
-              <path d="M90 95 40 110 40 155" />
-              <path d="M90 95 55 128 75 180" />
-              <path d="M95 60 95 70" />
+          <svg
+            class="w-7 h-7 shrink-0"
+            viewBox="0 0 200 200"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-label="AI-Lib"
+          >
+            <path fill="#1f5fbf" d="M100 66l-16 9-1 25-8 7-2 30 27 20 27-20-2-30-8-7-1-25z"></path>
+            <g
+              stroke="currentColor"
+              stroke-width="5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              fill="none"
+            >
+              <path d="M90 95 60 66 75 22"></path>
+              <path d="M90 95 46 78 46 40"></path>
+              <path d="M90 95 40 110 40 155"></path>
+              <path d="M90 95 55 128 75 180"></path>
+              <path d="M95 60 95 70"></path>
               <g transform="translate(200 0) scale(-1 1)">
-                <path d="M90 95 60 66 75 22" />
-                <path d="M90 95 46 78 46 40" />
-                <path d="M90 95 40 110 40 155" />
-                <path d="M90 95 55 128 75 180" />
-                <path d="M95 60 95 70" />
+                <path d="M90 95 60 66 75 22"></path>
+                <path d="M90 95 46 78 46 40"></path>
+                <path d="M90 95 40 110 40 155"></path>
+                <path d="M90 95 55 128 75 180"></path>
+                <path d="M95 60 95 70"></path>
               </g>
             </g>
           </svg>
@@ -49,10 +95,30 @@ const i = t[locale] || t.en;
           {i.projects}
         </h4>
         <ul class="space-y-2.5">
-          <li><a href={`${prefix}/protocol/`} class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">AI-Protocol</a></li>
-          <li><a href={`${prefix}/rust/`} class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">Rust SDK</a></li>
-          <li><a href={`${prefix}/python/`} class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">Python SDK</a></li>
-          <li><a href={`${prefix}/ts/`} class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">TypeScript SDK</a></li>
+          <li>
+            <a
+              href={`${prefix}/protocol/`}
+              class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors"
+              >AI-Protocol</a>
+          </li>
+          <li>
+            <a
+              href={`${prefix}/rust/`}
+              class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors"
+              >Rust SDK</a>
+          </li>
+          <li>
+            <a
+              href={`${prefix}/python/`}
+              class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors"
+              >Python SDK</a>
+          </li>
+          <li>
+            <a
+              href={`${prefix}/ts/`}
+              class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors"
+              >TypeScript SDK</a>
+          </li>
         </ul>
       </div>
 
@@ -62,9 +128,24 @@ const i = t[locale] || t.en;
           {i.docs}
         </h4>
         <ul class="space-y-2.5">
-          <li><a href={`${prefix}/intro/`} class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">{i.started}</a></li>
-          <li><a href={`${prefix}/protocol/overview/`} class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">{i.spec}</a></li>
-          <li><a href={`${prefix}/guides/chat/`} class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">{i.guides}</a></li>
+          <li>
+            <a
+              href={`${prefix}/intro/`}
+              class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors"
+              >{i.started}</a>
+          </li>
+          <li>
+            <a
+              href={`${prefix}/protocol/overview/`}
+              class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors"
+              >{i.spec}</a>
+          </li>
+          <li>
+            <a
+              href={`${prefix}/guides/chat/`}
+              class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors"
+              >{i.guides}</a>
+          </li>
         </ul>
       </div>
 
@@ -74,21 +155,68 @@ const i = t[locale] || t.en;
           {i.community}
         </h4>
         <ul class="space-y-2.5">
-          <li><a href="https://github.com/hiddenpath/ai-protocol" target="_blank" rel="noopener" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">GitHub - Protocol</a></li>
-          <li><a href="https://github.com/hiddenpath/ai-lib-rust" target="_blank" rel="noopener" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">GitHub - Rust</a></li>
-          <li><a href="https://github.com/hiddenpath/ai-lib-python" target="_blank" rel="noopener" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">GitHub - Python</a></li>
-          <li><a href="https://crates.io/crates/ai-lib" target="_blank" rel="noopener" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">Crates.io</a></li>
-          <li><a href="https://pypi.org/project/ai-lib-python/" target="_blank" rel="noopener" class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors">PyPI</a></li>
+          <li>
+            <a
+              href="https://github.com/hiddenpath/ai-protocol"
+              target="_blank"
+              rel="noopener"
+              class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors"
+              >GitHub - Protocol</a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/hiddenpath/ai-lib-rust"
+              target="_blank"
+              rel="noopener"
+              class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors"
+              >GitHub - Rust</a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/hiddenpath/ai-lib-python"
+              target="_blank"
+              rel="noopener"
+              class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors"
+              >GitHub - Python</a>
+          </li>
+          <li>
+            <a
+              href="https://crates.io/crates/ai-lib"
+              target="_blank"
+              rel="noopener"
+              class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors"
+              >Crates.io</a>
+          </li>
+          <li>
+            <a
+              href="https://pypi.org/project/ai-lib-python/"
+              target="_blank"
+              rel="noopener"
+              class="text-sm text-[var(--text-dim)] hover:text-[var(--text)] transition-colors"
+              >PyPI</a>
+          </li>
         </ul>
       </div>
     </div>
 
-    <div class="mt-12 pt-8 border-t border-[var(--border)] flex flex-col md:flex-row items-center justify-between gap-4">
+    <div
+      class="mt-12 pt-8 border-t border-[var(--border)] flex flex-col md:flex-row items-center justify-between gap-4"
+    >
       <p class="text-xs text-[var(--text-muted)]">
         &copy; {year} AI-Lib Contributors. Dual-licensed under MIT and Apache 2.0.
       </p>
       <p class="text-xs text-[var(--text-muted)]">
-        Built with <a href="https://astro.build" target="_blank" rel="noopener" class="hover:text-[var(--text-dim)]">Astro</a> + <a href="https://starlight.astro.build" target="_blank" rel="noopener" class="hover:text-[var(--text-dim)]">Starlight</a>
+        Built with <a
+          href="https://astro.build"
+          target="_blank"
+          rel="noopener"
+          class="hover:text-[var(--text-dim)]">Astro</a
+        > + <a
+          href="https://starlight.astro.build"
+          target="_blank"
+          rel="noopener"
+          class="hover:text-[var(--text-dim)]">Starlight</a
+        >
       </p>
     </div>
   </div>

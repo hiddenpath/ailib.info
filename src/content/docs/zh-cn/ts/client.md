@@ -35,10 +35,7 @@ const client = await createClientBuilder()
 
 ```typescript
 const response = await client
-  .chat([
-    Message.system('你是一个有帮助的助手。'),
-    Message.user('你好！'),
-  ])
+  .chat([Message.system('你是一个有帮助的助手。'), Message.user('你好！')])
   .execute();
 ```
 
@@ -47,10 +44,7 @@ const response = await client
 快速单条用户消息：
 
 ```typescript
-const response = await client
-  .chat()
-  .user('TypeScript 是什么？')
-  .execute();
+const response = await client.chat().user('TypeScript 是什么？').execute();
 ```
 
 ### temperature(value: number)
@@ -122,9 +116,7 @@ for await (const event of stream) {
 执行请求并返回响应：
 
 ```typescript
-const response = await client
-  .chat([Message.user('你好')])
-  .execute();
+const response = await client.chat([Message.user('你好')]).execute();
 
 console.log(response.content);
 console.log(response.toolCalls);
@@ -136,9 +128,7 @@ console.log(response.usage);
 执行并返回响应和计时统计：
 
 ```typescript
-const { response, stats } = await client
-  .chat([Message.user('嗨')])
-  .executeWithStats();
+const { response, stats } = await client.chat([Message.user('嗨')]).executeWithStats();
 
 console.log('Token 数:', stats.totalTokens);
 console.log('延迟:', stats.latencyMs, 'ms');

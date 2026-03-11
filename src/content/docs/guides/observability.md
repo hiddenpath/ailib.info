@@ -22,6 +22,7 @@ let client = AiClient::new("openai/gpt-4o").await?;
 ```
 
 Log levels:
+
 - `INFO` — Request/response summaries
 - `DEBUG` — Protocol loading, pipeline stages
 - `TRACE` — Individual frames, JSONPath matches
@@ -58,10 +59,7 @@ print(f"Latency: {stats.latency_ms}ms")
 ## TypeScript: Call Statistics
 
 ```typescript
-const { response, stats } = await client
-  .chat()
-  .user('Hello')
-  .executeWithStats();
+const { response, stats } = await client.chat().user('Hello').executeWithStats();
 
 console.log(`Model: ${stats.model}`);
 console.log(`Provider: ${stats.provider}`);
@@ -94,16 +92,14 @@ import { MetricsCollector } from '@hiddenpath/ai-lib-ts/telemetry';
 
 const metrics = new MetricsCollector();
 
-const client = await AiClient.builder()
-  .model('openai/gpt-4o')
-  .metrics(metrics)
-  .build();
+const client = await AiClient.builder().model('openai/gpt-4o').metrics(metrics).build();
 
 // After some requests...
 const prometheusText = metrics.exportPrometheus();
 ```
 
 Tracked metrics:
+
 - `ai_lib_requests_total` — Request count by model/provider
 - `ai_lib_request_duration_seconds` — Latency histogram
 - `ai_lib_tokens_total` — Token usage by type
@@ -135,13 +131,11 @@ const tracer = new Tracer({
   endpoint: 'http://jaeger:4317',
 });
 
-const client = await AiClient.builder()
-  .model('openai/gpt-4o')
-  .tracer(tracer)
-  .build();
+const client = await AiClient.builder().model('openai/gpt-4o').tracer(tracer).build();
 ```
 
 Traces include spans for:
+
 - Protocol loading
 - Request compilation
 - HTTP transport

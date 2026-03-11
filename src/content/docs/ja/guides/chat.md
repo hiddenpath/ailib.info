@@ -41,10 +41,7 @@ import { AiClient } from '@hiddenpath/ai-lib-ts';
 
 const client = await AiClient.new('openai/gpt-4o');
 
-const response = await client
-  .chat()
-  .user('Hello, world!')
-  .execute();
+const response = await client.chat().user('Hello, world!').execute();
 
 console.log(response.content);
 ```
@@ -117,10 +114,10 @@ await client.chat().messages(messages).execute()
 import { Message } from '@hiddenpath/ai-lib-ts';
 
 const messages = [
-    Message.system('You are a tutor.'),
-    Message.user('What is recursion?'),
-    Message.assistant('Recursion is when a function calls itself...'),
-    Message.user('Can you show an example?'),
+  Message.system('You are a tutor.'),
+  Message.user('What is recursion?'),
+  Message.assistant('Recursion is when a function calls itself...'),
+  Message.user('Can you show an example?'),
 ];
 
 await client.chat().messages(messages).execute();
@@ -128,12 +125,12 @@ await client.chat().messages(messages).execute();
 
 ## パラメータ
 
-| パラメータ | 型 | 説明 |
-|------------|------|------|
-| `temperature` | float | ランダム性（0.0 = 決定論的、2.0 = 創造的） |
-| `max_tokens` | int | 最大レスポンス長 |
-| `top_p` | float | ヌクレアスサンプリング（temperature の代替） |
-| `stop` | string[] | 生成を停止するシーケンス |
+| パラメータ    | 型       | 説明                                         |
+| ------------- | -------- | -------------------------------------------- |
+| `temperature` | float    | ランダム性（0.0 = 決定論的、2.0 = 創造的）   |
+| `max_tokens`  | int      | 最大レスポンス長                             |
+| `top_p`       | float    | ヌクレアスサンプリング（temperature の代替） |
+| `stop`        | string[] | 生成を停止するシーケンス                     |
 
 ```rust
 // Rust
@@ -157,13 +154,7 @@ await client.chat() \
 
 ```typescript
 // TypeScript
-await client
-  .chat()
-  .user('Write a poem')
-  .temperature(0.9)
-  .maxTokens(200)
-  .topP(0.95)
-  .execute();
+await client.chat().user('Write a poem').temperature(0.9).maxTokens(200).topP(0.95).execute();
 ```
 
 ## ストリーミング
@@ -197,9 +188,7 @@ async for event in client.chat() \
 
 ```typescript
 // TypeScript
-for await (const event of client.chat()
-  .user('Tell me a story')
-  .stream()) {
+for await (const event of client.chat().user('Tell me a story').stream()) {
   if (event.isContentDelta) {
     process.stdout.write(event.asContentDelta.text);
   }
@@ -234,10 +223,7 @@ print(f"Latency: {stats.latency_ms}ms")
 
 ```typescript
 // TypeScript
-const { response, stats } = await client
-  .chat()
-  .user('Hello')
-  .executeWithStats();
+const { response, stats } = await client.chat().user('Hello').executeWithStats();
 
 console.log(`Tokens: ${stats.totalTokens}`);
 console.log(`Latency: ${stats.latencyMs}ms`);

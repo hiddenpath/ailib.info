@@ -20,6 +20,7 @@ pnpm add @hiddenpath/ai-lib-ts
 ## 配置
 
 库会自动在以下位置查找协议清单：
+
 1. `node_modules/ai-protocol/dist` 或 `node_modules/@hiddenpath/ai-protocol/dist`
 2. `../ai-protocol/dist` 或 `./protocols`
 
@@ -41,10 +42,7 @@ import { AiClient, Message } from '@hiddenpath/ai-lib-ts';
 const client = await AiClient.new('deepseek/deepseek-chat');
 
 const response = await client
-  .chat([
-    Message.system('你是一个有帮助的助手。'),
-    Message.user('用简单的语言解释量子计算'),
-  ])
+  .chat([Message.system('你是一个有帮助的助手。'), Message.user('用简单的语言解释量子计算')])
   .temperature(0.7)
   .maxTokens(500)
   .execute();
@@ -60,10 +58,7 @@ import { AiClient, Message } from '@hiddenpath/ai-lib-ts';
 const client = await AiClient.new('anthropic/claude-3-5-sonnet');
 
 const stream = client
-  .chat([
-    Message.system('你是一个有帮助的助手。'),
-    Message.user('讲一个短故事。'),
-  ])
+  .chat([Message.system('你是一个有帮助的助手。'), Message.user('讲一个短故事。')])
   .stream()
   .executeStream();
 
@@ -86,9 +81,9 @@ const weatherTool = Tool.define(
   {
     type: 'object',
     properties: {
-    location: { type: 'string', description: '城市名称' },
-  },
-  required: ['location'],
+      location: { type: 'string', description: '城市名称' },
+    },
+    required: ['location'],
   },
   '获取指定位置的当前天气'
 );
@@ -117,9 +112,7 @@ const messages = [
   Message.user('TypeScript 中的闭包是什么？'),
 ];
 
-const response = await client
-  .chat(messages)
-  .execute();
+const response = await client.chat(messages).execute();
 
 console.log(response.content);
 ```
@@ -127,9 +120,7 @@ console.log(response.content);
 ## 获取统计信息
 
 ```typescript
-const { response, stats } = await client
-  .chat([Message.user('你好！')])
-  .executeWithStats();
+const { response, stats } = await client.chat([Message.user('你好！')]).executeWithStats();
 
 console.log('内容:', response.content);
 console.log('总 Token 数:', stats.totalTokens);

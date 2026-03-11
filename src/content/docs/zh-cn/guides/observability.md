@@ -22,6 +22,7 @@ let client = AiClient::from_model("openai/gpt-4o").await?;
 ```
 
 日志级别：
+
 - `INFO` — 请求/响应摘要
 - `DEBUG` — 协议加载、管道阶段
 - `TRACE` — 单个帧、JSONPath 匹配
@@ -58,10 +59,7 @@ print(f"Latency: {stats.latency_ms}ms")
 ## TypeScript：调用统计
 
 ```typescript
-const { response, stats } = await client
-  .chat()
-  .user('Hello')
-  .executeWithStats();
+const { response, stats } = await client.chat().user('Hello').executeWithStats();
 
 console.log(`Model: ${stats.model}`);
 console.log(`Provider: ${stats.provider}`);
@@ -94,16 +92,14 @@ import { MetricsCollector } from '@hiddenpath/ai-lib-ts/telemetry';
 
 const metrics = new MetricsCollector();
 
-const client = await AiClient.builder()
-  .model('openai/gpt-4o')
-  .metrics(metrics)
-  .build();
+const client = await AiClient.builder().model('openai/gpt-4o').metrics(metrics).build();
 
 // After some requests...
 const prometheusText = metrics.exportPrometheus();
 ```
 
 跟踪的指标：
+
 - `ai_lib_requests_total` — 按 model/provider 的请求数
 - `ai_lib_request_duration_seconds` — 延迟直方图
 - `ai_lib_tokens_total` — 按类型的 token 使用量
@@ -135,13 +131,11 @@ const tracer = new Tracer({
   endpoint: 'http://jaeger:4317',
 });
 
-const client = await AiClient.builder()
-  .model('openai/gpt-4o')
-  .tracer(tracer)
-  .build();
+const client = await AiClient.builder().model('openai/gpt-4o').tracer(tracer).build();
 ```
 
 追踪包含以下 span：
+
 - 协议加载
 - 请求编译
 - HTTP 传输

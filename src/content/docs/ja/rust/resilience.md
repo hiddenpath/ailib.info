@@ -12,6 +12,7 @@ ai-lib-rust（v0.8.0）には本番グレードの信頼性パターンが標準
 障害中のプロバイダーへのリクエストを止めることで、連鎖故障を防ぎます：
 
 **状態：**
+
 - **Closed** — 通常動作、リクエストが通過
 - **Open** — 失敗が多すぎ、リクエストは即座に拒否
 - **Half-Open** — クールダウン後、テストリクエストを許可
@@ -53,14 +54,14 @@ export AI_LIB_MAX_INFLIGHT=50
 ```yaml
 # プロバイダーマニフェスト内
 retry_policy:
-  strategy: "exponential_backoff"
+  strategy: 'exponential_backoff'
   max_retries: 3
   initial_delay_ms: 1000
   max_delay_ms: 30000
   retryable_errors:
-    - "rate_limited"
-    - "overloaded"
-    - "server_error"
+    - 'rate_limited'
+    - 'overloaded'
+    - 'server_error'
 ```
 
 リトライ可能と分類されたエラーのみがリトライをトリガーします。認証エラーなどは即座に失敗します。

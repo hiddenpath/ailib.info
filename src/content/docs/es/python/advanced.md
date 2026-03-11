@@ -9,17 +9,17 @@ description: Telemetría, enrutamiento de modelos, embeddings, caché, plugins y
 
 Instale características opcionales mediante extras pip (v0.7.0+):
 
-| Extra | Propósito |
-|-------|-----------|
-| `vision` | Procesamiento de imágenes (Pillow) |
-| `audio` | Procesamiento de audio (soundfile) |
-| `embeddings` | Generación de embeddings |
-| `structured` | Salida estructurada / modo JSON |
-| `batch` | Procesamiento por lotes |
-| `agentic` | Soporte para flujos de trabajo de agentes |
-| `telemetry` | Integración OpenTelemetry |
-| `tokenizer` | Conteo de tokens (tiktoken) |
-| `full` | Todas las características + watchdog + keyring |
+| Extra        | Propósito                                      |
+| ------------ | ---------------------------------------------- |
+| `vision`     | Procesamiento de imágenes (Pillow)             |
+| `audio`      | Procesamiento de audio (soundfile)             |
+| `embeddings` | Generación de embeddings                       |
+| `structured` | Salida estructurada / modo JSON                |
+| `batch`      | Procesamiento por lotes                        |
+| `agentic`    | Soporte para flujos de trabajo de agentes      |
+| `telemetry`  | Integración OpenTelemetry                      |
+| `tokenizer`  | Conteo de tokens (tiktoken)                    |
+| `full`       | Todas las características + watchdog + keyring |
 
 ```bash
 pip install ai-lib-python[full]   # All features
@@ -122,13 +122,13 @@ anthropic_models = create_anthropic_models()
 
 ### Estrategias de selección
 
-| Strategy | Description |
-|----------|-------------|
-| `round_robin` | Rota entre modelos |
-| `weighted` | Selección basada en probabilidad |
-| `cost_based` | Prefiere modelos más económicos |
+| Strategy        | Description                       |
+| --------------- | --------------------------------- |
+| `round_robin`   | Rota entre modelos                |
+| `weighted`      | Selección basada en probabilidad  |
+| `cost_based`    | Prefiere modelos más económicos   |
 | `quality_based` | Prefiere modelos de mayor calidad |
-| `latency_based` | Prefiere modelos más rápidos |
+| `latency_based` | Prefiere modelos más rápidos      |
 
 ## Embeddings
 

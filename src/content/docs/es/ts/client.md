@@ -35,10 +35,7 @@ Set the conversation messages:
 
 ```typescript
 const response = await client
-  .chat([
-    Message.system('You are helpful.'),
-    Message.user('Hello!'),
-  ])
+  .chat([Message.system('You are helpful.'), Message.user('Hello!')])
   .execute();
 ```
 
@@ -47,10 +44,7 @@ const response = await client
 Quick single user message:
 
 ```typescript
-const response = await client
-  .chat()
-  .user('What is TypeScript?')
-  .execute();
+const response = await client.chat().user('What is TypeScript?').execute();
 ```
 
 ### temperature(value: number)
@@ -122,9 +116,7 @@ for await (const event of stream) {
 Execute the request and return the response:
 
 ```typescript
-const response = await client
-  .chat([Message.user('Hello')])
-  .execute();
+const response = await client.chat([Message.user('Hello')]).execute();
 
 console.log(response.content);
 console.log(response.toolCalls);
@@ -136,9 +128,7 @@ console.log(response.usage);
 Execute and return response with timing stats:
 
 ```typescript
-const { response, stats } = await client
-  .chat([Message.user('Hi')])
-  .executeWithStats();
+const { response, stats } = await client.chat([Message.user('Hi')]).executeWithStats();
 
 console.log('Tokens:', stats.totalTokens);
 console.log('Latency:', stats.latencyMs, 'ms');

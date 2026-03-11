@@ -19,19 +19,19 @@ Each operator is a stage in the pipeline:
 
 Converts raw byte streams into JSON frames.
 
-| Format | Description |
-|--------|-------------|
-| `sse` | Server-Sent Events (OpenAI, Groq, etc.) |
-| `ndjson` | Newline-delimited JSON |
-| `anthropic_sse` | Anthropic's custom SSE format |
+| Format          | Description                             |
+| --------------- | --------------------------------------- |
+| `sse`           | Server-Sent Events (OpenAI, Groq, etc.) |
+| `ndjson`        | Newline-delimited JSON                  |
+| `anthropic_sse` | Anthropic's custom SSE format           |
 
 The decoder format is specified in the provider manifest:
 
 ```yaml
 streaming:
   decoder:
-    format: "sse"
-    done_signal: "[DONE]"
+    format: 'sse'
+    done_signal: '[DONE]'
 ```
 
 ### 2. Selector
@@ -40,8 +40,8 @@ Filters JSON frames using JSONPath expressions defined in the manifest's `event_
 
 ```yaml
 event_map:
-  - match: "$.choices[0].delta.content"
-    emit: "PartialContentDelta"
+  - match: '$.choices[0].delta.content'
+    emit: 'PartialContentDelta'
 ```
 
 ### 3. Accumulator

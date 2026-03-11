@@ -181,11 +181,7 @@ async for event in client.chat() \
 ### TypeScript
 
 ```typescript
-for await (const event of client
-  .chat()
-  .user("What's the weather?")
-  .tools([getWeather])
-  .stream()) {
+for await (const event of client.chat().user("What's the weather?").tools([getWeather]).stream()) {
   if (event.isToolCallStarted) {
     const call = event.asToolCallStarted;
     console.log(`Starting: ${call.name}`);
@@ -209,14 +205,14 @@ for await (const event of client
 
 Check the provider's capabilities before using tools:
 
-| Provider | Tool Calling |
-|----------|-------------|
-| OpenAI | Supported |
-| Anthropic | Supported |
-| Gemini | Supported |
-| DeepSeek | Supported |
-| Groq | Supported |
-| Mistral | Supported |
-| Qwen | Supported |
+| Provider  | Tool Calling |
+| --------- | ------------ |
+| OpenAI    | Supported    |
+| Anthropic | Supported    |
+| Gemini    | Supported    |
+| DeepSeek  | Supported    |
+| Groq      | Supported    |
+| Mistral   | Supported    |
+| Qwen      | Supported    |
 
 The manifest's `capabilities.tools: true` flag indicates support.

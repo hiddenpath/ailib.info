@@ -20,6 +20,7 @@ pnpm add @hiddenpath/ai-lib-ts
 ## Configuration
 
 The library automatically looks for protocol manifests in these locations:
+
 1. `node_modules/ai-protocol/dist` or `node_modules/@hiddenpath/ai-protocol/dist`
 2. `../ai-protocol/dist` or `./protocols`
 
@@ -60,10 +61,7 @@ import { AiClient, Message } from '@hiddenpath/ai-lib-ts';
 const client = await AiClient.new('anthropic/claude-3-5-sonnet');
 
 const stream = client
-  .chat([
-    Message.system('You are a helpful assistant.'),
-    Message.user('Tell me a short story.'),
-  ])
+  .chat([Message.system('You are a helpful assistant.'), Message.user('Tell me a short story.')])
   .stream()
   .executeStream();
 
@@ -86,9 +84,9 @@ const weatherTool = Tool.define(
   {
     type: 'object',
     properties: {
-    location: { type: 'string', description: 'City name' },
-  },
-  required: ['location'],
+      location: { type: 'string', description: 'City name' },
+    },
+    required: ['location'],
   },
   'Get current weather for a location'
 );
@@ -117,9 +115,7 @@ const messages = [
   Message.user('What is a closure in TypeScript?'),
 ];
 
-const response = await client
-  .chat(messages)
-  .execute();
+const response = await client.chat(messages).execute();
 
 console.log(response.content);
 ```
@@ -127,9 +123,7 @@ console.log(response.content);
 ## With Stats
 
 ```typescript
-const { response, stats } = await client
-  .chat([Message.user('Hello!')])
-  .executeWithStats();
+const { response, stats } = await client.chat([Message.user('Hello!')]).executeWithStats();
 
 console.log('Content:', response.content);
 console.log('Total tokens:', stats.totalTokens);

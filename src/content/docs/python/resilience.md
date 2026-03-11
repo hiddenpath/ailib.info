@@ -120,12 +120,12 @@ print(f"Rate remaining: {signals.rate_remaining}")
 
 ## Environment Variables
 
-| Variable | Purpose |
-|----------|---------|
-| `AI_LIB_RPS` | Rate limit (requests per second) |
-| `AI_LIB_BREAKER_FAILURE_THRESHOLD` | Circuit breaker threshold |
-| `AI_LIB_BREAKER_COOLDOWN_SECS` | Cooldown period |
-| `AI_LIB_MAX_INFLIGHT` | Max concurrent requests |
+| Variable                           | Purpose                          |
+| ---------------------------------- | -------------------------------- |
+| `AI_LIB_RPS`                       | Rate limit (requests per second) |
+| `AI_LIB_BREAKER_FAILURE_THRESHOLD` | Circuit breaker threshold        |
+| `AI_LIB_BREAKER_COOLDOWN_SECS`     | Cooldown period                  |
+| `AI_LIB_MAX_INFLIGHT`              | Max concurrent requests          |
 
 ## Next Steps
 

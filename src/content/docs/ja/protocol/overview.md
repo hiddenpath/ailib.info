@@ -50,50 +50,50 @@ ai-protocol/
 
 各プロバイダーには、ランタイムが必要とするすべてを宣言する YAML マニフェストがあります：
 
-| セクション | 目的 |
-|------------|------|
-| `endpoint` | ベース URL、チャットパス、プロトコル |
-| `auth` | 認証タイプ、トークン環境変数、ヘッダー |
-| `parameter_mappings` | 標準 → プロバイダー固有のパラメータ名 |
-| `streaming` | デコーダー形式（SSE/NDJSON）、イベントマッピングルール（JSONPath） |
-| `error_classification` | HTTP ステータス → 標準エラー型 |
-| `retry_policy` | 戦略、遅延、リトライ条件 |
-| `rate_limit_headers` | レート制限情報のヘッダー名 |
-| `capabilities` | フィーチャーフラグ（streaming、tools、vision、reasoning） |
+| セクション             | 目的                                                               |
+| ---------------------- | ------------------------------------------------------------------ |
+| `endpoint`             | ベース URL、チャットパス、プロトコル                               |
+| `auth`                 | 認証タイプ、トークン環境変数、ヘッダー                             |
+| `parameter_mappings`   | 標準 → プロバイダー固有のパラメータ名                              |
+| `streaming`            | デコーダー形式（SSE/NDJSON）、イベントマッピングルール（JSONPath） |
+| `error_classification` | HTTP ステータス → 標準エラー型                                     |
+| `retry_policy`         | 戦略、遅延、リトライ条件                                           |
+| `rate_limit_headers`   | レート制限情報のヘッダー名                                         |
+| `capabilities`         | フィーチャーフラグ（streaming、tools、vision、reasoning）          |
 
 ### 例：Anthropic プロバイダー
 
 ```yaml
 id: anthropic
-protocol_version: "0.7"
+protocol_version: '0.7'
 endpoint:
-  base_url: "https://api.anthropic.com/v1"
-  chat_path: "/messages"
+  base_url: 'https://api.anthropic.com/v1'
+  chat_path: '/messages'
 auth:
   type: bearer
-  token_env: "ANTHROPIC_API_KEY"
+  token_env: 'ANTHROPIC_API_KEY'
   headers:
-    anthropic-version: "2023-06-01"
+    anthropic-version: '2023-06-01'
 parameter_mappings:
-  temperature: "temperature"
-  max_tokens: "max_tokens"
-  stream: "stream"
-  tools: "tools"
+  temperature: 'temperature'
+  max_tokens: 'max_tokens'
+  stream: 'stream'
+  tools: 'tools'
 streaming:
   decoder:
-    format: "anthropic_sse"
+    format: 'anthropic_sse'
   event_map:
     - match: "$.type == 'content_block_delta'"
-      emit: "PartialContentDelta"
+      emit: 'PartialContentDelta'
       extract:
-        content: "$.delta.text"
+        content: '$.delta.text'
     - match: "$.type == 'message_stop'"
-      emit: "StreamEnd"
+      emit: 'StreamEnd'
 error_classification:
   by_http_status:
-    "429": "rate_limited"
-    "401": "authentication"
-    "529": "overloaded"
+    '429': 'rate_limited'
+    '401': 'authentication'
+    '529': 'overloaded'
 capabilities:
   streaming: true
   tools: true
@@ -109,7 +109,7 @@ capabilities:
 models:
   claude-3-5-sonnet:
     provider: anthropic
-    model_id: "claude-3-5-sonnet-20241022"
+    model_id: 'claude-3-5-sonnet-20241022'
     context_window: 200000
     capabilities: [chat, vision, tools, streaming, reasoning]
     pricing:

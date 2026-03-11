@@ -181,11 +181,7 @@ async for event in client.chat() \
 ### TypeScript
 
 ```typescript
-for await (const event of client
-  .chat()
-  .user("What's the weather?")
-  .tools([getWeather])
-  .stream()) {
+for await (const event of client.chat().user("What's the weather?").tools([getWeather]).stream()) {
   if (event.isToolCallStarted) {
     const call = event.asToolCallStarted;
     console.log(`Starting: ${call.name}`);
@@ -209,14 +205,14 @@ for await (const event of client
 
 Verifique las capacidades del proveedor antes de usar herramientas:
 
-| Provider | Tool Calling |
-|----------|-------------|
-| OpenAI | Supported |
-| Anthropic | Supported |
-| Gemini | Supported |
-| DeepSeek | Supported |
-| Groq | Supported |
-| Mistral | Supported |
-| Qwen | Supported |
+| Provider  | Tool Calling |
+| --------- | ------------ |
+| OpenAI    | Supported    |
+| Anthropic | Supported    |
+| Gemini    | Supported    |
+| DeepSeek  | Supported    |
+| Groq      | Supported    |
+| Mistral   | Supported    |
+| Qwen      | Supported    |
 
 La bandera `capabilities.tools: true` del manifiesto indica soporte.

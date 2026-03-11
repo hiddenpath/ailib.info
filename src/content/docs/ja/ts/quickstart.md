@@ -20,6 +20,7 @@ pnpm add @hiddenpath/ai-lib-ts
 ## 訽置
 
 库会自动在以下位置查找协议清单：
+
 1. `node_modules/ai-protocol/dist` 或 `node_modules/@hiddenpath/ai-protocol/dist`
 2. `../ai-protocol/dist`、 `./protocols`
 
@@ -41,10 +42,7 @@ import { AiClient, Message } from '@hiddenpath/ai-lib-ts';
 const client = await AiClient.new('deepseek/deepseek-chat');
 
 const response = await client
-  .chat([
-    Message.system('You are a helpful assistant.'),
-    Message.user('简单解释量子计算'),
-  ])
+  .chat([Message.system('You are a helpful assistant.'), Message.user('简单解释量子计算')])
   .temperature(0.7)
   .maxTokens(500)
   .execute();

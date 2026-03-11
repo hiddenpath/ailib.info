@@ -56,50 +56,50 @@ ai-protocol/
 
 Each provider has a YAML manifest declaring everything a runtime needs:
 
-| Section | Purpose |
-|---------|---------|
-| `endpoint` | Base URL, chat path, protocol |
-| `auth` | Authentication type, token env var, headers |
-| `parameter_mappings` | Standard → provider-specific parameter names |
-| `streaming` | Decoder format (SSE/NDJSON), event mapping rules (JSONPath) |
-| `error_classification` | HTTP status → standard error types |
-| `retry_policy` | Strategy, delays, retry conditions |
-| `rate_limit_headers` | Header names for rate limit information |
-| `capabilities` | Feature flags (streaming, tools, vision, reasoning) |
+| Section                | Purpose                                                     |
+| ---------------------- | ----------------------------------------------------------- |
+| `endpoint`             | Base URL, chat path, protocol                               |
+| `auth`                 | Authentication type, token env var, headers                 |
+| `parameter_mappings`   | Standard → provider-specific parameter names                |
+| `streaming`            | Decoder format (SSE/NDJSON), event mapping rules (JSONPath) |
+| `error_classification` | HTTP status → standard error types                          |
+| `retry_policy`         | Strategy, delays, retry conditions                          |
+| `rate_limit_headers`   | Header names for rate limit information                     |
+| `capabilities`         | Feature flags (streaming, tools, vision, reasoning)         |
 
 ### Example: Anthropic Provider
 
 ```yaml
 id: anthropic
-protocol_version: "0.7"
+protocol_version: '0.7'
 endpoint:
-  base_url: "https://api.anthropic.com/v1"
-  chat_path: "/messages"
+  base_url: 'https://api.anthropic.com/v1'
+  chat_path: '/messages'
 auth:
   type: bearer
-  token_env: "ANTHROPIC_API_KEY"
+  token_env: 'ANTHROPIC_API_KEY'
   headers:
-    anthropic-version: "2023-06-01"
+    anthropic-version: '2023-06-01'
 parameter_mappings:
-  temperature: "temperature"
-  max_tokens: "max_tokens"
-  stream: "stream"
-  tools: "tools"
+  temperature: 'temperature'
+  max_tokens: 'max_tokens'
+  stream: 'stream'
+  tools: 'tools'
 streaming:
   decoder:
-    format: "anthropic_sse"
+    format: 'anthropic_sse'
   event_map:
     - match: "$.type == 'content_block_delta'"
-      emit: "PartialContentDelta"
+      emit: 'PartialContentDelta'
       extract:
-        content: "$.delta.text"
+        content: '$.delta.text'
     - match: "$.type == 'message_stop'"
-      emit: "StreamEnd"
+      emit: 'StreamEnd'
 error_classification:
   by_http_status:
-    "429": "rate_limited"
-    "401": "authentication"
-    "529": "overloaded"
+    '429': 'rate_limited'
+    '401': 'authentication'
+    '529': 'overloaded'
 capabilities:
   streaming: true
   tools: true
@@ -115,7 +115,7 @@ Models are registered with provider references, capabilities, and pricing:
 models:
   claude-3-5-sonnet:
     provider: anthropic
-    model_id: "claude-3-5-sonnet-20241022"
+    model_id: 'claude-3-5-sonnet-20241022'
     context_window: 200000
     capabilities: [chat, vision, tools, streaming, reasoning]
     pricing:
@@ -160,14 +160,14 @@ Protocol evolution through **v0.8.2** delivers the full **V2 architecture** plus
 
 The P0 generative provider set is available in **V2 manifests**, with Ring 1/2/3 structure and multimodal declarations:
 
-| Provider | API Style | Multimodal Focus |
-|----------|-----------|------------------|
-| OpenAI | `OpenAiCompatible` | text/vision/audio |
-| Anthropic | `AnthropicMessages` | text/vision |
-| Google Gemini | `GeminiGenerate` | text/vision/audio/video-in |
-| DeepSeek | `OpenAiCompatible` | text/vision |
-| Qwen | `OpenAiCompatible` | text/vision/audio-in |
-| Doubao | `OpenAiCompatible` | text/vision |
+| Provider      | API Style           | Multimodal Focus           |
+| ------------- | ------------------- | -------------------------- |
+| OpenAI        | `OpenAiCompatible`  | text/vision/audio          |
+| Anthropic     | `AnthropicMessages` | text/vision                |
+| Google Gemini | `GeminiGenerate`    | text/vision/audio/video-in |
+| DeepSeek      | `OpenAiCompatible`  | text/vision                |
+| Qwen          | `OpenAiCompatible`  | text/vision/audio-in       |
+| Doubao        | `OpenAiCompatible`  | text/vision                |
 
 V2 manifests remain backward-compatible with V1 loading paths in runtimes, while governance gates ensure staged release safety.
 
@@ -184,14 +184,14 @@ V2 introduces the **ProviderContract** schema — a formal declaration of each p
 
 Six JSON schemas validate the V2 protocol:
 
-| Schema | Purpose |
-|--------|---------|
-| `provider.json` | V2 provider manifest structure |
-| `provider-contract.json` | ProviderContract capability declaration |
-| `mcp.json` | MCP client/server/transport configuration |
-| `computer-use.json` | Computer Use actions, safety, provider mapping |
-| `multimodal.json` | Input/output modalities, formats, omni-mode |
-| `context-policy.json` | Context window management strategies |
+| Schema                   | Purpose                                        |
+| ------------------------ | ---------------------------------------------- |
+| `provider.json`          | V2 provider manifest structure                 |
+| `provider-contract.json` | ProviderContract capability declaration        |
+| `mcp.json`               | MCP client/server/transport configuration      |
+| `computer-use.json`      | Computer Use actions, safety, provider mapping |
+| `multimodal.json`        | Input/output modalities, formats, omni-mode    |
+| `context-policy.json`    | Context window management strategies           |
 
 ### Standard Error Codes
 

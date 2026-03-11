@@ -21,7 +21,9 @@ ai-lib-rust v0.8.0 está alineado con la especificación AI-Protocol V2:
 El SDK está organizado en capas distintas:
 
 ### Capa de cliente (`client/`)
+
 La API orientada al usuario:
+
 - **AiClient** — Punto de entrada principal, creado a partir de identificadores de modelo
 - **AiClientBuilder** — Constructor de configuración con ajustes de resiliencia
 - **ChatRequestBuilder** — API fluida para construir solicitudes de chat
@@ -29,14 +31,18 @@ La API orientada al usuario:
 - **CancelHandle** — Cancelación elegante del flujo
 
 ### Capa de protocolo (`protocol/`)
+
 Carga e interpreta manifiestos AI-Protocol:
+
 - **ProtocolLoader** — Carga desde archivos locales, variables de entorno o GitHub
 - **ProtocolManifest** — Configuración de proveedor analizada
 - **Validator** — Validación JSON Schema
 - **UnifiedRequest** — Formato de solicitud estándar compilado a JSON específico del proveedor
 
 ### Capa de canalización (`pipeline/`)
+
 El corazón del procesamiento en streaming — una canalización basada en operadores:
+
 - **Decoder** — Convierte flujos de bytes a frames JSON (SSE, JSON Lines)
 - **Selector** — Filtra frames usando expresiones JSONPath
 - **Accumulator** — Ensambla statefulmente llamadas a herramientas a partir de fragmentos parciales
@@ -45,18 +51,23 @@ El corazón del procesamiento en streaming — una canalización basada en opera
 - **Retry/Fallback** — Operadores de reintento y fallback a nivel de canalización
 
 ### Capa de transporte (`transport/`)
+
 Comunicación HTTP:
+
 - **HttpTransport** — Cliente HTTP basado en reqwest
 - **Auth** — Resolución de API key (keyring del SO → variables de entorno)
 - **Middleware** — Middleware de transporte para logging, métricas
 
 ### Capa de resiliencia (`resilience/`)
+
 Patrones de confiabilidad para producción:
+
 - **CircuitBreaker** — Aislamiento de fallos abierto/semiabierto/cerrado
 - **RateLimiter** — Algoritmo de token bucket
 - **Backpressure** — Semáforo max_inflight
 
 ### Módulos adicionales
+
 - **embeddings/** — EmbeddingClient con operaciones vectoriales
 - **cache/** — Caché de respuestas con TTL (MemoryCache)
 - **batch/** — BatchCollector y BatchExecutor
@@ -68,41 +79,41 @@ Patrones de confiabilidad para producción:
 
 ## Dependencias principales
 
-| Crate | Propósito |
-|-------|-----------|
-| `tokio` | Tiempo de ejecución asíncrono |
-| `reqwest` | Cliente HTTP |
-| `serde` / `serde_json` / `serde_yaml` | Serialización |
-| `jsonschema` | Validación de manifiestos |
-| `tracing` | Registro estructurado |
-| `arc-swap` | Soporte de recarga en caliente |
-| `notify` | Vigilancia de archivos |
-| `keyring` | Integración con keyring del SO |
+| Crate                                 | Propósito                      |
+| ------------------------------------- | ------------------------------ |
+| `tokio`                               | Tiempo de ejecución asíncrono  |
+| `reqwest`                             | Cliente HTTP                   |
+| `serde` / `serde_json` / `serde_yaml` | Serialización                  |
+| `jsonschema`                          | Validación de manifiestos      |
+| `tracing`                             | Registro estructurado          |
+| `arc-swap`                            | Soporte de recarga en caliente |
+| `notify`                              | Vigilancia de archivos         |
+| `keyring`                             | Integración con keyring del SO |
 
 ## Banderas de características
 
 Características opcionales habilitadas vía Cargo (use `full` para habilitar todas):
 
-| Feature | Lo que habilita |
-|---------|-----------------|
-| `embeddings` | EmbeddingClient, operaciones vectoriales |
-| `batch` | BatchCollector, BatchExecutor |
-| `guardrails` | Filtrado de contenido, detección de PII |
-| `tokens` | Conteo de tokens, estimación de costos |
-| `telemetry` | Recolectores de observabilidad avanzada |
-| `routing_mvp` | CustomModelManager, ModelArray, estrategias de balanceo de carga |
-| `interceptors` | InterceptorPipeline para logging, métricas, auditoría |
+| Feature        | Lo que habilita                                                  |
+| -------------- | ---------------------------------------------------------------- |
+| `embeddings`   | EmbeddingClient, operaciones vectoriales                         |
+| `batch`        | BatchCollector, BatchExecutor                                    |
+| `guardrails`   | Filtrado de contenido, detección de PII                          |
+| `tokens`       | Conteo de tokens, estimación de costos                           |
+| `telemetry`    | Recolectores de observabilidad avanzada                          |
+| `routing_mvp`  | CustomModelManager, ModelArray, estrategias de balanceo de carga |
+| `interceptors` | InterceptorPipeline para logging, métricas, auditoría            |
 
 ## Variables de entorno
 
-| Variable | Propósito |
-|----------|-----------|
-| `AI_PROTOCOL_DIR` | Directorio del manifiesto del protocolo |
-| `<PROVIDER>_API_KEY` | Clave API del proveedor (ej. `OPENAI_API_KEY`) |
-| `AI_LIB_RPS` | Límite de velocidad (solicitudes por segundo) |
-| `AI_LIB_BREAKER_FAILURE_THRESHOLD` | Umbral del circuit breaker |
-| `AI_LIB_MAX_INFLIGHT` | Máximo de solicitudes concurrentes |
-| `AI_HTTP_TIMEOUT_SECS` | Timeout HTTP |
+| Variable                           | Propósito                                      |
+| ---------------------------------- | ---------------------------------------------- |
+| `AI_PROTOCOL_DIR`                  | Directorio del manifiesto del protocolo        |
+| `<PROVIDER>_API_KEY`               | Clave API del proveedor (ej. `OPENAI_API_KEY`) |
+| `AI_LIB_RPS`                       | Límite de velocidad (solicitudes por segundo)  |
+| `AI_LIB_BREAKER_FAILURE_THRESHOLD` | Umbral del circuit breaker                     |
+| `AI_LIB_MAX_INFLIGHT`              | Máximo de solicitudes concurrentes             |
+| `AI_HTTP_TIMEOUT_SECS`             | Timeout HTTP                                   |
 
 ## Próximos pasos
 

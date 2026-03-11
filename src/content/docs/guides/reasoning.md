@@ -9,12 +9,12 @@ Some AI models support extended thinking (chain-of-thought reasoning), where the
 
 ## Supported Models
 
-| Model | Provider | Reasoning |
-|-------|----------|-----------|
-| o1, o1-mini, o3 | OpenAI | Extended thinking |
-| Claude 3.5 Sonnet | Anthropic | Extended thinking |
-| DeepSeek R1 | DeepSeek | Chain-of-thought |
-| Gemini 2.0 Flash Thinking | Google | Thinking mode |
+| Model                     | Provider  | Reasoning         |
+| ------------------------- | --------- | ----------------- |
+| o1, o1-mini, o3           | OpenAI    | Extended thinking |
+| Claude 3.5 Sonnet         | Anthropic | Extended thinking |
+| DeepSeek R1               | DeepSeek  | Chain-of-thought  |
+| Gemini 2.0 Flash Thinking | Google    | Thinking mode     |
 
 ## Usage
 

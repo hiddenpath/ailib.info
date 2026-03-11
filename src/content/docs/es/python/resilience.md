@@ -120,12 +120,12 @@ print(f"Rate remaining: {signals.rate_remaining}")
 
 ## Variables de entorno
 
-| Variable | Propósito |
-|----------|---------|
-| `AI_LIB_RPS` | Límite de tasa (solicitudes por segundo) |
-| `AI_LIB_BREAKER_FAILURE_THRESHOLD` | Umbral del cortacircuitos |
-| `AI_LIB_BREAKER_COOLDOWN_SECS` | Período de espera |
-| `AI_LIB_MAX_INFLIGHT` | Máximo de solicitudes concurrentes |
+| Variable                           | Propósito                                |
+| ---------------------------------- | ---------------------------------------- |
+| `AI_LIB_RPS`                       | Límite de tasa (solicitudes por segundo) |
+| `AI_LIB_BREAKER_FAILURE_THRESHOLD` | Umbral del cortacircuitos                |
+| `AI_LIB_BREAKER_COOLDOWN_SECS`     | Período de espera                        |
+| `AI_LIB_MAX_INFLIGHT`              | Máximo de solicitudes concurrentes       |
 
 ## Próximos pasos
 

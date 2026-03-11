@@ -25,9 +25,9 @@ DeepSeek, Qwen (Alibaba), Zhipu GLM, Doubao (ByteDance), Baidu ERNIE, iFlytek Sp
 
 ```yaml
 endpoint:
-  base_url: "https://api.openai.com/v1"
-  chat_path: "/chat/completions"
-  protocol: "https"
+  base_url: 'https://api.openai.com/v1'
+  chat_path: '/chat/completions'
+  protocol: 'https'
   timeout_ms: 60000
 ```
 
@@ -61,12 +61,12 @@ Maps standard parameter names to provider-specific fields:
 
 ```yaml
 parameter_mappings:
-  temperature: "temperature"
-  max_tokens: "max_completion_tokens"  # OpenAI uses different name
-  stream: "stream"
-  tools: "tools"
-  tool_choice: "tool_choice"
-  response_format: "response_format"
+  temperature: 'temperature'
+  max_tokens: 'max_completion_tokens' # OpenAI uses different name
+  stream: 'stream'
+  tools: 'tools'
+  tool_choice: 'tool_choice'
+  response_format: 'response_format'
 ```
 
 ### Streaming Configuration
@@ -76,21 +76,21 @@ Declares how to decode and interpret streaming responses:
 ```yaml
 streaming:
   decoder:
-    format: "sse"              # "sse", "ndjson", or "anthropic_sse"
-    done_signal: "[DONE]"      # Stream termination marker
+    format: 'sse' # "sse", "ndjson", or "anthropic_sse"
+    done_signal: '[DONE]' # Stream termination marker
   event_map:
-    - match: "$.choices[0].delta.content"
-      emit: "PartialContentDelta"
+    - match: '$.choices[0].delta.content'
+      emit: 'PartialContentDelta'
       extract:
-        content: "$.choices[0].delta.content"
-    - match: "$.choices[0].delta.tool_calls"
-      emit: "PartialToolCall"
+        content: '$.choices[0].delta.content'
+    - match: '$.choices[0].delta.tool_calls'
+      emit: 'PartialToolCall'
       extract:
-        tool_calls: "$.choices[0].delta.tool_calls"
-    - match: "$.choices[0].finish_reason"
-      emit: "StreamEnd"
+        tool_calls: '$.choices[0].delta.tool_calls'
+    - match: '$.choices[0].finish_reason'
+      emit: 'StreamEnd'
       extract:
-        finish_reason: "$.choices[0].finish_reason"
+        finish_reason: '$.choices[0].finish_reason'
 ```
 
 ### Error Classification
@@ -100,16 +100,16 @@ Maps HTTP responses to standard error types:
 ```yaml
 error_classification:
   by_http_status:
-    "400": "invalid_request"
-    "401": "authentication"
-    "403": "permission"
-    "404": "not_found"
-    "429": "rate_limited"
-    "500": "server_error"
-    "503": "overloaded"
+    '400': 'invalid_request'
+    '401': 'authentication'
+    '403': 'permission'
+    '404': 'not_found'
+    '429': 'rate_limited'
+    '500': 'server_error'
+    '503': 'overloaded'
   by_error_code:
-    "context_length_exceeded": "context_length"
-    "content_filter": "content_filter"
+    'context_length_exceeded': 'context_length'
+    'content_filter': 'content_filter'
 ```
 
 ### Capabilities

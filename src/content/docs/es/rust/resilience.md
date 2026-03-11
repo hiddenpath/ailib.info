@@ -12,6 +12,7 @@ ai-lib-rust (v0.8.0) incluye patrones de confiabilidad de nivel producción de s
 Previene fallos en cascada al detener las solicitudes a proveedores con fallos:
 
 **Estados:**
+
 - **Closed** — Operación normal, las solicitudes fluyen
 - **Open** — Demasiados fallos, las solicitudes se rechazan inmediatamente
 - **Half-Open** — Después del enfriamiento, permite una solicitud de prueba
@@ -53,14 +54,14 @@ Reintento con backoff exponencial impulsado por la política de reintento del ma
 ```yaml
 # In the provider manifest
 retry_policy:
-  strategy: "exponential_backoff"
+  strategy: 'exponential_backoff'
   max_retries: 3
   initial_delay_ms: 1000
   max_delay_ms: 30000
   retryable_errors:
-    - "rate_limited"
-    - "overloaded"
-    - "server_error"
+    - 'rate_limited'
+    - 'overloaded'
+    - 'server_error'
 ```
 
 Solo los errores clasificados como reintentables desencadenan reintentos. Los errores de autenticación, por ejemplo, fallan inmediatamente.

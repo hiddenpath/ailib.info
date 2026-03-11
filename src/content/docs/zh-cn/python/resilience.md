@@ -120,12 +120,12 @@ print(f"Rate remaining: {signals.rate_remaining}")
 
 ## 环境变量
 
-| Variable | Purpose |
-|----------|---------|
-| `AI_LIB_RPS` | 速率限制（每秒请求数） |
-| `AI_LIB_BREAKER_FAILURE_THRESHOLD` | 熔断器阈值 |
-| `AI_LIB_BREAKER_COOLDOWN_SECS` | 冷却时间 |
-| `AI_LIB_MAX_INFLIGHT` | 最大并发请求数 |
+| Variable                           | Purpose                |
+| ---------------------------------- | ---------------------- |
+| `AI_LIB_RPS`                       | 速率限制（每秒请求数） |
+| `AI_LIB_BREAKER_FAILURE_THRESHOLD` | 熔断器阈值             |
+| `AI_LIB_BREAKER_COOLDOWN_SECS`     | 冷却时间               |
+| `AI_LIB_MAX_INFLIGHT`              | 最大并发请求数         |
 
 ## 下一步
 

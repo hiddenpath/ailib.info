@@ -17,23 +17,25 @@ ai-lib-ts 为生产负载提供内置的弹性模式。
 import { createClientBuilder, RetryPolicy } from '@hiddenpath/ai-lib-ts';
 
 const client = await createClientBuilder()
-  .withRetry(RetryPolicy.fromConfig({
-    maxRetries: 5,
-    initialDelayMs: 100,
-    maxDelayMs: 30000,
-    multiplier: 2.0,
-  }))
+  .withRetry(
+    RetryPolicy.fromConfig({
+      maxRetries: 5,
+      initialDelayMs: 100,
+      maxDelayMs: 30000,
+      multiplier: 2.0,
+    })
+  )
   .build('openai/gpt-4o');
 ```
 
 ### 重试配置
 
-| 选项 | 默认值 | 描述 |
-|------|--------|------|
-| `maxRetries` | 3 | 最大重试次数 |
-| `initialDelayMs` | 100 | 初始延迟 (ms) |
-| `maxDelayMs` | 30000 | 最大延迟上限 |
-| `multiplier` | 2.0 | 退避乘数 |
+| 选项             | 默认值 | 描述          |
+| ---------------- | ------ | ------------- |
+| `maxRetries`     | 3      | 最大重试次数  |
+| `initialDelayMs` | 100    | 初始延迟 (ms) |
+| `maxDelayMs`     | 30000  | 最大延迟上限  |
+| `multiplier`     | 2.0    | 退避乘数      |
 
 ## 熔断器
 
@@ -60,10 +62,10 @@ console.log('熔断器状态:', signals.circuitBreaker?.state);
 
 ### 熔断器状态
 
-| 状态 | 行为 |
-|------|------|
-| `closed` | 请求正常通过 |
-| `open` | 请求立即快速失败 |
+| 状态        | 行为             |
+| ----------- | ---------------- |
+| `closed`    | 请求正常通过     |
+| `open`      | 请求立即快速失败 |
 | `half-open` | 有限请求测试恢复 |
 
 ## 限流器
@@ -86,9 +88,11 @@ const client = await createClientBuilder()
 import { Backpressure } from '@hiddenpath/ai-lib-ts';
 
 const client = await createClientBuilder()
-  .withBackpressure(new Backpressure({
-    maxConcurrent: 20,
-  }))
+  .withBackpressure(
+    new Backpressure({
+      maxConcurrent: 20,
+    })
+  )
   .build('openai/gpt-4o');
 ```
 
@@ -126,11 +130,7 @@ if (result.passed) {
 
 ```typescript
 const client = await createClientBuilder()
-  .withFallbacks([
-    'anthropic/claude-3-5-sonnet',
-    'deepseek/deepseek-chat',
-    'openai/gpt-4o-mini',
-  ])
+  .withFallbacks(['anthropic/claude-3-5-sonnet', 'deepseek/deepseek-chat', 'openai/gpt-4o-mini'])
   .build('openai/gpt-4o');
 ```
 

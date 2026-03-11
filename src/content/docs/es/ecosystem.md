@@ -32,14 +32,14 @@ La capa de **ejecución**. Los tiempos de ejecución implementan:
 
 Los tres runtimes comparten la misma arquitectura impulsada por protocolo:
 
-| Concepto | Rust | Python | TypeScript |
-|----------|------|--------|------------|
-| Cliente | `AiClient` | `AiClient` | `AiClient` |
-| Constructor | `AiClientBuilder` | `AiClientBuilder` | `AiClientBuilder` |
-| Solicitud | `ChatRequestBuilder` | `ChatRequestBuilder` | `ChatBuilder` |
-| Eventos | Enumeración `StreamingEvent` | Clase `StreamingEvent` | eventos unificados de streaming |
-| Transporte | reqwest (tokio) | httpx (asyncio) | fetch (Node.js) |
-| Tipos | Estructuras Rust | Modelos Pydantic v2 | interfaces TypeScript |
+| Concepto    | Rust                         | Python                 | TypeScript                      |
+| ----------- | ---------------------------- | ---------------------- | ------------------------------- |
+| Cliente     | `AiClient`                   | `AiClient`             | `AiClient`                      |
+| Constructor | `AiClientBuilder`            | `AiClientBuilder`      | `AiClientBuilder`               |
+| Solicitud   | `ChatRequestBuilder`         | `ChatRequestBuilder`   | `ChatBuilder`                   |
+| Eventos     | Enumeración `StreamingEvent` | Clase `StreamingEvent` | eventos unificados de streaming |
+| Transporte  | reqwest (tokio)              | httpx (asyncio)        | fetch (Node.js)                 |
+| Tipos       | Estructuras Rust             | Modelos Pydantic v2    | interfaces TypeScript           |
 
 ### 3. Capa de aplicación — Su código
 

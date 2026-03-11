@@ -31,7 +31,7 @@ Cada entrada de modelo incluye:
 models:
   gpt-4o:
     provider: openai
-    model_id: "gpt-4o"
+    model_id: 'gpt-4o'
     context_window: 128000
     max_output_tokens: 16384
     capabilities:
@@ -43,7 +43,7 @@ models:
     pricing:
       input_per_token: 0.0000025
       output_per_token: 0.00001
-    release_date: "2024-05-13"
+    release_date: '2024-05-13'
 ```
 
 ## Identificadores de modelos
@@ -59,6 +59,7 @@ qwen/qwen-plus
 ```
 
 El tiempo de ejecución divide esto en:
+
 1. **ID del proveedor** (`anthropic`) → carga el manifiesto del proveedor
 2. **Nombre del modelo** (`claude-3-5-sonnet`) → busca en el registro de modelos
 
@@ -66,16 +67,16 @@ El tiempo de ejecución divide esto en:
 
 Banderas de capacidad estándar:
 
-| Capability | Description |
-|-----------|-------------|
-| `chat` | Completaciones de chat básicas |
-| `streaming` | Respuestas en streaming |
-| `tools` | Llamadas a funciones/herramientas |
-| `vision` | Comprensión de imágenes |
-| `audio` | Entrada/salida de audio |
-| `reasoning` | Pensamiento extendido (CoT) |
-| `agentic` | Flujos de trabajo de agentes multietapa |
-| `json_mode` | Salida JSON estructurada |
+| Capability  | Description                             |
+| ----------- | --------------------------------------- |
+| `chat`      | Completaciones de chat básicas          |
+| `streaming` | Respuestas en streaming                 |
+| `tools`     | Llamadas a funciones/herramientas       |
+| `vision`    | Comprensión de imágenes                 |
+| `audio`     | Entrada/salida de audio                 |
+| `reasoning` | Pensamiento extendido (CoT)             |
+| `agentic`   | Flujos de trabajo de agentes multietapa |
+| `json_mode` | Salida JSON estructurada                |
 
 ## Precios
 
@@ -83,9 +84,9 @@ El precio por token permite la estimación de costos en los tiempos de ejecució
 
 ```yaml
 pricing:
-  input_per_token: 0.000003      # $3 por 1M tokens de entrada
-  output_per_token: 0.000015     # $15 por 1M tokens de salida
-  cached_input_per_token: 0.0000003  # Descuento de prompt en caché
+  input_per_token: 0.000003 # $3 por 1M tokens de entrada
+  output_per_token: 0.000015 # $15 por 1M tokens de salida
+  cached_input_per_token: 0.0000003 # Descuento de prompt en caché
 ```
 
 Ambos tiempos de ejecución Rust y Python utilizan estos datos para cálculos de `CostEstimate`.
@@ -96,8 +97,8 @@ Los modelos pueden incluir estado de verificación para despliegues en producci�
 
 ```yaml
 verification:
-  status: "verified"
-  last_checked: "2025-01-15"
+  status: 'verified'
+  last_checked: '2025-01-15'
   verified_capabilities:
     - chat
     - streaming

@@ -17,23 +17,25 @@ Automatic retry with exponential backoff:
 import { createClientBuilder, RetryPolicy } from '@hiddenpath/ai-lib-ts';
 
 const client = await createClientBuilder()
-  .withRetry(RetryPolicy.fromConfig({
-    maxRetries: 5,
-    initialDelayMs: 100,
-    maxDelayMs: 30000,
-    multiplier: 2.0,
-  }))
+  .withRetry(
+    RetryPolicy.fromConfig({
+      maxRetries: 5,
+      initialDelayMs: 100,
+      maxDelayMs: 30000,
+      multiplier: 2.0,
+    })
+  )
   .build('openai/gpt-4o');
 ```
 
 ### Retry Configuration
 
-| Option | Default | Description |
-|--------|---------|-------------|
-| `maxRetries` | 3 | Maximum retry attempts |
-| `initialDelayMs` | 100 | Initial delay in ms |
-| `maxDelayMs` | 30000 | Maximum delay cap |
-| `multiplier` | 2.0 | Backoff multiplier |
+| Option           | Default | Description            |
+| ---------------- | ------- | ---------------------- |
+| `maxRetries`     | 3       | Maximum retry attempts |
+| `initialDelayMs` | 100     | Initial delay in ms    |
+| `maxDelayMs`     | 30000   | Maximum delay cap      |
+| `multiplier`     | 2.0     | Backoff multiplier     |
 
 ## Circuit Breaker
 
@@ -60,10 +62,10 @@ console.log('Circuit state:', signals.circuitBreaker?.state);
 
 ### Circuit Breaker States
 
-| State | Behavior |
-|-------|----------|
-| `closed` | Requests pass through normally |
-| `open` | Requests fail fast immediately |
+| State       | Behavior                          |
+| ----------- | --------------------------------- |
+| `closed`    | Requests pass through normally    |
+| `open`      | Requests fail fast immediately    |
 | `half-open` | Limited requests to test recovery |
 
 ## Rate Limiter
@@ -95,9 +97,11 @@ Limit concurrent requests:
 import { Backpressure } from '@hiddenpath/ai-lib-ts';
 
 const client = await createClientBuilder()
-  .withBackpressure(new Backpressure({
-    maxConcurrent: 20,
-  }))
+  .withBackpressure(
+    new Backpressure({
+      maxConcurrent: 20,
+    })
+  )
   .build('openai/gpt-4o');
 ```
 
@@ -137,11 +141,7 @@ Automatic fallback to backup models:
 
 ```typescript
 const client = await createClientBuilder()
-  .withFallbacks([
-    'anthropic/claude-3-5-sonnet',
-    'deepseek/deepseek-chat',
-    'openai/gpt-4o-mini',
-  ])
+  .withFallbacks(['anthropic/claude-3-5-sonnet', 'deepseek/deepseek-chat', 'openai/gpt-4o-mini'])
   .build('openai/gpt-4o');
 ```
 

@@ -22,11 +22,7 @@ console.log(`Token 数: ${response.usage?.totalTokens}`);
 ### 批量嵌入
 
 ```typescript
-const response = await client.embedBatch([
-  '你好，世界！',
-  '再见，世界！',
-  'AI 太神奇了！',
-]);
+const response = await client.embedBatch(['你好，世界！', '再见，世界！', 'AI 太神奇了！']);
 
 response.embeddings.forEach((e, i) => {
   console.log(`文本 ${i}: ${e.vector.length} 维`);
@@ -78,11 +74,7 @@ const client = await RerankerClient.new('cohere/rerank-english-v3.0');
 
 const result = await client.rerank({
   query: '什么是机器学习？',
-  documents: [
-    '机器学习是 AI 的一个子集...',
-    '深度学习使用神经网络...',
-    'Python 是一种编程语言...',
-  ],
+  documents: ['机器学习是 AI 的一个子集...', '深度学习使用神经网络...', 'Python 是一种编程语言...'],
   topN: 3,
 });
 
@@ -105,7 +97,7 @@ const tools = await bridge.listTools();
 console.log('MCP 工具:', tools);
 
 // 转换为 AI-Protocol 格式
-const toolDefs = tools.map(t => bridge.toToolDefinition(t));
+const toolDefs = tools.map((t) => bridge.toToolDefinition(t));
 
 // 在聊天中使用
 const response = await client
@@ -127,11 +119,9 @@ const op = async (question: string) => {
   return r.content;
 };
 
-const result = await batchExecute(
-  ['什么是 AI？', '什么是 Python？', '什么是 async？'],
-  op,
-  { maxConcurrent: 5 }
-);
+const result = await batchExecute(['什么是 AI？', '什么是 Python？', '什么是 async？'], op, {
+  maxConcurrent: 5,
+});
 
 console.log(`成功: ${result.successfulCount}`);
 console.log(`失败: ${result.failedCount}`);
@@ -167,19 +157,17 @@ plugins.register({
 });
 
 // 与客户端一起使用
-const client = await createClientBuilder()
-  .withPlugins(plugins)
-  .build('openai/gpt-4o');
+const client = await createClientBuilder().withPlugins(plugins).build('openai/gpt-4o');
 ```
 
 ### 可用钩子
 
-| 钩子 | 时机 | 输入 |
-|------|------|------|
+| 钩子            | 时机       | 输入     |
+| --------------- | ---------- | -------- |
 | `beforeRequest` | API 调用前 | 请求对象 |
 | `afterResponse` | API 调用后 | 响应对象 |
-| `onError` | 出错时 | 错误对象 |
-| `onStreamEvent` | 每个流事件 | 流事件 |
+| `onError`       | 出错时     | 错误对象 |
+| `onStreamEvent` | 每个流事件 | 流事件   |
 
 ## Token 估算
 

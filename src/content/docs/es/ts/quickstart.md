@@ -1,9 +1,7 @@
 ---
 title: TypeScript クイックスタート
 description: TypeScript/Node.js ランタイム，面向 npm 生态系统。协议驱动、流式优先。
-
 ## イン
-
 ---
 
 title: TypeScript クイックスタート
@@ -22,6 +20,7 @@ pnpm add @hiddenpath/ai-lib-ts
 ## 設定
 
 库会自动在以下位置查找协议清单文件：
+
 1. `node_modules/ai-protocol/dist` 或 `node_modules/@hiddenpath/ai-protocol/dist`
 2. `../ai-protocol/dist` 或 `./protocols`
 

@@ -181,11 +181,7 @@ async for event in client.chat() \
 ### TypeScript
 
 ```typescript
-for await (const event of client
-  .chat()
-  .user("What's the weather?")
-  .tools([getWeather])
-  .stream()) {
+for await (const event of client.chat().user("What's the weather?").tools([getWeather]).stream()) {
   if (event.isToolCallStarted) {
     const call = event.asToolCallStarted;
     console.log(`Starting: ${call.name}`);
@@ -209,14 +205,14 @@ for await (const event of client
 
 使用工具前请检查提供商的 capabilities：
 
-| Provider | Tool Calling |
-|----------|-------------|
-| OpenAI | Supported |
-| Anthropic | Supported |
-| Gemini | Supported |
-| DeepSeek | Supported |
-| Groq | Supported |
-| Mistral | Supported |
-| Qwen | Supported |
+| Provider  | Tool Calling |
+| --------- | ------------ |
+| OpenAI    | Supported    |
+| Anthropic | Supported    |
+| Gemini    | Supported    |
+| DeepSeek  | Supported    |
+| Groq      | Supported    |
+| Mistral   | Supported    |
+| Qwen      | Supported    |
 
 清单中的 `capabilities.tools: true` 表示支持。

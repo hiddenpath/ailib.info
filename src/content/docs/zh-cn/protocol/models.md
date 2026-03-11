@@ -31,7 +31,7 @@ v1/models/
 models:
   gpt-4o:
     provider: openai
-    model_id: "gpt-4o"
+    model_id: 'gpt-4o'
     context_window: 128000
     max_output_tokens: 16384
     capabilities:
@@ -43,7 +43,7 @@ models:
     pricing:
       input_per_token: 0.0000025
       output_per_token: 0.00001
-    release_date: "2024-05-13"
+    release_date: '2024-05-13'
 ```
 
 ## 模型标识符
@@ -59,6 +59,7 @@ qwen/qwen-plus
 ```
 
 运行时将其拆分为：
+
 1. **Provider ID**（`anthropic`）→ 加载供应商清单
 2. **Model name**（`claude-3-5-sonnet`）→ 在模型注册表中查找
 
@@ -66,15 +67,15 @@ qwen/qwen-plus
 
 标准能力标志：
 
-| 能力 | 描述 |
-|-----------|-------------|
-| `chat` | 基础聊天补全 |
-| `streaming` | 流式响应 |
-| `tools` | 函数/工具调用 |
-| `vision` | 图像理解 |
-| `audio` | 音频输入/输出 |
-| `reasoning` | 扩展思考（CoT） |
-| `agentic` | 多步代理工作流 |
+| 能力        | 描述             |
+| ----------- | ---------------- |
+| `chat`      | 基础聊天补全     |
+| `streaming` | 流式响应         |
+| `tools`     | 函数/工具调用    |
+| `vision`    | 图像理解         |
+| `audio`     | 音频输入/输出    |
+| `reasoning` | 扩展思考（CoT）  |
+| `agentic`   | 多步代理工作流   |
 | `json_mode` | 结构化 JSON 输出 |
 
 ## 定价
@@ -83,9 +84,9 @@ qwen/qwen-plus
 
 ```yaml
 pricing:
-  input_per_token: 0.000003      # $3 per 1M input tokens
-  output_per_token: 0.000015     # $15 per 1M output tokens
-  cached_input_per_token: 0.0000003  # Cached prompt discount
+  input_per_token: 0.000003 # $3 per 1M input tokens
+  output_per_token: 0.000015 # $15 per 1M output tokens
+  cached_input_per_token: 0.0000003 # Cached prompt discount
 ```
 
 Rust 和 Python 运行时均使用此数据进行 `CostEstimate` 计算。
@@ -96,8 +97,8 @@ Rust 和 Python 运行时均使用此数据进行 `CostEstimate` 计算。
 
 ```yaml
 verification:
-  status: "verified"
-  last_checked: "2025-01-15"
+  status: 'verified'
+  last_checked: '2025-01-15'
   verified_capabilities:
     - chat
     - streaming

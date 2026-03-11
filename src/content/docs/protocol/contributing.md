@@ -28,38 +28,38 @@ Create `v1/providers/<provider-id>.yaml`:
 
 ```yaml
 id: <provider-id>
-name: "<Provider Name>"
-protocol_version: "1.5"
+name: '<Provider Name>'
+protocol_version: '1.5'
 
 endpoint:
-  base_url: "https://api.example.com/v1"
-  chat_path: "/chat/completions"
+  base_url: 'https://api.example.com/v1'
+  chat_path: '/chat/completions'
 
 auth:
   type: bearer
-  token_env: "<PROVIDER_ID>_API_KEY"
+  token_env: '<PROVIDER_ID>_API_KEY'
 
 parameter_mappings:
-  temperature: "temperature"
-  max_tokens: "max_tokens"
-  stream: "stream"
-  tools: "tools"
+  temperature: 'temperature'
+  max_tokens: 'max_tokens'
+  stream: 'stream'
+  tools: 'tools'
 
 streaming:
   decoder:
-    format: "sse"
-    done_signal: "[DONE]"
+    format: 'sse'
+    done_signal: '[DONE]'
   event_map:
-    - match: "$.choices[0].delta.content"
-      emit: "PartialContentDelta"
+    - match: '$.choices[0].delta.content'
+      emit: 'PartialContentDelta'
       extract:
-        content: "$.choices[0].delta.content"
+        content: '$.choices[0].delta.content'
 
 error_classification:
   by_http_status:
-    "401": "authentication"
-    "429": "rate_limited"
-    "500": "server_error"
+    '401': 'authentication'
+    '429': 'rate_limited'
+    '500': 'server_error'
 
 capabilities:
   streaming: true
@@ -75,7 +75,7 @@ Create or update `v1/models/<family>.yaml`:
 models:
   example-model:
     provider: <provider-id>
-    model_id: "example-model-v1"
+    model_id: 'example-model-v1'
     context_window: 128000
     capabilities: [chat, streaming, tools]
     pricing:

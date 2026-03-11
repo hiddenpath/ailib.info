@@ -12,6 +12,7 @@ ai-lib-rust (v0.8.0) includes production-grade reliability patterns out of the b
 Prevents cascading failures by stopping requests to failing providers:
 
 **States:**
+
 - **Closed** — Normal operation, requests flow through
 - **Open** — Too many failures, requests immediately rejected
 - **Half-Open** — After cooldown, allows a test request
@@ -53,14 +54,14 @@ Exponential backoff retry driven by the protocol manifest's retry policy:
 ```yaml
 # In the provider manifest
 retry_policy:
-  strategy: "exponential_backoff"
+  strategy: 'exponential_backoff'
   max_retries: 3
   initial_delay_ms: 1000
   max_delay_ms: 30000
   retryable_errors:
-    - "rate_limited"
-    - "overloaded"
-    - "server_error"
+    - 'rate_limited'
+    - 'overloaded'
+    - 'server_error'
 ```
 
 Only errors classified as retryable trigger retries. Authentication errors, for example, fail immediately.

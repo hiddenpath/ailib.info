@@ -22,11 +22,7 @@ console.log(`Tokens: ${response.usage?.totalTokens}`);
 ### Batch Embeddings
 
 ```typescript
-const response = await client.embedBatch([
-  'Hello, world!',
-  'Goodbye, world!',
-  'AI is amazing!',
-]);
+const response = await client.embedBatch(['Hello, world!', 'Goodbye, world!', 'AI is amazing!']);
 
 response.embeddings.forEach((e, i) => {
   console.log(`Text ${i}: ${e.vector.length} dimensions`);
@@ -105,7 +101,7 @@ const tools = await bridge.listTools();
 console.log('MCP tools:', tools);
 
 // Convert to AI-Protocol format
-const toolDefs = tools.map(t => bridge.toToolDefinition(t));
+const toolDefs = tools.map((t) => bridge.toToolDefinition(t));
 
 // Use in chat
 const response = await client
@@ -127,11 +123,9 @@ const op = async (question: string) => {
   return r.content;
 };
 
-const result = await batchExecute(
-  ['What is AI?', 'What is Python?', 'What is async?'],
-  op,
-  { maxConcurrent: 5 }
-);
+const result = await batchExecute(['What is AI?', 'What is Python?', 'What is async?'], op, {
+  maxConcurrent: 5,
+});
 
 console.log(`Successful: ${result.successfulCount}`);
 console.log(`Failed: ${result.failedCount}`);
@@ -183,18 +177,16 @@ plugins.register({
 });
 
 // Use with client
-const client = await createClientBuilder()
-  .withPlugins(plugins)
-  .build('openai/gpt-4o');
+const client = await createClientBuilder().withPlugins(plugins).build('openai/gpt-4o');
 ```
 
 ### Available Hooks
 
-| Hook | Timing | Input |
-|------|--------|-------|
-| `beforeRequest` | Before API call | Request object |
-| `afterResponse` | After API call | Response object |
-| `onError` | On error | Error object |
+| Hook            | Timing            | Input           |
+| --------------- | ----------------- | --------------- |
+| `beforeRequest` | Before API call   | Request object  |
+| `afterResponse` | After API call    | Response object |
+| `onError`       | On error          | Error object    |
 | `onStreamEvent` | Each stream event | Streaming event |
 
 ## Token Estimation
