@@ -201,6 +201,46 @@ export default defineConfig({
           ],
         },
         {
+          label: 'Go SDK',
+          translations: { 'zh-CN': 'Go SDK', ja: 'Go SDK', es: 'Go SDK' },
+          items: [
+            {
+              label: 'Overview',
+              translations: { 'zh-CN': '概览', ja: '概要', es: 'Visión general' },
+              slug: 'go/overview',
+            },
+            {
+              label: 'Quick Start',
+              translations: { 'zh-CN': '快速开始', ja: 'クイックスタート', es: 'Inicio rápido' },
+              slug: 'go/quickstart',
+            },
+            {
+              label: 'AiClient API',
+              translations: { 'zh-CN': 'AiClient API', ja: 'AiClient API', es: 'AiClient API' },
+              slug: 'go/client',
+            },
+            {
+              label: 'Streaming Pipeline',
+              translations: {
+                'zh-CN': '流式管道',
+                ja: 'ストリーミングパイプライン',
+                es: 'Pipeline de streaming',
+              },
+              slug: 'go/streaming',
+            },
+            {
+              label: 'Resilience',
+              translations: { 'zh-CN': '弹性机制', ja: 'レジリエンス', es: 'Resiliencia' },
+              slug: 'go/resilience',
+            },
+            {
+              label: 'Advanced Features',
+              translations: { 'zh-CN': '高级功能', ja: '高度な機能', es: 'Funciones avanzadas' },
+              slug: 'go/advanced',
+            },
+          ],
+        },
+        {
           label: 'Developer Guides',
           translations: {
             'zh-CN': '开发者指南',
