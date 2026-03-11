@@ -1,6 +1,6 @@
 ---
 title: はじめに
-description: AI-Lib エコシステムの概要 — AI-Protocol 仕様と Rust / Python / TypeScript ランタイム実装。
+description: AI-Lib エコシステムの概要 — AI-Protocol 仕様と Rust / Python / TypeScript / Go ランタイム実装。
 ---
 
 # AI-Lib へようこそ
@@ -16,18 +16,19 @@ description: AI-Lib エコシステムの概要 — AI-Protocol 仕様と Rust /
 AI-Lib は別のアプローチを取ります：
 
 - **AI-Protocol** は YAML マニフェストで各プロバイダーとの通信方法を定義します
-- **ランタイム実装**（Rust、Python、TypeScript）はこれらのマニフェストを読み取り、リクエストを実行します
+- **ランタイム実装**（Rust、Python、TypeScript、Go）はこれらのマニフェストを読み取り、リクエストを実行します
 - **ハードコーディングされたロジックはゼロ** — `if provider == "openai"` のような分岐はどこにもありません
 
-## 5 つのプロジェクト、1 つのエコシステム
+## 6 つのプロジェクト、1 つのエコシステム
 
 | プロジェクト | 役割 | 言語 | バージョン | 配布 |
 |-------------|------|------|------------|------|
-| **[AI-Protocol](/protocol/)** | 仕様レイヤー | YAML/JSON | v0.8.2 | GitHub |
-| **[ai-lib-rust](/rust/)** | ランタイム実装 | Rust | v0.9.2 | [Crates.io](https://crates.io/crates/ai-lib) |
-| **[ai-lib-python](/python/)** | ランタイム実装 | Python | v0.8.2 | [PyPI](https://pypi.org/project/ai-lib-python/) |
-| **[ai-lib-ts](/ts/)** | ランタイム実装 | TypeScript | v0.5.2 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
-| **ai-protocol-mock** | mock/テスト層 | Python | v0.1.10 | GitHub |
+| **[AI-Protocol](/protocol/)** | 仕様レイヤー | YAML/JSON | v0.8.3 | GitHub |
+| **[ai-lib-rust](/rust/)** | ランタイム実装 | Rust | v0.9.3 | [Crates.io](https://crates.io/crates/ai-lib-rust) |
+| **[ai-lib-python](/python/)** | ランタイム実装 | Python | v0.8.3 | [PyPI](https://pypi.org/project/ai-lib-python/) |
+| **[ai-lib-ts](/ts/)** | ランタイム実装 | TypeScript | v0.5.3 | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts) |
+| **ai-lib-go** | ランタイム実装 | Go | v0.0.1 | [Go Modules](https://pkg.go.dev/github.com/hiddenpath/ai-lib-go) |
+| **ai-protocol-mock** | mock/テスト層 | Python | v0.1.11 | [PyPI](https://pypi.org/project/ai-protocol-mock/) |
 
 現在のリリースでは V2 能力に加えて、`drift`、`manifest-consumption`、`compliance-matrix`、`fullchain`、`release-gate` の実行ガバナンス・ゲートが統合され、`--report-only` で段階導入できます。
 

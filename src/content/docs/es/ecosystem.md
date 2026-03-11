@@ -1,11 +1,11 @@
 ---
 title: Arquitectura del ecosistema
-description: Cómo AI-Protocol, ai-lib-rust, ai-lib-python y ai-lib-ts funcionan juntos como un ecosistema integrado.
+description: Cómo AI-Protocol, ai-lib-rust, ai-lib-python, ai-lib-ts y ai-lib-go funcionan juntos como un ecosistema integrado.
 ---
 
 # Arquitectura del ecosistema
 
-El ecosistema AI-Lib se basa en una arquitectura limpia de tres capas donde cada capa tiene una responsabilidad distinta. Versiones actuales: **AI-Protocol v0.8.2**, **ai-lib-rust v0.9.2**, **ai-lib-python v0.8.2**, **ai-lib-ts v0.5.2**, **ai-protocol-mock v0.1.10**.
+El ecosistema AI-Lib se basa en una arquitectura limpia de tres capas donde cada capa tiene una responsabilidad distinta. Versiones actuales: **AI-Protocol v0.8.3**, **ai-lib-rust v0.9.3**, **ai-lib-python v0.8.3**, **ai-lib-ts v0.5.3**, **ai-lib-go v0.0.1**, **ai-protocol-mock v0.1.11**.
 
 ## Las tres capas
 
@@ -20,7 +20,7 @@ La capa de **especificación**. Los manifiestos YAML definen:
 
 La capa de protocolo es **independiente del lenguaje**. Cualquier tiempo de ejecución en cualquier lenguaje la consume.
 
-### 2. Capa de tiempo de ejecución — SDKs Rust, Python y TypeScript
+### 2. Capa de tiempo de ejecución — SDKs Rust, Python, TypeScript y Go
 
 La capa de **ejecución**. Los tiempos de ejecución implementan:
 
