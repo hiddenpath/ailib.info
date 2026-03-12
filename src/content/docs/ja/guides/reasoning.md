@@ -71,6 +71,25 @@ for await (const event of client
 }
 ```
 
+### Go
+
+```go
+// Go
+stream, _ := aiClient.Chat().
+    User("ステップバイステップで解いてください：127 * 43 は？").
+    ExecuteStream(ctx)
+defer stream.Close()
+
+for stream.Next() {
+    event := stream.Event()
+    if event.Type == "thinking" {
+        fmt.Printf("[思考中] %s", event.Text)
+    } else if event.Type == "content" {
+        fmt.Print(event.Text)
+    }
+}
+```
+
 ## 仕組み
 
 1. プロバイダーマニフェストで `capabilities.reasoning: true` が宣言されます

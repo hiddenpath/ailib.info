@@ -69,6 +69,19 @@ console.log(`Total tokens: ${stats.totalTokens}`);
 console.log(`Latency: ${stats.latencyMs}ms`);
 ```
 
+## Go: Estadísticas de llamadas
+
+```go
+response, stats, _ := aiClient.Chat().
+    User("Hola").
+    ExecuteWithStats(ctx)
+
+fmt.Printf("Modelo: %s\n", stats.Model)
+fmt.Printf("Proveedor: %s\n", stats.Provider)
+fmt.Printf("Tokens: %d\n", stats.TotalTokens)
+fmt.Printf("Latencia: %dms\n", stats.LatencyMs)
+```
+
 ## Python: Métricas (Prometheus)
 
 ```python
@@ -96,6 +109,20 @@ const client = await AiClient.builder().model('openai/gpt-4o').metrics(metrics).
 
 // After some requests...
 const prometheusText = metrics.exportPrometheus();
+```
+
+## Go: Métricas (Prometheus)
+
+```go
+import "github.com/hiddenpath/ai-lib-go/telemetry"
+
+metrics := telemetry.NewMetricsCollector()
+aiClient, _ := client.NewAiClientBuilder().
+    Model("openai/gpt-4o").
+    Metrics(metrics).
+    Build(ctx)
+
+prometheusText := metrics.ExportPrometheus()
 ```
 
 Métricas rastreadas:
@@ -166,6 +193,15 @@ console.log(`Healthy: ${status.isHealthy}`);
 console.log(`Details: ${status.details}`);
 ```
 
+## Go: Monitoreo de salud
+
+```go
+health := telemetry.NewHealthChecker()
+status, _ := health.Check(ctx)
+
+fmt.Printf("Saludable: %v\n", status.IsHealthy)
+```
+
 ## Python: Retroalimentación del usuario
 
 Recolecte retroalimentación sobre las respuestas de IA:
@@ -222,4 +258,11 @@ print(f"Inflight: {signals.current_inflight}")
 const signals = client.signalsSnapshot();
 console.log(`Circuit: ${signals.circuitState}`);
 console.log(`Inflight: ${signals.currentInflight}`);
+```
+
+```go
+// Go
+signals := aiClient.SignalsSnapshot()
+fmt.Printf("Circuito: %s\n", signals.CircuitState)
+fmt.Printf("En curso: %d\n", signals.CurrentInflight)
 ```

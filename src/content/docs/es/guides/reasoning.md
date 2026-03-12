@@ -71,6 +71,25 @@ for await (const event of client
 }
 ```
 
+### Go
+
+```go
+// Go
+stream, _ := aiClient.Chat().
+    User("Resuelve esto paso a paso: ¿Cuánto es 127 * 43?").
+    ExecuteStream(ctx)
+defer stream.Close()
+
+for stream.Next() {
+    event := stream.Event()
+    if event.Type == "thinking" {
+        fmt.Printf("[pensando] %s", event.Text)
+    } else if event.Type == "content" {
+        fmt.Print(event.Text)
+    }
+}
+```
+
 ## Cómo funciona
 
 1. El manifiesto del proveedor declara `capabilities.reasoning: true`

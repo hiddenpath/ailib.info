@@ -123,12 +123,12 @@ const locale = 'zh-cn';
             <ProjectCard
               locale={locale}
               variant="go"
-              version="0.0.1"
+              version="0.5.0"
               title="ai-lib-go"
-              description="专为服务端部署优化的高并发 Go 运行时。将 V2 规范与优雅的迭代器完美结合。"
+              description="专为服务端部署优化的高并发 Go 运行时。将 V2 规范与标准流处理完美结合。"
               features={[
                 'ProviderDriver 架构',
-                'Go 1.23+ iter.Seq2 流式处理',
+                'Go 1.21+ 原生并发流处理',
                 '上下文感知与弹性设计',
                 '将 JSON Schema 严格映射至结构体',
                 '原生 net/http 传输',
@@ -388,7 +388,7 @@ const locale = 'zh-cn';
                   <td class="p-4 text-[var(--text-dim)]">tokio async streams</td>
                   <td class="p-4 text-[var(--text-dim)]">async generators</td>
                   <td class="p-4 text-[var(--text-dim)]">AsyncIterator + fetch</td>
-                  <td class="p-4 text-[var(--text-dim)]">Iterators (iter.Seq2)</td>
+                  <td class="p-4 text-[var(--text-dim)]">原生流式迭代 (Native stream iteration)</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">弹性</td>

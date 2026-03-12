@@ -71,6 +71,25 @@ for await (const event of client
 }
 ```
 
+### Go
+
+```go
+// Go
+stream, _ := aiClient.Chat().
+    User("逐步求解：127 * 43 等于多少？").
+    ExecuteStream(ctx)
+defer stream.Close()
+
+for stream.Next() {
+    event := stream.Event()
+    if event.Type == "thinking" {
+        fmt.Printf("[思考] %s", event.Text)
+    } else if event.Type == "content" {
+        fmt.Print(event.Text)
+    }
+}
+```
+
 ## 工作原理
 
 1. 提供商清单声明 `capabilities.reasoning: true`

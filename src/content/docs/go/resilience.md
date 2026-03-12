@@ -1,11 +1,11 @@
 ---
 title: Resilience (Go)
-description: Production reliability patterns in ai-lib-go v0.8.0 — circuit breaker, rate limiter, backpressure, retry.
+description: Production reliability patterns in ai-lib-go v0.5.0 — circuit breaker, rate limiter, backpressure, retry.
 ---
 
 # Resilience Patterns
 
-ai-lib-go (v0.8.0) includes production-grade reliability patterns out of the box. Retry and fallback decisions use V2 standard error codes: the `retryable` and `fallbackable` properties on `StandardErrorCode` determine whether an error triggers retries or model fallback.
+ai-lib-go (v0.5.0) includes production-grade reliability patterns out of the box. Retry and fallback decisions use V2 standard error codes: the `retryable` and `fallbackable` properties on `StandardErrorCode` determine whether an error triggers retries or model fallback.
 
 ## Circuit Breaker
 
@@ -83,11 +83,11 @@ Monitor resilience state at runtime:
 
 ```go
 // Check circuit breaker state
-let state = client.circuit_state();
-println!("Circuit: {:?}", state); // Closed, Open, HalfOpen
+state := aiClient.CircuitState()
+fmt.Printf("Circuit: %v\n", state) // Closed, Open, HalfOpen
 
 // Check current inflight count
-let inflight = client.current_inflight();
+inflight := aiClient.CurrentInflight()
 ```
 
 ## Next Steps

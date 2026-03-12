@@ -1,6 +1,6 @@
 ---
 title: ストリーミングパイプライン（Go）
-description: ai-lib-go v0.8.0 におけるオペレーターベースのストリーミングパイプラインの詳細。
+description: ai-lib-go v0.5.0 におけるオペレーターベースのストリーミングパイプラインの詳細。
 ---
 
 # ストリーミングパイプライン
@@ -58,12 +58,7 @@ PartialToolCall("get_we") → PartialToolCall("ather") → PartialToolCall("(\"T
 
 ### 5. EventMapper
 
-最終ステージ — 処理済みフレームを統一 `StreamingEvent` 型に変換します：
-
-- `StreamingEvent::ContentDelta` — テキストコンテンツ
-- `StreamingEvent::ToolCallStarted` — ツール呼び出しの開始
-- `StreamingEvent::PartialToolCall` — ツール引数チャンク
-- `StreamingEvent::StreamEnd` — レスポンス完了
+最終ステージ — 処理済みフレームを統一 `StreamingEvent` 型に変換します。
 
 ## プロトコル駆動の構築
 
@@ -71,11 +66,18 @@ PartialToolCall("get_we") → PartialToolCall("ather") → PartialToolCall("(\"T
 
 ```go
 // パイプラインはプロトコルマニフェストに基づいて内部的に構築されます
-let mut stream = client.chat()
-    .user("Hello")
-    .stream()
-    .execute_stream()
-    .await?;
+stream, err := aiClient.Chat().
+    User("こんにちは").
+    ExecuteStream(ctx)
+if err != nil {
+    panic(err)
+}
+defer stream.Close()
+
+for stream.Next() {
+    event := stream.Event()
+    // イベントの処理
+}
 ```
 
 ランタイムはマニフェストの `streaming` セクションを読み、適切なデコーダー、セレクタールール、イベントマッパーを配線します。

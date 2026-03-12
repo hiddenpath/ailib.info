@@ -124,12 +124,12 @@ const locale = 'en';
             <ProjectCard
               locale={locale}
               variant="go"
-              version="0.0.1"
+              version="0.5.0"
               title="ai-lib-go"
-              description="High-concurrency Go runtime optimized for server-side deployments. Direct V2 specification mapping with elegant Iterators."
+              description="High-concurrency Go runtime optimized for server-side deployments. Direct V2 specification mapping with standard stream iteration."
               features={[
                 'ProviderDriver architecture',
-                'Go 1.23+ iter.Seq2 streaming',
+                'Go 1.21+ native concurrency',
                 'Context-aware resilience',
                 'Strict JSON Schema to struct mapping',
                 'Native net/http transport',
@@ -401,7 +401,7 @@ const locale = 'en';
                   <td class="p-4 text-[var(--text-dim)]">tokio async streams</td>
                   <td class="p-4 text-[var(--text-dim)]">async generators</td>
                   <td class="p-4 text-[var(--text-dim)]">AsyncIterator + fetch</td>
-                  <td class="p-4 text-[var(--text-dim)]">Iterators (iter.Seq2)</td>
+                  <td class="p-4 text-[var(--text-dim)]">Native stream iteration</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">Resilience</td>

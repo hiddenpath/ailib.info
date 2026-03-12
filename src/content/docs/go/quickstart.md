@@ -48,16 +48,22 @@ func main() {
 		User("Hello, how are you?").
 		MaxTokens(100)
 
-	// Stream the response using Go iterators (iter.Seq2)
-	for event, err := range req.Stream(ctx) {
-		if err != nil {
-			fmt.Printf("Error: %v\n", err)
-			break
-		}
+	// Stream the response using standard Go streaming pattern
+	stream, err := req.ExecuteStream(ctx)
+	if err != nil {
+		panic(err)
+	}
+	defer stream.Close()
 
+	for stream.Next() {
+		event := stream.Event()
 		if event.Type == "content" {
 			fmt.Print(event.Text)
 		}
+	}
+
+	if err := stream.Err(); err != nil {
+		fmt.Printf("\nError: %v\n", err)
 	}
 }
 ```

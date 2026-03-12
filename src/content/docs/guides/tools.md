@@ -83,6 +83,31 @@ const getWeather: ToolDefinition = {
 };
 ```
 
+### Go
+
+```go
+import "github.com/hiddenpath/ai-lib-go/client"
+
+getWeather := client.ToolDefinition{
+    Name:        "get_weather",
+    Description: "Get current weather for a city",
+    Parameters: map[string]interface{}{
+        "type": "object",
+        "properties": map[string]interface{}{
+            "city": map[string]interface{}{
+                "type":        "string",
+                "description": "City name",
+            },
+            "unit": map[string]interface{}{
+                "type": "string",
+                "enum": []string{"celsius", "fahrenheit"},
+            },
+        },
+        "required": []string{"city"},
+    },
+}
+```
+
 ## Non-Streaming Tool Calls
 
 ### Rust
@@ -126,6 +151,20 @@ const response = await client
 for (const call of response.toolCalls) {
   console.log(`Function: ${call.name}`);
   console.log(`Arguments: ${call.arguments}`);
+}
+```
+
+### Go
+
+```go
+response, _ := aiClient.Chat().
+    User("What's the weather in Tokyo?").
+    Tools([]client.ToolDefinition{getWeather}).
+    Execute(ctx)
+
+for _, call := range response.ToolCalls {
+    fmt.Printf("Function: %s\n", call.Name)
+    fmt.Printf("Arguments: %s\n", call.Arguments)
 }
 ```
 
@@ -190,6 +229,27 @@ for await (const event of client.chat().user("What's the weather?").tools([getWe
   } else if (event.isContentDelta) {
     process.stdout.write(event.asContentDelta.text);
   }
+}
+```
+
+### Go
+
+```go
+stream, _ := aiClient.Chat().
+    User("What's the weather?").
+    Tools([]client.ToolDefinition{getWeather}).
+    ExecuteStream(ctx)
+defer stream.Close()
+
+for stream.Next() {
+    event := stream.Event()
+    if event.Type == "tool_call_started" {
+        fmt.Printf("Starting: %s\n", event.ToolCall.Name)
+    } else if event.Type == "partial_tool_call" {
+        fmt.Print(event.ToolCall.Arguments)
+    } else if event.Type == "content" {
+        fmt.Print(event.Text)
+    }
 }
 ```
 

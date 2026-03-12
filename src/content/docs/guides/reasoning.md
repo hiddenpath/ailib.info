@@ -71,6 +71,25 @@ for await (const event of client
 }
 ```
 
+### Go
+
+```go
+// Go
+stream, _ := aiClient.Chat().
+    User("Solve this step by step: What is 127 * 43?").
+    ExecuteStream(ctx)
+defer stream.Close()
+
+for stream.Next() {
+    event := stream.Event()
+    if event.Type == "thinking" {
+        fmt.Printf("[thinking] %s", event.Text)
+    } else if event.Type == "content" {
+        fmt.Print(event.Text)
+    }
+}
+```
+
 ## How It Works
 
 1. The provider manifest declares `capabilities.reasoning: true`

@@ -46,6 +46,18 @@ const response = await client.chat().user('Hello, world!').execute();
 console.log(response.content);
 ```
 
+### Go
+
+```go
+aiClient, _ := client.NewAiClient(ctx, "openai", nil)
+
+response, _ := aiClient.Chat().
+    User("Hello, world!").
+    Execute(ctx)
+
+fmt.Println(response.Content)
+```
+
 ## 消息
 
 ### 系统消息
@@ -75,6 +87,14 @@ await client
   .system('You are a helpful coding assistant.')
   .user('Explain closures')
   .execute();
+```
+
+```go
+// Go
+aiClient.Chat().
+  System("你是一个得力的编程助手。").
+  User("解释一下闭包").
+  Execute(ctx)
 ```
 
 ### 多轮对话
@@ -123,6 +143,20 @@ const messages = [
 await client.chat().messages(messages).execute();
 ```
 
+```go
+// Go
+import "github.com/hiddenpath/ai-protocol/pkg/ailib"
+
+messages := []ailib.Message{
+  ailib.NewSystemMessage("你是一个导师。"),
+  ailib.NewUserMessage("什么是递归？"),
+  ailib.NewAssistantMessage("递归是一个函数调用自身..."),
+  ailib.NewUserMessage("能举个例子吗？"),
+}
+
+aiClient.Chat().Messages(messages).Execute(ctx)
+```
+
 ## 参数
 
 | Parameter     | Type     | Description                          |
@@ -155,6 +189,16 @@ await client.chat() \
 ```typescript
 // TypeScript
 await client.chat().user('Write a poem').temperature(0.9).maxTokens(200).topP(0.95).execute();
+```
+
+```go
+// Go
+aiClient.Chat().
+    User("写一首诗").
+    Temperature(0.9).
+    MaxTokens(200).
+    TopP(0.95).
+    Execute(ctx)
 ```
 
 ## 流式
@@ -195,6 +239,19 @@ for await (const event of client.chat().user('Tell me a story').stream()) {
 }
 ```
 
+```go
+// Go
+stream, _ := aiClient.Chat().User("给我讲个故事").ExecuteStream(ctx)
+defer stream.Close()
+
+for stream.Next() {
+    event := stream.Event()
+    if event.Type == "content" {
+        fmt.Print(event.Text)
+    }
+}
+```
+
 ## 响应统计
 
 用于成本管理的使用量跟踪：
@@ -229,6 +286,14 @@ console.log(`Tokens: ${stats.totalTokens}`);
 console.log(`Latency: ${stats.latencyMs}ms`);
 ```
 
+```go
+// Go
+response, stats, _ := aiClient.Chat().User("你好").ExecuteWithStats(ctx)
+
+fmt.Printf("Tokens: %d\n", stats.TotalTokens)
+fmt.Printf("Latency: %dms\n", stats.LatencyMs)
+```
+
 ## 提供商切换
 
 相同代码适用于所有提供商：
@@ -252,6 +317,13 @@ client = await AiClient.create("gemini/gemini-2.0-flash")
 const client = await AiClient.new('anthropic/claude-3-5-sonnet');
 const client = await AiClient.new('deepseek/deepseek-chat');
 const client = await AiClient.new('gemini/gemini-2.0-flash');
+```
+
+```go
+// Go - 模式相同
+aiClient, _ = client.NewAiClient(ctx, "anthropic", nil)
+aiClient, _ = client.NewAiClient(ctx, "deepseek", nil)
+aiClient, _ = client.NewAiClient(ctx, "gemini", nil)
 ```
 
 协议清单会自动处理端点 URL、认证、参数映射与流式格式差异。

@@ -1,6 +1,6 @@
 ---
 title: 高级功能（Go）
-description: ai-lib-go v0.8.0 中的 embeddings、缓存、批处理、插件、guardrails、功能标志、结构化输出及 V2 错误码。
+description: ai-lib-go v0.5.0 中的 embeddings、缓存、批处理、插件、guardrails、功能标志、结构化输出及 V2 错误码。
 ---
 
 # 高级功能
@@ -12,21 +12,27 @@ description: ai-lib-go v0.8.0 中的 embeddings、缓存、批处理、插件、
 生成并处理向量 embedding：
 
 ```go
-use ai_lib_go::embeddings::{EmbeddingClient, cosine_similarity};
+import "github.com/hiddenpath/ai-lib-go/embeddings"
 
-let client = EmbeddingClient::builder()
-    .model("openai/text-embedding-3-small")
-    .build()
-    .await?;
+// 创建 embedding 客户端
+client, err := embeddings.NewEmbeddingClient(ctx, "openai/text-embedding-3-small", nil)
+if err != nil {
+    panic(err)
+}
 
-let embeddings = client.embed(vec![
-    "Go programming language",
-    "Python programming language",
-    "Cooking recipes",
-]).await?;
+// 生成 embeddings
+results, err := client.Embed(ctx, []string{
+    "Go 编程语言",
+    "Python 编程语言",
+    "食谱",
+})
+if err != nil {
+    panic(err)
+}
 
-let sim = cosine_similarity(&embeddings[0], &embeddings[1]);
-println!("Go vs Python similarity: {sim:.3}");
+// 计算相似度
+sim := embeddings.CosineSimilarity(results[0], results[1])
+fmt.Printf("Go vs Python 相似度: %.3f\n", sim)
 ```
 
 向量操作包括余弦相似度、欧几里得距离和点积。
@@ -36,22 +42,21 @@ println!("Go vs Python similarity: {sim:.3}");
 缓存响应以降低成本和延迟：
 
 ```go
-use ai_lib_go::cache::{CacheManager, MemoryCache};
+import "github.com/hiddenpath/ai-lib-go/cache"
 
-let cache = CacheManager::new(MemoryCache::new())
-    .with_ttl(Duration::from_secs(3600));
+// 配置缓存管理器
+mgr := cache.NewCacheManager(cache.NewMemoryCache(), 3600 * time.Second)
 
-let client = AiClient::builder()
-    .model("openai/gpt-4o")
-    .cache(cache)
-    .build()
-    .await?;
+// 应用到客户端
+aiClient, _ := client.NewAiClient(ctx, "openai", &client.Options{
+    Cache: mgr,
+})
 
-// First call hits the provider
-let r1 = client.chat().user("What is 2+2?").execute().await?;
+// 第一次调用请求提供商
+resp1, _ := aiClient.Chat().Model("gpt-4o").User("2+2 等于几？").Execute(ctx)
 
-// Second identical call returns cached response
-let r2 = client.chat().user("What is 2+2?").execute().await?;
+// 第二次相同的调用返回缓存的响应
+resp2, _ := aiClient.Chat().Model("gpt-4o").User("2+2 等于几？").Execute(ctx)
 ```
 
 ## 批处理
@@ -59,23 +64,23 @@ let r2 = client.chat().user("What is 2+2?").execute().await?;
 高效执行多个请求：
 
 ```go
-use ai_lib_go::batch::{BatchCollector, BatchExecutor};
+import "github.com/hiddenpath/ai-lib-go/batch"
 
-let mut collector = BatchCollector::new();
-collector.add(client.chat().user("Question 1"));
-collector.add(client.chat().user("Question 2"));
-collector.add(client.chat().user("Question 3"));
+executor := batch.NewBatchExecutor(5, 30 * time.Second)
 
-let executor = BatchExecutor::new()
-    .concurrency(5)
-    .timeout(Duration::from_secs(30));
+requests := []client.ChatRequest{
+    aiClient.Chat().User("问题 1"),
+    aiClient.Chat().User("问题 2"),
+    aiClient.Chat().User("问题 3"),
+}
 
-let results = executor.execute(collector).await;
-for result in results {
-    match result {
-        Ok(response) => println!("{}", response.content),
-        Err(e) => eprintln!("Error: {e}"),
+results := executor.Execute(ctx, requests)
+for _, res := range results {
+    if res.Error != nil {
+        fmt.Printf("错误: %v\n", res.Error)
+        continue
     }
+    fmt.Println(res.Response.Content)
 }
 ```
 
@@ -84,15 +89,15 @@ for result in results {
 估算 token 使用量与成本：
 
 ```go
-use ai_lib_go::tokens::{TokenCounter, ModelPricing};
+import "github.com/hiddenpath/ai-lib-go/tokens"
 
-let counter = TokenCounter::for_model("gpt-4o");
-let count = counter.count("Hello, how are you?");
-println!("Tokens: {count}");
+counter := tokens.GetCounterForModel("gpt-4o")
+count := counter.Count("你好，最近怎么样？")
+fmt.Printf("Tokens: %d\n", count)
 
-let pricing = ModelPricing::from_registry("openai/gpt-4o")?;
-let cost = pricing.estimate(prompt_tokens, completion_tokens);
-println!("Estimated cost: ${cost:.4}");
+pricing := tokens.GetPricingForModel("openai/gpt-4o")
+cost := pricing.Estimate(promptTokens, completionTokens)
+fmt.Printf("估算成本: $%.4f\n", cost)
 ```
 
 ## 插件系统
@@ -100,24 +105,19 @@ println!("Estimated cost: ${cost:.4}");
 使用自定义插件扩展客户端：
 
 ```go
-use ai_lib_go::plugins::{Plugin, PluginRegistry};
+import "github.com/hiddenpath/ai-lib-go/plugins"
 
-struct LoggingPlugin;
+type LoggingPlugin struct{}
 
-impl Plugin for LoggingPlugin {
-    fn name(&self) -> &str { "logging" }
-
-    fn on_request(&self, request: &mut Request) {
-        tracing::info!("Sending request to {}", request.model);
-    }
-
-    fn on_response(&self, response: &Response) {
-        tracing::info!("Got {} tokens", response.usage.total_tokens);
-    }
+func (p *LoggingPlugin) OnRequest(req *plugins.Request) {
+    fmt.Printf("正在向 %s 发送请求\n", req.Model)
 }
 
-let mut registry = PluginRegistry::new();
-registry.register(LoggingPlugin);
+func (p *LoggingPlugin) OnResponse(res *plugins.Response) {
+    fmt.Printf("获得 %d 个 token\n", res.Usage.TotalTokens)
+}
+
+aiClient.RegisterPlugin(&LoggingPlugin{})
 ```
 
 ## Guardrails
@@ -125,35 +125,37 @@ registry.register(LoggingPlugin);
 内容过滤与安全：
 
 ```go
-use ai_lib_go::guardrails::{GuardrailsConfig, KeywordFilter};
+import "github.com/hiddenpath/ai-lib-go/guardrails"
 
-let config = GuardrailsConfig::new()
-    .add_filter(KeywordFilter::new(vec!["unsafe_word"]))
-    .enable_pii_detection();
+config := guardrails.NewConfig().
+    AddFilter(guardrails.NewKeywordFilter([]string{"不安全词汇"})).
+    EnablePiiDetection()
+
+aiClient.SetGuardrails(config)
 ```
 
 ## 功能门控：Routing
 
-智能模型路由（使用 `routing_mvp` 功能启用）：
+智能模型路由：
 
 ```go
-use ai_lib_go::routing::{CustomModelManager, ModelArray, ModelSelectionStrategy};
+import "github.com/hiddenpath/ai-lib-go/routing"
 
-let manager = CustomModelManager::new()
-    .add_model("openai/gpt-4o", weight: 0.7)
-    .add_model("anthropic/claude-3-5-sonnet", weight: 0.3)
-    .strategy(ModelSelectionStrategy::Weighted);
+manager := routing.NewModelManager().
+    AddModel("openai/gpt-4o", 0.7).
+    AddModel("anthropic/claude-3-5-sonnet", 0.3).
+    SetStrategy(routing.StrategyWeighted)
 ```
 
 ## 功能门控：Interceptors
 
-请求/响应拦截（使用 `interceptors` 功能启用）：
+请求/响应拦截：
 
 ```go
-use ai_lib_go::interceptors::{InterceptorPipeline, Interceptor};
+import "github.com/hiddenpath/ai-lib-go/interceptors"
 
-let pipeline = InterceptorPipeline::new()
-    .add(LoggingInterceptor)
-    .add(MetricsInterceptor)
-    .add(AuditInterceptor);
+pipeline := interceptors.NewPipeline().
+    Add(&LoggingInterceptor{}).
+    Add(&MetricsInterceptor{}).
+    Add(&AuditInterceptor{})
 ```

@@ -69,6 +69,19 @@ console.log(`Total tokens: ${stats.totalTokens}`);
 console.log(`Latency: ${stats.latencyMs}ms`);
 ```
 
+## Go：调用统计
+
+```go
+response, stats, _ := aiClient.Chat().
+    User("你好").
+    ExecuteWithStats(ctx)
+
+fmt.Printf("模型: %s\n", stats.Model)
+fmt.Printf("提供商: %s\n", stats.Provider)
+fmt.Printf("Tokens: %d\n", stats.TotalTokens)
+fmt.Printf("延迟: %dms\n", stats.LatencyMs)
+```
+
 ## Python：指标（Prometheus）
 
 ```python
@@ -96,6 +109,20 @@ const client = await AiClient.builder().model('openai/gpt-4o').metrics(metrics).
 
 // After some requests...
 const prometheusText = metrics.exportPrometheus();
+```
+
+## Go：指标（Prometheus）
+
+```go
+import "github.com/hiddenpath/ai-lib-go/telemetry"
+
+metrics := telemetry.NewMetricsCollector()
+aiClient, _ := client.NewAiClientBuilder().
+    Model("openai/gpt-4o").
+    Metrics(metrics).
+    Build(ctx)
+
+prometheusText := metrics.ExportPrometheus()
 ```
 
 跟踪的指标：
@@ -166,6 +193,15 @@ console.log(`Healthy: ${status.isHealthy}`);
 console.log(`Details: ${status.details}`);
 ```
 
+## Go：健康监控
+
+```go
+health := telemetry.NewHealthChecker()
+status, _ := health.Check(ctx)
+
+fmt.Printf("健康状态: %v\n", status.IsHealthy)
+```
+
 ## Python：用户反馈
 
 收集 AI 响应的反馈：
@@ -222,4 +258,11 @@ print(f"Inflight: {signals.current_inflight}")
 const signals = client.signalsSnapshot();
 console.log(`Circuit: ${signals.circuitState}`);
 console.log(`Inflight: ${signals.currentInflight}`);
+```
+
+```go
+// Go
+signals := aiClient.SignalsSnapshot()
+fmt.Printf("熔断器状态: %s\n", signals.CircuitState)
+fmt.Printf("进行中请求: %d\n", signals.CurrentInflight)
 ```

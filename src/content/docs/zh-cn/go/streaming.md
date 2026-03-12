@@ -1,6 +1,6 @@
 ---
 title: 流式管道 (Go)
-description: ai-lib-go v0.8.0 中基于算子的流式管道详解。
+description: ai-lib-go v0.5.0 中基于算子的流式管道详解。
 ---
 
 # 流式管道
@@ -58,24 +58,26 @@ PartialToolCall("get_we") → PartialToolCall("ather") → PartialToolCall("(\"T
 
 ### 5. EventMapper
 
-最终阶段 — 将处理后的帧转换为统一的 `StreamingEvent` 类型：
-
-- `StreamingEvent::ContentDelta` — 文本内容
-- `StreamingEvent::ToolCallStarted` — 工具调用开始
-- `StreamingEvent::PartialToolCall` — 工具参数块
-- `StreamingEvent::StreamEnd` — 响应完成
+最终阶段 — 将处理后的帧转换为统一的 `StreamingEvent` 类型。
 
 ## 协议驱动构建
 
 管道根据提供商清单自动构建。无需手动配置：
 
 ```go
-// The pipeline is constructed internally based on the protocol manifest
-let mut stream = client.chat()
-    .user("Hello")
-    .stream()
-    .execute_stream()
-    .await?;
+// 管道根据协议清单在内部自动构建
+stream, err := aiClient.Chat().
+    User("你好").
+    ExecuteStream(ctx)
+if err != nil {
+    panic(err)
+}
+defer stream.Close()
+
+for stream.Next() {
+    event := stream.Event()
+    // 处理事件
+}
 ```
 
 运行时读取清单的 `streaming` 部分，并连接相应的解码器、选择器规则和事件映射器。

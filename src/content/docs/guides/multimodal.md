@@ -79,6 +79,23 @@ const response = await client.chat().messages([message]).execute();
 console.log(response.content);
 ```
 
+### Go
+
+```go
+import "github.com/hiddenpath/ai-lib-go/client"
+
+message := client.NewUserMessageWithContent([]client.ContentBlock{
+    client.NewTextContentBlock("What's in this image?"),
+    client.NewImageUrlContentBlock("https://example.com/photo.jpg"),
+})
+
+response, _ := aiClient.Chat().
+    Messages([]client.Message{message}).
+    Execute(ctx)
+
+fmt.Println(response.Content)
+```
+
 ## Base64 Images
 
 For local images, use base64 encoding:
@@ -124,6 +141,18 @@ const message = Message.userWithContent([
   ContentBlock.text('Describe this'),
   ContentBlock.imageBase64(imageData, 'image/jpeg'),
 ]);
+```
+
+### Go
+
+```go
+imageBytes, _ := os.ReadFile("photo.jpg")
+base64Data := base64.StdEncoding.EncodeToString(imageBytes)
+
+message := client.NewUserMessageWithContent([]client.ContentBlock{
+    client.NewTextContentBlock("Describe this"),
+    client.NewImageBase64ContentBlock(base64Data, "image/jpeg"),
+})
 ```
 
 ## V2 Multimodal Capabilities

@@ -1,11 +1,11 @@
 ---
 title: Resiliencia (Go)
-description: Patrones de confiabilidad para producción en ai-lib-go v0.8.0 — circuit breaker, limitador de velocidad, backpressure, reintentos.
+description: Patrones de confiabilidad para producción en ai-lib-go v0.5.0 — circuit breaker, limitador de velocidad, backpressure, reintentos.
 ---
 
 # Patrones de resiliencia
 
-ai-lib-go (v0.8.0) incluye patrones de confiabilidad de nivel producción de serie. Las decisiones de reintento y fallback utilizan códigos de error estándar V2: las propiedades `retryable` y `fallbackable` en `StandardErrorCode` determinan si un error desencadena reintentos o fallback de modelo.
+ai-lib-go (v0.5.0) incluye patrones de confiabilidad de nivel producción de serie. Las decisiones de reintento y fallback utilizan códigos de error estándar V2: las propiedades `retryable` y `fallbackable` en `StandardErrorCode` determinan si un error desencadena reintentos o fallback de modelo.
 
 ## Circuit Breaker
 
@@ -82,12 +82,12 @@ Todos los patrones de resiliencia funcionan juntos. Un flujo de solicitud típic
 Monitoree el estado de resiliencia en tiempo de ejecución:
 
 ```go
-// Check circuit breaker state
-let state = client.circuit_state();
-println!("Circuit: {:?}", state); // Closed, Open, HalfOpen
+// Comprobar estado del circuit breaker
+state := aiClient.CircuitState()
+fmt.Printf("Circuit: %v\n", state) // Closed, Open, HalfOpen
 
-// Check current inflight count
-let inflight = client.current_inflight();
+// Comprobar recuento actual de solicitudes en curso
+inflight := aiClient.CurrentInflight()
 ```
 
 ## Próximos pasos

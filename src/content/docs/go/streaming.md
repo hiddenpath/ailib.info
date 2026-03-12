@@ -1,6 +1,6 @@
 ---
 title: Streaming Pipeline (Go)
-description: Deep dive into the operator-based streaming pipeline in ai-lib-go v0.8.0.
+description: Deep dive into the operator-based streaming pipeline in ai-lib-go v0.5.0.
 ---
 
 # Streaming Pipeline
@@ -58,12 +58,7 @@ Handles multi-candidate responses (when `n > 1`). Expands candidates into separa
 
 ### 5. EventMapper
 
-The final stage — converts processed frames into unified `StreamingEvent` types:
-
-- `StreamingEvent::ContentDelta` — Text content
-- `StreamingEvent::ToolCallStarted` — Tool invocation begins
-- `StreamingEvent::PartialToolCall` — Tool argument chunk
-- `StreamingEvent::StreamEnd` — Response complete
+The final stage — converts processed frames into unified `StreamingEvent` types.
 
 ## Protocol-Driven Construction
 
@@ -71,11 +66,18 @@ The pipeline is built automatically from the provider manifest. No manual config
 
 ```go
 // The pipeline is constructed internally based on the protocol manifest
-let mut stream = client.chat()
-    .user("Hello")
-    .stream()
-    .execute_stream()
-    .await?;
+stream, err := aiClient.Chat().
+    User("Hello").
+    ExecuteStream(ctx)
+if err != nil {
+    panic(err)
+}
+defer stream.Close()
+
+for stream.Next() {
+    event := stream.Event()
+    // Process event
+}
 ```
 
 The runtime reads the `streaming` section of the manifest and wires up the appropriate decoder, selector rules, and event mapper.

@@ -1,6 +1,6 @@
 ---
 title: Canalización de streaming (Go)
-description: Profundice en la canalización de streaming basada en operadores en ai-lib-go v0.8.0.
+description: Profundice en la canalización de streaming basada en operadores en ai-lib-go v0.5.0.
 ---
 
 # Canalización de streaming
@@ -58,24 +58,26 @@ Maneja respuestas multicandidato (cuando `n > 1`). Expande candidatos en flujos 
 
 ### 5. EventMapper
 
-La etapa final — convierte frames procesados en tipos `StreamingEvent` unificados:
-
-- `StreamingEvent::ContentDelta` — Contenido de texto
-- `StreamingEvent::ToolCallStarted` — Comienza la invocación de herramienta
-- `StreamingEvent::PartialToolCall` — Fragmento de argumentos de herramienta
-- `StreamingEvent::StreamEnd` — Respuesta completa
+La etapa final — convierte frames procesados en tipos `StreamingEvent` unificados.
 
 ## Construcción impulsada por protocolo
 
 La canalización se construye automáticamente a partir del manifiesto del proveedor. No se necesita configuración manual:
 
 ```go
-// The pipeline is constructed internally based on the protocol manifest
-let mut stream = client.chat()
-    .user("Hello")
-    .stream()
-    .execute_stream()
-    .await?;
+// La canalización se construye internamente basada en el manifiesto del protocolo
+stream, err := aiClient.Chat().
+    User("Hola").
+    ExecuteStream(ctx)
+if err != nil {
+    panic(err)
+}
+defer stream.Close()
+
+for stream.Next() {
+    event := stream.Event()
+    // Procesar evento
+}
 ```
 
 El tiempo de ejecución lee la sección `streaming` del manifiesto y conecta el decodificador apropiado, las reglas del selector y el mapeador de eventos.

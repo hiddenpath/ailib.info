@@ -1,11 +1,11 @@
 ---
 title: 耐障害性（Go）
-description: ai-lib-go v0.8.0 における本番グレードの信頼性パターン — サーキットブレーカー、レートリミッター、バックプレッシャー、リトライ。
+description: ai-lib-go v0.5.0 における本番グレードの信頼性パターン — サーキットブレーカー、レートリミッター、バックプレッシャー、リトライ。
 ---
 
 # 耐障害性パターン
 
-ai-lib-go（v0.8.0）には本番グレードの信頼性パターンが標準で含まれています。リトライとフォールバックの判断は V2 標準エラーコードを使用します：`StandardErrorCode` の `retryable` と `fallbackable` プロパティが、エラーがリトライまたはモデルフォールバックをトリガーするかどうかを決定します。
+ai-lib-go（v0.5.0）には本番グレードの信頼性パターンが標準で含まれています。リトライとフォールバックの判断は V2 標準エラーコードを使用します：`StandardErrorCode` の `retryable` と `fallbackable` プロパティが、エラーがリトライまたはモデルフォールバックをトリガーするかどうかを決定します。
 
 ## サーキットブレーカー
 
@@ -83,11 +83,11 @@ retry_policy:
 
 ```go
 // サーキットブレーカーの状態を確認
-let state = client.circuit_state();
-println!("Circuit: {:?}", state); // Closed, Open, HalfOpen
+state := aiClient.CircuitState()
+fmt.Printf("Circuit: %v\n", state) // Closed, Open, HalfOpen
 
 // 現在の実行中数を確認
-let inflight = client.current_inflight();
+inflight := aiClient.CurrentInflight()
 ```
 
 ## 次のステップ

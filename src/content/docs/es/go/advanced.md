@@ -1,6 +1,6 @@
 ---
 title: Características avanzadas (Go)
-description: Embeddings, caché, procesamiento por lotes, plugins, guardrails, banderas de características, salida estructurada y códigos de error V2 en ai-lib-go v0.8.0.
+description: Embeddings, caché, procesamiento por lotes, plugins, guardrails, banderas de características, salida estructurada y códigos de error V2 en ai-lib-go v0.5.0.
 ---
 
 # Características avanzadas
@@ -12,21 +12,27 @@ Más allá de la funcionalidad principal de chat, ai-lib-go proporciona varias c
 Genere y trabaje con embeddings vectoriales:
 
 ```go
-use ai_lib_go::embeddings::{EmbeddingClient, cosine_similarity};
+import "github.com/hiddenpath/ai-lib-go/embeddings"
 
-let client = EmbeddingClient::builder()
-    .model("openai/text-embedding-3-small")
-    .build()
-    .await?;
+// Crear cliente de embeddings
+client, err := embeddings.NewEmbeddingClient(ctx, "openai/text-embedding-3-small", nil)
+if err != nil {
+    panic(err)
+}
 
-let embeddings = client.embed(vec![
+// Generar embeddings
+results, err := client.Embed(ctx, []string{
     "Go programming language",
     "Python programming language",
     "Cooking recipes",
-]).await?;
+})
+if err != nil {
+    panic(err)
+}
 
-let sim = cosine_similarity(&embeddings[0], &embeddings[1]);
-println!("Go vs Python similarity: {sim:.3}");
+// Calcular similitud
+sim := embeddings.CosineSimilarity(results[0], results[1])
+fmt.Printf("Similitud Go vs Python: %.3f\n", sim)
 ```
 
 Las operaciones vectoriales incluyen similitud coseno, distancia euclidiana y producto escalar.
@@ -36,22 +42,21 @@ Las operaciones vectoriales incluyen similitud coseno, distancia euclidiana y pr
 Almacene en caché las respuestas para reducir costos y latencia:
 
 ```go
-use ai_lib_go::cache::{CacheManager, MemoryCache};
+import "github.com/hiddenpath/ai-lib-go/cache"
 
-let cache = CacheManager::new(MemoryCache::new())
-    .with_ttl(Duration::from_secs(3600));
+// Configurar gestor de caché
+mgr := cache.NewCacheManager(cache.NewMemoryCache(), 3600 * time.Second)
 
-let client = AiClient::builder()
-    .model("openai/gpt-4o")
-    .cache(cache)
-    .build()
-    .await?;
+// Aplicar al cliente
+aiClient, _ := client.NewAiClient(ctx, "openai", &client.Options{
+    Cache: mgr,
+})
 
-// First call hits the provider
-let r1 = client.chat().user("What is 2+2?").execute().await?;
+// La primera llamada llega al proveedor
+resp1, _ := aiClient.Chat().Model("gpt-4o").User("¿Cuánto es 2+2?").Execute(ctx)
 
-// Second identical call returns cached response
-let r2 = client.chat().user("What is 2+2?").execute().await?;
+// La segunda llamada idéntica devuelve la respuesta en caché
+resp2, _ := aiClient.Chat().Model("gpt-4o").User("¿Cuánto es 2+2?").Execute(ctx)
 ```
 
 ## Procesamiento por lotes
@@ -59,23 +64,23 @@ let r2 = client.chat().user("What is 2+2?").execute().await?;
 Ejecute múltiples solicitudes eficientemente:
 
 ```go
-use ai_lib_go::batch::{BatchCollector, BatchExecutor};
+import "github.com/hiddenpath/ai-lib-go/batch"
 
-let mut collector = BatchCollector::new();
-collector.add(client.chat().user("Question 1"));
-collector.add(client.chat().user("Question 2"));
-collector.add(client.chat().user("Question 3"));
+executor := batch.NewBatchExecutor(5, 30 * time.Second)
 
-let executor = BatchExecutor::new()
-    .concurrency(5)
-    .timeout(Duration::from_secs(30));
+requests := []client.ChatRequest{
+    aiClient.Chat().User("Pregunta 1"),
+    aiClient.Chat().User("Pregunta 2"),
+    aiClient.Chat().User("Pregunta 3"),
+}
 
-let results = executor.execute(collector).await;
-for result in results {
-    match result {
-        Ok(response) => println!("{}", response.content),
-        Err(e) => eprintln!("Error: {e}"),
+results := executor.Execute(ctx, requests)
+for _, res := range results {
+    if res.Error != nil {
+        fmt.Printf("Error: %v\n", res.Error)
+        continue
     }
+    fmt.Println(res.Response.Content)
 }
 ```
 
@@ -84,15 +89,15 @@ for result in results {
 Estime el uso de tokens y costos:
 
 ```go
-use ai_lib_go::tokens::{TokenCounter, ModelPricing};
+import "github.com/hiddenpath/ai-lib-go/tokens"
 
-let counter = TokenCounter::for_model("gpt-4o");
-let count = counter.count("Hello, how are you?");
-println!("Tokens: {count}");
+counter := tokens.GetCounterForModel("gpt-4o")
+count := counter.Count("Hola, ¿cómo estás?")
+fmt.Printf("Tokens: %d\n", count)
 
-let pricing = ModelPricing::from_registry("openai/gpt-4o")?;
-let cost = pricing.estimate(prompt_tokens, completion_tokens);
-println!("Estimated cost: ${cost:.4}");
+pricing := tokens.GetPricingForModel("openai/gpt-4o")
+cost := pricing.Estimate(promptTokens, completionTokens)
+fmt.Printf("Coste estimado: $%.4f\n", cost)
 ```
 
 ## Sistema de plugins
@@ -100,24 +105,19 @@ println!("Estimated cost: ${cost:.4}");
 Extienda el cliente con plugins personalizados:
 
 ```go
-use ai_lib_go::plugins::{Plugin, PluginRegistry};
+import "github.com/hiddenpath/ai-lib-go/plugins"
 
-struct LoggingPlugin;
+type LoggingPlugin struct{}
 
-impl Plugin for LoggingPlugin {
-    fn name(&self) -> &str { "logging" }
-
-    fn on_request(&self, request: &mut Request) {
-        tracing::info!("Sending request to {}", request.model);
-    }
-
-    fn on_response(&self, response: &Response) {
-        tracing::info!("Got {} tokens", response.usage.total_tokens);
-    }
+func (p *LoggingPlugin) OnRequest(req *plugins.Request) {
+    fmt.Printf("Enviando solicitud a %s\n", req.Model)
 }
 
-let mut registry = PluginRegistry::new();
-registry.register(LoggingPlugin);
+func (p *LoggingPlugin) OnResponse(res *plugins.Response) {
+    fmt.Printf("Obtenidos %d tokens\n", res.Usage.TotalTokens)
+}
+
+aiClient.RegisterPlugin(&LoggingPlugin{})
 ```
 
 ## Guardrails
@@ -125,35 +125,37 @@ registry.register(LoggingPlugin);
 Filtrado de contenido y seguridad:
 
 ```go
-use ai_lib_go::guardrails::{GuardrailsConfig, KeywordFilter};
+import "github.com/hiddenpath/ai-lib-go/guardrails"
 
-let config = GuardrailsConfig::new()
-    .add_filter(KeywordFilter::new(vec!["unsafe_word"]))
-    .enable_pii_detection();
+config := guardrails.NewConfig().
+    AddFilter(guardrails.NewKeywordFilter([]string{"unsafe_word"})).
+    EnablePiiDetection()
+
+aiClient.SetGuardrails(config)
 ```
 
 ## Con puerta de características: Routing
 
-Enrutamiento inteligente de modelos (habilitar con característica `routing_mvp`):
+Enrutamiento inteligente de modelos:
 
 ```go
-use ai_lib_go::routing::{CustomModelManager, ModelArray, ModelSelectionStrategy};
+import "github.com/hiddenpath/ai-lib-go/routing"
 
-let manager = CustomModelManager::new()
-    .add_model("openai/gpt-4o", weight: 0.7)
-    .add_model("anthropic/claude-3-5-sonnet", weight: 0.3)
-    .strategy(ModelSelectionStrategy::Weighted);
+manager := routing.NewModelManager().
+    AddModel("openai/gpt-4o", 0.7).
+    AddModel("anthropic/claude-3-5-sonnet", 0.3).
+    SetStrategy(routing.StrategyWeighted)
 ```
 
 ## Con puerta de características: Interceptors
 
-Interceptación de solicitudes/respuestas (habilitar con característica `interceptors`):
+Interceptación de solicitudes/respuestas:
 
 ```go
-use ai_lib_go::interceptors::{InterceptorPipeline, Interceptor};
+import "github.com/hiddenpath/ai-lib-go/interceptors"
 
-let pipeline = InterceptorPipeline::new()
-    .add(LoggingInterceptor)
-    .add(MetricsInterceptor)
-    .add(AuditInterceptor);
+pipeline := interceptors.NewPipeline().
+    Add(&LoggingInterceptor{}).
+    Add(&MetricsInterceptor{}).
+    Add(&AuditInterceptor{})
 ```

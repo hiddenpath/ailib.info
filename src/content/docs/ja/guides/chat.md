@@ -46,6 +46,18 @@ const response = await client.chat().user('Hello, world!').execute();
 console.log(response.content);
 ```
 
+### Go
+
+```go
+aiClient, _ := client.NewAiClient(ctx, "openai", nil)
+
+response, _ := aiClient.Chat().
+    User("Hello, world!").
+    Execute(ctx)
+
+fmt.Println(response.Content)
+```
+
 ## メッセージ
 
 ### システムメッセージ
@@ -75,6 +87,14 @@ await client
   .system('You are a helpful coding assistant.')
   .user('Explain closures')
   .execute();
+```
+
+```go
+// Go
+aiClient.Chat().
+  System("あなたは親切なコーディングアシスタントです。").
+  User("クロージャについて説明してください").
+  Execute(ctx)
 ```
 
 ### マルチターン会話
@@ -123,6 +143,20 @@ const messages = [
 await client.chat().messages(messages).execute();
 ```
 
+```go
+// Go
+import "github.com/hiddenpath/ai-protocol/pkg/ailib"
+
+messages := []ailib.Message{
+  ailib.NewSystemMessage("あなたはチューターです。"),
+  ailib.NewUserMessage("再帰とは何ですか？"),
+  ailib.NewAssistantMessage("再帰とは、関数が自分自身を呼び出すことです..."),
+  ailib.NewUserMessage("例を見せてくれますか？"),
+}
+
+aiClient.Chat().Messages(messages).Execute(ctx)
+```
+
 ## パラメータ
 
 | パラメータ    | 型       | 説明                                         |
@@ -155,6 +189,16 @@ await client.chat() \
 ```typescript
 // TypeScript
 await client.chat().user('Write a poem').temperature(0.9).maxTokens(200).topP(0.95).execute();
+```
+
+```go
+// Go
+aiClient.Chat().
+    User("詩を書いて").
+    Temperature(0.9).
+    MaxTokens(200).
+    TopP(0.95).
+    Execute(ctx)
 ```
 
 ## ストリーミング
@@ -195,6 +239,19 @@ for await (const event of client.chat().user('Tell me a story').stream()) {
 }
 ```
 
+```go
+// Go
+stream, _ := aiClient.Chat().User("物語を話して").ExecuteStream(ctx)
+defer stream.Close()
+
+for stream.Next() {
+    event := stream.Event()
+    if event.Type == "content" {
+        fmt.Print(event.Text)
+    }
+}
+```
+
 ## レスポンス統計
 
 コスト管理のための使用量を追跡します：
@@ -229,6 +286,14 @@ console.log(`Tokens: ${stats.totalTokens}`);
 console.log(`Latency: ${stats.latencyMs}ms`);
 ```
 
+```go
+// Go
+response, stats, _ := aiClient.Chat().User("こんにちは").ExecuteWithStats(ctx)
+
+fmt.Printf("トークン数: %d\n", stats.TotalTokens)
+fmt.Printf("レイテンシ: %dms\n", stats.LatencyMs)
+```
+
 ## プロバイダーの切り替え
 
 同じコードがすべてのプロバイダーで動作します：
@@ -252,6 +317,13 @@ client = await AiClient.create("gemini/gemini-2.0-flash")
 const client = await AiClient.new('anthropic/claude-3-5-sonnet');
 const client = await AiClient.new('deepseek/deepseek-chat');
 const client = await AiClient.new('gemini/gemini-2.0-flash');
+```
+
+```go
+// Go - 同じパターン
+aiClient, _ = client.NewAiClient(ctx, "anthropic", nil)
+aiClient, _ = client.NewAiClient(ctx, "deepseek", nil)
+aiClient, _ = client.NewAiClient(ctx, "gemini", nil)
 ```
 
 プロトコルマニフェストが、エンドポイント URL、認証、パラメータマッピング、ストリーミング形式の違いを自動的に処理します。

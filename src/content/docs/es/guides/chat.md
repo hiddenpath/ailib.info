@@ -46,6 +46,18 @@ const response = await client.chat().user('Hello, world!').execute();
 console.log(response.content);
 ```
 
+### Go
+
+```go
+aiClient, _ := client.NewAiClient(ctx, "openai", nil)
+
+response, _ := aiClient.Chat().
+    User("Hello, world!").
+    Execute(ctx)
+
+fmt.Println(response.Content)
+```
+
 ## Mensajes
 
 ### Mensajes del sistema
@@ -75,6 +87,14 @@ await client
   .system('You are a helpful coding assistant.')
   .user('Explain closures')
   .execute();
+```
+
+```go
+// Go
+aiClient.Chat().
+  System("Eres un asistente de programación servicial.").
+  User("Explica las clausuras").
+  Execute(ctx)
 ```
 
 ### Conversaciones multironda
@@ -123,6 +143,20 @@ const messages = [
 await client.chat().messages(messages).execute();
 ```
 
+```go
+// Go
+import "github.com/hiddenpath/ai-protocol/pkg/ailib"
+
+messages := []ailib.Message{
+  ailib.NewSystemMessage("Eres un tutor."),
+  ailib.NewUserMessage("¿Qué es la recursividad?"),
+  ailib.NewAssistantMessage("La recursividad es cuando una función se llama a sí misma..."),
+  ailib.NewUserMessage("¿Puedes mostrar un ejemplo?"),
+}
+
+aiClient.Chat().Messages(messages).Execute(ctx)
+```
+
 ## Parámetros
 
 | Parameter     | Type     | Description                                         |
@@ -155,6 +189,16 @@ await client.chat() \
 ```typescript
 // TypeScript
 await client.chat().user('Write a poem').temperature(0.9).maxTokens(200).topP(0.95).execute();
+```
+
+```go
+// Go
+aiClient.Chat().
+    User("Escribe un poema").
+    Temperature(0.9).
+    MaxTokens(200).
+    TopP(0.95).
+    Execute(ctx)
 ```
 
 ## Streaming
@@ -195,6 +239,19 @@ for await (const event of client.chat().user('Tell me a story').stream()) {
 }
 ```
 
+```go
+// Go
+stream, _ := aiClient.Chat().User("Cuéntame una historia").ExecuteStream(ctx)
+defer stream.Close()
+
+for stream.Next() {
+    event := stream.Event()
+    if event.Type == "content" {
+        fmt.Print(event.Text)
+    }
+}
+```
+
 ## Estadísticas de respuesta
 
 Rastree el uso para gestión de costos:
@@ -229,6 +286,14 @@ console.log(`Tokens: ${stats.totalTokens}`);
 console.log(`Latency: ${stats.latencyMs}ms`);
 ```
 
+```go
+// Go
+response, stats, _ := aiClient.Chat().User("Hola").ExecuteWithStats(ctx)
+
+fmt.Printf("Tokens: %d\n", stats.TotalTokens)
+fmt.Printf("Latencia: %dms\n", stats.LatencyMs)
+```
+
 ## Cambio de proveedores
 
 El mismo código funciona con todos los proveedores:
@@ -252,6 +317,13 @@ client = await AiClient.create("gemini/gemini-2.0-flash")
 const client = await AiClient.new('anthropic/claude-3-5-sonnet');
 const client = await AiClient.new('deepseek/deepseek-chat');
 const client = await AiClient.new('gemini/gemini-2.0-flash');
+```
+
+```go
+// Go - mismo patrón
+aiClient, _ = client.NewAiClient(ctx, "anthropic", nil)
+aiClient, _ = client.NewAiClient(ctx, "deepseek", nil)
+aiClient, _ = client.NewAiClient(ctx, "gemini", nil)
 ```
 
 El manifiesto del protocolo maneja las URLs de endpoints, autenticación, mapeo de parámetros y diferencias de formato de streaming automáticamente.

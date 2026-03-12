@@ -69,6 +69,19 @@ console.log(`Total tokens: ${stats.totalTokens}`);
 console.log(`Latency: ${stats.latencyMs}ms`);
 ```
 
+## Go：呼び出し統計
+
+```go
+response, stats, _ := aiClient.Chat().
+    User("こんにちは").
+    ExecuteWithStats(ctx)
+
+fmt.Printf("モデル: %s\n", stats.Model)
+fmt.Printf("プロバイダー: %s\n", stats.Provider)
+fmt.Printf("トークン数: %d\n", stats.TotalTokens)
+fmt.Printf("レイテンシ: %dms\n", stats.LatencyMs)
+```
+
 ## Python：メトリクス（Prometheus）
 
 ```python
@@ -96,6 +109,20 @@ const client = await AiClient.builder().model('openai/gpt-4o').metrics(metrics).
 
 // いくつかのリクエストの後...
 const prometheusText = metrics.exportPrometheus();
+```
+
+## Go：メトリクス（Prometheus）
+
+```go
+import "github.com/hiddenpath/ai-lib-go/telemetry"
+
+metrics := telemetry.NewMetricsCollector()
+aiClient, _ := client.NewAiClientBuilder().
+    Model("openai/gpt-4o").
+    Metrics(metrics).
+    Build(ctx)
+
+prometheusText := metrics.ExportPrometheus()
 ```
 
 追跡されるメトリクス：
@@ -166,6 +193,15 @@ console.log(`Healthy: ${status.isHealthy}`);
 console.log(`Details: ${status.details}`);
 ```
 
+## Go：ヘルス監視
+
+```go
+health := telemetry.NewHealthChecker()
+status, _ := health.Check(ctx)
+
+fmt.Printf("正常: %v\n", status.IsHealthy)
+```
+
 ## Python：ユーザーフィードバック
 
 AI レスポンスへのフィードバックを収集します：
@@ -222,4 +258,11 @@ print(f"Inflight: {signals.current_inflight}")
 const signals = client.signalsSnapshot();
 console.log(`Circuit: ${signals.circuitState}`);
 console.log(`Inflight: ${signals.currentInflight}`);
+```
+
+```go
+// Go
+signals := aiClient.SignalsSnapshot()
+fmt.Printf("サーキット: %s\n", signals.CircuitState)
+fmt.Printf("実行中リクエスト: %d\n", signals.CurrentInflight)
 ```
