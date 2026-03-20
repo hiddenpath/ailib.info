@@ -82,7 +82,7 @@ console.log(response.content);
 ### Go
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/client"
+import "github.com/ailib-official/ai-lib-go/client"
 
 message := client.NewUserMessageWithContent([]client.ContentBlock{
     client.NewTextContentBlock("What's in this image?"),

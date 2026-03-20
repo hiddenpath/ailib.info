@@ -12,7 +12,7 @@ description: 数分で ai-lib-go を使い始める。
 Go プロジェクトにライブラリを追加します：
 
 ```bash
-go get github.com/hiddenpath/ai-lib-go
+go get github.com/ailib-official/ai-lib-go
 ```
 
 ## 基本的な使い方
@@ -27,7 +27,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/hiddenpath/ai-lib-go/client"
+	"github.com/ailib-official/ai-lib-go/client"
 )
 
 func main() {

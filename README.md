@@ -18,9 +18,9 @@ The foundation of the ecosystem. A language-agnostic specification using YAML/JS
 
 ### 2. Runtime SDKs
 
-- **[ai-lib-rust](https://github.com/hiddenpath/ai-lib-rust)**: A high-performance, resilient Rust implementation of the AI-Protocol.
-- **[ai-lib-python](https://github.com/hiddenpath/ai-lib-python)**: A developer-friendly, Pydantic-powered Python implementation.
-- **[ai-lib-ts](https://github.com/hiddenpath/ai-lib-ts)**: The TypeScript/JavaScript implementation for web and Node.js environments.
+- **[ai-lib-rust](https://github.com/ailib-official/ai-lib-rust)**: A high-performance, resilient Rust implementation of the AI-Protocol.
+- **[ai-lib-python](https://github.com/ailib-official/ai-lib-python)**: A developer-friendly, Pydantic-powered Python implementation.
+- **[ai-lib-ts](https://github.com/ailib-official/ai-lib-ts)**: The TypeScript/JavaScript implementation for web and Node.js environments.
 
 ### 3. Guides & Tutorials
 

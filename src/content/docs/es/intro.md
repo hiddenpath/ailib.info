@@ -27,7 +27,7 @@ AI-Lib adopta un enfoque diferente:
 | **[ai-lib-rust](/rust/)**     | Implementación runtime | Rust       | v0.9.3  | [Crates.io](https://crates.io/crates/ai-lib-rust)                |
 | **[ai-lib-python](/python/)** | Implementación runtime | Python     | v0.8.3  | [PyPI](https://pypi.org/project/ai-lib-python/)                  |
 | **[ai-lib-ts](/ts/)**         | Implementación runtime | TypeScript | v0.5.3  | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts)       |
-| **ai-lib-go**                 | Implementación runtime | Go         | v0.0.1  | [Go Modules](https://pkg.go.dev/github.com/hiddenpath/ai-lib-go) |
+| **ai-lib-go**                 | Implementación runtime | Go         | v0.0.1  | [Go Modules](https://pkg.go.dev/github.com/ailib-official/ai-lib-go) |
 | **ai-protocol-mock**          | Capa de mock/testing   | Python     | v0.1.11 | [PyPI](https://pypi.org/project/ai-protocol-mock/)               |
 
 El ciclo actual de releases extiende V2 con gates de gobernanza ejecutable: `drift`, `manifest-consumption`, `compliance-matrix`, `fullchain` y `release-gate`, incluyendo modo `--report-only` para adopción por etapas.

@@ -12,7 +12,7 @@ Beyond core chat functionality, ai-lib-go provides several advanced capabilities
 Generate and work with vector embeddings:
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/embeddings"
+import "github.com/ailib-official/ai-lib-go/embeddings"
 
 // Create embedding client
 client, err := embeddings.NewEmbeddingClient(ctx, "openai/text-embedding-3-small", nil)
@@ -42,7 +42,7 @@ Vector operations include cosine similarity, Euclidean distance, and dot product
 Cache responses to reduce costs and latency:
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/cache"
+import "github.com/ailib-official/ai-lib-go/cache"
 
 // Configure cache manager
 mgr := cache.NewCacheManager(cache.NewMemoryCache(), 3600 * time.Second)
@@ -64,7 +64,7 @@ resp2, _ := aiClient.Chat().Model("gpt-4o").User("What is 2+2?").Execute(ctx)
 Execute multiple requests efficiently:
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/batch"
+import "github.com/ailib-official/ai-lib-go/batch"
 
 executor := batch.NewBatchExecutor(5, 30 * time.Second)
 
@@ -89,7 +89,7 @@ for _, res := range results {
 Estimate token usage and costs:
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/tokens"
+import "github.com/ailib-official/ai-lib-go/tokens"
 
 counter := tokens.GetCounterForModel("gpt-4o")
 count := counter.Count("Hello, how are you?")
@@ -105,7 +105,7 @@ fmt.Printf("Estimated cost: $%.4f\n", cost)
 Extend the client with custom plugins:
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/plugins"
+import "github.com/ailib-official/ai-lib-go/plugins"
 
 type LoggingPlugin struct{}
 
@@ -125,7 +125,7 @@ aiClient.RegisterPlugin(&LoggingPlugin{})
 Content filtering and safety:
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/guardrails"
+import "github.com/ailib-official/ai-lib-go/guardrails"
 
 config := guardrails.NewConfig().
     AddFilter(guardrails.NewKeywordFilter([]string{"unsafe_word"})).
@@ -139,7 +139,7 @@ aiClient.SetGuardrails(config)
 Smart model routing:
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/routing"
+import "github.com/ailib-official/ai-lib-go/routing"
 
 manager := routing.NewModelManager().
     AddModel("openai/gpt-4o", 0.7).
@@ -152,7 +152,7 @@ manager := routing.NewModelManager().
 Request/response interception:
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/interceptors"
+import "github.com/ailib-official/ai-lib-go/interceptors"
 
 pipeline := interceptors.NewPipeline().
     Add(&LoggingInterceptor{}).

@@ -12,7 +12,7 @@ description: 几分钟内上手 ai-lib-go。
 将库添加到你的 Go 项目中：
 
 ```bash
-go get github.com/hiddenpath/ai-lib-go
+go get github.com/ailib-official/ai-lib-go
 ```
 
 ## 基本用法
@@ -27,7 +27,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/hiddenpath/ai-lib-go/client"
+	"github.com/ailib-official/ai-lib-go/client"
 )
 
 func main() {

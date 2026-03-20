@@ -114,7 +114,7 @@ const prometheusText = metrics.exportPrometheus();
 ## Go: Metrics (Prometheus)
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/telemetry"
+import "github.com/ailib-official/ai-lib-go/telemetry"
 
 metrics := telemetry.NewMetricsCollector()
 aiClient, _ := client.NewAiClientBuilder().

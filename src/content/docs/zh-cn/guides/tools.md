@@ -86,7 +86,7 @@ const getWeather: ToolDefinition = {
 ### Go
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/client"
+import "github.com/ailib-official/ai-lib-go/client"
 
 getWeather := client.ToolDefinition{
     Name:        "get_weather",

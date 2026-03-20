@@ -12,7 +12,7 @@ Get up and running with `ai-lib-go`.
 Add the library to your Go project:
 
 ```bash
-go get github.com/hiddenpath/ai-lib-go
+go get github.com/ailib-official/ai-lib-go
 ```
 
 ## Basic Usage
@@ -27,7 +27,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/hiddenpath/ai-lib-go/client"
+	"github.com/ailib-official/ai-lib-go/client"
 )
 
 func main() {

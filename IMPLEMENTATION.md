@@ -83,7 +83,7 @@ const isZh = locale === '';
     <a href={isZh ? '/' : '/zh/'} class="lang-switch">
       {isZh ? 'EN' : '中文'}
     </a>
-    <a href="https://github.com/hiddenpath/ai-protocol" target="_blank" class="github">
+    <a href="https://github.com/ailib-official/ai-protocol" target="_blank" class="github">
       GitHub
     </a>
   </div>
@@ -126,7 +126,7 @@ const heroContent = {
     subtitle: 'One specification, multiple runtimes.',
     description: 'Unified AI model interaction across protocol, Rust, and Python.',
     ctas: [
-      { text: 'Protocol Spec', link: 'https://github.com/hiddenpath/ai-protocol' },
+      { text: 'Protocol Spec', link: 'https://github.com/ailib-official/ai-protocol' },
       { text: 'Rust Runtime', link: '/rust/quick-start/' },
       { text: 'Python Runtime', link: '/python/quick-start/' },
     ]
@@ -137,7 +137,7 @@ const heroContent = {
     subtitle: '一个规范，多个运行时',
     description: '统一的 AI 模型交互方式，支持协议层、Rust 和 Python 实现。',
     ctas: [
-      { text: '查看协议文档', link: 'https://github.com/hiddenpath/ai-protocol' },
+      { text: '查看协议文档', link: 'https://github.com/ailib-official/ai-protocol' },
       { text: 'Rust 快速开始', link: '/rust/quick-start/' },
       { text: 'Python 快速开始', link: '/python/quick-start/' },
     ]
@@ -433,7 +433,7 @@ const isZh = locale === 'zh';
         </p>
 
         <div class="cta-group">
-          <a href="https://github.com/hiddenpath/ai-protocol" target="_blank" class="btn primary">
+          <a href="https://github.com/ailib-official/ai-protocol" target="_blank" class="btn primary">
             GitHub Repository
           </a>
           <a href="/protocol/providers/" class="btn secondary">
@@ -484,9 +484,9 @@ const isZh = locale === 'zh';
       <section class="resources">
         <h2>{isZh ? '快速链接' : 'Quick Links'}</h2>
         <ul class="link-list">
-          <li><a href="https://github.com/hiddenpath/ai-protocol/tree/main/docs">📚 Protocol Documentation</a></li>
-          <li><a href="https://github.com/hiddenpath/ai-protocol/tree/main/examples">💡 Example Configurations</a></li>
-          <li><a href="https://github.com/hiddenpath/ai-protocol/blob/main/README.md">📖 Full README</a></li>
+          <li><a href="https://github.com/ailib-official/ai-protocol/tree/main/docs">📚 Protocol Documentation</a></li>
+          <li><a href="https://github.com/ailib-official/ai-protocol/tree/main/examples">💡 Example Configurations</a></li>
+          <li><a href="https://github.com/ailib-official/ai-protocol/blob/main/README.md">📖 Full README</a></li>
         </ul>
       </section>
     </main>
@@ -564,7 +564,7 @@ const isZh = false;
         </p>
 
         <div class="cta-group">
-          <a href="https://github.com/hiddenpath/ai-lib-rust" target="_blank" class="btn primary">
+          <a href="https://github.com/ailib-official/ai-lib-rust" target="_blank" class="btn primary">
             GitHub Repository
           </a>
           <a href="/rust/quick-start/" class="btn secondary">
@@ -608,7 +608,7 @@ tokio = { version = "1", features = ["full"] }</code></pre>
       <section class="resources">
         <h2>Documentation</h2>
         <ul class="link-list">
-          <li><a href="https://github.com/hiddenpath/ai-lib-rust">Full README</a></li>
+          <li><a href="https://github.com/ailib-official/ai-lib-rust">Full README</a></li>
           <li><a href="https://crates.io/crates/ai-lib">Crates.io</a></li>
           <li><a href="/rust/features/">Feature Guide</a></li>
         </ul>
@@ -665,7 +665,7 @@ const isZh = false;
           <a href="https://pypi.org/project/ai-lib-python/" target="_blank" class="btn primary">
             PyPI Package
           </a>
-          <a href="https://github.com/hiddenpath/ai-lib-python" target="_blank" class="btn secondary">
+          <a href="https://github.com/ailib-official/ai-lib-python" target="_blank" class="btn secondary">
             GitHub Repository
           </a>
           <a href="/python/quick-start/" class="btn outline">
@@ -713,7 +713,7 @@ pip install ai-lib-python[full]</code></pre>
       <section class="resources">
         <h2>Documentation</h2>
         <ul class="link-list">
-          <li><a href="https://github.com/hiddenpath/ai-lib-python">Full README on GitHub</a></li>
+          <li><a href="https://github.com/ailib-official/ai-lib-python">Full README on GitHub</a></li>
           <li><a href="https://pypi.org/project/ai-lib-python/">PyPI Package Page</a></li>
           <li><a href="/python/features/">Feature Guide</a></li>
         </ul>

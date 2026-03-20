@@ -306,7 +306,7 @@ const comparisons = [
   </p>
 
   <div class="cta-group">
-    <a href="https://github.com/hiddenpath/ai-protocol" target="_blank" class="btn primary">
+    <a href="https://github.com/ailib-official/ai-protocol" target="_blank" class="btn primary">
       Protocol 文档 <svgIcon github />
     </a>
     <a href="/rust/quick-start/" class="btn secondary">
@@ -415,15 +415,15 @@ export const collections = {
 ### 官方仓库链接
 ```typescript
 const REPOS = {
-  protocol: 'https://github.com/hiddenpath/ai-protocol',
-  rust: 'https://github.com/hiddenpath/ai-lib-rust',
-  python: 'https://github.com/hiddenpath/ai-lib-python',
+  protocol: 'https://github.com/ailib-official/ai-protocol',
+  rust: 'https://github.com/ailib-official/ai-lib-rust',
+  python: 'https://github.com/ailib-official/ai-lib-python',
 };
 
 const DOCS = {
-  protocol: 'https://github.com/hiddenpath/ai-protocol/tree/main/docs',
-  rust: 'https://github.com/hiddenpath/ai-lib-rust/tree/main/docs',
-  python: 'https://github.com/hiddenpath/ai-lib-python/blob/main/README.md',
+  protocol: 'https://github.com/ailib-official/ai-protocol/tree/main/docs',
+  rust: 'https://github.com/ailib-official/ai-lib-rust/tree/main/docs',
+  python: 'https://github.com/ailib-official/ai-lib-python/blob/main/README.md',
 };
 
 const PACKAGES = {

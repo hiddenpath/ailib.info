@@ -138,7 +138,7 @@
 ### 1. 导航栏
 - ✅ 三项目链接正确：`/protocol/`, `/rust/`, `/python/`
 - ✅ 语言切换正确：`/` <-> `/zh/`
-- ✅ GitHub 链接更新到 `https://github.com/hiddenpath/ai-protocol`
+- ✅ GitHub 链接更新到 `https://github.com/ailib-official/ai-protocol`
 - ✅ 移除 Contacts/Support 链接
 
 ### 2. Hero 组件

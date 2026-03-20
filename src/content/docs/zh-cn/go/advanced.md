@@ -12,7 +12,7 @@ description: ai-lib-go v0.5.0 中的 embeddings、缓存、批处理、插件、
 生成并处理向量 embedding：
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/embeddings"
+import "github.com/ailib-official/ai-lib-go/embeddings"
 
 // 创建 embedding 客户端
 client, err := embeddings.NewEmbeddingClient(ctx, "openai/text-embedding-3-small", nil)
@@ -42,7 +42,7 @@ fmt.Printf("Go vs Python 相似度: %.3f\n", sim)
 缓存响应以降低成本和延迟：
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/cache"
+import "github.com/ailib-official/ai-lib-go/cache"
 
 // 配置缓存管理器
 mgr := cache.NewCacheManager(cache.NewMemoryCache(), 3600 * time.Second)
@@ -64,7 +64,7 @@ resp2, _ := aiClient.Chat().Model("gpt-4o").User("2+2 等于几？").Execute(ctx
 高效执行多个请求：
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/batch"
+import "github.com/ailib-official/ai-lib-go/batch"
 
 executor := batch.NewBatchExecutor(5, 30 * time.Second)
 
@@ -89,7 +89,7 @@ for _, res := range results {
 估算 token 使用量与成本：
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/tokens"
+import "github.com/ailib-official/ai-lib-go/tokens"
 
 counter := tokens.GetCounterForModel("gpt-4o")
 count := counter.Count("你好，最近怎么样？")
@@ -105,7 +105,7 @@ fmt.Printf("估算成本: $%.4f\n", cost)
 使用自定义插件扩展客户端：
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/plugins"
+import "github.com/ailib-official/ai-lib-go/plugins"
 
 type LoggingPlugin struct{}
 
@@ -125,7 +125,7 @@ aiClient.RegisterPlugin(&LoggingPlugin{})
 内容过滤与安全：
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/guardrails"
+import "github.com/ailib-official/ai-lib-go/guardrails"
 
 config := guardrails.NewConfig().
     AddFilter(guardrails.NewKeywordFilter([]string{"不安全词汇"})).
@@ -139,7 +139,7 @@ aiClient.SetGuardrails(config)
 智能模型路由：
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/routing"
+import "github.com/ailib-official/ai-lib-go/routing"
 
 manager := routing.NewModelManager().
     AddModel("openai/gpt-4o", 0.7).
@@ -152,7 +152,7 @@ manager := routing.NewModelManager().
 请求/响应拦截：
 
 ```go
-import "github.com/hiddenpath/ai-lib-go/interceptors"
+import "github.com/ailib-official/ai-lib-go/interceptors"
 
 pipeline := interceptors.NewPipeline().
     Add(&LoggingInterceptor{}).

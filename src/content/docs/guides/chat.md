@@ -145,7 +145,7 @@ await client.chat().messages(messages).execute();
 
 ```go
 // Go
-import "github.com/hiddenpath/ai-protocol/pkg/ailib"
+import "github.com/ailib-official/ai-protocol/pkg/ailib"
 
 messages := []ailib.Message{
   ailib.NewSystemMessage("You are a tutor."),
