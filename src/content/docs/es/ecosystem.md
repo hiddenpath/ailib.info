@@ -5,7 +5,7 @@ description: Cómo AI-Protocol, ai-lib-rust, ai-lib-python, ai-lib-ts y ai-lib-g
 
 # Arquitectura del ecosistema
 
-El ecosistema AI-Lib se basa en una arquitectura limpia de tres capas donde cada capa tiene una responsabilidad distinta. Versiones actuales: **AI-Protocol v0.8.3**, **ai-lib-rust v0.9.3**, **ai-lib-python v0.8.3**, **ai-lib-ts v0.5.3**, **ai-lib-go v0.0.1**, **ai-protocol-mock v0.1.11**.
+El ecosistema AI-Lib se basa en una arquitectura limpia de tres capas donde cada capa tiene una responsabilidad distinta. Versiones actuales: **AI-Protocol v0.8.4** (`@ailib-official/ai-protocol`), **ai-lib-rust v0.9.4**, **ai-lib-python v0.8.3**, **ai-lib-ts v0.5.3**, **ai-lib-go v0.5.1**, **ai-protocol-mock v0.1.11**.
 
 ## Las tres capas
 
@@ -73,7 +73,7 @@ Los tres runtimes buscan manifiestos del protocolo en este orden:
 1. **Ruta personalizada** — Establecida explícitamente en el constructor
 2. **Variable de entorno** — `AI_PROTOCOL_DIR` o `AI_PROTOCOL_PATH`
 3. **Rutas relativas** — `ai-protocol/` o `../ai-protocol/` desde el directorio de trabajo
-4. **Respaldo GitHub** — Descarga desde el repositorio `hiddenpath/ai-protocol`
+4. **Respaldo GitHub** — Descarga desde el repositorio `ailib-official/ai-protocol`
 
 Esto significa que puede comenzar a desarrollar sin ninguna configuración local — los tiempos de ejecución obtendrán los manifiestos de GitHub automáticamente.
 

@@ -23,11 +23,11 @@ AI-Lib は別のアプローチを取ります：
 
 | プロジェクト                  | 役割           | 言語       | バージョン | 配布                                                             |
 | ----------------------------- | -------------- | ---------- | ---------- | ---------------------------------------------------------------- |
-| **[AI-Protocol](/protocol/)** | 仕様レイヤー   | YAML/JSON  | v0.8.3     | GitHub                                                           |
-| **[ai-lib-rust](/rust/)**     | ランタイム実装 | Rust       | v0.9.3     | [Crates.io](https://crates.io/crates/ai-lib-rust)                |
+| **[AI-Protocol](/protocol/)** | 仕様レイヤー   | YAML/JSON  | v0.8.4     | [npm](https://www.npmjs.com/package/@ailib-official/ai-protocol) · GitHub |
+| **[ai-lib-rust](/rust/)**     | ランタイム実装 | Rust       | v0.9.4     | [Crates.io](https://crates.io/crates/ai-lib-rust)                |
 | **[ai-lib-python](/python/)** | ランタイム実装 | Python     | v0.8.3     | [PyPI](https://pypi.org/project/ai-lib-python/)                  |
-| **[ai-lib-ts](/ts/)**         | ランタイム実装 | TypeScript | v0.5.3     | [npm](https://www.npmjs.com/package/@hiddenpath/ai-lib-ts)       |
-| **ai-lib-go**                 | ランタイム実装 | Go         | v0.0.1     | [Go Modules](https://pkg.go.dev/github.com/ailib-official/ai-lib-go) |
+| **[ai-lib-ts](/ts/)**         | ランタイム実装 | TypeScript | v0.5.3     | [npm](https://www.npmjs.com/package/@ailib-official/ai-lib-ts)       |
+| **ai-lib-go**                 | ランタイム実装 | Go         | v0.5.1     | [Go Modules](https://pkg.go.dev/github.com/ailib-official/ai-lib-go) |
 | **ai-protocol-mock**          | mock/テスト層  | Python     | v0.1.11    | [PyPI](https://pypi.org/project/ai-protocol-mock/)               |
 
 現在のリリースでは V2 能力に加えて、`drift`、`manifest-consumption`、`compliance-matrix`、`fullchain`、`release-gate` の実行ガバナンス・ゲートが統合され、`--report-only` で段階導入できます。

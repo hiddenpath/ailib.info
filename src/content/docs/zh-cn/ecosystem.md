@@ -5,7 +5,7 @@ description: AI-Protocol、ai-lib-rust、ai-lib-python、ai-lib-ts 与 ai-lib-go
 
 # 生态系统架构
 
-AI-Lib 生态系统建立在清晰的三层架构之上，每一层都有明确的职责。当前版本：**AI-Protocol v0.8.3**、**ai-lib-rust v0.9.3**、**ai-lib-python v0.8.3**、**ai-lib-ts v0.5.3**、**ai-lib-go v0.0.1**、**ai-protocol-mock v0.1.11**。
+AI-Lib 生态系统建立在清晰的三层架构之上，每一层都有明确的职责。当前版本：**AI-Protocol v0.8.4**（`@ailib-official/ai-protocol`）、**ai-lib-rust v0.9.4**、**ai-lib-python v0.8.3**、**ai-lib-ts v0.5.3**、**ai-lib-go v0.5.1**、**ai-protocol-mock v0.1.11**。
 
 ## 三层架构
 
@@ -73,7 +73,7 @@ Your App → AiClient → Protocol Manifest → Provider API
 1. **自定义路径** — 在构建器中显式设置
 2. **环境变量** — `AI_PROTOCOL_DIR` 或 `AI_PROTOCOL_PATH`
 3. **相对路径** — 工作目录下的 `ai-protocol/` 或 `../ai-protocol/`
-4. **GitHub 回退** — 从 `hiddenpath/ai-protocol` 仓库下载
+4. **GitHub 回退** — 从 `ailib-official/ai-protocol` 仓库下载
 
 这意味着您可以在无本地配置的情况下开始开发 —— 运行时会自动从 GitHub 获取清单。
 

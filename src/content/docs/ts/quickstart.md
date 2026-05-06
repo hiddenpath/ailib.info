@@ -8,20 +8,20 @@ description: Get up and running with ai-lib-ts in minutes.
 ## Installation
 
 ```bash
-npm install @hiddenpath/ai-lib-ts
+npm install @ailib-official/ai-lib-ts
 
 # or
-yarn add @hiddenpath/ai-lib-ts
+yarn add @ailib-official/ai-lib-ts
 
 # or
-pnpm add @hiddenpath/ai-lib-ts
+pnpm add @ailib-official/ai-lib-ts
 ```
 
 ## Configuration
 
 The library automatically looks for protocol manifests in these locations:
 
-1. `node_modules/ai-protocol/dist` or `node_modules/@hiddenpath/ai-protocol/dist`
+1. `node_modules/@ailib-official/ai-protocol/dist` (install: `npm i @ailib-official/ai-protocol`), or legacy `node_modules/ai-protocol/dist` / `node_modules/@hiddenpath/ai-protocol/dist`
 2. `../ai-protocol/dist` or `./protocols`
 
 ### Provider API Keys
@@ -37,7 +37,7 @@ export DEEPSEEK_API_KEY="..."
 ## Basic Chat
 
 ```typescript
-import { AiClient, Message } from '@hiddenpath/ai-lib-ts';
+import { AiClient, Message } from '@ailib-official/ai-lib-ts';
 
 const client = await AiClient.new('deepseek/deepseek-chat');
 
@@ -56,7 +56,7 @@ console.log(response.content);
 ## Streaming
 
 ```typescript
-import { AiClient, Message } from '@hiddenpath/ai-lib-ts';
+import { AiClient, Message } from '@ailib-official/ai-lib-ts';
 
 const client = await AiClient.new('anthropic/claude-3-5-sonnet');
 
@@ -75,7 +75,7 @@ for await (const event of stream) {
 ## Tool Calling
 
 ```typescript
-import { AiClient, Message, Tool } from '@hiddenpath/ai-lib-ts';
+import { AiClient, Message, Tool } from '@ailib-official/ai-lib-ts';
 
 const client = await AiClient.new('openai/gpt-4o');
 
@@ -106,7 +106,7 @@ if (response.toolCalls) {
 ## Multi-turn Conversation
 
 ```typescript
-import { AiClient, Message } from '@hiddenpath/ai-lib-ts';
+import { AiClient, Message } from '@ailib-official/ai-lib-ts';
 
 const client = await AiClient.new('anthropic/claude-3-5-sonnet');
 

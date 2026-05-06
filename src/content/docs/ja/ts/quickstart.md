@@ -8,20 +8,20 @@ description: 数分钟内上手 ai-lib-ts。
 ## インサ安装
 
 ```bash
-npm install @hiddenpath/ai-lib-ts
+npm install @ailib-official/ai-lib-ts
 
 # 或
-yarn add @hiddenpath/ai-lib-ts
+yarn add @ailib-official/ai-lib-ts
 
 # 或
-pnpm add @hiddenpath/ai-lib-ts
+pnpm add @ailib-official/ai-lib-ts
 ```
 
 ## 訽置
 
 库会自动在以下位置查找协议清单：
 
-1. `node_modules/ai-protocol/dist` 或 `node_modules/@hiddenpath/ai-protocol/dist`
+1. `node_modules/@ailib-official/ai-protocol/dist`（`npm i @ailib-official/ai-protocol`）、または従来の `node_modules/ai-protocol/dist` / `node_modules/@hiddenpath/ai-protocol/dist`
 2. `../ai-protocol/dist`、 `./protocols`
 
 ### Provider API 寊钥钥
@@ -37,7 +37,7 @@ export DEEPSEEK_API_KEY="..."
 ## 崚本聊天
 
 ```typescript
-import { AiClient, Message } from '@hiddenpath/ai-lib-ts';
+import { AiClient, Message } from '@ailib-official/ai-lib-ts';
 
 const client = await AiClient.new('deepseek/deepseek-chat');
 

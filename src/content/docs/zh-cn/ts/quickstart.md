@@ -8,20 +8,20 @@ description: 数分钟内上手 ai-lib-ts。
 ## 安装
 
 ```bash
-npm install @hiddenpath/ai-lib-ts
+npm install @ailib-official/ai-lib-ts
 
 # 或
-yarn add @hiddenpath/ai-lib-ts
+yarn add @ailib-official/ai-lib-ts
 
 # 或
-pnpm add @hiddenpath/ai-lib-ts
+pnpm add @ailib-official/ai-lib-ts
 ```
 
 ## 配置
 
 库会自动在以下位置查找协议清单：
 
-1. `node_modules/ai-protocol/dist` 或 `node_modules/@hiddenpath/ai-protocol/dist`
+1. `node_modules/@ailib-official/ai-protocol/dist`（安装：`npm i @ailib-official/ai-protocol`），或旧版路径 `node_modules/ai-protocol/dist`、`node_modules/@hiddenpath/ai-protocol/dist`
 2. `../ai-protocol/dist` 或 `./protocols`
 
 ### Provider API 密钥
@@ -37,7 +37,7 @@ export DEEPSEEK_API_KEY="..."
 ## 基本聊天
 
 ```typescript
-import { AiClient, Message } from '@hiddenpath/ai-lib-ts';
+import { AiClient, Message } from '@ailib-official/ai-lib-ts';
 
 const client = await AiClient.new('deepseek/deepseek-chat');
 
@@ -53,7 +53,7 @@ console.log(response.content);
 ## 流式输出
 
 ```typescript
-import { AiClient, Message } from '@hiddenpath/ai-lib-ts';
+import { AiClient, Message } from '@ailib-official/ai-lib-ts';
 
 const client = await AiClient.new('anthropic/claude-3-5-sonnet');
 
@@ -72,7 +72,7 @@ for await (const event of stream) {
 ## 工具调用
 
 ```typescript
-import { AiClient, Message, Tool } from '@hiddenpath/ai-lib-ts';
+import { AiClient, Message, Tool } from '@ailib-official/ai-lib-ts';
 
 const client = await AiClient.new('openai/gpt-4o');
 
@@ -103,7 +103,7 @@ if (response.toolCalls) {
 ## 多轮对话
 
 ```typescript
-import { AiClient, Message } from '@hiddenpath/ai-lib-ts';
+import { AiClient, Message } from '@ailib-official/ai-lib-ts';
 
 const client = await AiClient.new('anthropic/claude-3-5-sonnet');
 
