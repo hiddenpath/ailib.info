@@ -1,6 +1,6 @@
 ---
 title: Inicio rÃ¡pido
-description: Comience con AI-Lib en menos de 5 minutos â€?elija Rust o Python.
+description: Comience con AI-Lib en menos de 5 minutos â€” elija Rust o Python.
 ---
 
 # Inicio rÃ¡pido
@@ -36,7 +36,7 @@ use futures::StreamExt;
 
 #[tokio::main]
 async fn main() -> ai_lib_rust::Result<()> {
-    // Create client â€?protocol manifest is loaded automatically
+    // Create client â€” protocol manifest is loaded automatically
     let client = AiClient::new("anthropic/claude-3-5-sonnet").await?;
 
     // Streaming chat
@@ -86,7 +86,7 @@ import asyncio
 from ai_lib_python import AiClient
 
 async def main():
-    # Create client â€?protocol manifest loaded automatically
+    # Create client â€” protocol manifest loaded automatically
     client = await AiClient.create("anthropic/claude-3-5-sonnet")
 
     # Streaming chat
@@ -113,14 +113,14 @@ python main.py
 La magia de AI-Lib: cambie una cadena para cambiar de proveedor.
 
 ```rust
-// Rust â€?just change the model ID
+// Rust â€” just change the model ID
 let client = AiClient::new("openai/gpt-4o").await?;
 let client = AiClient::new("deepseek/deepseek-chat").await?;
 let client = AiClient::new("gemini/gemini-2.0-flash").await?;
 ```
 
 ```python
-# Python â€?same thing
+# Python â€” same thing
 client = await AiClient.create("openai/gpt-4o")
 client = await AiClient.create("deepseek/deepseek-chat")
 client = await AiClient.create("gemini/gemini-2.0-flash")
@@ -130,8 +130,8 @@ No se necesitan cambios de cÃ³digo. El manifiesto del protocolo maneja endpoint,
 
 ## PrÃ³ximos pasos
 
-- **[Arquitectura del ecosistema](/ecosystem/)** â€?CÃ³mo encajan las piezas
-- **[GuÃ­a de Chat Completions](/guides/chat/)** â€?Uso detallado de la API de chat
-- **[Llamadas a funciones](/guides/tools/)** â€?Uso de herramientas y llamadas a funciones
-- **[Detalles del SDK Rust](/rust/overview/)** â€?Profundice en Rust
-- **[Detalles del SDK Python](/python/overview/)** â€?Profundice en Python
+- **[Arquitectura del ecosistema](/ecosystem/)** â€” CÃ³mo encajan las piezas
+- **[GuÃ­a de Chat Completions](/guides/chat/)** â€” Uso detallado de la API de chat
+- **[Llamadas a funciones](/guides/tools/)** â€” Uso de herramientas y llamadas a funciones
+- **[Detalles del SDK Rust](/rust/overview/)** â€” Profundice en Rust
+- **[Detalles del SDK Python](/python/overview/)** â€” Profundice en Python
