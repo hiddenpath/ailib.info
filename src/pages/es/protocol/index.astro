@@ -35,7 +35,7 @@ const locale = 'es';
             <div
               class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-6"
             >
-              Especificación v0.8.1 &middot; 37 Proveedores
+              Especificación v1.0.0 &middot; 37 Proveedores
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.05]">
               <span class="text-[var(--text)]">La</span>
@@ -47,7 +47,7 @@ const locale = 'es';
               AI-Protocol separa "qué hacer" de "cómo hacerlo". La especificación V2 utiliza una
               arquitectura de tres capas: Protocolo Principal &rarr; Extensiones de Capacidad &rarr;
               Perfil de Entorno. Los manifiestos de proveedores declaran endpoints, autenticación,
-              mapeos de parámetros, decodificadores de streaming y manejo de errores — todo en YAML,
+              mapeos de parámetros, decodificadores de streaming y manejo de errores �?todo en YAML,
               todo validado por JSON Schema.
             </p>
             <div class="flex flex-wrap gap-4">
@@ -140,7 +140,7 @@ const locale = 'es';
               <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Un Manifiesto de Proveedor</h2>
               <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
                 Cada proveedor se describe mediante un manifiesto YAML. Declara todo lo que un
-                runtime necesita para comunicarse con el proveedor — endpoint, autenticación, mapeo
+                runtime necesita para comunicarse con el proveedor �?endpoint, autenticación, mapeo
                 de parámetros, decodificador de streaming, manejo de errores y capacidades.
               </p>
               <p class="text-[var(--text-dim)] mb-4 leading-relaxed">
@@ -161,7 +161,7 @@ const locale = 'es';
                     ></path></svg
                   >
                   <span class="text-sm text-[var(--text-dim)]"
-                    ><strong class="text-[var(--text)]">Endpoint y Auth</strong> — URL base, protocolo,
+                    ><strong class="text-[var(--text)]">Endpoint y Auth</strong> �?URL base, protocolo,
                     tokens bearer, cabeceras de API key</span
                   >
                 </li>
@@ -176,7 +176,7 @@ const locale = 'es';
                     ></path></svg
                   >
                   <span class="text-sm text-[var(--text-dim)]"
-                    ><strong class="text-[var(--text)]">Mapeo de Parámetros</strong> — Nombres estándar
+                    ><strong class="text-[var(--text)]">Mapeo de Parámetros</strong> �?Nombres estándar
                     a campos JSON específicos del proveedor</span
                   >
                 </li>
@@ -191,7 +191,7 @@ const locale = 'es';
                     ></path></svg
                   >
                   <span class="text-sm text-[var(--text-dim)]"
-                    ><strong class="text-[var(--text)]">Decodificador de Streaming</strong> — Formato
+                    ><strong class="text-[var(--text)]">Decodificador de Streaming</strong> �?Formato
                     SSE/NDJSON, reglas de extracción de eventos JSONPath</span
                   >
                 </li>
@@ -206,7 +206,7 @@ const locale = 'es';
                     ></path></svg
                   >
                   <span class="text-sm text-[var(--text-dim)]"
-                    ><strong class="text-[var(--text)]">Clasificación de Errores</strong> — Códigos de
+                    ><strong class="text-[var(--text)]">Clasificación de Errores</strong> �?Códigos de
                     estado HTTP a 13 tipos de error estándar</span
                   >
                 </li>
@@ -215,7 +215,7 @@ const locale = 'es';
             <div>
               <pre
                 class="text-sm !bg-[#0d1117] !border-purple-500/20"><code class="language-yaml"><span style="color:#7ee787">id</span>: anthropic
-<span style="color:#7ee787">protocol_version</span>: <span style="color:#a5d6ff">"0.7.0"</span>
+<span style="color:#7ee787">protocol_version</span>: <span style="color:#a5d6ff">"1.0.0"</span>
 <span style="color:#7ee787">endpoint</span>:
   <span style="color:#7ee787">base_url</span>: <span style="color:#a5d6ff">"https://api.anthropic.com/v1"</span>
   <span style="color:#7ee787">chat_path</span>: <span style="color:#a5d6ff">"/messages"</span>

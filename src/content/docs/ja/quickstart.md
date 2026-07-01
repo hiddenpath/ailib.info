@@ -70,7 +70,7 @@ cargo run
 ### 1. パッケージをインストールする
 
 ```bash
-pip install ai-lib-python>=0.8.6
+pip install ai-lib-python>=1.0.0
 ```
 
 ### 2. API キーを設定する

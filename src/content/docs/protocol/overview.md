@@ -1,6 +1,6 @@
 ---
 title: AI-Protocol Overview
-description: Understanding the AI-Protocol specification — the provider-agnostic foundation of the AI-Lib ecosystem.
+description: Understanding the AI-Protocol specification �?the provider-agnostic foundation of the AI-Lib ecosystem.
 ---
 
 # AI-Protocol Overview
@@ -11,42 +11,42 @@ AI-Protocol is a **provider-agnostic specification** that standardizes interacti
 
 > **All logic is operators, all configuration is protocol.**
 
-Every piece of provider-specific behavior — endpoints, authentication, parameter names, streaming formats, error codes — is declared in YAML configuration files. Runtime implementations contain **zero hardcoded provider logic**.
+Every piece of provider-specific behavior �?endpoints, authentication, parameter names, streaming formats, error codes �?is declared in YAML configuration files. Runtime implementations contain **zero hardcoded provider logic**.
 
 ## What's in the Repository
 
 ```
 ai-protocol/
 ├── v1/
-│   ├── spec.yaml            # V1 core specification
-│   ├── providers/            # V1 provider manifests
-│   │   ├── openai.yaml
-│   │   ├── anthropic.yaml
-│   │   └── ...
-│   └── models/               # Model instance registry
+�?  ├── spec.yaml            # V1 core specification
+�?  ├── providers/            # V1 provider manifests
+�?  �?  ├── openai.yaml
+�?  �?  ├── anthropic.yaml
+�?  �?  └── ...
+�?  └── models/               # Model instance registry
 ├── v2/
-│   └── providers/            # V2 provider manifests (P0 generative set)
-│       ├── openai.yaml       # Ring 1/2/3 + MCP/CU/MM declarations
-│       ├── anthropic.yaml
-│       ├── gemini.yaml
-│       ├── deepseek.yaml
-│       ├── moonshot.yaml
-│       └── zhipu.yaml
+�?  └── providers/            # V2 provider manifests (P0 generative set)
+�?      ├── openai.yaml       # Ring 1/2/3 + MCP/CU/MM declarations
+�?      ├── anthropic.yaml
+�?      ├── gemini.yaml
+�?      ├── deepseek.yaml
+�?      ├── moonshot.yaml
+�?      └── zhipu.yaml
 ├── v2-alpha/
-│   └── spec.yaml             # V2 specification (3 layers + 3 modules)
+�?  └── spec.yaml             # V2 specification (3 layers + 3 modules)
 ├── schemas/
-│   ├── v1.json               # V1 schema
-│   ├── v2/
-│   │   ├── provider.json     # V2 provider manifest schema
-│   │   ├── provider-contract.json  # ProviderContract schema
-│   │   ├── mcp.json          # MCP integration schema
-│   │   ├── computer-use.json # Computer Use schema
-│   │   ├── multimodal.json   # Extended multimodal schema
-│   │   └── context-policy.json # Context management schema
-│   └── spec.json
+�?  ├── v1.json               # V1 schema
+�?  ├── v2/
+�?  �?  ├── provider.json     # V2 provider manifest schema
+�?  �?  ├── provider-contract.json  # ProviderContract schema
+�?  �?  ├── mcp.json          # MCP integration schema
+�?  �?  ├── computer-use.json # Computer Use schema
+�?  �?  ├── multimodal.json   # Extended multimodal schema
+�?  �?  └── context-policy.json # Context management schema
+�?  └── spec.json
 ├── docs/
-│   ├── V2_ARCHITECTURE.md    # V2 architecture document (v1.0)
-│   └── V2_MIGRATION_GUIDE.md # V1 → V2 migration guide
+�?  ├── V2_ARCHITECTURE.md    # V2 architecture document (v1.0)
+�?  └── V2_MIGRATION_GUIDE.md # V1 �?V2 migration guide
 ├── dist/                     # Pre-compiled JSON (generated)
 ├── scripts/                  # Build & validation tools
 └── work/                     # Working documents & research
@@ -60,9 +60,9 @@ Each provider has a YAML manifest declaring everything a runtime needs:
 | ---------------------- | ----------------------------------------------------------- |
 | `endpoint`             | Base URL, chat path, protocol                               |
 | `auth`                 | Authentication type, token env var, headers                 |
-| `parameter_mappings`   | Standard → provider-specific parameter names                |
+| `parameter_mappings`   | Standard �?provider-specific parameter names                |
 | `streaming`            | Decoder format (SSE/NDJSON), event mapping rules (JSONPath) |
-| `error_classification` | HTTP status → standard error types                          |
+| `error_classification` | HTTP status �?standard error types                          |
 | `retry_policy`         | Strategy, delays, retry conditions                          |
 | `rate_limit_headers`   | Header names for rate limit information                     |
 | `capabilities`         | Feature flags (streaming, tools, vision, reasoning)         |
@@ -129,32 +129,32 @@ All manifests are validated against JSON Schema (2020-12) using AJV. CI pipeline
 
 ```bash
 npm run validate    # Validate all configurations
-npm run build       # Compile YAML → JSON
+npm run build       # Compile YAML �?JSON
 ```
 
 ## Versioning
 
 AI-Protocol uses layered versioning:
 
-1. **Spec version** (`v1/spec.yaml`) — Schema structure version.
-2. **Protocol version** (in manifests) — Protocol features used by each manifest (`1.x` / `2.x`).
-3. **Release version** (`package.json`) — SemVer for the specification package (current: **v0.8.2**).
+1. **Spec version** (`v1/spec.yaml`) �?Schema structure version.
+2. **Protocol version** (in manifests) �?Protocol features used by each manifest (`1.x` / `2.x`).
+3. **Release version** (`package.json`) �?SemVer for the specification package (current: **v1.0.0**).
 
 ## V2 Protocol Architecture
 
-Protocol evolution through **v0.8.2** delivers the full **V2 architecture** plus execution governance gates for release readiness.
+Protocol evolution through **v1.0.0** delivers the full **V2 architecture** plus execution governance gates for release readiness.
 
 ### Three-Layer Pyramid
 
-- **L1 Core Protocol** — Message format, standard error codes (E1001–E9999), version declaration. All providers must implement this layer.
-- **L2 Capability Extensions** — Streaming, vision, tools, MCP, Computer Use, multimodal. Each extension is controlled by feature flags; providers opt in per capability.
-- **L3 Environment Profile** — API keys, endpoints, retry policies. Environment-specific configuration that can be overridden without changing provider logic.
+- **L1 Core Protocol** �?Message format, standard error codes (E1001–E9999), version declaration. All providers must implement this layer.
+- **L2 Capability Extensions** �?Streaming, vision, tools, MCP, Computer Use, multimodal. Each extension is controlled by feature flags; providers opt in per capability.
+- **L3 Environment Profile** �?API keys, endpoints, retry policies. Environment-specific configuration that can be overridden without changing provider logic.
 
 ### Concentric Circle Manifest Model
 
-- **Ring 1 Core Skeleton** (required) — Minimal fields for a valid manifest: endpoint, auth, parameter mappings, model list
-- **Ring 2 Capability Mapping** (conditional) — Streaming config, tools mapping, MCP integration, Computer Use actions — present when the provider supports them
-- **Ring 3 Advanced Extensions** (optional) — Custom headers, rate limit headers, context management policies, advanced retry
+- **Ring 1 Core Skeleton** (required) �?Minimal fields for a valid manifest: endpoint, auth, parameter mappings, model list
+- **Ring 2 Capability Mapping** (conditional) �?Streaming config, tools mapping, MCP integration, Computer Use actions �?present when the provider supports them
+- **Ring 3 Advanced Extensions** (optional) �?Custom headers, rate limit headers, context management policies, advanced retry
 
 ### V2 Providers
 
@@ -173,12 +173,12 @@ V2 manifests remain backward-compatible with V1 loading paths in runtimes, while
 
 ### ProviderContract
 
-V2 introduces the **ProviderContract** schema — a formal declaration of each provider's API characteristics:
+V2 introduces the **ProviderContract** schema �?a formal declaration of each provider's API characteristics:
 
-- **API Style** — `OpenAiCompatible`, `AnthropicMessages`, `GeminiGenerate`, or `Custom`
-- **Capability Matrix** — Which capabilities the provider supports and their configuration
-- **Action Mapping** — How standard actions map to provider-specific API calls
-- **Degradation Strategy** — Fallback behavior when capabilities are unavailable
+- **API Style** �?`OpenAiCompatible`, `AnthropicMessages`, `GeminiGenerate`, or `Custom`
+- **Capability Matrix** �?Which capabilities the provider supports and their configuration
+- **Action Mapping** �?How standard actions map to provider-specific API calls
+- **Degradation Strategy** �?Fallback behavior when capabilities are unavailable
 
 ### V2 Schema Suite
 
@@ -226,7 +226,7 @@ Each gate supports `--report-only` mode for advisory rollout before strict block
 
 ## Next Steps
 
-- **[Specification Details](/protocol/spec/)** — Core spec deep dive
-- **[Provider Manifests](/protocol/providers/)** — How manifests work
-- **[Model Registry](/protocol/models/)** — Model configuration
-- **[Contributing Providers](/protocol/contributing/)** — Add a new provider
+- **[Specification Details](/protocol/spec/)** �?Core spec deep dive
+- **[Provider Manifests](/protocol/providers/)** �?How manifests work
+- **[Model Registry](/protocol/models/)** �?Model configuration
+- **[Contributing Providers](/protocol/contributing/)** �?Add a new provider

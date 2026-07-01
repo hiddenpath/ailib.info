@@ -17,7 +17,7 @@ const locale = 'es';
     <title>AI-Lib | Un protocolo, todos los proveedores de IA</title>
     <meta
       name="description"
-      content="AI-Lib es un ecosistema de código abierto que estandariza las interacciones con modelos de IA. Cuatro runtimes (Rust, Python, TypeScript, Go) con MCP, STT/TTS/Rerank y multimodal — 37+ proveedores."
+      content="AI-Lib es un ecosistema de código abierto que estandariza las interacciones con modelos de IA. Cuatro runtimes (Rust, Python, TypeScript, Go) con MCP, STT/TTS/Rerank y multimodal �?37+ proveedores."
     />
     <meta name="keywords" content="AI, LLM, OpenAI, Anthropic, Gemini, Claude, GPT, aprendizaje automático, inteligencia artificial, SDK, Rust, Python, TypeScript, Go, MCP, multimodal" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -52,9 +52,9 @@ const locale = 'es';
             <ProjectCard
               locale={locale}
               variant="protocol"
-              version="0.8.4"
+              version="1.0.0"
               title="AI-Protocol"
-              description="Especificación V2 con manifiestos de tres anillos, MCP, Computer Use y multimodal — sin lógica hardcodeada."
+              description="Especificación V2 con manifiestos de tres anillos, MCP, Computer Use y multimodal �?sin lógica hardcodeada."
               features={[
                 '37+ manifiestos (10 V2 + 27 V1)',
                 'Arquitectura de pirámide de tres anillos V2',
@@ -71,7 +71,7 @@ const locale = 'es';
             <ProjectCard
               locale={locale}
               variant="rust"
-              version="0.9.6"
+              version="1.0.0"
               title="ai-lib-rust"
               description="Runtime Rust de alto rendimiento. Códigos de error estándar V2, flags de características, pipeline de streaming basado en operadores, seguridad en tiempo de compilación y sobrecarga submilisegundo."
               features={[
@@ -89,7 +89,7 @@ const locale = 'es';
             <ProjectCard
               locale={locale}
               variant="python"
-              version="0.8.6"
+              version="1.0.0"
               title="ai-lib-python"
               description="Runtime Python amigable para desarrolladores. Códigos de error estándar V2, extras por capacidad, soporte async completo, tipos Pydantic v2 y telemetría de producción."
               features={[
@@ -107,7 +107,7 @@ const locale = 'es';
             <ProjectCard
               locale={locale}
               variant="ts"
-              version="0.5.3"
+              version="1.0.0"
               title="ai-lib-ts"
               description="Runtime TypeScript/Node.js para el ecosistema npm. Impulsado por protocolo, streaming-first, con Resilience, Routing, MCP y soporte multimodal."
               features={[
@@ -125,7 +125,7 @@ const locale = 'es';
             <ProjectCard
               locale={locale}
               variant="go"
-              version="0.6.0"
+              version="1.0.0"
               title="ai-lib-go"
               description="Runtime Go de alta concurrencia optimizado para despliegues en servidor. Asigna la especificación V2 a iteración de flujos estándar de manera impecable."
               features={[
@@ -147,7 +147,7 @@ const locale = 'es';
               <ProjectCard
                 locale={locale}
                 variant="mock"
-                version="0.1.11"
+                version="1.0.0"
                 title="ai-protocol-mock"
                 description="Servidor mock unificado para runtimes AI-Protocol. Mock HTTP (formatos OpenAI + Anthropic) y mock MCP JSON-RPC para pruebas de integración."
                 features={[
@@ -168,7 +168,7 @@ const locale = 'es';
           <div class="mt-12 pt-8 border-t border-[var(--border)]">
             <h3 class="text-lg font-semibold text-[var(--text)] mb-4">Proyectos de referencia</h3>
             <p class="text-sm text-[var(--text-dim)] mb-4 max-w-2xl">
-              Aplicaciones de referencia construidas sobre el ecosistema AI-Lib — ve el protocolo y
+              Aplicaciones de referencia construidas sobre el ecosistema AI-Lib �?ve el protocolo y
               los runtimes en acción.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -179,7 +179,7 @@ const locale = 'es';
                 title="AI Debate"
                 description="Arena de debate AI multi-modelo. Pro vs Con en cuatro rondas, luego un Juez emite el veredicto. Construido con ai-lib-rust y ai-protocol."
                 features={[
-                  'Flujo de debate en 4 rondas (Apertura → Refutación → Defensa → Cierre → Veredicto)',
+                  'Flujo de debate en 4 rondas (Apertura �?Refutación �?Defensa �?Cierre �?Veredicto)',
                   'Búsqueda web vía Tavily (opcional)',
                   'Multi-proveedor: DeepSeek, Zhipu, Groq, Mistral, OpenAI, Anthropic',
                   'Fallback automático, streaming SSE en tiempo real',
@@ -234,7 +234,7 @@ const locale = 'es';
             </h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
               «Toda la lógica son operadores, toda la configuración es protocolo.» Todo el
-              comportamiento del proveedor se declara en YAML — los runtimes contienen cero lógica
+              comportamiento del proveedor se declara en YAML �?los runtimes contienen cero lógica
               hardcodeada de proveedores.
             </p>
           </div>
@@ -261,7 +261,7 @@ const locale = 'es';
               <h3 class="text-lg font-bold text-[var(--text)] mb-2">Configuración declarativa</h3>
               <p class="text-sm text-[var(--text-dim)]">
                 Endpoints de proveedores, autenticación, mapeos de parámetros, decodificadores de
-                streaming y manejo de errores — todo declarado en manifiestos YAML, validado por
+                streaming y manejo de errores �?todo declarado en manifiestos YAML, validado por
                 JSON Schema.
               </p>
             </div>
@@ -331,7 +331,7 @@ const locale = 'es';
               Arquitectura del ecosistema
             </h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
-              Tres capas trabajando juntas — la especificación define las reglas, los runtimes las
+              Tres capas trabajando juntas �?la especificación define las reglas, los runtimes las
               ejecutan, las aplicaciones consumen interfaces unificadas.
             </p>
           </div>
@@ -345,7 +345,7 @@ const locale = 'es';
           <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">Cómo funciona</h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
-              Desde la petición del usuario hasta eventos de streaming unificados — cada paso es
+              Desde la petición del usuario hasta eventos de streaming unificados �?cada paso es
               impulsado por el protocolo.
             </p>
           </div>
@@ -451,8 +451,8 @@ const locale = 'es';
                   <td class="p-4 text-[var(--text-dim)]">Esquema computer-use.json</td>
                   <td class="p-4 text-[var(--text-dim)]">ComputerAction + SafetyPolicy</td>
                   <td class="p-4 text-[var(--text-dim)]">ComputerAction + SafetyPolicy</td>
-                  <td class="p-4 text-[var(--text-dim)]">—</td>
-                  <td class="p-4 text-[var(--text-dim)]">—</td>
+                  <td class="p-4 text-[var(--text-dim)]">�?/td>
+                  <td class="p-4 text-[var(--text-dim)]">�?/td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">Multimodal</td>
@@ -464,7 +464,7 @@ const locale = 'es';
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">Embeddings</td>
-                  <td class="p-4 text-[var(--text-dim)]">—</td>
+                  <td class="p-4 text-[var(--text-dim)]">�?/td>
                   <td class="p-4 text-[var(--text-dim)]">Operaciones vectoriales, similitud</td>
                   <td class="p-4 text-[var(--text-dim)]">Operaciones vectoriales, similitud</td>
                   <td class="p-4 text-[var(--text-dim)]">EmbeddingClient</td>

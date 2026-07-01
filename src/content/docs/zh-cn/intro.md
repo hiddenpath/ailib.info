@@ -21,12 +21,12 @@ AI-Lib 采用了不同的方法：
 
 ## 六个项目，一个生态系统
 
-- **ai-protocol** (v0.8.4)：与提供商无关的规范库（npm：`@ailib-official/ai-protocol`）。核心 schemas、V2 manifests 和验证工具。
-- **ai-lib-rust** (v0.9.6)：高性能 Rust 运行时，发布于 crates.io。
-- **ai-lib-python** (v0.8.6)：对开发者友好的 Python 运行时，发布于 PyPI。
-- **ai-lib-ts** (v0.5.3)： 面向 npm 生态的 TypeScript/Node.js 运行时。
-- **ai-lib-go** (v0.6.0)： 面向高并发的 Go 运行时，直接映射 V2 规范。
-- **ai-protocol-mock** (v0.1.11)：为所有运行时提供集成测试的统一 Mock 服务器。
+- **ai-protocol** (v1.0.0)：与提供商无关的规范库（npm：`@ailib-official/ai-protocol`）。核心 schemas、V2 manifests 和验证工具。
+- **ai-lib-rust** (v1.0.0)：高性能 Rust 运行时，发布于 crates.io。
+- **ai-lib-python** (v1.0.0)：对开发者友好的 Python 运行时，发布于 PyPI。
+- **ai-lib-ts** (v1.0.0)： 面向 npm 生态的 TypeScript/Node.js 运行时。
+- **ai-lib-go** (v1.0.0)： 面向高并发的 Go 运行时，直接映射 V2 规范。
+- **ai-protocol-mock** (v1.0.0)：为所有运行时提供集成测试的统一 Mock 服务器。
 
 当前发布周期在 V2 架构能力基础上，补齐了执行治理门禁：`drift`、`manifest-consumption`、`compliance-matrix`、`fullchain`、`release-gate`，并支持 `--report-only` 分级治理。
 
