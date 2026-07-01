@@ -5,7 +5,7 @@ description: AI-Protocol、ai-lib-rust、ai-lib-python、ai-lib-ts 与 ai-lib-go
 
 # 生态系统架构
 
-AI-Lib 生态系统建立在清晰的三层架构之上，每一层都有明确的职责。当前版本：**AI-Protocol v0.8.4**（`@ailib-official/ai-protocol`）、**ai-lib-rust v0.9.6**、**ai-lib-python v0.8.3**、**ai-lib-ts v0.5.3**、**ai-lib-go v0.6.0**、**ai-protocol-mock v0.1.11**。
+AI-Lib 生态系统建立在清晰的三层架构之上，每一层都有明确的职责。当前版本：**AI-Protocol v0.8.4**（`@ailib-official/ai-protocol`）、**ai-lib-rust v0.9.6**、**ai-lib-python v0.8.6**、**ai-lib-ts v0.5.3**、**ai-lib-go v0.6.0**、**ai-protocol-mock v0.1.11**。
 
 ## 三层架构
 
