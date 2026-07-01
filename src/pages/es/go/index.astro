@@ -35,7 +35,7 @@ const locale = 'es';
             <div
               class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-6"
             >
-              v0.0.1 &middot; Pkg.go.dev
+              v1.0.0 &middot; Pkg.go.dev
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.05]">
               <span class="gradient-text-rust">Runtime Rust</span>
@@ -74,7 +74,7 @@ const locale = 'es';
             <div class="bg-[#0d1117] border border-[var(--border)] rounded-lg p-4 max-w-lg">
               <div class="text-xs text-[var(--text-muted)] mb-2 font-mono">go get</div>
               <code class="text-sm text-orange-300 font-mono"
-                >go get github.com/ailib-official/ai-lib-go@"0.0.1"</code
+                >go get github.com/ailib-official/ai-lib-go@v1.0.0</code
               >
             </div>
           </div>
@@ -154,7 +154,7 @@ const locale = 'es';
               <h2 class="text-3xl font-bold text-[var(--text)] mb-4">API simple y unificada</h2>
               <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
                 El mismo código funciona con los 37 proveedores. Solo cambia el identificador del
-                modelo — el manifiesto de protocolo maneja todo lo demás: endpoint, autenticación,
+                modelo �?el manifiesto de protocolo maneja todo lo demás: endpoint, autenticación,
                 mapeo de parámetros, formato de streaming.
               </p>
               <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
@@ -167,7 +167,7 @@ const locale = 'es';
               <pre
                 class="text-sm !bg-[#0d1117] !border-orange-500/20"><code class="language-go"><span style="color:#ff7b72">use</span> ai_lib_rust::{'{'}AiClient, Message, StreamingEvent{'}'};
 
-<span style="color:#8b949e">// Works with ANY provider — protocol-driven</span>
+<span style="color:#8b949e">// Works with ANY provider �?protocol-driven</span>
 <span style="color:#ff7b72">let</span> client = AiClient::new(
     <span style="color:#a5d6ff">"anthropic/claude-3-5-sonnet"</span>
 ).<span style="color:#ff7b72">await</span>?;

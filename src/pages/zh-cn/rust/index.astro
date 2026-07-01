@@ -10,10 +10,10 @@ const locale = 'zh-cn';
 <html lang="zh-CN" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
-    <title>ai-lib-rust | AI-Protocol 高性能 Rust 运行时</title>
+    <title>ai-lib-rust | AI-Protocol 高性能 Rust 运行�?/title>
     <meta
       name="description"
-      content="ai-lib-rust 是 AI-Protocol 的高性能 Rust 运行时。基于算子的流式管道、编译时安全、亚毫秒级开销。"
+      content="ai-lib-rust �?AI-Protocol 的高性能 Rust 运行时。基于算子的流式管道、编译时安全、亚毫秒级开销�?
     />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" href="/favicon.svg" />
@@ -35,22 +35,22 @@ const locale = 'zh-cn';
             <div
               class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-6"
             >
-              v0.8.0 &middot; Crates.io
+              v1.0.0 &middot; Crates.io
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.05]">
-              <span class="gradient-text-rust">Rust 运行时</span>
+              <span class="gradient-text-rust">Rust 运行�?/span>
               <br />
-              <span class="text-[var(--text)]">适用于 AI-Protocol</span>
+              <span class="text-[var(--text)]">适用�?AI-Protocol</span>
             </h1>
             <p class="text-lg md:text-xl text-[var(--text-dim)] max-w-2xl mb-8 leading-relaxed">
-              高性能、协议驱动的 AI 客户端。V2 标准错误码（13 种）、特性标志（7 项 +
-              完整元特性）、零硬编码提供商逻辑、基于算子的流式管道、编译时类型安全、亚毫秒级开销。
+              高性能、协议驱动的 AI 客户端。V2 标准错误码（13 种）、特性标志（7 �?+
+              完整元特性）、零硬编码提供商逻辑、基于算子的流式管道、编译时类型安全、亚毫秒级开销�?
             </p>
             <div class="flex flex-wrap gap-4 mb-8">
               <a
                 href="/zh-cn/rust/quickstart/"
                 class="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-all hover:no-underline"
-                >快速入门</a
+                >快速入�?/a
               >
               <a
                 href="https://github.com/ailib-official/ai-lib-rust"
@@ -71,7 +71,7 @@ const locale = 'zh-cn';
             <!-- Quick install -->
             <div class="bg-[#0d1117] border border-[var(--border)] rounded-lg p-4 max-w-lg">
               <div class="text-xs text-[var(--text-muted)] mb-2 font-mono">Cargo.toml</div>
-              <code class="text-sm text-orange-300 font-mono">ai-lib = "0.8.0"</code>
+              <code class="text-sm text-orange-300 font-mono">ai-lib = "1.0.0"</code>
             </div>
           </div>
         </div>
@@ -80,53 +80,53 @@ const locale = 'zh-cn';
       <!-- Key Features -->
       <section class="section-alt">
         <div class="container">
-          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">核心特性</h2>
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">核心特�?/h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">V2 错误码与特性标志</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">V2 错误码与特性标�?/h3>
               <p class="text-sm text-[var(--text-dim)]">
-                13 种 V2 标准错误码，跨提供商统一错误处理。按特性门控的模块：7
-                个可选特性加完整元特性，支持最小或完整构建。
+                13 �?V2 标准错误码，跨提供商统一错误处理。按特性门控的模块�?
+                个可选特性加完整元特性，支持最小或完整构建�?
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">基于算子的管道</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">基于算子的管�?/h3>
               <p class="text-sm text-[var(--text-dim)]">
                 流式响应通过可组合算子：Decoder &rarr; Selector &rarr; Accumulator &rarr; FanOut
-                &rarr; EventMapper。各阶段由协议配置。
+                &rarr; EventMapper。各阶段由协议配置�?
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="font-bold text-[var(--text)] mb-2">协议加载</h3>
               <p class="text-sm text-[var(--text-dim)]">
                 从本地文件、环境变量或 GitHub
-                后备加载提供商清单。支持通过文件监听实现热重载。配置更新无需重启。
+                后备加载提供商清单。支持通过文件监听实现热重载。配置更新无需重启�?
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">弹性模式</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">弹性模�?/h3>
               <p class="text-sm text-[var(--text-dim)]">
-                内置熔断器、令牌桶限流、指数退避重试与最大并发背压。均可通过环境变量配置。
+                内置熔断器、令牌桶限流、指数退避重试与最大并发背压。均可通过环境变量配置�?
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">嵌入与向量</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">嵌入与向�?/h3>
               <p class="text-sm text-[var(--text-dim)]">
                 EmbeddingClient 提供向量运算：余弦相似度、欧氏距离、点积。原生构建语义搜索与 RAG
-                应用。
+                应用�?
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="font-bold text-[var(--text)] mb-2">缓存与批处理</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                带 TTL 的响应缓存（内存后端）。可配置并发、超时及多种处理策略的批处理执行。
+                �?TTL 的响应缓存（内存后端）。可配置并发、超时及多种处理策略的批处理执行�?
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="font-bold text-[var(--text)] mb-2">插件系统</h3>
               <p class="text-sm text-[var(--text-dim)]">
                 可扩展的插件架构，含钩子与中间件链。无需修改核心代码即可添加自定义行为。用于内容过滤与
-                PII 检测的护栏。
+                PII 检测的护栏�?
               </p>
             </div>
           </div>
@@ -138,20 +138,20 @@ const locale = 'zh-cn';
         <div class="container">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             <div>
-              <h2 class="text-3xl font-bold text-[var(--text)] mb-4">简单统一的 API</h2>
+              <h2 class="text-3xl font-bold text-[var(--text)] mb-4">简单统一�?API</h2>
               <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
-                同一套代码适用于全部 37 个提供商。只需修改模型标识符 ——
-                协议清单会处理其余一切：端点、认证、参数映射、流式格式。
+                同一套代码适用于全�?37 个提供商。只需修改模型标识�?—�?
+                协议清单会处理其余一切：端点、认证、参数映射、流式格式�?
               </p>
               <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
-                建造者模式提供流畅的请求构造 API。流式结果以统一的 <code>StreamingEvent</code> 类型返回，与底层提供商无关。
+                建造者模式提供流畅的请求构�?API。流式结果以统一�?<code>StreamingEvent</code> 类型返回，与底层提供商无关�?
               </p>
             </div>
             <div>
               <pre
                 class="text-sm !bg-[#0d1117] !border-orange-500/20"><code class="language-rust"><span style="color:#ff7b72">use</span> ai_lib_rust::{'{'}AiClient, Message, StreamingEvent{'}'};
 
-<span style="color:#8b949e">// Works with ANY provider — protocol-driven</span>
+<span style="color:#8b949e">// Works with ANY provider �?protocol-driven</span>
 <span style="color:#ff7b72">let</span> client = AiClient::new(
     <span style="color:#a5d6ff">"anthropic/claude-3-5-sonnet"</span>
 ).<span style="color:#ff7b72">await</span>?;
@@ -187,7 +187,7 @@ const locale = 'zh-cn';
           <div class="text-center mb-10">
             <h2 class="text-3xl font-bold text-[var(--text)] mb-4">内部架构</h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
-              从用户 API 到 HTTP 传输的五层结构。流式管道是系统的核心。
+              从用�?API �?HTTP 传输的五层结构。流式管道是系统的核心�?
             </p>
           </div>
           <RuntimeArch locale={locale} variant="rust" />
@@ -204,14 +204,14 @@ const locale = 'zh-cn';
                 client/ + error_code/
               </h3>
               <p class="text-sm text-[var(--text-dim)]">
-                AiClient、AiClientBuilder、ChatRequestBuilder、执行逻辑、策略引擎、预检、错误分类、CallStats、CancelHandle。
+                AiClient、AiClientBuilder、ChatRequestBuilder、执行逻辑、策略引擎、预检、错误分类、CallStats、CancelHandle�?
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">protocol/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                ProtocolLoader（本地/URL/GitHub）、JSON Schema 验证器、ProtocolManifest
-                结构、UnifiedRequest 编译、配置类型。
+                ProtocolLoader（本�?URL/GitHub）、JSON Schema 验证器、ProtocolManifest
+                结构、UnifiedRequest 编译、配置类型�?
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
@@ -219,33 +219,33 @@ const locale = 'zh-cn';
               <p class="text-sm text-[var(--text-dim)]">
                 Decoder（SSE、JSON
                 Lines）、Selector（JSONPath）、Accumulator（工具调用）、FanOut（多候选）、EventMapper（统一事件）、Retry
-                与 Fallback 算子。
+                �?Fallback 算子�?
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">transport/</h3>
               <p class="text-sm text-[var(--text-dim)]">
                 HttpTransport（reqwest）、API 密钥解析（keyring + env
-                vars）、代理/超时配置、中间件支持。
+                vars）、代�?超时配置、中间件支持�?
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">resilience/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                熔断器（开/半开/闭）、令牌桶限流、最大并发信号量背压。
+                熔断器（开/半开/闭）、令牌桶限流、最大并发信号量背压�?
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">embeddings/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                EmbeddingClient、EmbeddingClientBuilder、向量运算（余弦相似度、欧氏距离、点积）。
+                EmbeddingClient、EmbeddingClientBuilder、向量运算（余弦相似度、欧氏距离、点积）�?
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-orange-400 mb-1 font-mono">cache/ + batch/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                带 TTL 的 CacheManager（MemoryCache、NullCache）。带并发控制与多种策略的
-                BatchCollector 与 BatchExecutor。
+                �?TTL �?CacheManager（MemoryCache、NullCache）。带并发控制与多种策略的
+                BatchCollector �?BatchExecutor�?
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
@@ -253,8 +253,8 @@ const locale = 'zh-cn';
                 plugins/ + guardrails/ + structured/
               </h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Plugin trait、PluginRegistry、HookManager、中间件链。含关键词/模式过滤与 PII
-                检测的护栏。
+                Plugin trait、PluginRegistry、HookManager、中间件链。含关键�?模式过滤�?PII
+                检测的护栏�?
               </p>
             </div>
           </div>
@@ -264,12 +264,12 @@ const locale = 'zh-cn';
       <!-- CTA -->
       <section class="section-alt">
         <div class="container text-center">
-          <h2 class="text-3xl font-bold text-[var(--text)] mb-4">用 Rust 开始构建</h2>
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-4">�?Rust 开始构�?/h2>
           <div class="flex flex-wrap gap-4 justify-center">
             <a
               href="/zh-cn/rust/quickstart/"
               class="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-all hover:no-underline"
-              >快速入门</a
+              >快速入�?/a
             >
             <a
               href="/zh-cn/rust/overview/"
