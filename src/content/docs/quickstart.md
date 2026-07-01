@@ -70,7 +70,7 @@ cargo run
 ### 1. Install the package
 
 ```bash
-pip install ai-lib-python>=0.6.0
+pip install ai-lib-python>=0.8.6
 ```
 
 ### 2. Set your API key

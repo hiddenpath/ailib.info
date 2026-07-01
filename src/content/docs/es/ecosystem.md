@@ -5,7 +5,7 @@ description: Cómo AI-Protocol, ai-lib-rust, ai-lib-python, ai-lib-ts y ai-lib-g
 
 # Arquitectura del ecosistema
 
-El ecosistema AI-Lib se basa en una arquitectura limpia de tres capas donde cada capa tiene una responsabilidad distinta. Versiones actuales: **AI-Protocol v0.8.4** (`@ailib-official/ai-protocol`), **ai-lib-rust v0.9.4**, **ai-lib-python v0.8.3**, **ai-lib-ts v0.5.3**, **ai-lib-go v0.5.1**, **ai-protocol-mock v0.1.11**.
+El ecosistema AI-Lib se basa en una arquitectura limpia de tres capas donde cada capa tiene una responsabilidad distinta. Versiones actuales: **AI-Protocol v0.8.4** (`@ailib-official/ai-protocol`), **ai-lib-rust v0.9.6**, **ai-lib-python v0.8.6**, **ai-lib-ts v0.5.3**, **ai-lib-go v0.6.0**, **ai-protocol-mock v0.1.11**.
 
 ## Las tres capas
 
