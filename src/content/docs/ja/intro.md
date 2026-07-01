@@ -25,7 +25,7 @@ AI-Lib は別のアプローチを取ります：
 | ----------------------------- | -------------- | ---------- | ---------- | ---------------------------------------------------------------- |
 | **[AI-Protocol](/protocol/)** | 仕様レイヤー   | YAML/JSON  | v0.8.4     | [npm](https://www.npmjs.com/package/@ailib-official/ai-protocol) · GitHub |
 | **[ai-lib-rust](/rust/)**     | ランタイム実装 | Rust       | v0.9.6     | [Crates.io](https://crates.io/crates/ai-lib-rust)                |
-| **[ai-lib-python](/python/)** | ランタイム実装 | Python     | v0.8.5     | [PyPI](https://pypi.org/project/ai-lib-python/)                  |
+| **[ai-lib-python](/python/)** | ランタイム実装 | Python     | v0.8.3     | [PyPI](https://pypi.org/project/ai-lib-python/)                  |
 | **[ai-lib-ts](/ts/)**         | ランタイム実装 | TypeScript | v0.5.3     | [npm](https://www.npmjs.com/package/@ailib-official/ai-lib-ts)       |
 | **ai-lib-go**                 | ランタイム実装 | Go         | v0.6.0     | [Go Modules](https://pkg.go.dev/github.com/ailib-official/ai-lib-go) |
 | **ai-protocol-mock**          | mock/テスト層  | Python     | v0.1.11    | [PyPI](https://pypi.org/project/ai-protocol-mock/)               |
