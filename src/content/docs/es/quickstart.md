@@ -70,7 +70,7 @@ cargo run
 ### 1. Instale el paquete
 
 ```bash
-pip install ai-lib-python>=0.6.0
+pip install ai-lib-python>=0.8.5
 ```
 
 ### 2. Configure su clave API

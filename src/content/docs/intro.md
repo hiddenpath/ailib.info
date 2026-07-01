@@ -22,10 +22,10 @@ AI-Lib takes a different approach:
 ## Six Projects, One Ecosystem
 
 - **ai-protocol** (v0.8.4): The provider-agnostic specification. Core schemas, V2 manifests, and validation tools; npm package `@ailib-official/ai-protocol`.
-- **ai-lib-rust** (v0.9.4): High-performance Rust runtime, published on crates.io.
-- **ai-lib-python** (v0.8.3): Developer-friendly Python runtime, published on PyPI.
+- **ai-lib-rust** (v0.9.6): High-performance Rust runtime, published on crates.io.
+- **ai-lib-python** (v0.8.5): Developer-friendly Python runtime, published on PyPI.
 - **ai-lib-ts** (v0.5.3): TypeScript/Node.js runtime, published on npm.
-- **ai-lib-go** (v0.5.1): High-concurrency Go runtime mapping to the V2 spec.
+- **ai-lib-go** (v0.6.0): High-concurrency Go runtime mapping to the V2 spec.
 - **ai-protocol-mock** (v0.1.11): Unified mock server for integration testing across all runtimes.
 
 The latest release cycle delivers full **V2 protocol** execution with governance gates: **MCP**, **Computer Use**, **Extended Multimodal**, and script-based release gates (`drift`, `manifest-consumption`, `compliance-matrix`, `fullchain`, `release-gate`) with `--report-only` staged rollout.

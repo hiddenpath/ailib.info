@@ -70,7 +70,7 @@ cargo run
 ### 1. 安装包
 
 ```bash
-pip install ai-lib-python>=0.6.0
+pip install ai-lib-python>=0.8.5
 ```
 
 ### 2. 设置 API 密钥
