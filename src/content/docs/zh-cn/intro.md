@@ -26,7 +26,7 @@ AI-Lib 采用了不同的方法：
 - **ai-lib-python** (v1.0.0)：对开发者友好的 Python 运行时，发布于 PyPI。
 - **ai-lib-ts** (v1.0.0)： 面向 npm 生态的 TypeScript/Node.js 运行时。
 - **ai-lib-go** (v1.0.0)： 面向高并发的 Go 运行时，直接映射 V2 规范。
-- **ai-protocol-mock** (v1.0.0)：为所有运行时提供集成测试的统一 Mock 服务器。
+- **ai-protocol-mock** (v1.0.1)：为所有运行时提供集成测试的统一 Mock 服务器。
 
 当前发布周期在 V2 架构能力基础上，补齐了执行治理门禁：`drift`、`manifest-consumption`、`compliance-matrix`、`fullchain`、`release-gate`，并支持 `--report-only` 分级治理。
 

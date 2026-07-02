@@ -26,7 +26,7 @@ AI-Lib takes a different approach:
 - **ai-lib-python** (v1.0.0): Developer-friendly Python runtime, published on PyPI.
 - **ai-lib-ts** (v1.0.0): TypeScript/Node.js runtime, published on npm.
 - **ai-lib-go** (v1.0.0): High-concurrency Go runtime mapping to the V2 spec.
-- **ai-protocol-mock** (v1.0.0): Unified mock server for integration testing across all runtimes.
+- **ai-protocol-mock** (v1.0.1): Unified mock server for integration testing across all runtimes.
 
 The latest release cycle delivers full **V2 protocol** execution with governance gates: **MCP**, **Computer Use**, **Extended Multimodal**, and script-based release gates (`drift`, `manifest-consumption`, `compliance-matrix`, `fullchain`, `release-gate`) with `--report-only` staged rollout.
 
