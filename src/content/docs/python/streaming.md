@@ -1,6 +1,6 @@
 ---
 title: Streaming Pipeline (Python)
-description: How the streaming pipeline works in ai-lib-python v0.7.0 — decoders, selectors, accumulators, and event mappers.
+description: How the streaming pipeline works in ai-lib-python v1.0.0 — decoders, selectors, accumulators, and event mappers.
 ---
 
 # Streaming Pipeline

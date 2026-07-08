@@ -1,6 +1,6 @@
 ---
 title: 高级功能（Go）
-description: ai-lib-go v0.5.0 中的 embeddings、缓存、批处理、插件、guardrails、功能标志、结构化输出及 V2 错误码。
+description: ai-lib-go v1.0.0 中的 embeddings、缓存、批处理、插件、guardrails、功能标志、结构化输出及 V2 错误码。
 ---
 
 # 高级功能

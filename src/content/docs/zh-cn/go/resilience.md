@@ -1,11 +1,11 @@
 ---
 title: 弹性（Go）
-description: ai-lib-go v0.5.0 中的生产级可靠性模式 — 熔断器、速率限制器、背压、重试。
+description: ai-lib-go v1.0.0 中的生产级可靠性模式 — 熔断器、速率限制器、背压、重试。
 ---
 
 # 弹性模式
 
-ai-lib-go（v0.5.0）开箱即用提供生产级可靠性模式。重试与回退决策使用 V2 标准错误码：`StandardErrorCode` 上的 `retryable` 与 `fallbackable` 属性决定错误是否触发重试或模型回退。
+ai-lib-go（v1.0.0）开箱即用提供生产级可靠性模式。重试与回退决策使用 V2 标准错误码：`StandardErrorCode` 上的 `retryable` 与 `fallbackable` 属性决定错误是否触发重试或模型回退。
 
 ## 熔断器
 

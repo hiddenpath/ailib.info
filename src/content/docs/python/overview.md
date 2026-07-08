@@ -5,7 +5,7 @@ description: Architecture and design of ai-lib-python — the developer-friendly
 
 # Python SDK Overview
 
-**ai-lib-python** (v0.7.0) is the official Python runtime for AI-Protocol. It provides a developer-friendly, fully async interface with Pydantic v2 type safety and production-grade telemetry.
+**ai-lib-python** (v1.0.0) is the official Python runtime for AI-Protocol. It provides a developer-friendly, fully async interface with Pydantic v2 type safety and production-grade telemetry.
 
 ## Architecture
 
@@ -103,7 +103,7 @@ The Python SDK mirrors the Rust runtime's layered architecture:
 
 ## V2 Protocol Alignment
 
-v0.7.0 fully implements the V2 protocol specification:
+v1.0.0 fully implements the V2 protocol specification:
 
 - **V2 Manifest Loading** — `ManifestV2` + `CapabilitiesV2` with V1 auto-promotion via `from_legacy()`
 - **ProviderDriver** — ABC with OpenAI, Anthropic, Gemini implementations; `create_driver()` factory

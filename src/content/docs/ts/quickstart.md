@@ -21,7 +21,7 @@ pnpm add @ailib-official/ai-lib-ts
 
 The library automatically looks for protocol manifests in these locations:
 
-1. `node_modules/@ailib-official/ai-protocol/dist` (install: `npm i @ailib-official/ai-protocol`), or legacy `node_modules/ai-protocol/dist` / `node_modules/@hiddenpath/ai-protocol/dist`
+1. `node_modules/@ailib-official/ai-protocol/dist` (install: `npm i @ailib-official/ai-protocol`), or legacy `node_modules/ai-protocol/dist` / `node_modules/@ailib-official/ai-protocol/dist`
 2. `../ai-protocol/dist` or `./protocols`
 
 ### Provider API Keys

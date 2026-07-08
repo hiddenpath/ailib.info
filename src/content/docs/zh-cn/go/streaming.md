@@ -1,6 +1,6 @@
 ---
 title: 流式管道 (Go)
-description: ai-lib-go v0.5.0 中基于算子的流式管道详解。
+description: ai-lib-go v1.0.0 中基于算子的流式管道详解。
 ---
 
 # 流式管道

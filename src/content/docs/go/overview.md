@@ -16,7 +16,7 @@ The Go implementation of the AI-Protocol specification. It provides a high-concu
 
 ## Protocol V2 Support
 
-The Go SDK is currently in early development (v0.5.0) but implements the core Ring 1/Ring 2 features of the V2 specification:
+The Go SDK (v1.0.0) is the Wave-5 stable runtime and implements the core Ring 1/Ring 2 features of the V2 specification:
 
 - HTTP Transport handling (Headers, Auth, Endpoint construction)
 - SSE and NDJSON Decoding

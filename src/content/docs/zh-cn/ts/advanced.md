@@ -10,7 +10,7 @@ description: 高级功能包括嵌入、批处理、MCP 和插件。
 为文本生成向量嵌入：
 
 ```typescript
-import { EmbeddingClient } from '@hiddenpath/ai-lib-ts';
+import { EmbeddingClient } from '@ailib-official/ai-lib-ts';
 
 const client = await EmbeddingClient.new('openai/text-embedding-3-small');
 
@@ -34,7 +34,7 @@ response.embeddings.forEach((e, i) => {
 将音频转录为文字：
 
 ```typescript
-import { SttClient } from '@hiddenpath/ai-lib-ts';
+import { SttClient } from '@ailib-official/ai-lib-ts';
 
 const client = await SttClient.new('openai/whisper-1');
 
@@ -51,7 +51,7 @@ console.log('转录:', response.text);
 将文字转换为语音：
 
 ```typescript
-import { TtsClient } from '@hiddenpath/ai-lib-ts';
+import { TtsClient } from '@ailib-official/ai-lib-ts';
 
 const client = await TtsClient.new('openai/tts-1');
 
@@ -68,7 +68,7 @@ const audioBuffer = await client.speak('你好，这是一个测试！', {
 按相关性重新排序文档：
 
 ```typescript
-import { RerankerClient } from '@hiddenpath/ai-lib-ts';
+import { RerankerClient } from '@ailib-official/ai-lib-ts';
 
 const client = await RerankerClient.new('cohere/rerank-english-v3.0');
 
@@ -88,7 +88,7 @@ result.results.forEach((r, i) => {
 将 MCP 工具桥接到 AI-Protocol 格式：
 
 ```typescript
-import { McpToolBridge } from '@hiddenpath/ai-lib-ts';
+import { McpToolBridge } from '@ailib-official/ai-lib-ts';
 
 const bridge = new McpToolBridge('http://localhost:3001/mcp');
 
@@ -111,7 +111,7 @@ const response = await client
 并行执行多个请求：
 
 ```typescript
-import { BatchExecutor, batchExecute } from '@hiddenpath/ai-lib-ts';
+import { BatchExecutor, batchExecute } from '@ailib-official/ai-lib-ts';
 
 const op = async (question: string) => {
   const client = await AiClient.new('openai/gpt-4o');
@@ -137,7 +137,7 @@ result.results.forEach((r, i) => {
 通过钩子扩展功能：
 
 ```typescript
-import { PluginRegistry } from '@hiddenpath/ai-lib-ts';
+import { PluginRegistry } from '@ailib-official/ai-lib-ts';
 
 const plugins = new PluginRegistry();
 
@@ -174,7 +174,7 @@ const client = await createClientBuilder().withPlugins(plugins).build('openai/gp
 无需 API 调用估算 Token：
 
 ```typescript
-import { estimateTokens, estimateCost } from '@hiddenpath/ai-lib-ts';
+import { estimateTokens, estimateCost } from '@ailib-official/ai-lib-ts';
 
 const tokens = estimateTokens('你好，今天过得怎么样？');
 console.log(`估算 Token: ${tokens}`);

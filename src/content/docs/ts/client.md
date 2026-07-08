@@ -10,7 +10,7 @@ description: Detailed API reference for the TypeScript AiClient.
 ### Basic Creation
 
 ```typescript
-import { AiClient } from '@hiddenpath/ai-lib-ts';
+import { AiClient } from '@ailib-official/ai-lib-ts';
 
 const client = await AiClient.new('openai/gpt-4o');
 ```
@@ -18,7 +18,7 @@ const client = await AiClient.new('openai/gpt-4o');
 ### With Builder Pattern
 
 ```typescript
-import { createClientBuilder } from '@hiddenpath/ai-lib-ts';
+import { createClientBuilder } from '@ailib-official/ai-lib-ts';
 
 const client = await createClientBuilder()
   .withFallbacks(['anthropic/claude-3-5-sonnet', 'deepseek/deepseek-chat'])
@@ -189,7 +189,7 @@ interface ChatResponse {
 ## Error Handling
 
 ```typescript
-import { AiLibError, StandardErrorCode, isRetryable, isFallbackable } from '@hiddenpath/ai-lib-ts';
+import { AiLibError, StandardErrorCode, isRetryable, isFallbackable } from '@ailib-official/ai-lib-ts';
 
 try {
   const response = await client.chat([Message.user('Hi')]).execute();

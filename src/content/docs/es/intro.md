@@ -24,7 +24,7 @@ AI-Lib adopta un enfoque diferente:
 | Project                       | Role                   | Language   | Version | Distribution                                                     |
 | ----------------------------- | ---------------------- | ---------- | ------- | ---------------------------------------------------------------- |
 | **[AI-Protocol](/protocol/)** | Capa de especificación | YAML/JSON  | v1.0.0  | [npm](https://www.npmjs.com/package/@ailib-official/ai-protocol) · GitHub |
-| **[ai-lib-rust](/rust/)**     | Implementación runtime | Rust       | v1.0.0  | [Crates.io](https://crates.io/crates/ai-lib-rust)                |
+| **[ai-lib-rust](/rust/)**     | Implementación runtime | Rust       | v1.0.1  | [Crates.io](https://crates.io/crates/ai-lib-rust)                |
 | **[ai-lib-python](/python/)** | Implementación runtime | Python     | v1.0.0  | [PyPI](https://pypi.org/project/ai-lib-python/)                  |
 | **[ai-lib-ts](/ts/)**         | Implementación runtime | TypeScript | v1.0.0  | [npm](https://www.npmjs.com/package/@ailib-official/ai-lib-ts)       |
 | **ai-lib-go**                 | Implementación runtime | Go         | v1.0.0  | [Go Modules](https://pkg.go.dev/github.com/ailib-official/ai-lib-go) |

@@ -1,6 +1,6 @@
 ---
 title: Streaming Pipeline (Go)
-description: Deep dive into the operator-based streaming pipeline in ai-lib-go v0.5.0.
+description: Deep dive into the operator-based streaming pipeline in ai-lib-go v1.0.0.
 ---
 
 # Streaming Pipeline

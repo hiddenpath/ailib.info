@@ -10,7 +10,7 @@ description: Advanced features including embeddings, batch processing, MCP, and 
 Generate vector embeddings for text:
 
 ```typescript
-import { EmbeddingClient } from '@hiddenpath/ai-lib-ts';
+import { EmbeddingClient } from '@ailib-official/ai-lib-ts';
 
 const client = await EmbeddingClient.new('openai/text-embedding-3-small');
 
@@ -34,7 +34,7 @@ response.embeddings.forEach((e, i) => {
 Transcribe audio to text:
 
 ```typescript
-import { SttClient } from '@hiddenpath/ai-lib-ts';
+import { SttClient } from '@ailib-official/ai-lib-ts';
 
 const client = await SttClient.new('openai/whisper-1');
 
@@ -51,7 +51,7 @@ console.log('Transcript:', response.text);
 Convert text to speech:
 
 ```typescript
-import { TtsClient } from '@hiddenpath/ai-lib-ts';
+import { TtsClient } from '@ailib-official/ai-lib-ts';
 
 const client = await TtsClient.new('openai/tts-1');
 
@@ -68,7 +68,7 @@ const audioBuffer = await client.speak('Hello, this is a test!', {
 Reorder documents by relevance:
 
 ```typescript
-import { RerankerClient } from '@hiddenpath/ai-lib-ts';
+import { RerankerClient } from '@ailib-official/ai-lib-ts';
 
 const client = await RerankerClient.new('cohere/rerank-english-v3.0');
 
@@ -92,7 +92,7 @@ result.results.forEach((r, i) => {
 Bridge MCP tools to AI-Protocol format:
 
 ```typescript
-import { McpToolBridge } from '@hiddenpath/ai-lib-ts';
+import { McpToolBridge } from '@ailib-official/ai-lib-ts';
 
 const bridge = new McpToolBridge('http://localhost:3001/mcp');
 
@@ -115,7 +115,7 @@ const response = await client
 Execute multiple requests in parallel:
 
 ```typescript
-import { BatchExecutor, batchExecute } from '@hiddenpath/ai-lib-ts';
+import { BatchExecutor, batchExecute } from '@ailib-official/ai-lib-ts';
 
 const op = async (question: string) => {
   const client = await AiClient.new('openai/gpt-4o');
@@ -157,7 +157,7 @@ const results = await executor.waitForAll();
 Extend functionality with hooks:
 
 ```typescript
-import { PluginRegistry, HookManager } from '@hiddenpath/ai-lib-ts';
+import { PluginRegistry, HookManager } from '@ailib-official/ai-lib-ts';
 
 const plugins = new PluginRegistry();
 
@@ -194,7 +194,7 @@ const client = await createClientBuilder().withPlugins(plugins).build('openai/gp
 Estimate tokens without API call:
 
 ```typescript
-import { estimateTokens, estimateCost } from '@hiddenpath/ai-lib-ts';
+import { estimateTokens, estimateCost } from '@ailib-official/ai-lib-ts';
 
 const tokens = estimateTokens('Hello, how are you doing today?');
 console.log(`Estimated tokens: ${tokens}`);
@@ -221,7 +221,7 @@ console.log(`Total cost: $${cost.totalCost}`);
 In-memory caching for responses:
 
 ```typescript
-import { MemoryCache } from '@hiddenpath/ai-lib-ts';
+import { MemoryCache } from '@ailib-official/ai-lib-ts';
 
 const cache = new MemoryCache({
   maxSize: 1000,
@@ -243,7 +243,7 @@ await cache.set('cache-key', response);
 JSON mode for structured responses:
 
 ```typescript
-import { jsonObjectConfig, jsonSchemaConfig } from '@hiddenpath/ai-lib-ts';
+import { jsonObjectConfig, jsonSchemaConfig } from '@ailib-official/ai-lib-ts';
 
 const response = await client
   .chat([Message.user('Return a JSON object with name and age')])

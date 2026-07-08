@@ -1,13 +1,13 @@
 ---
 title: Advanced Features (Python)
-description: Telemetry, model routing, embeddings, caching, plugins, and structured output in ai-lib-python v0.7.0.
+description: Telemetry, model routing, embeddings, caching, plugins, and structured output in ai-lib-python v1.0.0.
 ---
 
 # Advanced Features
 
 ## Capability Extras
 
-Install optional features via pip extras (v0.7.0+):
+Install optional features via pip extras (v1.0.0+):
 
 | Extra        | Purpose                           |
 | ------------ | --------------------------------- |

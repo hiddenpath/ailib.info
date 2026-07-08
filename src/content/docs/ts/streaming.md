@@ -12,7 +12,7 @@ ai-lib-ts provides streaming-first support with Server-Sent Events (SSE) and typ
 ## Basic Streaming
 
 ```typescript
-import { AiClient, Message } from '@hiddenpath/ai-lib-ts';
+import { AiClient, Message } from '@ailib-official/ai-lib-ts';
 
 const client = await AiClient.new('openai/gpt-4o');
 
@@ -40,7 +40,7 @@ for await (const event of stream) {
 ## Event Handling
 
 ```typescript
-import { StreamingEvent } from '@hiddenpath/ai-lib-ts';
+import { StreamingEvent } from '@ailib-official/ai-lib-ts';
 
 for await (const event of stream) {
   switch (event.event_type) {
@@ -122,7 +122,7 @@ Transforms provider-specific events to standard types:
 ### Manual Pipeline Creation
 
 ```typescript
-import { Pipeline, HttpTransport } from '@hiddenpath/ai-lib-ts';
+import { Pipeline, HttpTransport } from '@ailib-official/ai-lib-ts';
 
 const pipeline = Pipeline.fromManifest(manifest);
 

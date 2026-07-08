@@ -61,7 +61,7 @@ get_weather = {
 ### TypeScript
 
 ```typescript
-import { ToolDefinition } from '@hiddenpath/ai-lib-ts';
+import { ToolDefinition } from '@ailib-official/ai-lib-ts';
 
 const getWeather: ToolDefinition = {
   name: 'get_weather',

@@ -1,6 +1,6 @@
 ---
 title: Características avanzadas (Go)
-description: Embeddings, caché, procesamiento por lotes, plugins, guardrails, banderas de características, salida estructurada y códigos de error V2 en ai-lib-go v0.5.0.
+description: Embeddings, caché, procesamiento por lotes, plugins, guardrails, banderas de características, salida estructurada y códigos de error V2 en ai-lib-go v1.0.0.
 ---
 
 # Características avanzadas

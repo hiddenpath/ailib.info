@@ -14,7 +14,7 @@ ai-lib-ts provides built-in resilience patterns for production workloads.
 Automatic retry with exponential backoff:
 
 ```typescript
-import { createClientBuilder, RetryPolicy } from '@hiddenpath/ai-lib-ts';
+import { createClientBuilder, RetryPolicy } from '@ailib-official/ai-lib-ts';
 
 const client = await createClientBuilder()
   .withRetry(
@@ -42,7 +42,7 @@ const client = await createClientBuilder()
 Prevent cascading failures:
 
 ```typescript
-import { CircuitBreaker } from '@hiddenpath/ai-lib-ts';
+import { CircuitBreaker } from '@ailib-official/ai-lib-ts';
 
 const breaker = new CircuitBreaker({
   failureThreshold: 5,
@@ -73,7 +73,7 @@ console.log('Circuit state:', signals.circuitBreaker?.state);
 Token bucket rate limiting:
 
 ```typescript
-import { RateLimiter } from '@hiddenpath/ai-lib-ts';
+import { RateLimiter } from '@ailib-official/ai-lib-ts';
 
 const client = await createClientBuilder()
   .withRateLimiter(RateLimiter.fromRps(10)) // 10 requests per second
@@ -94,7 +94,7 @@ const limiter = new RateLimiter({
 Limit concurrent requests:
 
 ```typescript
-import { Backpressure } from '@hiddenpath/ai-lib-ts';
+import { Backpressure } from '@ailib-official/ai-lib-ts';
 
 const client = await createClientBuilder()
   .withBackpressure(
@@ -110,7 +110,7 @@ const client = await createClientBuilder()
 Unified request gating (circuit breaker + rate limiter + backpressure):
 
 ```typescript
-import { PreflightChecker, CircuitBreaker, RateLimiter, Backpressure } from '@hiddenpath/ai-lib-ts';
+import { PreflightChecker, CircuitBreaker, RateLimiter, Backpressure } from '@ailib-official/ai-lib-ts';
 
 const checker = new PreflightChecker({
   circuitBreaker: new CircuitBreaker({ failureThreshold: 5 }),

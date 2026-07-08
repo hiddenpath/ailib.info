@@ -22,7 +22,7 @@ AI-Lib 采用了不同的方法：
 ## 六个项目，一个生态系统
 
 - **ai-protocol** (v1.0.0)：与提供商无关的规范库（npm：`@ailib-official/ai-protocol`）。核心 schemas、V2 manifests 和验证工具。
-- **ai-lib-rust** (v1.0.0)：高性能 Rust 运行时，发布于 crates.io。
+- **ai-lib-rust** (v1.0.1)：高性能 Rust 运行时，发布于 crates.io。
 - **ai-lib-python** (v1.0.0)：对开发者友好的 Python 运行时，发布于 PyPI。
 - **ai-lib-ts** (v1.0.0)： 面向 npm 生态的 TypeScript/Node.js 运行时。
 - **ai-lib-go** (v1.0.0)： 面向高并发的 Go 运行时，直接映射 V2 规范。

@@ -8,8 +8,8 @@ description: 数分で ai-lib-python を始められます。
 ## インストール
 
 ```bash
-# 基本インストール（v0.7.0+）
-pip install ai-lib-python>=0.7.0
+# 基本インストール（v1.0.0+）
+pip install ai-lib-python>=1.0.0
 
 # すべてのオプション機能付き（推奨）
 pip install ai-lib-python[full]>=0.7.0

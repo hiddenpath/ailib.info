@@ -22,7 +22,7 @@ AI-Lib takes a different approach:
 ## Six Projects, One Ecosystem
 
 - **ai-protocol** (v1.0.0): The provider-agnostic specification. Core schemas, V2 manifests, and validation tools; npm package `@ailib-official/ai-protocol`.
-- **ai-lib-rust** (v1.0.0): High-performance Rust runtime, published on crates.io.
+- **ai-lib-rust** (v1.0.1): High-performance Rust runtime, published on crates.io.
 - **ai-lib-python** (v1.0.0): Developer-friendly Python runtime, published on PyPI.
 - **ai-lib-ts** (v1.0.0): TypeScript/Node.js runtime, published on npm.
 - **ai-lib-go** (v1.0.0): High-concurrency Go runtime mapping to the V2 spec.

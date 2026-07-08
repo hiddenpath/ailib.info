@@ -1,6 +1,6 @@
 ---
 title: Canalización de streaming (Go)
-description: Profundice en la canalización de streaming basada en operadores en ai-lib-go v0.5.0.
+description: Profundice en la canalización de streaming basada en operadores en ai-lib-go v1.0.0.
 ---
 
 # Canalización de streaming

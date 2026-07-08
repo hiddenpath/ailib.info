@@ -1,6 +1,6 @@
 ---
 title: Advanced Features (Go)
-description: Embeddings, caching, batching, plugins, guardrails, feature flags, structured output, and V2 error codes in ai-lib-go v0.5.0.
+description: Embeddings, caching, batching, plugins, guardrails, feature flags, structured output, and V2 error codes in ai-lib-go v1.0.0.
 ---
 
 # Advanced Features

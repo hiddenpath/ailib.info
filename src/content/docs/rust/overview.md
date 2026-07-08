@@ -5,11 +5,11 @@ description: Architecture and design of ai-lib-rust — the high-performance Rus
 
 # Rust SDK Overview
 
-**ai-lib-rust** (v0.8.0) is the high-performance Rust runtime for the AI-Protocol specification. It implements a protocol-driven architecture where all provider behavior comes from configuration, not code.
+**ai-lib-rust** (v1.0.1) is the high-performance Rust runtime for the AI-Protocol specification. It implements a protocol-driven architecture where all provider behavior comes from configuration, not code.
 
 ## V2 Protocol Alignment
 
-ai-lib-rust v0.8.0 fully implements the V2 protocol specification:
+ai-lib-rust v1.0.1 fully implements the V2 protocol specification:
 
 - **V2 Manifest Loading**: Three-ring manifest parser (`ManifestV2`) with V1 auto-promotion
 - **ProviderDriver**: `Box<dyn ProviderDriver>` abstraction with OpenAI, Anthropic, and Gemini drivers

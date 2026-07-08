@@ -16,7 +16,7 @@ AI-Protocol 规范的 Go 语言实现。它提供了一个高并发、符合 Go 
 
 ## V2 协议支持
 
-Go SDK 目前处于早期开发阶段 (v0.5.0)，但实现了 V2 规范的核心 Ring 1/Ring 2 功能：
+Go SDK（v1.0.0）为 Wave-5 稳定版，实现了 V2 规范的核心 Ring 1/Ring 2 功能：
 
 - HTTP 传输处理（请求头、认证、端点构建）
 - SSE 与 NDJSON 解码

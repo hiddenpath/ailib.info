@@ -70,7 +70,7 @@ print(response.content)
 ### TypeScript
 
 ```typescript
-import { AiClient, Message, ContentBlock } from '@hiddenpath/ai-lib-ts';
+import { AiClient, Message, ContentBlock } from '@ailib-official/ai-lib-ts';
 
 const client = await AiClient.new('openai/gpt-4o');
 
@@ -184,7 +184,7 @@ modalities = detect_modalities(content_blocks)
 
 ```typescript
 // TypeScript
-import { detectModalities, Modality } from '@hiddenpath/ai-lib-ts/multimodal';
+import { detectModalities, Modality } from '@ailib-official/ai-lib-ts/multimodal';
 
 const modalities = detectModalities(contentBlocks);
 // Returns: Set { Modality.TEXT, Modality.IMAGE }
@@ -212,7 +212,7 @@ assert caps.validate_audio_format("wav")
 
 ```typescript
 // TypeScript
-import { MultimodalCapabilities } from '@hiddenpath/ai-lib-ts/multimodal';
+import { MultimodalCapabilities } from '@ailib-official/ai-lib-ts/multimodal';
 
 const caps = MultimodalCapabilities.fromConfig(manifestMultimodal);
 console.assert(caps.validateImageFormat('png'));
@@ -242,7 +242,7 @@ from ai_lib_python.multimodal import validate_content_modalities
 
 ```typescript
 // TypeScript
-import { validateContentModalities } from '@hiddenpath/ai-lib-ts/multimodal';
+import { validateContentModalities } from '@ailib-official/ai-lib-ts/multimodal';
 
 try {
   validateContentModalities(blocks, caps);

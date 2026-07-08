@@ -14,7 +14,7 @@ ai-lib-ts 为生产负载提供内置的弹性模式。
 自动重试与指数退避：
 
 ```typescript
-import { createClientBuilder, RetryPolicy } from '@hiddenpath/ai-lib-ts';
+import { createClientBuilder, RetryPolicy } from '@ailib-official/ai-lib-ts';
 
 const client = await createClientBuilder()
   .withRetry(
@@ -42,7 +42,7 @@ const client = await createClientBuilder()
 防止级联故障：
 
 ```typescript
-import { CircuitBreaker } from '@hiddenpath/ai-lib-ts';
+import { CircuitBreaker } from '@ailib-official/ai-lib-ts';
 
 const breaker = new CircuitBreaker({
   failureThreshold: 5,
@@ -73,7 +73,7 @@ console.log('熔断器状态:', signals.circuitBreaker?.state);
 令牌桶限流：
 
 ```typescript
-import { RateLimiter } from '@hiddenpath/ai-lib-ts';
+import { RateLimiter } from '@ailib-official/ai-lib-ts';
 
 const client = await createClientBuilder()
   .withRateLimiter(RateLimiter.fromRps(10)) // 每秒 10 个请求
@@ -85,7 +85,7 @@ const client = await createClientBuilder()
 限制并发请求：
 
 ```typescript
-import { Backpressure } from '@hiddenpath/ai-lib-ts';
+import { Backpressure } from '@ailib-official/ai-lib-ts';
 
 const client = await createClientBuilder()
   .withBackpressure(
@@ -101,7 +101,7 @@ const client = await createClientBuilder()
 统一请求门控（熔断器 + 限流器 + 背压）：
 
 ```typescript
-import { PreflightChecker, CircuitBreaker, RateLimiter, Backpressure } from '@hiddenpath/ai-lib-ts';
+import { PreflightChecker, CircuitBreaker, RateLimiter, Backpressure } from '@ailib-official/ai-lib-ts';
 
 const checker = new PreflightChecker({
   circuitBreaker: new CircuitBreaker({ failureThreshold: 5 }),

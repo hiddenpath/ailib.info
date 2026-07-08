@@ -21,7 +21,7 @@ pnpm add @ailib-official/ai-lib-ts
 
 库会自动在以下位置查找协议清单文件：
 
-1. `node_modules/@ailib-official/ai-protocol/dist` (`npm i @ailib-official/ai-protocol`), o rutas heredadas `node_modules/ai-protocol/dist` / `node_modules/@hiddenpath/ai-protocol/dist`
+1. `node_modules/@ailib-official/ai-protocol/dist` (`npm i @ailib-official/ai-protocol`), o rutas heredadas `node_modules/ai-protocol/dist` / `node_modules/@ailib-official/ai-protocol/dist`
 2. `../ai-protocol/dist` 或 `./protocols`
 
 ### Provider API 密钥钥

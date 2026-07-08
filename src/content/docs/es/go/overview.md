@@ -16,7 +16,7 @@ La implementación en Go de la especificación AI-Protocol. Proporciona un runti
 
 ## Soporte de Protocol V2
 
-El SDK de Go se encuentra actualmente en una fase temprana de desarrollo (v0.5.0), pero implementa las características principales de Ring 1/Ring 2 de la especificación V2:
+El SDK de Go (v1.0.0) es la versión estable Wave-5 e implementa las características principales de Ring 1/Ring 2 de la especificación V2:
 
 - Manejo de transporte HTTP (Cabeceras, Autenticación, Construcción de endpoints)
 - Decodificación SSE y NDJSON

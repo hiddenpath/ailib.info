@@ -37,7 +37,7 @@ print(response.content)
 ### TypeScript
 
 ```typescript
-import { AiClient } from '@hiddenpath/ai-lib-ts';
+import { AiClient } from '@ailib-official/ai-lib-ts';
 
 const client = await AiClient.new('openai/gpt-4o');
 
@@ -131,7 +131,7 @@ await client.chat().messages(messages).execute()
 
 ```typescript
 // TypeScript
-import { Message } from '@hiddenpath/ai-lib-ts';
+import { Message } from '@ailib-official/ai-lib-ts';
 
 const messages = [
   Message.system('You are a tutor.'),

@@ -12,7 +12,7 @@ ai-lib-ts 提供流式优先的支持，基于服务器发送事件 (SSE) 和类
 ## 基本流式
 
 ```typescript
-import { AiClient, Message } from '@hiddenpath/ai-lib-ts';
+import { AiClient, Message } from '@ailib-official/ai-lib-ts';
 
 const client = await AiClient.new('openai/gpt-4o');
 
@@ -40,7 +40,7 @@ for await (const event of stream) {
 ## 事件处理
 
 ```typescript
-import { StreamingEvent } from '@hiddenpath/ai-lib-ts';
+import { StreamingEvent } from '@ailib-official/ai-lib-ts';
 
 for await (const event of stream) {
   switch (event.event_type) {

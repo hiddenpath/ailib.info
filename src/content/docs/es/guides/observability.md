@@ -101,7 +101,7 @@ prometheus_text = metrics.export_prometheus()
 ## TypeScript: Métricas (Prometheus)
 
 ```typescript
-import { MetricsCollector } from '@hiddenpath/ai-lib-ts/telemetry';
+import { MetricsCollector } from '@ailib-official/ai-lib-ts/telemetry';
 
 const metrics = new MetricsCollector();
 
@@ -151,7 +151,7 @@ client = await AiClient.builder() \
 ## TypeScript: Trazado distribuido (OpenTelemetry)
 
 ```typescript
-import { Tracer } from '@hiddenpath/ai-lib-ts/telemetry';
+import { Tracer } from '@ailib-official/ai-lib-ts/telemetry';
 
 const tracer = new Tracer({
   serviceName: 'my-app',
@@ -184,7 +184,7 @@ print(f"Details: {status.details}")
 ## TypeScript: Monitoreo de salud
 
 ```typescript
-import { HealthChecker } from '@hiddenpath/ai-lib-ts/telemetry';
+import { HealthChecker } from '@ailib-official/ai-lib-ts/telemetry';
 
 const health = new HealthChecker();
 const status = await health.check();
@@ -222,7 +222,7 @@ feedback.record(
 ## TypeScript: Retroalimentación del usuario
 
 ```typescript
-import { FeedbackCollector } from '@hiddenpath/ai-lib-ts/telemetry';
+import { FeedbackCollector } from '@ailib-official/ai-lib-ts/telemetry';
 
 const feedback = new FeedbackCollector();
 

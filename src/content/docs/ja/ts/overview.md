@@ -64,7 +64,7 @@ ai-lib-ts is the official TypeScript/Node.js runtime for AI-Protocol. It provide
 The main entry point for AI interactions:
 
 ```typescript
-import { AiClient, Message } from '@hiddenpath/ai-lib-ts';
+import { AiClient, Message } from '@ailib-official/ai-lib-ts';
 
 const client = await AiClient.new('anthropic/claude-3-5-sonnet');
 const response = await client.chat([Message.user('Hello')]).execute();
@@ -75,7 +75,7 @@ const response = await client.chat([Message.user('Hello')]).execute();
 Support for system, user, and assistant messages with multimodal content:
 
 ```typescript
-import { Message, ContentBlock } from '@hiddenpath/ai-lib-ts';
+import { Message, ContentBlock } from '@ailib-official/ai-lib-ts';
 
 const msg = Message.user([
   ContentBlock.text('What is in this image?'),
@@ -127,7 +127,7 @@ Additional capabilities:
 Standardized error codes for consistent error handling:
 
 ```typescript
-import { AiLibError, StandardErrorCode, isRetryable } from '@hiddenpath/ai-lib-ts';
+import { AiLibError, StandardErrorCode, isRetryable } from '@ailib-official/ai-lib-ts';
 
 try {
   const response = await client.chat([Message.user('Hi')]).execute();
