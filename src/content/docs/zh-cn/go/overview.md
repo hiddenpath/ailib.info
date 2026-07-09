@@ -1,25 +1,35 @@
 ---
-title: Go SDK 概览
-description: ai-lib-go 运行时实现概览。
+title: Go SDK Overview
+description: Architecture and public API of ai-lib-go v1.0.0.
 ---
 
-# ai-lib-go
+# Go SDK Overview
 
-AI-Protocol 规范的 Go 语言实现。它提供了一个高并发、符合 Go 惯例的运行时，使用统一的 API 与 37 家以上的 AI 供应商进行交互。
+**ai-lib-go** (v1.0.0, Go 1.21+) is the Go runtime for [AI-Protocol](https://github.com/ailib-official/ai-protocol).
 
-## 核心能力
+| Package | Layer | Role |
+|---------|-------|------|
+| `pkg/ailib` | Execution (E) | `Client`, manifest HTTP chat, capability endpoints |
+| `pkg/contact` | Policy (P) | `FallbackClient`, circuit-breaker policy |
 
-- **清单驱动**: 直接读取 `v2/providers/*.yaml`。无硬编码逻辑。
-- **原生并发**: 使用 Go 1.21+ 标准并发机制实现高性能流式处理。
-- **弹性设计**: 上下文感知的超时控制，基于 `net/http` 的自动重试。
-- **类型安全**: 将 JSON Schema 严格映射到 Go 结构体。
+## Primary execution path
 
-## V2 协议支持
+`Client.Chat` → manifest endpoint resolution → JSON HTTP → micro-retry (`internal/resilience`) → `ExecutionMetadata` on response.
 
-Go SDK（v1.0.0）为 Wave-5 稳定版，实现了 V2 规范的核心 Ring 1/Ring 2 功能：
+Without a manifest, `WithBaseURL` + `WithAPIKey` uses OpenAI-compatible defaults.
 
-- HTTP 传输处理（请求头、认证、端点构建）
-- SSE 与 NDJSON 解码
-- 错误分类映射
-- 流式累积策略
-- 上下文感知的取消机制
+Streaming: `ChatStream` → SSE decoder (`openai_sse` by default).
+
+## Capability boundaries
+
+| Area | Reality |
+|------|---------|
+| MCP / Computer Use | Manifest HTTP routes + capability gate — not full wire clients |
+| Circuit breaker | `pkg/contact` only |
+| Multimodal | Pass-through `Message.Content` JSON |
+
+## Next steps
+
+- [Quick Start](/go/quickstart/)
+- [Streaming](/go/streaming/)
+- [Resilience](/go/resilience/)

@@ -108,15 +108,15 @@ const locale = 'zh-cn';
               variant="ts"
               version="1.0.0"
               title="ai-lib-ts"
-              description="TypeScript/Node.js 运行时，面向 npm 生态。协议驱动、流式优先，支持 Resilience、Routing、MCP 与多模态。"
+              description="TypeScript 运行时。HttpTransport + 清单解析，/core 与 /contact 入口，策略层可选。"
               features={[
-                'V2 清单解析 + 标准错误码',
-                'Resilience（Retry、CircuitBreaker、RateLimiter、Backpressure）',
-                'ModelManager + CostBasedSelector + FallbackChain',
-                'SttClient、TtsClient、RerankerClient',
-                'McpToolBridge、EmbeddingClient、Plugins',
-                'BatchExecutor + PreflightChecker',
-                '原生 fetch，发布于 npm',
+                'AiClient + 清单驱动 HTTP 聊天',
+                '/core（E）与 /contact（P）入口',
+                '13 个 V2 标准错误码',
+                'StreamingEvent event_type 判别',
+                '可选：EmbeddingClient、McpToolBridge（格式转换）',
+                '默认 transport 重试；CB/RL 需显式配置',
+                'npm v1.0.0',
               ]}
               link="/zh-cn/ts/"
               github="https://github.com/ailib-official/ai-lib-ts"
@@ -126,13 +126,14 @@ const locale = 'zh-cn';
               variant="go"
               version="1.0.0"
               title="ai-lib-go"
-              description="专为服务端部署优化的高并发 Go 运行时。将 V2 规范与标准流处理完美结合。"
+              description="Go 运行时（v1.0.0）。pkg/ailib 执行层 + pkg/contact 回退策略；协议优先 HTTP 与 ExecutionMetadata。"
               features={[
-                'ProviderDriver 架构',
-                'Go 1.21+ 原生并发流处理',
-                '上下文感知与弹性设计',
-                '将 JSON Schema 严格映射至结构体',
-                '原生 net/http 传输',
+                'pkg/ailib Client + 清单 HTTP 聊天',
+                'pkg/contact FallbackClient（熔断）',
+                '13 个 V2 标准错误码',
+                'ChatStream SSE 解码（默认 openai_sse）',
+                '能力门控端点（MCP/CU 路由）',
+                'Go 1.21+ context API',
               ]}
               link="/zh-cn/go/"
               github="https://github.com/ailib-official/ai-lib-go"

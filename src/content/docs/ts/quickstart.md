@@ -9,59 +9,47 @@ description: Get up and running with ai-lib-ts in minutes.
 
 ```bash
 npm install @ailib-official/ai-lib-ts
-
-# or
-yarn add @ailib-official/ai-lib-ts
-
-# or
-pnpm add @ailib-official/ai-lib-ts
+export OPENAI_API_KEY="your-key"
 ```
 
-## Configuration
-
-The library automatically looks for protocol manifests in these locations:
-
-1. `node_modules/@ailib-official/ai-protocol/dist` (install: `npm i @ailib-official/ai-protocol`), or legacy `node_modules/ai-protocol/dist` / `node_modules/@ailib-official/ai-protocol/dist`
-2. `../ai-protocol/dist` or `./protocols`
-
-### Provider API Keys
-
-Set API keys via environment variables `<PROVIDER_ID>_API_KEY`:
-
-```bash
-export OPENAI_API_KEY="sk-..."
-export ANTHROPIC_API_KEY="sk-ant-..."
-export DEEPSEEK_API_KEY="..."
-```
+Requires **Node 18+**.
 
 ## Basic Chat
 
 ```typescript
 import { AiClient, Message } from '@ailib-official/ai-lib-ts';
 
-const client = await AiClient.new('deepseek/deepseek-chat');
+const client = await AiClient.new('openai/gpt-4o');
 
 const response = await client
   .chat([
     Message.system('You are a helpful assistant.'),
-    Message.user('Explain quantum computing in simple terms'),
+    Message.user('Hello!'),
   ])
-  .temperature(0.7)
-  .maxTokens(500)
   .execute();
 
 console.log(response.content);
 ```
 
+## Mock server
+
+```typescript
+import { Message, createClientBuilder } from '@ailib-official/ai-lib-ts';
+
+const client = await createClientBuilder()
+  .withMockServer('http://localhost:4010')
+  .build('openai/gpt-4o');
+
+const response = await client.chat([Message.user('Hello!')]).execute();
+```
+
+Requires [ai-protocol-mock](https://github.com/ailib-official/ai-protocol-mock). Pattern from `tests/integration.test.ts`.
+
 ## Streaming
 
 ```typescript
-import { AiClient, Message } from '@ailib-official/ai-lib-ts';
-
-const client = await AiClient.new('anthropic/claude-3-5-sonnet');
-
 const stream = client
-  .chat([Message.system('You are a helpful assistant.'), Message.user('Tell me a short story.')])
+  .chat([Message.user('Count from 1 to 5')])
   .stream()
   .executeStream();
 
@@ -72,67 +60,14 @@ for await (const event of stream) {
 }
 ```
 
-## Tool Calling
+## Entry points
 
-```typescript
-import { AiClient, Message, Tool } from '@ailib-official/ai-lib-ts';
-
-const client = await AiClient.new('openai/gpt-4o');
-
-const weatherTool = Tool.define(
-  'get_weather',
-  {
-    type: 'object',
-    properties: {
-      location: { type: 'string', description: 'City name' },
-    },
-    required: ['location'],
-  },
-  'Get current weather for a location'
-);
-
-const response = await client
-  .chat([Message.user("What's the weather in Tokyo?")])
-  .tools([weatherTool])
-  .execute();
-
-if (response.toolCalls) {
-  for (const tc of response.toolCalls) {
-    console.log(`Call ${tc.function.name}: ${tc.function.arguments}`);
-  }
-}
-```
-
-## Multi-turn Conversation
-
-```typescript
-import { AiClient, Message } from '@ailib-official/ai-lib-ts';
-
-const client = await AiClient.new('anthropic/claude-3-5-sonnet');
-
-const messages = [
-  Message.system('You are a helpful coding assistant.'),
-  Message.user('What is a closure in TypeScript?'),
-];
-
-const response = await client.chat(messages).execute();
-
-console.log(response.content);
-```
-
-## With Stats
-
-```typescript
-const { response, stats } = await client.chat([Message.user('Hello!')]).executeWithStats();
-
-console.log('Content:', response.content);
-console.log('Total tokens:', stats.totalTokens);
-console.log('Latency:', stats.latencyMs, 'ms');
-```
+- **Full SDK:** `@ailib-official/ai-lib-ts`
+- **Execution only:** `@ailib-official/ai-lib-ts/core` (no policy retry wrapper)
+- **Policy only:** `@ailib-official/ai-lib-ts/contact`
 
 ## Next Steps
 
-- **[AiClient API](/ts/client/)** — Detailed API reference
-- **[Streaming Pipeline](/ts/streaming/)** — How streaming works
-- **[Resilience](/ts/resilience/)** — Circuit breaker, rate limiting, retry
-- **[Advanced Features](/ts/advanced/)** — Embeddings, cache, plugins, batch
+- **[Client API](/ts/client/)**
+- **[Streaming](/ts/streaming/)**
+- **[Resilience](/ts/resilience/)**

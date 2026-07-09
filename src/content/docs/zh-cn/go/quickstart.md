@@ -1,23 +1,18 @@
 ---
-title: 快速入门
-description: 几分钟内上手 ai-lib-go。
+title: Go Quick Start
+description: Get up and running with ai-lib-go.
 ---
 
-# 快速入门
+# Go Quick Start
 
-开始使用 `ai-lib-go`。
-
-## 安装
-
-将库添加到你的 Go 项目中：
+## Installation
 
 ```bash
-go get github.com/ailib-official/ai-lib-go
+go get github.com/ailib-official/ai-lib-go@v1.0.0
+export OPENAI_API_KEY="your-key"
 ```
 
-## 基本用法
-
-Go SDK 动态管理供应商配置。以下是使用 OpenAI 处理流式响应的示例：
+## Protocol-first chat
 
 ```go
 package main
@@ -27,43 +22,52 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ailib-official/ai-lib-go/client"
+	"github.com/ailib-official/ai-lib-go/pkg/ailib"
 )
 
 func main() {
-	// 需要 AI_PROTOCOL_PATH 指向你的清单目录
-	// export OPENAI_API_KEY="sk-..."
-
-	ctx := context.Background()
-
-	// 创建一个配置为使用 OpenAI 的新客户端
-	aiClient, err := client.NewAiClient(ctx, "openai", nil)
+	manifestYAML := `id: openai
+protocol_version: "2.0"
+endpoint:
+  base_url: "https://api.openai.com/v1"
+`
+	client, err := ailib.NewClientBuilder().
+		WithProtocolData([]byte(manifestYAML)).
+		WithAPIKey(os.Getenv("OPENAI_API_KEY")).
+		Build()
 	if err != nil {
 		panic(err)
 	}
+	defer client.Close()
 
-	// 构建请求
-	req := aiClient.Chat().
-		Model("gpt-4o").
-		User("你好，最近怎么样？").
-		MaxTokens(100)
-
-	// 使用标准 Go 流式处理模式
-	stream, err := req.ExecuteStream(ctx)
+	resp, err := client.Chat(context.Background(), []ailib.Message{
+		{Role: ailib.RoleUser, Content: "Hello!"},
+	}, &ailib.ChatOptions{Model: "gpt-4o"})
 	if err != nil {
 		panic(err)
 	}
-	defer stream.Close()
-
-	for stream.Next() {
-		event := stream.Event()
-		if event.Type == "content" {
-			fmt.Print(event.Text)
-		}
-	}
-
-	if err := stream.Err(); err != nil {
-		fmt.Printf("\n错误: %v\n", err)
-	}
+	fmt.Println(resp.Choices[0].Message.Content)
 }
 ```
+
+## BaseURL-only (OpenAI-compatible)
+
+```go
+client, err := ailib.NewClientBuilder().
+	WithBaseURL("https://api.openai.com/v1").
+	WithAPIKey(os.Getenv("OPENAI_API_KEY")).
+	Build()
+```
+
+## Fallback (policy layer)
+
+```go
+import "github.com/ailib-official/ai-lib-go/pkg/contact"
+
+fb := contact.NewFallbackClient([]ailib.Client{primary, secondary})
+```
+
+## Next Steps
+
+- **[Client API](/go/client/)**
+- **[Streaming](/go/streaming/)**

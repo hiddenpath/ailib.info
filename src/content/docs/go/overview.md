@@ -1,25 +1,35 @@
 ---
 title: Go SDK Overview
-description: Overview of the ai-lib-go runtime implementation.
+description: Architecture and public API of ai-lib-go v1.0.0.
 ---
 
-# ai-lib-go
+# Go SDK Overview
 
-The Go implementation of the AI-Protocol specification. It provides a high-concurrency, idiomatic Go runtime for interacting with 37+ AI providers using a unified interface.
+**ai-lib-go** (v1.0.0, Go 1.21+) is the Go runtime for [AI-Protocol](https://github.com/ailib-official/ai-protocol).
 
-## Core Capabilities
+| Package | Layer | Role |
+|---------|-------|------|
+| `pkg/ailib` | Execution (E) | `Client`, manifest HTTP chat, capability endpoints |
+| `pkg/contact` | Policy (P) | `FallbackClient`, circuit-breaker policy |
 
-- **Manifest-Driven**: Reads `v2/providers/*.yaml` directly. No hardcoded logic.
-- **Go Native**: Uses Go 1.21+ standard concurrency for high-performance streaming.
-- **Resilient**: Context-aware timeouts, automatic retries using `net/http`.
-- **Type-Safe**: Maps JSON schemas strictly to Go structs.
+## Primary execution path
 
-## Protocol V2 Support
+`Client.Chat` → manifest endpoint resolution → JSON HTTP → micro-retry (`internal/resilience`) → `ExecutionMetadata` on response.
 
-The Go SDK (v1.0.0) is the Wave-5 stable runtime and implements the core Ring 1/Ring 2 features of the V2 specification:
+Without a manifest, `WithBaseURL` + `WithAPIKey` uses OpenAI-compatible defaults.
 
-- HTTP Transport handling (Headers, Auth, Endpoint construction)
-- SSE and NDJSON Decoding
-- Error Classification mapping
-- Streaming Accumulation strategies
-- Context-aware cancellation
+Streaming: `ChatStream` → SSE decoder (`openai_sse` by default).
+
+## Capability boundaries
+
+| Area | Reality |
+|------|---------|
+| MCP / Computer Use | Manifest HTTP routes + capability gate — not full wire clients |
+| Circuit breaker | `pkg/contact` only |
+| Multimodal | Pass-through `Message.Content` JSON |
+
+## Next steps
+
+- [Quick Start](/go/quickstart/)
+- [Streaming](/go/streaming/)
+- [Resilience](/go/resilience/)

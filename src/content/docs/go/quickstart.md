@@ -1,23 +1,18 @@
 ---
-title: Quick Start
-description: Get started with ai-lib-go in minutes.
+title: Go Quick Start
+description: Get up and running with ai-lib-go.
 ---
 
-# Quick Start
-
-Get up and running with `ai-lib-go`.
+# Go Quick Start
 
 ## Installation
 
-Add the library to your Go project:
-
 ```bash
-go get github.com/ailib-official/ai-lib-go
+go get github.com/ailib-official/ai-lib-go@v1.0.0
+export OPENAI_API_KEY="your-key"
 ```
 
-## Basic Usage
-
-The Go SDK manages provider configurations dynamically. Here's how to stream a completion using OpenAI:
+## Protocol-first chat
 
 ```go
 package main
@@ -27,43 +22,52 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ailib-official/ai-lib-go/client"
+	"github.com/ailib-official/ai-lib-go/pkg/ailib"
 )
 
 func main() {
-	// Require AI_PROTOCOL_PATH to point to your manifests directory
-	// export OPENAI_API_KEY="sk-..."
-
-	ctx := context.Background()
-
-	// Create a new client, configured for OpenAI
-	aiClient, err := client.NewAiClient(ctx, "openai", nil)
+	manifestYAML := `id: openai
+protocol_version: "2.0"
+endpoint:
+  base_url: "https://api.openai.com/v1"
+`
+	client, err := ailib.NewClientBuilder().
+		WithProtocolData([]byte(manifestYAML)).
+		WithAPIKey(os.Getenv("OPENAI_API_KEY")).
+		Build()
 	if err != nil {
 		panic(err)
 	}
+	defer client.Close()
 
-	// Build the request
-	req := aiClient.Chat().
-		Model("gpt-4o").
-		User("Hello, how are you?").
-		MaxTokens(100)
-
-	// Stream the response using standard Go streaming pattern
-	stream, err := req.ExecuteStream(ctx)
+	resp, err := client.Chat(context.Background(), []ailib.Message{
+		{Role: ailib.RoleUser, Content: "Hello!"},
+	}, &ailib.ChatOptions{Model: "gpt-4o"})
 	if err != nil {
 		panic(err)
 	}
-	defer stream.Close()
-
-	for stream.Next() {
-		event := stream.Event()
-		if event.Type == "content" {
-			fmt.Print(event.Text)
-		}
-	}
-
-	if err := stream.Err(); err != nil {
-		fmt.Printf("\nError: %v\n", err)
-	}
+	fmt.Println(resp.Choices[0].Message.Content)
 }
 ```
+
+## BaseURL-only (OpenAI-compatible)
+
+```go
+client, err := ailib.NewClientBuilder().
+	WithBaseURL("https://api.openai.com/v1").
+	WithAPIKey(os.Getenv("OPENAI_API_KEY")).
+	Build()
+```
+
+## Fallback (policy layer)
+
+```go
+import "github.com/ailib-official/ai-lib-go/pkg/contact"
+
+fb := contact.NewFallbackClient([]ailib.Client{primary, secondary})
+```
+
+## Next Steps
+
+- **[Client API](/go/client/)**
+- **[Streaming](/go/streaming/)**

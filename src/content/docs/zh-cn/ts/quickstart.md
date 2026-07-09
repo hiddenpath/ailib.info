@@ -1,64 +1,55 @@
 ---
-title: TypeScript 快速开始
-description: 数分钟内上手 ai-lib-ts。
+title: TypeScript Quick Start
+description: Get up and running with ai-lib-ts in minutes.
 ---
 
-# TypeScript 快速开始
+# TypeScript Quick Start
 
-## 安装
+## Installation
 
 ```bash
 npm install @ailib-official/ai-lib-ts
-
-# 或
-yarn add @ailib-official/ai-lib-ts
-
-# 或
-pnpm add @ailib-official/ai-lib-ts
+export OPENAI_API_KEY="your-key"
 ```
 
-## 配置
+Requires **Node 18+**.
 
-库会自动在以下位置查找协议清单：
-
-1. `node_modules/@ailib-official/ai-protocol/dist`（安装：`npm i @ailib-official/ai-protocol`），或旧版路径 `node_modules/ai-protocol/dist`、`node_modules/@ailib-official/ai-protocol/dist`
-2. `../ai-protocol/dist` 或 `./protocols`
-
-### Provider API 密钥
-
-通过环境变量 `<PROVIDER_ID>_API_KEY` 设置 API 密钥：
-
-```bash
-export OPENAI_API_KEY="sk-..."
-export ANTHROPIC_API_KEY="sk-ant-..."
-export DEEPSEEK_API_KEY="..."
-```
-
-## 基本聊天
+## Basic Chat
 
 ```typescript
 import { AiClient, Message } from '@ailib-official/ai-lib-ts';
 
-const client = await AiClient.new('deepseek/deepseek-chat');
+const client = await AiClient.new('openai/gpt-4o');
 
 const response = await client
-  .chat([Message.system('你是一个有帮助的助手。'), Message.user('用简单的语言解释量子计算')])
-  .temperature(0.7)
-  .maxTokens(500)
+  .chat([
+    Message.system('You are a helpful assistant.'),
+    Message.user('Hello!'),
+  ])
   .execute();
 
 console.log(response.content);
 ```
 
-## 流式输出
+## Mock server
 
 ```typescript
-import { AiClient, Message } from '@ailib-official/ai-lib-ts';
+import { Message, createClientBuilder } from '@ailib-official/ai-lib-ts';
 
-const client = await AiClient.new('anthropic/claude-3-5-sonnet');
+const client = await createClientBuilder()
+  .withMockServer('http://localhost:4010')
+  .build('openai/gpt-4o');
 
+const response = await client.chat([Message.user('Hello!')]).execute();
+```
+
+Requires [ai-protocol-mock](https://github.com/ailib-official/ai-protocol-mock). Pattern from `tests/integration.test.ts`.
+
+## Streaming
+
+```typescript
 const stream = client
-  .chat([Message.system('你是一个有帮助的助手。'), Message.user('讲一个短故事。')])
+  .chat([Message.user('Count from 1 to 5')])
   .stream()
   .executeStream();
 
@@ -69,67 +60,14 @@ for await (const event of stream) {
 }
 ```
 
-## 工具调用
+## Entry points
 
-```typescript
-import { AiClient, Message, Tool } from '@ailib-official/ai-lib-ts';
+- **Full SDK:** `@ailib-official/ai-lib-ts`
+- **Execution only:** `@ailib-official/ai-lib-ts/core` (no policy retry wrapper)
+- **Policy only:** `@ailib-official/ai-lib-ts/contact`
 
-const client = await AiClient.new('openai/gpt-4o');
+## Next Steps
 
-const weatherTool = Tool.define(
-  'get_weather',
-  {
-    type: 'object',
-    properties: {
-      location: { type: 'string', description: '城市名称' },
-    },
-    required: ['location'],
-  },
-  '获取指定位置的当前天气'
-);
-
-const response = await client
-  .chat([Message.user('东京的天气怎么样？')])
-  .tools([weatherTool])
-  .execute();
-
-if (response.toolCalls) {
-  for (const tc of response.toolCalls) {
-    console.log(`调用 ${tc.function.name}: ${tc.function.arguments}`);
-  }
-}
-```
-
-## 多轮对话
-
-```typescript
-import { AiClient, Message } from '@ailib-official/ai-lib-ts';
-
-const client = await AiClient.new('anthropic/claude-3-5-sonnet');
-
-const messages = [
-  Message.system('你是一个有帮助的编程助手。'),
-  Message.user('TypeScript 中的闭包是什么？'),
-];
-
-const response = await client.chat(messages).execute();
-
-console.log(response.content);
-```
-
-## 获取统计信息
-
-```typescript
-const { response, stats } = await client.chat([Message.user('你好！')]).executeWithStats();
-
-console.log('内容:', response.content);
-console.log('总 Token 数:', stats.totalTokens);
-console.log('延迟:', stats.latencyMs, 'ms');
-```
-
-## 下一步
-
-- **[AiClient API](/ts/client/)** — 详细 API 参考
-- **[流式管道](/ts/streaming/)** — 流式输出工作原理
-- **[弹性模式](/ts/resilience/)** — 熔断器、限流、重试
-- **[高级功能](/ts/advanced/)** — 嵌入、缓存、插件、批处理
+- **[Client API](/ts/client/)**
+- **[Streaming](/ts/streaming/)**
+- **[Resilience](/ts/resilience/)**

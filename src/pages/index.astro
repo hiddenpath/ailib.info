@@ -109,15 +109,15 @@ const locale = 'en';
               variant="ts"
               version="1.0.0"
               title="ai-lib-ts"
-              description="TypeScript/Node.js runtime for the npm ecosystem. Protocol-driven, streaming-first, with Resilience, Routing, MCP, and Multimodal support."
+              description="TypeScript runtime for npm. HttpTransport + manifest parsers, /core and /contact entry points, opt-in policy layer."
               features={[
-                'V2 manifest parsing + standard error codes',
-                'Resilience (Retry, CircuitBreaker, RateLimiter, Backpressure)',
-                'ModelManager + CostBasedSelector + FallbackChain',
-                'SttClient, TtsClient, RerankerClient',
-                'McpToolBridge, EmbeddingClient, Plugins',
-                'BatchExecutor + PreflightChecker',
-                'Native fetch, published on npm',
+                'AiClient + manifest-driven HTTP chat',
+                '/core (E) and /contact (P) entry points',
+                '13 V2 standard error codes',
+                'StreamingEvent with event_type discriminator',
+                'Optional: EmbeddingClient, McpToolBridge (format only)',
+                'Default transport retry; CB/RL opt-in',
+                'Published on npm v1.0.0',
               ]}
               link="/ts/"
               github="https://github.com/ailib-official/ai-lib-ts"
@@ -127,13 +127,14 @@ const locale = 'en';
               variant="go"
               version="1.0.0"
               title="ai-lib-go"
-              description="High-concurrency Go runtime optimized for server-side deployments. Direct V2 specification mapping with standard stream iteration."
+              description="Go runtime (v1.0.0). pkg/ailib execution client + pkg/contact fallback policy; protocol-first HTTP with ExecutionMetadata."
               features={[
-                'ProviderDriver architecture',
-                'Go 1.21+ native concurrency',
-                'Context-aware resilience',
-                'Strict JSON Schema to struct mapping',
-                'Native net/http transport',
+                'pkg/ailib Client + manifest HTTP chat',
+                'pkg/contact FallbackClient (circuit breaker)',
+                '13 V2 standard error codes',
+                'ChatStream SSE decoder (openai_sse default)',
+                'Capability-gated endpoints (MCP/CU routes)',
+                'Go 1.21+ context-aware API',
               ]}
               link="/go/"
               github="https://github.com/ailib-official/ai-lib-go"
