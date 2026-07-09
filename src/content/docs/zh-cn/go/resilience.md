@@ -1,96 +1,44 @@
 ---
-title: 弹性（Go）
-description: ai-lib-go v1.0.0 中的生产级可靠性模式 — 熔断器、速率限制器、背压、重试。
+title: Go 韧性模式
+description: ai-lib-go v1.0.0 生产可靠性模式。
 ---
 
-# 弹性模式
+# 韧性模式
 
-ai-lib-go（v1.0.0）开箱即用提供生产级可靠性模式。重试与回退决策使用 V2 标准错误码：`StandardErrorCode` 上的 `retryable` 与 `fallbackable` 属性决定错误是否触发重试或模型回退。
+ai-lib-go（v1.0.0）在执行层提供清单驱动的微重试；熔断与多提供商回退位于 **`pkg/contact`** 策略层。V2 标准错误码的 `retryable` / `fallbackable` 属性决定重试与回退行为。
 
-## 熔断器
+## 执行层重试
 
-通过停止向故障提供商发送请求来防止级联故障：
+`pkg/ailib` 的 `internal/resilience` 对可重试错误做短延迟重试，无需额外配置即可用于基础 HTTP 聊天。
 
-**状态：**
+## 熔断（pkg/contact）
 
-- **Closed（闭合）** — 正常操作，请求通过
-- **Open（打开）** — 故障过多，请求立即被拒绝
-- **Half-Open（半开）** — 冷却后允许一次测试请求
+通过 `FallbackClient` 与 contact 层策略避免向持续失败的提供商发送请求：
 
-**配置：**
+- **Closed** — 正常转发
+- **Open** — 失败过多，立即拒绝
+- **Half-Open** — 冷却期后试探性放行
 
-```bash
-export AI_LIB_BREAKER_FAILURE_THRESHOLD=5
-export AI_LIB_BREAKER_COOLDOWN_SECS=30
-```
-
-连续 `FAILURE_THRESHOLD` 次故障后熔断器打开，保持打开 `COOLDOWN_SECS` 秒后再进行测试。
-
-## 速率限制器
-
-令牌桶算法防止超出提供商速率限制：
-
-```bash
-export AI_LIB_RPS=10    # Max requests per second
-export AI_LIB_RPM=600   # Max requests per minute
-```
-
-超出限制的请求会被排队而非拒绝，以提供平稳的吞吐量。
-
-## 背压
-
-使用信号量限制并发在途请求：
-
-```bash
-export AI_LIB_MAX_INFLIGHT=50
-```
-
-达到限制时，新请求会等待直到有空闲槽位。
-
-## 重试
-
-由协议清单的重试策略驱动的指数退避重试：
-
-```yaml
-# In the provider manifest
-retry_policy:
-  strategy: 'exponential_backoff'
-  max_retries: 3
-  initial_delay_ms: 1000
-  max_delay_ms: 30000
-  retryable_errors:
-    - 'rate_limited'
-    - 'overloaded'
-    - 'server_error'
-```
-
-只有被归类为可重试的错误才会触发重试。例如，身份验证错误会立即失败。
-
-## 模式组合
-
-所有弹性模式协同工作。典型的请求流程：
-
-1. **背压** — 若已达最大在途数则等待槽位
-2. **熔断器** — 若熔断器打开则立即拒绝
-3. **速率限制器** — 若被限速则等待令牌
-4. **执行** — 发送请求
-5. **重试** — 若是可重试错误，等待后重试
-6. **更新** — 记录成功/失败以更新熔断器
-
-## 可观测性
-
-在运行时监控弹性状态：
+## 多提供商回退
 
 ```go
-// 检查熔断器状态
-state := aiClient.CircuitState()
-fmt.Printf("Circuit: %v\n", state) // Closed, Open, HalfOpen
+import "github.com/ailib-official/ai-lib-go/pkg/contact"
 
-// 检查当前在途请求数
-inflight := aiClient.CurrentInflight()
+fb := contact.NewFallbackClient([]ailib.Client{primary, secondary})
 ```
+
+按顺序尝试客户端，直至成功或全部失败。
+
+## 能力边界（如实描述）
+
+| 模式 | pkg/ailib | pkg/contact |
+|------|-----------|-------------|
+| HTTP 微重试 | 是 | — |
+| 熔断 | 否 | 是 |
+| 多提供商回退 | 否 | 是 |
+| 全局限流/背压 | 否 | 需自行集成 |
 
 ## 下一步
 
-- **[高级功能](/go/advanced/)** — Embeddings、缓存、插件
-- **[AiClient API](/go/client/)** — 客户端使用
+- **[高级特性](/zh-cn/go/advanced/)**
+- **[Client API](/zh-cn/go/client/)**

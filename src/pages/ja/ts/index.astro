@@ -10,10 +10,10 @@ const locale = 'ja';
 <html lang="ja" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
-    <title>ai-lib-ts | AI-Protocol TypeScript/Node.js ã©ã³ã¿ã¤ã?/title>
+    <title>ai-lib-ts | AI-Protocol TypeScript/Node.js ランタイム</title>
     <meta
       name="description"
-      content="ai-lib-ts ã?AI-Protocol ã?TypeScript/Node.js ã©ã³ã¿ã¤ã ã§ãããã­ãã³ã«é§åãã¹ããªã¼ãã³ã°ãã¡ã¼ã¹ããResilienceãRoutingãMCPããã«ãã¢ã¼ãã«å¯¾å¿ã?
+      content="ai-lib-ts is the TypeScript/Node.js runtime for AI-Protocol. Protocol-driven, streaming-first, with Resilience, Routing, MCP, and Multimodal support."
     />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" href="/favicon.svg" />
@@ -37,19 +37,19 @@ const locale = 'ja';
               v1.0.0 &middot; npm
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.05]">
-              <span class="gradient-text">TypeScript ã©ã³ã¿ã¤ã?/span>
+              <span class="gradient-text">TypeScript ランタイム</span>
               <br />
               <span class="text-[var(--text)]">for AI-Protocol.</span>
             </h1>
             <p class="text-lg md:text-xl text-[var(--text-dim)] max-w-2xl mb-8 leading-relaxed">
-              ãã­ãã³ã«é§åãã¹ããªã¼ãã³ã°ãã¡ã¼ã¹ãã® TypeScript/Node.js
-              ã©ã³ã¿ã¤ã ãV2ãããã§ã¹ãè§£æãæ¨æºã¨ã©ã¼ã³ã¼ããã¬ã¸ãªã¨ã³ã¹ãã¿ã¼ã³ãã¢ãã«ã«ã¼ãã£ã³ã°ãMCPããªãã¸ããã«ãã¢ã¼ãã«å¯¾å¿ã?
+              プロトコル駆動の TypeScript/Node.js ランタイム（v1.0.0）。既定のチャット経路は HttpTransport + マニフェスト解析。
+              /core と /contact エントリポイント、V2 標準エラーコード 13 種。
             </p>
             <div class="flex flex-wrap gap-4 mb-8">
               <a
                 href="/ja/ts/quickstart/"
                 class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all hover:no-underline"
-                >ã¯ã¤ãã¯ã¹ã¿ã¼ã</a
+                >クイックスタート</a
               >
               <a
                 href="https://github.com/ailib-official/ai-lib-ts"
@@ -79,42 +79,48 @@ const locale = 'ja';
       <!-- Key Features -->
       <section class="section-alt">
         <div class="container">
-          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">ä¸»ãªæ©è½</h2>
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">主な機能</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">V2ãããã§ã¹ãè§£æ</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">V2 Manifest Parsing</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                V2ãã­ãã³ã«ãããã§ã¹ãã®è§£æã¨ã­ã¼ããæ¨æºã¨ã©ã¼ã³ã¼ãï¼13ã³ã¼ãï¼å¯¾å¿ããã­ãã¤ãã¼éä¾å­ã®è¨­å®ããã¼ãã³ã¼ãã­ã¸ãã¯ã¼ã­ã?
+                Parse and load V2 protocol manifests with standard error codes (13 codes).
+                Provider-agnostic configuration with zero hardcoded logic.
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">ã¬ã¸ãªã¨ã³ã¹ãã¿ã¼ã³</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">Resilience Patterns</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                çµã¿è¾¼ã¿ã®RetryPolicyãCircuitBreakerãRateLimiterãBackpressureãPreflightCheckerã«ããçµ±ä¸ãªã¯ã¨ã¹ãã²ã¼ãã£ã³ã°ã?
+                Built-in RetryPolicy, CircuitBreaker, RateLimiter, and Backpressure.
+                PreflightChecker for unified request gating.
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">ã¢ãã«ã«ã¼ãã£ã³ã?/h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">Model Routing</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                ModelManagerã«ããCostBasedSelectorãQualityBasedSelectorãFallbackChainãã³ã¹ãã¨åè³ªã®æé©åã®ããã®ã¹ãã¼ãã¢ãã«é¸æã?
+                ModelManager with CostBasedSelector, QualityBasedSelector, and FallbackChain. Smart
+                model selection for cost and quality optimization.
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">ãã«ãã¢ã¼ãã«å¯¾å¿?/h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">Multimodal Support</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                SttClientã§é³å£°ãã­ã¹ãå¤æãTtsClientã§ãã­ã¹ãé³å£°å¤æãRerankerClientã§ãã­ã¥ã¡ã³ãåã©ã³ã­ã³ã°ãå®å¨ãªãã«ãã¢ã¼ãã«ã³ã³ãã³ããã­ãã¯å¯¾å¿ã?
+                SttClient for speech-to-text, TtsClient for text-to-speech, RerankerClient for
+                document reranking. Full multimodal content block support.
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">MCPãã¼ã«ããªãã?/h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">MCP Tool Bridge</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                MCPãã¼ã«ãAI-Protocolå½¢å¼ã«ããªãã¸ãMCPãµã¼ãã¼ã¨çµ±ä¸ãã¼ã«å¼ã³åºãã¤ã³ã¿ã¼ãã§ã¼ã¹ãã·ã¼ã ã¬ã¹ã«çµ±åã?
+                Bridge MCP tools to AI-Protocol format. Seamlessly integrate MCP servers with
+                unified tool calling interface.
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">ãããå¦çã¨ãã©ã°ã¤ã?/h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">Batch & Plugins</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                BatchExecutorã«ããä¸¦åå¦çãè¨­å®å¯è½ãªä¸¦è¡æ°ããªã¯ã¨ã¹ã/ã¬ã¹ãã³ã¹ã¤ã³ã¿ã¼ã»ããããã¯ãæã¤ãã©ã°ã¤ã³ã·ã¹ãã ã?
+                BatchExecutor for parallel processing with configurable concurrency. Plugin system
+                with hooks for request/response interception.
               </p>
             </div>
           </div>
@@ -126,9 +132,10 @@ const locale = 'ja';
         <div class="container">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             <div>
-              <h2 class="text-3xl font-bold text-[var(--text)] mb-4">ã·ã³ãã«ã§çµ±ä¸ãããAPI</h2>
+              <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Simple, Unified API</h2>
               <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
-                åãã³ã¼ãã37ã®ãã¹ã¦ã®ãã­ãã¤ãã¼ã§åä½ãã¾ããã¢ãã«è­å¥å­ãå¤æ´ããã ãââãã­ãã³ã«ãããã§ã¹ãããã¹ã¦ãå¦çãã¾ãã?
+                The same code works across all 37 providers. Just change the model identifier —the
+                protocol manifest handles everything else.
               </p>
               <ul class="space-y-3">
                 <li class="flex items-center gap-3">
@@ -136,23 +143,21 @@ const locale = 'ja';
                     class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold"
                     >1</span
                   >
-                  <span class="text-[var(--text-dim)]">ã¢ãã«IDã§ã¯ã©ã¤ã¢ã³ããä½æ</span>
+                  <span class="text-[var(--text-dim)]">Create client with model ID</span>
                 </li>
                 <li class="flex items-center gap-3">
                   <span
                     class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold"
                     >2</span
                   >
-                  <span class="text-[var(--text-dim)]"
-                    >ãã«ã¼ã¨ã³ãAPIã§ãã£ãããªã¯ã¨ã¹ããæ§ç¯?/span
-                  >
+                  <span class="text-[var(--text-dim)]">Build chat request with fluent API</span>
                 </li>
                 <li class="flex items-center gap-3">
                   <span
                     class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold"
                     >3</span
                   >
-                  <span class="text-[var(--text-dim)]">ã¬ã¹ãã³ã¹ãå®è¡ã¾ãã¯ã¹ããªã¼ãã³ã°</span>
+                  <span class="text-[var(--text-dim)]">Execute or stream the response</span>
                 </li>
               </ul>
             </div>
@@ -188,9 +193,10 @@ console.<span class="text-blue-300">log</span>(response.content);</code></pre>
       <section class="section-alt">
         <div class="container">
           <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold text-[var(--text)] mb-4">åé¨ã¢ã¼ã­ãã¯ãã?/h2>
+            <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Internal Architecture</h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
-              ãã­ãã³ã«é§ååã¢ã¼ã­ãã¯ãã£ã§ãåå®å¨ãªå®è¡ç°å¢ãããã©ã«ãã§ã®ã¬ã¸ãªã¨ã³ã¹ãå®å¨ãªæ¡å¼µæ§ãåãã¦ãã¾ãã?
+              Protocol-driven architecture with type-safe execution, resilient by default, and fully
+              extensible.
             </p>
           </div>
           <RuntimeArch locale={locale} variant="ts" />
@@ -200,61 +206,62 @@ console.<span class="text-blue-300">log</span>(response.content);</code></pre>
       <!-- Module Overview -->
       <section class="section">
         <div class="container">
-          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">ã¢ã¸ã¥ã¼ã«æ¦è¦?/h2>
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">Module Overview</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">client/ + errors/</h3>
               <p class="text-sm text-[var(--text-dim)]">
                 AiClient, ChatRequestBuilder, ChatResponse, CallStats, CancelToken,
-                CancellableStream, çµ±ä¸ã¨ã©ã¼ã³ã¼ãã?
+                CancellableStream, Unified error codes.
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">protocol/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                ProtocolLoader (local/fetch/GitHub), V2 ãããã§ã¹ãå®ç¾©, JSON Schema ããªãã¼ã¿ã¼,
-                ãã­ãã¤ãã¼éä¾å­ã¢ãã«ã?
+                ProtocolLoader (local/fetch/GitHub), V2 manifest definitions, JSON Schema Validator,
+                Provider-agnostic models.
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">pipeline/</h3>
               <p class="text-sm text-[var(--text-dim)]">
                 Decoder (SSE, JSON Lines), Selector (JSONPath), Accumulator, FanOut, EventMapper
-                (ãã­ãã³ã«é§å?ã?
+                (protocol-driven).
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">resilience/</h3>
               <p class="text-sm text-[var(--text-dim)]">
                 RetryPolicy, CircuitBreaker, RateLimiter, Backpressure, PreflightChecker,
-                SignalsSnapshot, FallbackChainã?
+                SignalsSnapshot, FallbackChain.
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">routing/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                ã¤ã³ããªã¸ã§ã³ããªã¢ãã«é¸æã®ããã® ModelManager, QualityBasedSelector,
-                CostBasedSelector, FallbackChainã?
+                ModelManager, QualityBasedSelector, CostBasedSelector, FallbackChain for intelligent
+                model selection.
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">mcp/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Model Context Protocol ãµã¼ãã¼ãã·ã¼ã ã¬ã¹ã«çµ±åããããã® McpBridge, McpTool
-                å®ç¾©ã?
+                McpBridge, McpTool definitions to seamlessly integrate Model Context Protocol
+                servers.
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">multimodal/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                SttClient, TtsClient,
-                RerankerClientããã«ãã¢ã¼ãã«å¥åã¨å°éã¢ãã«ãå®å¨ã«ãµãã¼ãã?
+                SttClient, TtsClient, RerankerClient, fully supporting multimodal inputs and
+                specialized models.
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">plugins/ + batch/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                PluginRegistry, Hooksãä¸¦è¡å¶éä»ãã®ãããå®è¡ã®ããã?BatchExecutorã?
+                PluginRegistry, Hooks. BatchExecutor for concurrent batch execution with concurrency
+                limits.
               </p>
             </div>
           </div>
@@ -264,49 +271,49 @@ console.<span class="text-blue-300">log</span>(response.content);</code></pre>
       <!-- Documentation Links -->
       <section class="section-alt">
         <div class="container">
-          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">ãã­ã¥ã¡ã³ã</h2>
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">Documentation</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <a
               href="/ja/ts/quickstart/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">ã¯ã¤ãã¯ã¹ã¿ã¼ã â?/h3>
-              <p class="text-sm text-[var(--text-dim)]">æ°åã§å§ãããã¾ãã?/p>
+              <h3 class="font-bold text-[var(--text)] mb-2">Quick Start →/h3>
+              <p class="text-sm text-[var(--text-dim)]">Get up and running in minutes.</p>
             </a>
             <a
               href="/ja/ts/client/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">AiClient API â?/h3>
-              <p class="text-sm text-[var(--text-dim)]">å®å¨ãªAPIãªãã¡ã¬ã³ã¹ã?/p>
+              <h3 class="font-bold text-[var(--text)] mb-2">AiClient API →/h3>
+              <p class="text-sm text-[var(--text-dim)]">Complete API reference.</p>
             </a>
             <a
               href="/ja/ts/streaming/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">ã¹ããªã¼ãã³ã?â?/h3>
-              <p class="text-sm text-[var(--text-dim)]">ãªã¢ã«ã¿ã¤ã ã¬ã¹ãã³ã¹å¦çã?/p>
+              <h3 class="font-bold text-[var(--text)] mb-2">Streaming →/h3>
+              <p class="text-sm text-[var(--text-dim)]">Real-time response handling.</p>
             </a>
             <a
               href="/ja/ts/resilience/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">ã¬ã¸ãªã¨ã³ã¹ â?/h3>
-              <p class="text-sm text-[var(--text-dim)]">æ¬çªç°å¢å¯¾å¿ãã¿ã¼ã³ã?/p>
+              <h3 class="font-bold text-[var(--text)] mb-2">Resilience →/h3>
+              <p class="text-sm text-[var(--text-dim)]">Production-ready patterns.</p>
             </a>
             <a
               href="/ja/ts/advanced/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">é«åº¦ãªæ©è?â?/h3>
-              <p class="text-sm text-[var(--text-dim)]">åãè¾¼ã¿ãMCPããã©ã°ã¤ã³ã?/p>
+              <h3 class="font-bold text-[var(--text)] mb-2">Advanced →/h3>
+              <p class="text-sm text-[var(--text-dim)]">Embeddings, MCP, plugins.</p>
             </a>
             <a
               href="/ja/ts/overview/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">æ¦è¦ â?/h3>
-              <p class="text-sm text-[var(--text-dim)]">ã¢ã¼ã­ãã¯ãã£ã¨ã³ã³ã»ããã?/p>
+              <h3 class="font-bold text-[var(--text)] mb-2">Overview →/h3>
+              <p class="text-sm text-[var(--text-dim)]">Architecture and concepts.</p>
             </a>
           </div>
         </div>

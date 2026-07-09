@@ -1,18 +1,18 @@
 ---
-title: Go Quick Start
-description: Get up and running with ai-lib-go.
+title: Go 快速开始
+description: 几分钟上手 ai-lib-go。
 ---
 
-# Go Quick Start
+# Go 快速开始
 
-## Installation
+## 安装
 
 ```bash
 go get github.com/ailib-official/ai-lib-go@v1.0.0
 export OPENAI_API_KEY="your-key"
 ```
 
-## Protocol-first chat
+## 协议优先聊天
 
 ```go
 package main
@@ -50,7 +50,7 @@ endpoint:
 }
 ```
 
-## BaseURL-only (OpenAI-compatible)
+## 仅 BaseURL（OpenAI 兼容）
 
 ```go
 client, err := ailib.NewClientBuilder().
@@ -59,7 +59,7 @@ client, err := ailib.NewClientBuilder().
 	Build()
 ```
 
-## Fallback (policy layer)
+## 回退（策略层）
 
 ```go
 import "github.com/ailib-official/ai-lib-go/pkg/contact"
@@ -67,7 +67,7 @@ import "github.com/ailib-official/ai-lib-go/pkg/contact"
 fb := contact.NewFallbackClient([]ailib.Client{primary, secondary})
 ```
 
-## Next Steps
+## 下一步
 
-- **[Client API](/go/client/)**
-- **[Streaming](/go/streaming/)**
+- **[Client API](/zh-cn/go/client/)**
+- **[流式处理](/zh-cn/go/streaming/)**

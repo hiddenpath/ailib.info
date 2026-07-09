@@ -90,15 +90,15 @@ const locale = 'ja';
               variant="python"
               version="1.0.0"
               title="ai-lib-python"
-              description="開発者フレンドリーなPythonランタイム。V2標準エラーコード、機能ベースのエクストラ、完全な非同期サポート、Pydantic v2型、本番グレードのテレメトリ。"
+              description="非同期 Python ランタイム。E/P モジュール分離、マニフェスト駆動 Pipeline + AiClient、Pydantic v2 型と pip extras。"
               features={[
-                'ProviderDriver（OpenAI/Anthropic/Gemini）',
-                'MCPツールブリッジ + 名前空間分離',
-                'Computer Use + SafetyPolicy',
-                'STT/TTS/Rerank エクストラ',
-                'Pydantic v2型安全性',
-                'モデルルーティングとロードバランシング',
-                '75+ V2テスト、PyPIで公開',
+                'AiClient + オペレーターベースのストリーミング',
+                'フルエント chat builder（.messages / .user / .stream）',
+                'V2 標準エラーコード 13 種',
+                '構造化出力と text-tool 型',
+                'オプション: embeddings、MCP ブリッジ、computer_use（pip extras）',
+                'オプトイン resilience（production_ready）',
+                'PyPI v1.0.0',
               ]}
               link="/ja/python/"
               github="https://github.com/ailib-official/ai-lib-python"
@@ -108,15 +108,15 @@ const locale = 'ja';
               variant="ts"
               version="1.0.0"
               title="ai-lib-ts"
-              description="TypeScript/Node.jsランタイム、npmエコシステム向け。プロトコル駆動、ストリーミングファースト、Resilience、Routing、MCP、マルチモーダル対応。"
+              description="TypeScript ランタイム。HttpTransport + マニフェスト解析、/core と /contact エントリ、オプトインのポリシー層。"
               features={[
-                'V2マニフェスト解析 + 標準エラーコード',
-                'Resilience（Retry、CircuitBreaker、RateLimiter、Backpressure）',
-                'ModelManager + CostBasedSelector + FallbackChain',
-                'SttClient、TtsClient、RerankerClient',
-                'McpToolBridge、EmbeddingClient、Plugins',
-                'BatchExecutor + PreflightChecker',
-                'ネイティブfetch、npmで公開',
+                'AiClient + マニフェスト駆動 HTTP チャット',
+                '/core（E）と /contact（P）エントリ',
+                'V2 標準エラーコード 13 種',
+                'StreamingEvent の event_type 判別',
+                'オプション: EmbeddingClient、McpToolBridge（形式変換のみ）',
+                'デフォルト transport リトライ、CB/RL は明示設定',
+                'npm v1.0.0',
               ]}
               link="/ja/ts/"
               github="https://github.com/ailib-official/ai-lib-ts"
@@ -126,13 +126,14 @@ const locale = 'ja';
               variant="go"
               version="1.0.0"
               title="ai-lib-go"
-              description="サーバーサイドデプロイメントに最適化された高並行Goランタイム。標準的なストリーム反復による直接的なV2仕様マッピング。"
+              description="Go ランタイム（v1.0.0）。pkg/ailib 実行層 + pkg/contact フォールバック、マニフェスト優先 HTTP。"
               features={[
-                'ProviderDriverアーキテクチャ',
-                'Go 1.21+ ネイティブ並行処理',
-                'コンテキストアウェアなレジリエンス',
-                '厳密なJSON Schemaから構造体へのマッピング',
-                'ネイティブなnet/httpトランスポート',
+                'pkg/ailib Client + マニフェスト HTTP チャット',
+                'pkg/contact FallbackClient（サーキットブレーカー）',
+                'V2 標準エラーコード 13 種',
+                'ChatStream SSE デコーダ（既定 openai_sse）',
+                '能力ゲート付きエンドポイント',
+                'Go 1.21+ context API',
               ]}
               link="/ja/go/"
               github="https://github.com/ailib-official/ai-lib-go"

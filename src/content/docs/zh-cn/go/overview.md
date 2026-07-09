@@ -1,35 +1,35 @@
 ---
-title: Go SDK Overview
-description: Architecture and public API of ai-lib-go v1.0.0.
+title: Go SDK 概述
+description: ai-lib-go v1.0.0 架构与公开 API — AI-Protocol 的 Go 运行时。
 ---
 
-# Go SDK Overview
+# Go SDK 概述
 
-**ai-lib-go** (v1.0.0, Go 1.21+) is the Go runtime for [AI-Protocol](https://github.com/ailib-official/ai-protocol).
+**ai-lib-go**（v1.0.0，Go 1.21+）是 [AI-Protocol](https://github.com/ailib-official/ai-protocol) 的 Go 运行时。
 
-| Package | Layer | Role |
+| 包 | 层级 | 职责 |
 |---------|-------|------|
-| `pkg/ailib` | Execution (E) | `Client`, manifest HTTP chat, capability endpoints |
-| `pkg/contact` | Policy (P) | `FallbackClient`, circuit-breaker policy |
+| `pkg/ailib` | 执行层 (E) | `Client`、清单 HTTP 聊天、能力端点 |
+| `pkg/contact` | 策略层 (P) | `FallbackClient`、熔断策略 |
 
-## Primary execution path
+## 主要执行路径
 
-`Client.Chat` → manifest endpoint resolution → JSON HTTP → micro-retry (`internal/resilience`) → `ExecutionMetadata` on response.
+`Client.Chat` → 清单端点解析 → JSON HTTP → 微重试（`internal/resilience`）→ 响应附带 `ExecutionMetadata`。
 
-Without a manifest, `WithBaseURL` + `WithAPIKey` uses OpenAI-compatible defaults.
+无清单时，`WithBaseURL` + `WithAPIKey` 使用 OpenAI 兼容默认值。
 
-Streaming: `ChatStream` → SSE decoder (`openai_sse` by default).
+流式：`ChatStream` → SSE 解码器（默认 `openai_sse`）。
 
-## Capability boundaries
+## 能力边界
 
-| Area | Reality |
+| 领域 | 实际情况 |
 |------|---------|
-| MCP / Computer Use | Manifest HTTP routes + capability gate — not full wire clients |
-| Circuit breaker | `pkg/contact` only |
-| Multimodal | Pass-through `Message.Content` JSON |
+| MCP / Computer Use | 清单 HTTP 路由 + 能力门控 — 非完整 wire 客户端 |
+| 熔断 | 仅 `pkg/contact` |
+| 多模态 | 透传 `Message.Content` JSON |
 
-## Next steps
+## 下一步
 
-- [Quick Start](/go/quickstart/)
-- [Streaming](/go/streaming/)
-- [Resilience](/go/resilience/)
+- [快速开始](/zh-cn/go/quickstart/)
+- [流式处理](/zh-cn/go/streaming/)
+- [韧性模式](/zh-cn/go/resilience/)

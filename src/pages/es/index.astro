@@ -17,14 +17,14 @@ const locale = 'es';
     <title>AI-Lib | Un protocolo, todos los proveedores de IA</title>
     <meta
       name="description"
-      content="AI-Lib es un ecosistema de cÃ³digo abierto que estandariza las interacciones con modelos de IA. Cuatro runtimes (Rust, Python, TypeScript, Go) con MCP, STT/TTS/Rerank y multimodal â€?37+ proveedores."
+      content="AI-Lib es un ecosistema de código abierto que estandariza las interacciones con modelos de IA. Cuatro runtimes (Rust, Python, TypeScript, Go) con MCP, STT/TTS/Rerank y multimodal —37+ proveedores."
     />
-    <meta name="keywords" content="AI, LLM, OpenAI, Anthropic, Gemini, Claude, GPT, aprendizaje automÃ¡tico, inteligencia artificial, SDK, Rust, Python, TypeScript, Go, MCP, multimodal" />
+    <meta name="keywords" content="AI, LLM, OpenAI, Anthropic, Gemini, Claude, GPT, aprendizaje automático, inteligencia artificial, SDK, Rust, Python, TypeScript, Go, MCP, multimodal" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta property="og:title" content="AI-Lib | Un protocolo, todos los proveedores de IA" />
     <meta
       property="og:description"
-      content="Ecosistema de cÃ³digo abierto para interacciones con modelos de IA estandarizadas. Un protocolo, mÃºltiples runtimes."
+      content="Ecosistema de código abierto para interacciones con modelos de IA estandarizadas. Un protocolo, múltiples runtimes."
     />
     <meta property="og:image" content="/og-image-es.png" />
     <link rel="icon" href="/favicon.svg" />
@@ -43,7 +43,7 @@ const locale = 'es';
               6 proyectos, 1 ecosistema
             </h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
-              Una capa de especificaciÃ³n define las reglas. Cuatro implementaciones de runtime
+              Una capa de especificación define las reglas. Cuatro implementaciones de runtime
               (Rust, Python, TypeScript, Go) las hacen realidad.
             </p>
           </div>
@@ -54,16 +54,16 @@ const locale = 'es';
               variant="protocol"
               version="1.0.0"
               title="AI-Protocol"
-              description="EspecificaciÃ³n V2 con manifiestos de tres anillos, MCP, Computer Use y multimodal â€?sin lÃ³gica hardcodeada."
+              description="Especificación V2 con manifiestos de tres anillos, MCP, Computer Use y multimodal —sin lógica hardcodeada."
               features={[
                 '37+ manifiestos (10 V2 + 27 V1)',
-                'Arquitectura de pirÃ¡mide de tres anillos V2',
+                'Arquitectura de pirámide de tres anillos V2',
                 'STT/TTS/Rerank en manifiestos (Jina, OpenAI, Cohere)',
                 'Schemas MCP / CU / Multimodal',
                 'ProviderContract + schema de precios',
-                'Herramienta CLI de validaciÃ³n',
-                'ValidaciÃ³n de JSON Schema',
-                'ConfiguraciÃ³n recargable en caliente',
+                'Herramienta CLI de validación',
+                'Validación de JSON Schema',
+                'Configuración recargable en caliente',
               ]}
               link="/es/protocol/"
               github="https://github.com/ailib-official/ai-protocol"
@@ -91,7 +91,7 @@ const locale = 'es';
               variant="python"
               version="1.0.0"
               title="ai-lib-python"
-              description="Runtime Python amigable para desarrolladores. CÃ³digos de error estÃ¡ndar V2, extras por capacidad, soporte async completo, tipos Pydantic v2 y telemetrÃ­a de producciÃ³n."
+              description="Runtime Python amigable para desarrolladores. Códigos de error estándar V2, extras por capacidad, soporte async completo, tipos Pydantic v2 y telemetría de producción."
               features={[
                 'ProviderDriver (OpenAI/Anthropic/Gemini)',
                 'MCP tool bridge + aislamiento de namespace',
@@ -111,7 +111,7 @@ const locale = 'es';
               title="ai-lib-ts"
               description="Runtime TypeScript/Node.js para el ecosistema npm. Impulsado por protocolo, streaming-first, con Resilience, Routing, MCP y soporte multimodal."
               features={[
-                'Parsing de manifiestos V2 + cÃ³digos de error estÃ¡ndar',
+                'Parsing de manifiestos V2 + códigos de error estándar',
                 'Resilience (Retry, CircuitBreaker, RateLimiter, Backpressure)',
                 'ModelManager + CostBasedSelector + FallbackChain',
                 'SttClient, TtsClient, RerankerClient',
@@ -127,13 +127,14 @@ const locale = 'es';
               variant="go"
               version="1.0.0"
               title="ai-lib-go"
-              description="Runtime Go de alta concurrencia optimizado para despliegues en servidor. Asigna la especificaciÃ³n V2 a iteraciÃ³n de flujos estÃ¡ndar de manera impecable."
+              description="Runtime Go (v1.0.0). pkg/ailib ejecución + pkg/contact fallback; HTTP basado en manifiestos y ExecutionMetadata."
               features={[
-                'Arquitectura ProviderDriver',
-                'Concurrencia nativa de Go 1.21+',
-                'Resiliencia sensible al contexto',
-                'Mapeo estricto de JSON Schema a Structs',
-                'Transporte nativo net/http',
+                'pkg/ailib Client + chat HTTP con manifiestos',
+                'pkg/contact FallbackClient (circuit breaker)',
+                '13 códigos de error estándar V2',
+                'Decodificador SSE ChatStream (openai_sse)',
+                'Endpoints con control de capacidades',
+                'API con context de Go 1.21+',
               ]}
               link="/es/go/"
               github="https://github.com/ailib-official/ai-lib-go"
@@ -149,13 +150,13 @@ const locale = 'es';
                 variant="mock"
                 version="1.0.1"
                 title="ai-protocol-mock"
-                description="Servidor mock unificado para runtimes AI-Protocol. Mock HTTP (formatos OpenAI + Anthropic) y mock MCP JSON-RPC para pruebas de integraciÃ³n."
+                description="Servidor mock unificado para runtimes AI-Protocol. Mock HTTP (formatos OpenAI + Anthropic) y mock MCP JSON-RPC para pruebas de integración."
                 features={[
                   'Mock HTTP impulsado por manifiestos',
                   'OpenAI, Anthropic + STT/TTS/Rerank',
                   'MCP tools/list, tools/call, capabilities',
                   'Soporte Docker',
-                  'IntegraciÃ³n terceros (ZeroClaw, CI)',
+                  'Integración terceros (ZeroClaw, CI)',
                   'Sincronizar manifiestos desde ai-protocol',
                 ]}
                 link="https://github.com/ailib-official/ai-protocol-mock"
@@ -168,8 +169,8 @@ const locale = 'es';
           <div class="mt-12 pt-8 border-t border-[var(--border)]">
             <h3 class="text-lg font-semibold text-[var(--text)] mb-4">Proyectos de referencia</h3>
             <p class="text-sm text-[var(--text-dim)] mb-4 max-w-2xl">
-              Aplicaciones de referencia construidas sobre el ecosistema AI-Lib â€?ve el protocolo y
-              los runtimes en acciÃ³n.
+              Aplicaciones de referencia construidas sobre el ecosistema AI-Lib —ve el protocolo y
+              los runtimes en acción.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <ProjectCard
@@ -179,10 +180,10 @@ const locale = 'es';
                 title="AI Debate"
                 description="Arena de debate AI multi-modelo. Pro vs Con en cuatro rondas, luego un Juez emite el veredicto. Construido con ai-lib-rust y ai-protocol."
                 features={[
-                  'Flujo de debate en 4 rondas (Apertura â†?RefutaciÃ³n â†?Defensa â†?Cierre â†?Veredicto)',
-                  'BÃºsqueda web vÃ­a Tavily (opcional)',
+                  'Flujo de debate en 4 rondas (Apertura →Refutación →Defensa →Cierre →Veredicto)',
+                  'Búsqueda web vía Tavily (opcional)',
                   'Multi-proveedor: DeepSeek, Zhipu, Groq, Mistral, OpenAI, Anthropic',
-                  'Fallback automÃ¡tico, streaming SSE en tiempo real',
+                  'Fallback automático, streaming SSE en tiempo real',
                   'Axum + SQLite, UI oscura moderna',
                 ]}
                 link="https://github.com/ailib-official/aidebate"
@@ -193,11 +194,11 @@ const locale = 'es';
                 variant="showcase"
                 version="0.2.0"
                 title="ZeroSpider"
-                description="Runtime de agente AI autÃ³nomo impulsado por protocolo, bifurcado de ZeroClaw con integraciÃ³n ai-protocol, enrutamiento inteligente y negociaciÃ³n multi-modelo."
+                description="Runtime de agente AI autónomo impulsado por protocolo, bifurcado de ZeroClaw con integración ai-protocol, enrutamiento inteligente y negociación multi-modelo."
                 features={[
-                  'Bifurcado de ZeroClaw con integraciÃ³n del ecosistema ai-protocol',
-                  'Enrutamiento inteligente: coste, velocidad, calidad, puntuaciÃ³n de fiabilidad',
-                  'NegociaciÃ³n multi-modelo y ejecuciÃ³n paralela de tareas',
+                  'Bifurcado de ZeroClaw con integración del ecosistema ai-protocol',
+                  'Enrutamiento inteligente: coste, velocidad, calidad, puntuación de fiabilidad',
+                  'Negociación multi-modelo y ejecución paralela de tareas',
                   'Canales: Telegram, Discord, Matrix',
                   'Despliegue remoto, hardware (GPIO, STM32)',
                 ]}
@@ -209,13 +210,13 @@ const locale = 'es';
                 variant="showcase"
                 version="0.4.2"
                 title="SpiderSwitch"
-                description="Servidor MCP para cambio dinÃ¡mico de modelos AI. Permite a los agentes descubrir, cambiar y gestionar modelos AI entre proveedores mediante herramientas MCP estÃ¡ndar."
+                description="Servidor MCP para cambio dinámico de modelos AI. Permite a los agentes descubrir, cambiar y gestionar modelos AI entre proveedores mediante herramientas MCP estándar."
                 features={[
                   'Servidor compatible con MCP (transporte stdio)',
                   'Herramientas switch_model / list_models / get_status / exit_switcher',
-                  'Impulsado por protocolo: toda la configuraciÃ³n desde manifiestos ai-protocol',
+                  'Impulsado por protocolo: toda la configuración desde manifiestos ai-protocol',
                   'Multi-proveedor: OpenAI, Anthropic, Google, DeepSeek, etc.',
-                  'Python + ai-lib-python SDK, configuraciÃ³n automÃ¡tica del protocolo',
+                  'Python + ai-lib-python SDK, configuración automática del protocolo',
                 ]}
                 link="https://github.com/ailib-official/spiderswitch"
                 github="https://github.com/ailib-official/spiderswitch"
@@ -230,11 +231,11 @@ const locale = 'es';
         <div class="container">
           <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">
-              DiseÃ±o impulsado por protocolo
+              Diseño impulsado por protocolo
             </h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
-              Â«Toda la lÃ³gica son operadores, toda la configuraciÃ³n es protocolo.Â» Todo el
-              comportamiento del proveedor se declara en YAML â€?los runtimes contienen cero lÃ³gica
+              Â«Toda la lógica son operadores, toda la configuración es protocolo.Â» Todo el
+              comportamiento del proveedor se declara en YAML —los runtimes contienen cero lógica
               hardcodeada de proveedores.
             </p>
           </div>
@@ -258,10 +259,10 @@ const locale = 'es';
                   ></path>
                 </svg>
               </div>
-              <h3 class="text-lg font-bold text-[var(--text)] mb-2">ConfiguraciÃ³n declarativa</h3>
+              <h3 class="text-lg font-bold text-[var(--text)] mb-2">Configuración declarativa</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Endpoints de proveedores, autenticaciÃ³n, mapeos de parÃ¡metros, decodificadores de
-                streaming y manejo de errores â€?todo declarado en manifiestos YAML, validado por
+                Endpoints de proveedores, autenticación, mapeos de parámetros, decodificadores de
+                streaming y manejo de errores —todo declarado en manifiestos YAML, validado por
                 JSON Schema.
               </p>
             </div>
@@ -314,9 +315,9 @@ const locale = 'es';
                 Listo para recarga en caliente
               </h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Actualiza la configuraciÃ³n de proveedores sin reiniciar. Los cambios de protocolo se
-                propagan automÃ¡ticamente a los runtimes. AÃ±ade nuevos proveedores por configuraciÃ³n,
-                no por cÃ³digo.
+                Actualiza la configuración de proveedores sin reiniciar. Los cambios de protocolo se
+                propagan automáticamente a los runtimes. Añade nuevos proveedores por configuración,
+                no por código.
               </p>
             </div>
           </div>
@@ -331,7 +332,7 @@ const locale = 'es';
               Arquitectura del ecosistema
             </h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
-              Tres capas trabajando juntas â€?la especificaciÃ³n define las reglas, los runtimes las
+              Tres capas trabajando juntas —la especificación define las reglas, los runtimes las
               ejecutan, las aplicaciones consumen interfaces unificadas.
             </p>
           </div>
@@ -343,9 +344,9 @@ const locale = 'es';
       <section class="section">
         <div class="container">
           <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">CÃ³mo funciona</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4">Cómo funciona</h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
-              Desde la peticiÃ³n del usuario hasta eventos de streaming unificados â€?cada paso es
+              Desde la petición del usuario hasta eventos de streaming unificados —cada paso es
               impulsado por el protocolo.
             </p>
           </div>
@@ -397,25 +398,25 @@ const locale = 'es';
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">Sistema de tipos</td>
                   <td class="p-4 text-[var(--text-dim)]">JSON Schema</td>
-                  <td class="p-4 text-[var(--text-dim)]">Tiempo de compilaciÃ³n (Rust)</td>
-                  <td class="p-4 text-[var(--text-dim)]">Tiempo de ejecuciÃ³n (Pydantic v2)</td>
-                  <td class="p-4 text-[var(--text-dim)]">Tiempo de compilaciÃ³n (TypeScript)</td>
-                  <td class="p-4 text-[var(--text-dim)]">Tiempo de compilaciÃ³n (Go Structs)</td>
+                  <td class="p-4 text-[var(--text-dim)]">Tiempo de compilación (Rust)</td>
+                  <td class="p-4 text-[var(--text-dim)]">Tiempo de ejecución (Pydantic v2)</td>
+                  <td class="p-4 text-[var(--text-dim)]">Tiempo de compilación (TypeScript)</td>
+                  <td class="p-4 text-[var(--text-dim)]">Tiempo de compilación (Go Structs)</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">Streaming</td>
-                  <td class="p-4 text-[var(--text-dim)]">EspecificaciÃ³n SSE/NDJSON</td>
+                  <td class="p-4 text-[var(--text-dim)]">Especificación SSE/NDJSON</td>
                   <td class="p-4 text-[var(--text-dim)]">tokio async streams</td>
                   <td class="p-4 text-[var(--text-dim)]">async generators</td>
                   <td class="p-4 text-[var(--text-dim)]">AsyncIterator + fetch</td>
                   <td class="p-4 text-[var(--text-dim)]"
-                    >IteraciÃ³n de flujo nativo (Native stream iteration)</td
+                    >Iteración de flujo nativo (Native stream iteration)</td
                   >
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">Resiliencia</td>
                   <td class="p-4 text-[var(--text-dim)]"
-                    >EspecificaciÃ³n de polÃ­tica de reintentos</td
+                    >Especificación de política de reintentos</td
                   >
                   <td class="p-4 text-[var(--text-dim)]"
                     >Circuit breaker, rate limiter, backpressure</td
@@ -427,12 +428,12 @@ const locale = 'es';
                     >RetryPolicy, CircuitBreaker, RateLimiter</td
                   >
                   <td class="p-4 text-[var(--text-dim)]"
-                    >Tiempo de espera del contexto, reintento automÃ¡tico</td
+                    >Tiempo de espera del contexto, reintento automático</td
                   >
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">V2 Driver</td>
-                  <td class="p-4 text-[var(--text-dim)]">EspecificaciÃ³n ProviderContract</td>
+                  <td class="p-4 text-[var(--text-dim)]">Especificación ProviderContract</td>
                   <td class="p-4 text-[var(--text-dim)]">Box&lt;dyn ProviderDriver&gt;</td>
                   <td class="p-4 text-[var(--text-dim)]">ProviderDriver ABC</td>
                   <td class="p-4 text-[var(--text-dim)]">ManifestV2 + HttpTransport</td>
@@ -451,8 +452,8 @@ const locale = 'es';
                   <td class="p-4 text-[var(--text-dim)]">Esquema computer-use.json</td>
                   <td class="p-4 text-[var(--text-dim)]">ComputerAction + SafetyPolicy</td>
                   <td class="p-4 text-[var(--text-dim)]">ComputerAction + SafetyPolicy</td>
-                  <td class="p-4 text-[var(--text-dim)]">â€?/td>
-                  <td class="p-4 text-[var(--text-dim)]">â€?/td>
+                  <td class="p-4 text-[var(--text-dim)]">—/td>
+                  <td class="p-4 text-[var(--text-dim)]">—/td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">Multimodal</td>
@@ -464,14 +465,14 @@ const locale = 'es';
                 </tr>
                 <tr class="border-b border-[var(--border)]">
                   <td class="p-4 font-medium text-[var(--text)]">Embeddings</td>
-                  <td class="p-4 text-[var(--text-dim)]">â€?/td>
+                  <td class="p-4 text-[var(--text-dim)]">—/td>
                   <td class="p-4 text-[var(--text-dim)]">Operaciones vectoriales, similitud</td>
                   <td class="p-4 text-[var(--text-dim)]">Operaciones vectoriales, similitud</td>
                   <td class="p-4 text-[var(--text-dim)]">EmbeddingClient</td>
                   <td class="p-4 text-[var(--text-dim)]">EmbeddingClient</td>
                 </tr>
                 <tr class="border-b border-[var(--border)]">
-                  <td class="p-4 font-medium text-[var(--text)]">DistribuciÃ³n</td>
+                  <td class="p-4 font-medium text-[var(--text)]">Distribución</td>
                   <td class="p-4 text-[var(--text-dim)]">GitHub / npm</td>
                   <td class="p-4 text-[var(--text-dim)]">Crates.io</td>
                   <td class="p-4 text-[var(--text-dim)]">PyPI</td>
@@ -480,9 +481,9 @@ const locale = 'es';
                 </tr>
                 <tr>
                   <td class="p-4 font-medium text-[var(--text)]">Ideal para</td>
-                  <td class="p-4 text-[var(--text-dim)] italic">EspecificaciÃ³n y estÃ¡ndares</td>
+                  <td class="p-4 text-[var(--text-dim)] italic">Especificación y estándares</td>
                   <td class="p-4 text-[var(--text-dim)] italic"
-                    >Sistemas, crÃ­tico para rendimiento</td
+                    >Sistemas, crítico para rendimiento</td
                   >
                   <td class="p-4 text-[var(--text-dim)] italic"
                     >ML, ciencia de datos, prototipado</td
@@ -511,7 +512,7 @@ const locale = 'es';
           >
             <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Â¿Listo para empezar?</h2>
             <p class="text-lg text-[var(--text-dim)] mb-8 max-w-xl mx-auto">
-              Lee la documentaciÃ³n, elige tu runtime (Rust, Python, TypeScript o Go) y empieza a
+              Lee la documentación, elige tu runtime (Rust, Python, TypeScript o Go) y empieza a
               desarrollar con 37+ proveedores de IA hoy mismo.
             </p>
             <div class="flex flex-wrap gap-4 justify-center">
@@ -519,13 +520,13 @@ const locale = 'es';
                 href="/es/quickstart/"
                 class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:brightness-110 transition-all hover:no-underline"
               >
-                GuÃ­a de inicio rÃ¡pido
+                Guía de inicio rápido
               </a>
               <a
                 href="/es/intro/"
                 class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline"
               >
-                Leer la documentaciÃ³n
+                Leer la documentación
               </a>
             </div>
           </div>

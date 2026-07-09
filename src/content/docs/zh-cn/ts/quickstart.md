@@ -1,20 +1,20 @@
 ---
-title: TypeScript Quick Start
-description: Get up and running with ai-lib-ts in minutes.
+title: TypeScript 快速开始
+description: 几分钟上手 ai-lib-ts。
 ---
 
-# TypeScript Quick Start
+# TypeScript 快速开始
 
-## Installation
+## 安装
 
 ```bash
 npm install @ailib-official/ai-lib-ts
 export OPENAI_API_KEY="your-key"
 ```
 
-Requires **Node 18+**.
+需要 **Node 18+**。
 
-## Basic Chat
+## 基础聊天
 
 ```typescript
 import { AiClient, Message } from '@ailib-official/ai-lib-ts';
@@ -31,7 +31,7 @@ const response = await client
 console.log(response.content);
 ```
 
-## Mock server
+## Mock 服务器
 
 ```typescript
 import { Message, createClientBuilder } from '@ailib-official/ai-lib-ts';
@@ -43,9 +43,9 @@ const client = await createClientBuilder()
 const response = await client.chat([Message.user('Hello!')]).execute();
 ```
 
-Requires [ai-protocol-mock](https://github.com/ailib-official/ai-protocol-mock). Pattern from `tests/integration.test.ts`.
+需运行 [ai-protocol-mock](https://github.com/ailib-official/ai-protocol-mock)。
 
-## Streaming
+## 流式响应
 
 ```typescript
 const stream = client
@@ -60,14 +60,8 @@ for await (const event of stream) {
 }
 ```
 
-## Entry points
+## 下一步
 
-- **Full SDK:** `@ailib-official/ai-lib-ts`
-- **Execution only:** `@ailib-official/ai-lib-ts/core` (no policy retry wrapper)
-- **Policy only:** `@ailib-official/ai-lib-ts/contact`
-
-## Next Steps
-
-- **[Client API](/ts/client/)**
-- **[Streaming](/ts/streaming/)**
-- **[Resilience](/ts/resilience/)**
+- [Client API](/zh-cn/ts/client/)
+- [流式处理](/zh-cn/ts/streaming/)
+- [韧性模式](/zh-cn/ts/resilience/)
