@@ -1,133 +1,79 @@
 ---
 title: Resilience (Python)
-description: Production reliability patterns in ai-lib-python v1.0.0 — ResilientExecutor, circuit breaker, rate limiter, fallback.
+description: Production reliability patterns in ai-lib-python v1.0.0 — circuit breaker, rate limiter, backpressure, retry.
 ---
 
 # Resilience Patterns
 
-ai-lib-python (v1.0.0+) includes a comprehensive resilience system centered around the `ResilientExecutor`. Retry and fallback decisions now use V2 standard error codes via `retryable` and `fallbackable` properties on `StandardErrorCode`, ensuring protocol-aligned behavior.
+ai-lib-python (v1.0.0) separates **built-in client backpressure** from **opt-in policy primitives**:
 
-## ResilientExecutor
+- **`AiClient`:** optional `max_inflight` backpressure via `AiClientBuilder` or `AI_LIB_MAX_INFLIGHT`.
+- **`ai_lib_python.resilience`:** retry policies, token-bucket rate limiter, circuit breaker — **not** wired automatically by `AiClient.create()`; use `production_ready()` or explicit `ResilientConfig` (see `examples/resilience.py`).
 
-Combines all reliability patterns into a single executor:
+Retry and fallback decisions use V2 standard error codes: `retryable` and `fallbackable` metadata on normalized errors.
+
+## Quick enable
 
 ```python
-from ai_lib_python.resilience import (
-    ResilientConfig, RetryConfig, RateLimiterConfig,
-    CircuitBreakerConfig, BackpressureConfig
-)
-
-config = ResilientConfig(
-    retry=RetryConfig(
-        max_retries=3,
-        initial_delay=1.0,
-        max_delay=30.0,
-        backoff_multiplier=2.0,
-    ),
-    rate_limiter=RateLimiterConfig(
-        requests_per_second=10,
-    ),
-    circuit_breaker=CircuitBreakerConfig(
-        failure_threshold=5,
-        cooldown_seconds=30,
-    ),
-    backpressure=BackpressureConfig(
-        max_inflight=50,
-    ),
-)
-
-client = await AiClient.builder() \
-    .model("openai/gpt-4o") \
-    .resilience(config) \
+client = await (
+    AiClient.builder()
+    .model("deepseek/deepseek-chat")
+    .production_ready()  # ResilientConfig.production()
     .build()
-```
-
-## Individual Patterns
-
-### Circuit Breaker
-
-```python
-from ai_lib_python.resilience import CircuitBreaker
-
-breaker = CircuitBreaker(
-    failure_threshold=5,
-    cooldown_seconds=30,
-)
-
-# Check state
-print(breaker.state)  # "closed", "open", "half_open"
-```
-
-### Rate Limiter
-
-Token bucket algorithm:
-
-```python
-from ai_lib_python.resilience import RateLimiter
-
-limiter = RateLimiter(
-    requests_per_second=10,
-    burst_size=20,
 )
 ```
 
-### Backpressure
+## Circuit breaker
 
-Concurrency limiting:
+Prevents cascading failures by stopping requests to failing providers.
 
-```python
-from ai_lib_python.resilience import Backpressure
+**States:** Closed → Open (after failure threshold) → Half-Open (test request after cooldown).
 
-bp = Backpressure(max_inflight=50)
-```
+Configure via `ResilientConfig` / builder methods — not via undocumented env vars.
 
-### Fallback Chain
+## Rate limiter
 
-Multi-target failover:
+Token-bucket rate limiting lives in `ai_lib_python.resilience`. Configure on the builder:
 
 ```python
-from ai_lib_python.resilience import FallbackChain
+from ai_lib_python.resilience import RateLimitConfig
 
-chain = FallbackChain([
-    "openai/gpt-4o",
-    "anthropic/claude-3-5-sonnet",
-    "deepseek/deepseek-chat",
-])
+client = await (
+    AiClient.builder()
+    .model("openai/gpt-4o")
+    .with_rate_limit(RateLimitConfig(requests_per_second=10))
+    .build()
+)
 ```
 
-## PreflightChecker
+`AI_LIB_RPS` / `AI_LIB_RPM` environment variables are **not** read by the runtime.
 
-Unified gating before request execution:
+## Backpressure
 
-```python
-from ai_lib_python.resilience import PreflightChecker
+Limits concurrent in-flight requests:
 
-checker = PreflightChecker()
-# Checks circuit state, rate limits, inflight count
-# before allowing a request through
+```bash
+export AI_LIB_MAX_INFLIGHT=50
 ```
 
-## SignalsSnapshot
+Or on the builder: `.max_inflight(50)`.
 
-Aggregated runtime state:
+## Retry
 
-```python
-signals = client.signals_snapshot()
-print(f"Circuit: {signals.circuit_state}")
-print(f"Inflight: {signals.current_inflight}")
-print(f"Rate remaining: {signals.rate_remaining}")
-```
+Exponential backoff retry driven by manifest `retry_policy` and `ResilientConfig`. Only errors classified as retryable trigger retries.
 
-## Environment Variables
+## Combining patterns
 
-| Variable                           | Purpose                          |
-| ---------------------------------- | -------------------------------- |
-| `AI_LIB_RPS`                       | Rate limit (requests per second) |
-| `AI_LIB_BREAKER_FAILURE_THRESHOLD` | Circuit breaker threshold        |
-| `AI_LIB_BREAKER_COOLDOWN_SECS`     | Cooldown period                  |
-| `AI_LIB_MAX_INFLIGHT`              | Max concurrent requests          |
+A typical request flow when `production_ready()` is enabled:
 
-## Next Steps
+1. **Backpressure** — wait for a slot if at max inflight
+2. **Circuit breaker** — reject immediately if circuit is open
+3. **Rate limiter** — wait for a token if rate limited
+4. **Execute** — send the HTTP request via pipeline
+5. **Retry** — on retryable errors, backoff and retry
+6. **Update** — record success/failure for circuit breaker
+
+## Next steps
 
 - **[Advanced Features](/python/advanced/)** — Telemetry, routing, plugins
 - **[AiClient API](/python/client/)** — Client usage

@@ -1,128 +1,101 @@
 ---
 title: Python SDK Overview
-description: Architecture and design of ai-lib-python — the developer-friendly Python runtime for AI-Protocol.
+description: Architecture and public API of ai-lib-python v1.0.0 — the async Python runtime for AI-Protocol.
 ---
 
 # Python SDK Overview
 
-**ai-lib-python** (v1.0.0) is the official Python runtime for AI-Protocol. It provides a developer-friendly, fully async interface with Pydantic v2 type safety and production-grade telemetry.
+**ai-lib-python** (v1.0.0) is the Python runtime for [AI-Protocol](https://github.com/ailib-official/ai-protocol). Unlike Rust’s workspace crates, Python ships as **one package** with clear **execution / policy module separation**:
 
-## Architecture
+| Layer | Modules | Role |
+|-------|---------|------|
+| Execution (E) | `client`, `protocol`, `pipeline`, `transport`, `types`, `structured`, optional capability modules | Manifest loading, operator pipeline, httpx transport |
+| Policy (P) | `resilience`, `cache`, `routing`, `plugins`, `guardrails`, `batch`, `telemetry`, `tokens` | Retry, rate limits, routing — opt-in beside the client |
 
-The Python SDK mirrors the Rust runtime's layered architecture:
+## Primary execution path
 
-### Client Layer (`client/`)
+For chat, **`AiClient` does not call `ProviderDriver`**. It:
 
-- **AiClient** — Main entry point with factory methods
-- **AiClientBuilder** — Fluent configuration builder
-- **ChatRequestBuilder** — Request construction
-- **ChatResponse** / **CallStats** — Response types
-- **CancelToken** / **CancellableStream** — Stream cancellation
+1. Loads a provider manifest (`ProtocolLoader`)
+2. Builds a **`Pipeline`** from manifest operators
+3. Sends HTTP via **`HttpTransport`** (httpx)
+4. Emits unified **`StreamingEvent`** values (Pydantic models)
 
-### Protocol Layer (`protocol/`)
+Provider-specific logic still exists (SSE decoders, optional drivers, standalone service clients), but the default integration path is manifest + pipeline.
 
-- **ProtocolLoader** — Loads manifests from local/env/GitHub with caching
-- **ProtocolManifest** — Pydantic models for provider configurations
-- **Validator** — JSON Schema validation (fastjsonschema)
+## Public API at a glance
 
-### Pipeline Layer (`pipeline/`)
+**Always exported from `ai_lib_python`:**
 
-- **Decoder** — SSE, JSON Lines, Anthropic SSE decoders
-- **Selector** — JSONPath-based frame selection (jsonpath-ng)
-- **Accumulator** — Tool call assembly
-- **FanOut** — Multi-candidate expansion
-- **EventMapper** — Protocol-driven, Default, and Anthropic mappers
+- `AiClient`, `AiClientBuilder`, `ChatResponse`, `CallStats`
+- `Message`, `MessageRole`, `MessageContent`, `ContentBlock`, `StreamingEvent`, `ToolCall`, `ToolDefinition`
+- `AiLibError`, `ProtocolError`, `TransportError`
+- Feature probes: `HAS_VISION`, `HAS_AUDIO`, `HAS_TELEMETRY`, `HAS_TOKENIZER`, `HAS_WATCHDOG`, `HAS_KEYRING`, `require_extra`
 
-### Transport Layer (`transport/`)
+**Import subpackages explicitly** when needed: `resilience`, `structured`, `embeddings`, `mcp`, `computer_use`, `drivers`, etc.
 
-- **HttpTransport** — httpx-based async HTTP with streaming
-- **Auth** — API key resolution from env vars and keyring
-- **ConnectionPool** — Connection pooling for performance
+## V2 alignment (what is real today)
 
-### Resilience Layer (`resilience/`)
+- **Manifest loading:** V1 + V2 paths (`dist/v2/providers/*.json`, `v2/providers/*.yaml`, …)
+- **Standard error codes:** 13 codes (E1001–E9999)
+- **Structured output:** `structured` module
+- **Text-tool / TTC:** types under `ai_lib_python.types.text_tool`
+- **Capability registry:** `registry.CapabilityRegistry` with pip-extra detection
 
-- **ResilientExecutor** — Combines all patterns
-- **RetryPolicy** — Exponential backoff
-- **RateLimiter** — Token bucket
-- **CircuitBreaker** — Failure isolation
-- **Backpressure** — Concurrency limiting
-- **FallbackChain** — Multi-target failover
-- **PreflightChecker** — Unified request gating
+### Honest capability boundaries
 
-### Routing Layer (`routing/`)
+| Area | In the package | Not included |
+|------|----------------|--------------|
+| **MCP** | `McpToolBridge` format conversion | MCP server transport wired into `AiClient` |
+| **Computer Use** | `ComputerAction`, `SafetyPolicy` validation | Screenshot / input execution environment |
+| **Embeddings / STT / TTS / Rerank** | Standalone HTTP clients | Full pipeline operators for every modality |
+| **Hot reload** | Builder flag + in-memory cache | Automatic file watching (needs `watchdog`; not wired end-to-end) |
+| **`ProviderDriver`** | Public `drivers` module | Default `AiClient` chat path |
 
-- **ModelManager** — Model registration and selection
-- **ModelArray** — Load balancing across endpoints
-- **Selection strategies** — Round-robin, weighted, cost-based, quality-based
+## Architecture (package layout)
 
-### Telemetry Layer (`telemetry/`)
+### Client (`client/`)
 
-- **MetricsCollector** — Prometheus metrics export
-- **Tracer** — OpenTelemetry distributed tracing
-- **Logger** — Structured logging
-- **HealthChecker** — Service health monitoring
-- **FeedbackCollector** — User feedback
+- `AiClient` — async entry point (`await AiClient.create("provider/model")`)
+- `ChatRequestBuilder` — `.messages()`, `.system()`, `.user()`, `.stream()`, `.execute()`, `.execute_with_stats()`
+- `AiClientBuilder` — `.production_ready()`, `.hot_reload()`, resilience knobs
 
-### V2 Modules (pip extras)
+### Protocol (`protocol/`)
 
-- **protocol/v2/** — `ManifestV2` + `CapabilitiesV2` parser with V1 auto-promotion
-- **drivers/** — `ProviderDriver` ABC + OpenAI, Anthropic, Gemini drivers; `create_driver()` factory based on manifest `api_style`
-- **registry/** — `CapabilityRegistry` for dynamic module loading with pip extras detection
-- **mcp/** — `McpToolBridge` for MCP tool format conversion, namespace isolation, allow/deny filters
-- **computer_use/** — `ComputerAction` dataclass + `SafetyPolicy` with domain allowlist, sensitive path protection, and per-turn action limits
-- **multimodal/** — `MultimodalCapabilities` for modality detection, format validation, and content block checking
+- `ProtocolLoader`, `ProtocolManifest`, validators
+- V2 types under `protocol.v2`
 
-### Additional Modules
+### Pipeline (`pipeline/`)
 
-- **embeddings/** — EmbeddingClient with vector operations
-- **cache/** — Multi-backend caching (memory, disk)
-- **tokens/** — TokenCounter (tiktoken) and cost estimation
-- **batch/** — BatchCollector/Executor with concurrency control
-- **plugins/** — Plugin base, registry, hooks, middleware
-- **structured/** — JSON mode, schema generation, output validation
-- **guardrails/** — Content filtering, validators
+Decoder → Selector → Accumulator → FanOut → EventMapper (configured from manifests).
 
-## Key Dependencies
+### Transport (`transport/`)
 
-| Package             | Purpose                   |
-| ------------------- | ------------------------- |
-| `httpx`             | Async HTTP client         |
-| `pydantic`          | Data validation and types |
-| `pydantic-settings` | Settings management       |
-| `fastjsonschema`    | Manifest validation       |
-| `jsonpath-ng`       | JSONPath expressions      |
-| `pyyaml`            | YAML parsing              |
+`HttpTransport`, credential resolution (`keyring` or `<PROVIDER>_API_KEY`).
 
-### Optional
+### Policy (`resilience/`, `routing/`, …)
 
-| Extra         | Packages                             |
-| ------------- | ------------------------------------ |
-| `[telemetry]` | OpenTelemetry, Prometheus            |
-| `[tokenizer]` | tiktoken                             |
-| `[full]`      | All of the above + watchdog, keyring |
+Opt-in modules — use `AiClientBuilder.production_ready()` or wire `ResilientConfig` explicitly; not auto-enabled by `AiClient.create()`.
 
-## V2 Protocol Alignment
+## Pip extras
 
-v1.0.0 fully implements the V2 protocol specification:
+| Extra | Enables |
+|-------|---------|
+| `vision` / `audio` | Multimodal helpers (`HAS_VISION`, `HAS_AUDIO`) |
+| `embeddings` | `EmbeddingClient` |
+| `stt` / `tts` / `reranking` | Standalone service clients |
+| `batch` | Batch collector / executor |
+| `telemetry` | OpenTelemetry integration |
+| `tokenizer` | tiktoken-based counting |
+| `full` | All optional capabilities + `watchdog`, `keyring` |
 
-- **V2 Manifest Loading** — `ManifestV2` + `CapabilitiesV2` with V1 auto-promotion via `from_legacy()`
-- **ProviderDriver** — ABC with OpenAI, Anthropic, Gemini implementations; `create_driver()` factory
-- **Capability Registry** — pip extras detection with `status_report()` and `validate_requirements()`
-- **MCP Tool Bridge** — `McpToolBridge` for tool format conversion with namespace isolation
-- **Computer Use** — `ComputerAction` + `SafetyPolicy` for protocol-driven safety enforcement
-- **Extended Multimodal** — `MultimodalCapabilities` for modality detection and format validation
-- **Standard Error Codes** — 13 frozen dataclass codes (E1001–E9999) in `errors/standard_codes.py`
-- **Capability Extras** — 8+ pip extras (vision, audio, mcp, computer_use, multimodal, embeddings, structured, batch, agentic, telemetry, tokenizer) plus "full"
-- **75+ V2 Tests** — 69 unit + 6 integration tests covering full V2 chain
-- **Protocol Version Support** — Supports protocol versions 1.0, 1.1, 1.5, 2.0
+```bash
+pip install ai-lib-python[full]
+```
 
-## Python Version
+## Next steps
 
-Requires **Python 3.10+**.
-
-## Next Steps
-
-- **[Quick Start](/python/quickstart/)** — Get running fast
-- **[AiClient API](/python/client/)** — Detailed API guide
-- **[Streaming Pipeline](/python/streaming/)** — Pipeline internals
-- **[Resilience](/python/resilience/)** — Reliability patterns
+- [Quick Start](/python/quickstart/) — install and first chat
+- [AiClient API](/python/client/) — builder reference
+- [Streaming](/python/streaming/) — event handling
+- [Resilience](/python/resilience/) — opt-in policy layer

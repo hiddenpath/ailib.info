@@ -1,113 +1,101 @@
 ---
-title: Python SDK 概览
-description: ai-lib-python 的架构与设计 — AI-Protocol 的开发者友好型 Python 运行时。
+title: Python SDK Overview
+description: Architecture and public API of ai-lib-python v1.0.0 — the async Python runtime for AI-Protocol.
 ---
 
-# Python SDK 概览
+# Python SDK Overview
 
-**ai-lib-python**（v1.0.0）是 AI-Protocol 的官方 Python 运行时。它提供开发者友好、 fully async 的接口，具备 Pydantic v2 类型安全与生产级 telemetry。
+**ai-lib-python** (v1.0.0) is the Python runtime for [AI-Protocol](https://github.com/ailib-official/ai-protocol). Unlike Rust’s workspace crates, Python ships as **one package** with clear **execution / policy module separation**:
 
-## 架构
+| Layer | Modules | Role |
+|-------|---------|------|
+| Execution (E) | `client`, `protocol`, `pipeline`, `transport`, `types`, `structured`, optional capability modules | Manifest loading, operator pipeline, httpx transport |
+| Policy (P) | `resilience`, `cache`, `routing`, `plugins`, `guardrails`, `batch`, `telemetry`, `tokens` | Retry, rate limits, routing — opt-in beside the client |
 
-Python SDK 镜像 Rust 运行时的分层架构：
+## Primary execution path
 
-### 客户端层（`client/`）
+For chat, **`AiClient` does not call `ProviderDriver`**. It:
 
-- **AiClient** — 带工厂方法的主入口
-- **AiClientBuilder** — 流式配置构建器
-- **ChatRequestBuilder** — 请求构建
-- **ChatResponse** / **CallStats** — 响应类型
-- **CancelToken** / **CancellableStream** — 流取消
+1. Loads a provider manifest (`ProtocolLoader`)
+2. Builds a **`Pipeline`** from manifest operators
+3. Sends HTTP via **`HttpTransport`** (httpx)
+4. Emits unified **`StreamingEvent`** values (Pydantic models)
 
-### 协议层（`protocol/`）
+Provider-specific logic still exists (SSE decoders, optional drivers, standalone service clients), but the default integration path is manifest + pipeline.
 
-- **ProtocolLoader** — 从本地/env/GitHub 加载清单并缓存
-- **ProtocolManifest** — 提供商配置的 Pydantic 模型
-- **Validator** — JSON Schema 验证（fastjsonschema）
+## Public API at a glance
 
-### 管道层（`pipeline/`）
+**Always exported from `ai_lib_python`:**
 
-- **Decoder** — SSE、JSON Lines、Anthropic SSE 解码器
-- **Selector** — 基于 JSONPath 的帧选择（jsonpath-ng）
-- **Accumulator** — 工具调用组装
-- **FanOut** — 多候选展开
-- **EventMapper** — 协议驱动、Default 与 Anthropic mapper
+- `AiClient`, `AiClientBuilder`, `ChatResponse`, `CallStats`
+- `Message`, `MessageRole`, `MessageContent`, `ContentBlock`, `StreamingEvent`, `ToolCall`, `ToolDefinition`
+- `AiLibError`, `ProtocolError`, `TransportError`
+- Feature probes: `HAS_VISION`, `HAS_AUDIO`, `HAS_TELEMETRY`, `HAS_TOKENIZER`, `HAS_WATCHDOG`, `HAS_KEYRING`, `require_extra`
 
-### 传输层（`transport/`）
+**Import subpackages explicitly** when needed: `resilience`, `structured`, `embeddings`, `mcp`, `computer_use`, `drivers`, etc.
 
-- **HttpTransport** — 基于 httpx 的异步 HTTP 与流式
-- **Auth** — 从环境变量和 keyring 解析 API 密钥
-- **ConnectionPool** — 性能优化的连接池
+## V2 alignment (what is real today)
 
-### 弹性层（`resilience/`）
+- **Manifest loading:** V1 + V2 paths (`dist/v2/providers/*.json`, `v2/providers/*.yaml`, …)
+- **Standard error codes:** 13 codes (E1001–E9999)
+- **Structured output:** `structured` module
+- **Text-tool / TTC:** types under `ai_lib_python.types.text_tool`
+- **Capability registry:** `registry.CapabilityRegistry` with pip-extra detection
 
-- **ResilientExecutor** — 整合所有模式
-- **RetryPolicy** — 指数退避
-- **RateLimiter** — 令牌桶
-- **CircuitBreaker** — 故障隔离
-- **Backpressure** — 并发限制
-- **FallbackChain** — 多目标故障转移
-- **PreflightChecker** — 统一请求门控
+### Honest capability boundaries
 
-### 路由层（`routing/`）
+| Area | In the package | Not included |
+|------|----------------|--------------|
+| **MCP** | `McpToolBridge` format conversion | MCP server transport wired into `AiClient` |
+| **Computer Use** | `ComputerAction`, `SafetyPolicy` validation | Screenshot / input execution environment |
+| **Embeddings / STT / TTS / Rerank** | Standalone HTTP clients | Full pipeline operators for every modality |
+| **Hot reload** | Builder flag + in-memory cache | Automatic file watching (needs `watchdog`; not wired end-to-end) |
+| **`ProviderDriver`** | Public `drivers` module | Default `AiClient` chat path |
 
-- **ModelManager** — 模型注册与选择
-- **ModelArray** — 跨端点的负载均衡
-- **Selection strategies** — 轮询、加权、成本优先、质量优先
+## Architecture (package layout)
 
-### Telemetry 层（`telemetry/`）
+### Client (`client/`)
 
-- **MetricsCollector** — Prometheus 指标导出
-- **Tracer** — OpenTelemetry 分布式追踪
-- **Logger** — 结构化日志
-- **HealthChecker** — 服务健康监控
-- **FeedbackCollector** — 用户反馈
+- `AiClient` — async entry point (`await AiClient.create("provider/model")`)
+- `ChatRequestBuilder` — `.messages()`, `.system()`, `.user()`, `.stream()`, `.execute()`, `.execute_with_stats()`
+- `AiClientBuilder` — `.production_ready()`, `.hot_reload()`, resilience knobs
 
-### 额外模块
+### Protocol (`protocol/`)
 
-- **embeddings/** — 带向量操作的 EmbeddingClient
-- **cache/** — 多后端缓存（内存、磁盘）
-- **tokens/** — TokenCounter（tiktoken）与成本估算
-- **batch/** — 带并发控制的 BatchCollector/Executor
-- **plugins/** — 插件基类、注册表、钩子、中间件
-- **structured/** — JSON 模式、schema 生成、输出验证
-- **guardrails/** — 内容过滤、验证器
+- `ProtocolLoader`, `ProtocolManifest`, validators
+- V2 types under `protocol.v2`
 
-## 核心依赖
+### Pipeline (`pipeline/`)
 
-| 包                  | 用途             |
-| ------------------- | ---------------- |
-| `httpx`             | 异步 HTTP 客户端 |
-| `pydantic`          | 数据验证与类型   |
-| `pydantic-settings` | 配置管理         |
-| `fastjsonschema`    | 清单验证         |
-| `jsonpath-ng`       | JSONPath 表达式  |
-| `pyyaml`            | YAML 解析        |
+Decoder → Selector → Accumulator → FanOut → EventMapper (configured from manifests).
 
-### 可选
+### Transport (`transport/`)
 
-| Extra         | 包                           |
-| ------------- | ---------------------------- |
-| `[telemetry]` | OpenTelemetry、Prometheus    |
-| `[tokenizer]` | tiktoken                     |
-| `[full]`      | 以上全部 + watchdog、keyring |
+`HttpTransport`, credential resolution (`keyring` or `<PROVIDER>_API_KEY`).
 
-## V2 协议对齐
+### Policy (`resilience/`, `routing/`, …)
 
-v1.0.0 与 AI-Protocol V2 规范对齐：
+Opt-in modules — use `AiClientBuilder.production_ready()` or wire `ResilientConfig` explicitly; not auto-enabled by `AiClient.create()`.
 
-- **标准错误码** — `errors/standard_codes.py` 中的 13 个 frozen dataclass 码（E1001–E9999）
-- **Capability Extras** — 8 个 pip extras（vision、audio、embeddings、structured、batch、agentic、telemetry、tokenizer）及 "full" 元 extra
-- **合规测试** — 20/20 跨运行时测试用例通过
-- **协议版本支持** — 支持协议版本 1.0、1.1、1.5、2.0
+## Pip extras
 
-## Python 版本
+| Extra | Enables |
+|-------|---------|
+| `vision` / `audio` | Multimodal helpers (`HAS_VISION`, `HAS_AUDIO`) |
+| `embeddings` | `EmbeddingClient` |
+| `stt` / `tts` / `reranking` | Standalone service clients |
+| `batch` | Batch collector / executor |
+| `telemetry` | OpenTelemetry integration |
+| `tokenizer` | tiktoken-based counting |
+| `full` | All optional capabilities + `watchdog`, `keyring` |
 
-需要 **Python 3.10+**。
+```bash
+pip install ai-lib-python[full]
+```
 
-## 下一步
+## Next steps
 
-- **[快速开始](/python/quickstart/)** — 快速运行
-- **[AiClient API](/python/client/)** — 详细 API 指南
-- **[流式管道](/python/streaming/)** — 管道内部实现
-- **[弹性](/python/resilience/)** — 可靠性模式
+- [Quick Start](/python/quickstart/) — install and first chat
+- [AiClient API](/python/client/) — builder reference
+- [Streaming](/python/streaming/) — event handling
+- [Resilience](/python/resilience/) — opt-in policy layer
