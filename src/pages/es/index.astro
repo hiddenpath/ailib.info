@@ -73,15 +73,15 @@ const locale = 'es';
               variant="rust"
               version="1.0.1"
               title="ai-lib-rust"
-              description="Runtime Rust de alto rendimiento. CÃ³digos de error estÃ¡ndar V2, flags de caracterÃ­sticas, pipeline de streaming basado en operadores, seguridad en tiempo de compilaciÃ³n y sobrecarga submilisegundo."
+              description="Runtime Rust de alto rendimiento. Workspace E/P (ai-lib-core + ai-lib-contact), Pipeline + AiClient basados en manifiestos, salida estructurada y módulos por feature."
               features={[
-                'ProviderDriver (OpenAI/Anthropic/Gemini)',
-                'MCP tool bridge + aislamiento de namespace',
-                'Computer Use + SafetyPolicy',
-                'ValidaciÃ³n multimodal extendida',
-                'Embeddings y cachÃ©',
-                'Sistema de plugins',
-                '185+ tests, publicado en Crates.io',
+                'AiClient + pipeline de streaming por operadores',
+                'Crates ai-lib-core / ai-lib-contact',
+                '13 códigos de error estándar V2',
+                'Salida estructurada y text-tool (TTC)',
+                'Opcional: embeddings, puente MCP, computer_use',
+                'Resiliencia opt-in (ai_lib_rust::resilience)',
+                'Crates.io v1.0.1',
               ]}
               link="/es/rust/"
               github="https://github.com/ailib-official/ai-lib-rust"

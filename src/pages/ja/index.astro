@@ -72,15 +72,15 @@ const locale = 'ja';
               variant="rust"
               version="1.0.1"
               title="ai-lib-rust"
-              description="高性能Rustランタイム。V2標準エラーコード、機能フラグ、オペレータベースのストリーミングパイプライン、コンパイル時安全性、サブミリ秒オーバーヘッド。"
+              description="高性能 Rust ランタイム。E/P ワークスペース（ai-lib-core + ai-lib-contact）、マニフェスト駆動 Pipeline + AiClient、構造化出力と feature ゲート能力。"
               features={[
-                'ProviderDriver（OpenAI/Anthropic/Gemini）',
-                'MCPツールブリッジ + 名前空間分離',
-                'Computer Use + SafetyPolicy',
-                '拡張マルチモーダル検証',
-                '埋め込みとキャッシュ',
-                'プラグインシステム',
-                '185+ テスト、Crates.ioで公開',
+                'AiClient + オペレーターベースのストリーミング',
+                'ai-lib-core / ai-lib-contact',
+                'V2 標準エラーコード 13 種',
+                '構造化出力と text-tool (TTC)',
+                'オプション: embeddings、MCP ブリッジ、computer_use',
+                'オプトイン resilience モジュール',
+                'Crates.io v1.0.1',
               ]}
               link="/ja/rust/"
               github="https://github.com/ailib-official/ai-lib-rust"

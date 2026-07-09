@@ -35,7 +35,7 @@ const locale = 'en';
             <div
               class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-6"
             >
-              v1.0.0 &middot; Crates.io
+              v1.0.1 &middot; Crates.io
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.05]">
               <span class="gradient-text-rust">Rust Runtime</span>
@@ -43,10 +43,10 @@ const locale = 'en';
               <span class="text-[var(--text)]">for AI-Protocol.</span>
             </h1>
             <p class="text-lg md:text-xl text-[var(--text-dim)] max-w-2xl mb-8 leading-relaxed">
-              High-performance, protocol-driven AI client. V2 standard error codes (13 codes),
-              feature flags (7 features + full meta-feature), zero hardcoded provider logic,
-              operator-based streaming pipeline, compile-time type safety, and sub-millisecond
-              overhead.
+              High-performance Rust runtime for AI-Protocol. Manifest-driven
+              <code>Pipeline</code> + <code>AiClient</code>, E/P workspace
+              (<code>ai-lib-core</code> + <code>ai-lib-contact</code>), 13 V2 error codes,
+              and feature-gated capability modules.
             </p>
             <div class="flex flex-wrap gap-4 mb-8">
               <a
@@ -62,7 +62,7 @@ const locale = 'en';
                 >GitHub</a
               >
               <a
-                href="https://crates.io/crates/ai-lib"
+                href="https://crates.io/crates/ai-lib-rust"
                 target="_blank"
                 rel="noopener"
                 class="inline-flex items-center gap-2 px-6 py-3 border border-[var(--border)] text-[var(--text)] font-semibold rounded-lg hover:bg-[var(--bg-alt)] transition-all hover:no-underline"
@@ -73,7 +73,7 @@ const locale = 'en';
             <!-- Quick install -->
             <div class="bg-[#0d1117] border border-[var(--border)] rounded-lg p-4 max-w-lg">
               <div class="text-xs text-[var(--text-muted)] mb-2 font-mono">Cargo.toml</div>
-              <code class="text-sm text-orange-300 font-mono">ai-lib = "1.0.0"</code>
+              <code class="text-sm text-orange-300 font-mono">ai-lib-rust = "1.0.1"</code>
             </div>
           </div>
         </div>
@@ -101,24 +101,30 @@ const locale = 'en';
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">Protocol Loading</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">Protocol + Pipeline</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Loads provider manifests from local files, environment variables, or GitHub
-                fallback. Supports hot-reload via file watching. Zero restart needed for config
-                updates.
+                <code>AiClient</code> loads manifests and runs the operator pipeline
+                (Decoder &rarr; Selector &rarr; Accumulator &rarr; EventMapper). V1 and V2 manifest paths supported.
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">Resilience Patterns</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">E/P Workspace</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Built-in circuit breaker, token bucket rate limiter, exponential backoff retry, and
-                max-inflight backpressure. All configurable via environment variables.
+                <code>ai-lib-core</code> (execution) and <code>ai-lib-contact</code> (policy) ship as
+                separate crates; <code>ai-lib-rust</code> re-exports a stable facade.
+              </p>
+            </div>
+            <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
+              <h3 class="font-bold text-[var(--text)] mb-2">Resilience</h3>
+              <p class="text-sm text-[var(--text-dim)]">
+                Built-in <code>max_inflight</code> backpressure on <code>AiClient</code>. Retry,
+                rate limit, and circuit breaker live in <code>ai_lib_rust::resilience</code> ¬ù opt-in.
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="font-bold text-[var(--text)] mb-2">Embeddings & Vectors</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                EmbeddingClient with vector operations ‚Ä?cosine similarity, Euclidean distance, dot
+                EmbeddingClient with vector operations ¬ù?cosine similarity, Euclidean distance, dot
                 product. Build semantic search and RAG applications natively.
               </p>
             </div>
@@ -147,7 +153,7 @@ const locale = 'en';
             <div>
               <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Simple, Unified API</h2>
               <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
-                The same code works across all 37 providers. Just change the model identifier ‚Ä?the
+                The same code works across all 37 providers. Just change the model identifier ¬ù?the
                 protocol manifest handles everything else: endpoint, auth, parameter mapping,
                 streaming format.
               </p>
@@ -159,15 +165,16 @@ const locale = 'en';
             <div>
               <pre
                 class="text-sm !bg-[#0d1117] !border-orange-500/20"><code class="language-rust"><span style="color:#ff7b72">use</span> ai_lib_rust::{'{'}AiClient, Message, StreamingEvent{'}'};
+<span style="color:#ff7b72">use</span> futures::StreamExt;
 
-<span style="color:#8b949e">// Works with ANY provider ‚Ä?protocol-driven</span>
+<span style="color:#8b949e">// Works with ANY provider ¬ù?protocol-driven</span>
 <span style="color:#ff7b72">let</span> client = AiClient::new(
     <span style="color:#a5d6ff">"anthropic/claude-3-5-sonnet"</span>
 ).<span style="color:#ff7b72">await</span>?;
 
 <span style="color:#8b949e">// Builder pattern for chat requests</span>
 <span style="color:#ff7b72">let</span> <span style="color:#ff7b72">mut</span> stream = client.chat()
-    .user(<span style="color:#a5d6ff">"Explain AI-Protocol"</span>)
+    .messages(vec![Message::user(<span style="color:#a5d6ff">"Hello"</span>)])
     .temperature(<span style="color:#79c0ff">0.7</span>)
     .max_tokens(<span style="color:#79c0ff">1000</span>)
     .stream()
@@ -177,8 +184,8 @@ const locale = 'en';
 <span style="color:#8b949e">// Unified streaming events</span>
 <span style="color:#ff7b72">while let</span> Some(event) = stream.next().<span style="color:#ff7b72">await</span> {'{'}
     <span style="color:#ff7b72">match</span> event? {'{'}
-        StreamingEvent::ContentDelta {'{'} text, .. {'}'}
-            => print!(<span style="color:#a5d6ff">"{'{'}text{'}'}"</span>),
+        StreamingEvent::PartialContentDelta {'{'} content, .. {'}'}
+            => print!(<span style="color:#a5d6ff">"{'{'}content{'}'}"</span>),
         StreamingEvent::StreamEnd {'{'} stats, .. {'}'}
             => println!(<span style="color:#a5d6ff">"\nTokens: {'{'}{'}'}"</span>,
                 stats.total_tokens),

@@ -73,15 +73,15 @@ const locale = 'en';
               variant="rust"
               version="1.0.1"
               title="ai-lib-rust"
-              description="High-performance Rust runtime. ProviderDriver abstraction, MCP tool bridge, Computer Use safety, extended multimodal, and operator-based streaming pipeline."
+              description="High-performance Rust runtime. E/P workspace (ai-lib-core + ai-lib-contact), manifest-driven Pipeline + AiClient, structured output, and feature-gated capability modules."
               features={[
-                'ProviderDriver (OpenAI/Anthropic/Gemini)',
-                'MCP tool bridge with namespace isolation',
-                'Computer Use + SafetyPolicy',
-                'Extended multimodal validation',
-                'Capability Registry (feature-gated)',
-                'Operator-based streaming pipeline',
-                '185+ tests, published on Crates.io',
+                'AiClient + operator-based streaming pipeline',
+                'ai-lib-core / ai-lib-contact workspace crates',
+                '13 V2 standard error codes',
+                'Structured output & text-tool (TTC)',
+                'Optional: embeddings, MCP bridge, computer_use (feature-gated)',
+                'Opt-in resilience (ai_lib_rust::resilience)',
+                'Published on Crates.io v1.0.1',
               ]}
               link="/rust/"
               github="https://github.com/ailib-official/ai-lib-rust"

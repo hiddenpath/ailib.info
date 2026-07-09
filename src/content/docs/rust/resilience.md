@@ -5,7 +5,12 @@ description: Production reliability patterns in ai-lib-rust v1.0.1 — circuit b
 
 # Resilience Patterns
 
-ai-lib-rust (v1.0.1) includes production-grade reliability patterns out of the box. Retry and fallback decisions use V2 standard error codes: the `retryable` and `fallbackable` properties on `StandardErrorCode` determine whether an error triggers retries or model fallback.
+ai-lib-rust (v1.0.1) separates **built-in client backpressure** from **opt-in policy primitives**:
+
+- **`AiClient`:** `max_inflight` semaphore (`AI_LIB_MAX_INFLIGHT` / `AiClientBuilder::max_inflight`) — enabled on the default client path.
+- **`ai_lib_rust::resilience`:** retry policies, token-bucket rate limiter, circuit breaker — **not** wired automatically by `AiClient::new`; configure and apply beside the client (see `examples/resilience_patterns.rs`).
+
+Retry and fallback decisions inside `AiClient` use V2 standard error codes: `retryable` and `fallbackable` on `StandardErrorCode`.
 
 ## Circuit Breaker
 

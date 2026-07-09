@@ -1,30 +1,35 @@
 ---
 title: Rust Quick Start
-description: Get up and running with ai-lib-rust in minutes.
+description: Get up and running with ai-lib-rust 1.0.1 in minutes.
 ---
 
 # Rust Quick Start
 
-## Installation
+Examples below match the [`basic_usage`](https://github.com/ailib-official/ai-lib-rust/blob/main/crates/ai-lib-rust/examples/basic_usage.rs) example in the repository.
 
-Add to your `Cargo.toml`:
+## Installation
 
 ```toml
 [dependencies]
-ai-lib-rust = { version = "0.8", features = ["full"] }
+ai-lib-rust = "1.0.1"
 tokio = { version = "1", features = ["full"] }
-futures = "0.3"
+futures = "0.3"   # only needed for streaming
 ```
 
-Use the `full` feature to enable all capabilities (embeddings, batch, guardrails, tokens, telemetry, routing_mvp, interceptors). Or specify only the features you need, e.g. `features = ["embeddings", "batch"]`.
+Optional capabilities:
 
-## Set API Key
+```toml
+ai-lib-rust = { version = "1.0.1", features = ["embeddings", "telemetry"] }
+# or features = ["full"]
+```
+
+## API key
 
 ```bash
 export DEEPSEEK_API_KEY="your-key-here"
 ```
 
-## Basic Chat
+## Basic chat
 
 ```rust
 use ai_lib_rust::{AiClient, Message};
@@ -33,8 +38,12 @@ use ai_lib_rust::{AiClient, Message};
 async fn main() -> ai_lib_rust::Result<()> {
     let client = AiClient::new("deepseek/deepseek-chat").await?;
 
-    let response = client.chat()
-        .user("Explain quantum computing in simple terms")
+    let response = client
+        .chat()
+        .messages(vec![
+            Message::system("You are a helpful assistant."),
+            Message::user("Explain quantum computing in simple terms."),
+        ])
         .temperature(0.7)
         .max_tokens(500)
         .execute()
@@ -47,24 +56,27 @@ async fn main() -> ai_lib_rust::Result<()> {
 
 ## Streaming
 
+Event variant is **`PartialContentDelta`** (not `ContentDelta`):
+
 ```rust
-use ai_lib_rust::{AiClient, StreamingEvent};
+use ai_lib_rust::{AiClient, Message, StreamingEvent};
 use futures::StreamExt;
 
 #[tokio::main]
 async fn main() -> ai_lib_rust::Result<()> {
     let client = AiClient::new("deepseek/deepseek-chat").await?;
 
-    let mut stream = client.chat()
-        .user("Write a haiku about Rust")
+    let mut stream = client
+        .chat()
+        .messages(vec![Message::user("Write a haiku about Rust.")])
         .stream()
         .execute_stream()
         .await?;
 
     while let Some(event) = stream.next().await {
         match event? {
-            StreamingEvent::ContentDelta { text, .. } => print!("{text}"),
-            StreamingEvent::StreamEnd { .. } => println!(),
+            StreamingEvent::PartialContentDelta { content, .. } => print!("{content}"),
+            StreamingEvent::StreamEnd { .. } => break,
             _ => {}
         }
     }
@@ -72,12 +84,12 @@ async fn main() -> ai_lib_rust::Result<()> {
 }
 ```
 
-## Tool Calling
+## Tool calling (streaming)
 
 ```rust
-use ai_lib_rust::{AiClient, ToolDefinition, StreamingEvent};
-use serde_json::json;
+use ai_lib_rust::{AiClient, Message, StreamingEvent, ToolDefinition};
 use futures::StreamExt;
+use serde_json::json;
 
 #[tokio::main]
 async fn main() -> ai_lib_rust::Result<()> {
@@ -88,15 +100,14 @@ async fn main() -> ai_lib_rust::Result<()> {
         description: Some("Get current weather".into()),
         parameters: json!({
             "type": "object",
-            "properties": {
-                "city": { "type": "string" }
-            },
+            "properties": { "city": { "type": "string" } },
             "required": ["city"]
         }),
     };
 
-    let mut stream = client.chat()
-        .user("What's the weather in Tokyo?")
+    let mut stream = client
+        .chat()
+        .messages(vec![Message::user("What's the weather in Tokyo?")])
         .tools(vec![weather_tool])
         .stream()
         .execute_stream()
@@ -104,12 +115,11 @@ async fn main() -> ai_lib_rust::Result<()> {
 
     while let Some(event) = stream.next().await {
         match event? {
-            StreamingEvent::ToolCallStarted { name, .. } =>
-                println!("Calling: {name}"),
-            StreamingEvent::PartialToolCall { arguments, .. } =>
-                print!("{arguments}"),
-            StreamingEvent::ContentDelta { text, .. } =>
-                print!("{text}"),
+            StreamingEvent::ToolCallStarted { tool_name, .. } => {
+                println!("Calling: {tool_name}");
+            }
+            StreamingEvent::PartialToolCall { arguments, .. } => print!("{arguments}"),
+            StreamingEvent::PartialContentDelta { content, .. } => print!("{content}"),
             _ => {}
         }
     }
@@ -117,46 +127,42 @@ async fn main() -> ai_lib_rust::Result<()> {
 }
 ```
 
-## Multi-turn Conversation
+## Share `AiClient` across tasks
 
 ```rust
-use ai_lib_rust::{AiClient, Message, MessageRole};
+use ai_lib_rust::AiClient;
+use std::sync::Arc;
 
-#[tokio::main]
-async fn main() -> ai_lib_rust::Result<()> {
-    let client = AiClient::new("anthropic/claude-3-5-sonnet").await?;
-
-    let messages = vec![
-        Message::system("You are a helpful coding assistant."),
-        Message::user("What is a closure in Rust?"),
-    ];
-
-    let response = client.chat()
-        .messages(messages)
-        .execute()
-        .await?;
-
-    println!("{}", response.content);
-    Ok(())
-}
+let client = Arc::new(AiClient::new("openai/gpt-4o").await?);
 ```
 
-## With Stats
+## Protocol manifests
+
+Set a local checkout of [ai-protocol](https://github.com/ailib-official/ai-protocol):
+
+```bash
+export AI_PROTOCOL_DIR="/path/to/ai-protocol"
+```
+
+Or pass a base path in code:
 
 ```rust
-let (response, stats) = client.chat()
-    .user("Hello!")
-    .execute_with_stats()
-    .await?;
+use ai_lib_rust::protocol::ProtocolLoader;
 
-println!("Content: {}", response.content);
-println!("Total tokens: {}", stats.total_tokens);
-println!("Latency: {}ms", stats.latency_ms);
+let loader = ProtocolLoader::new().with_base_path("./ai-protocol");
+let manifest = loader.load_provider("openai").await?;
 ```
 
-## Next Steps
+## Run the shipped example
 
-- **[AiClient API](/rust/client/)** — Detailed API reference
-- **[Streaming Pipeline](/rust/streaming/)** — How streaming works
-- **[Resilience](/rust/resilience/)** — Circuit breaker, rate limiting
-- **[Advanced Features](/rust/advanced/)** — Embeddings, cache, plugins
+```bash
+cd ai-lib-rust
+DEEPSEEK_API_KEY=your_key cargo run --example basic_usage
+```
+
+## Next steps
+
+- **[Overview](/rust/overview/)** — architecture & feature boundaries
+- **[Client API](/rust/client/)** — builder reference
+- **[Streaming](/rust/streaming/)** — pipeline operators
+- **[Resilience](/rust/resilience/)** — opt-in policy layer

@@ -1,140 +1,129 @@
 ---
 title: Rust SDK Overview
-description: Architecture and design of ai-lib-rust — the high-performance Rust runtime for AI-Protocol.
+description: Architecture and public API of ai-lib-rust v1.0.1 — the high-performance Rust runtime for AI-Protocol.
 ---
 
 # Rust SDK Overview
 
-**ai-lib-rust** (v1.0.1) is the high-performance Rust runtime for the AI-Protocol specification. It implements a protocol-driven architecture where all provider behavior comes from configuration, not code.
+**ai-lib-rust** (v1.0.1) is the Rust runtime for [AI-Protocol](https://github.com/ailib-official/ai-protocol). The published crate is a **facade** over two workspace crates:
 
-## V2 Protocol Alignment
+| Crate | Role |
+|-------|------|
+| `ai-lib-core` | Execution: `AiClient`, `pipeline`, `protocol`, `transport`, `types`, `structured` |
+| `ai-lib-contact` | Policy: `resilience`, `cache`, `routing`, `plugins`, `guardrails`, `batch`, `telemetry` |
 
-ai-lib-rust v1.0.1 fully implements the V2 protocol specification:
+## Primary execution path
 
-- **V2 Manifest Loading**: Three-ring manifest parser (`ManifestV2`) with V1 auto-promotion
-- **ProviderDriver**: `Box<dyn ProviderDriver>` abstraction with OpenAI, Anthropic, and Gemini drivers
-- **Capability Registry**: Feature-gate based dynamic capability detection and module loading
-- **MCP Tool Bridge**: `McpToolBridge` for converting MCP tools to AI-Protocol format with namespace isolation
-- **Computer Use**: `ComputerAction` enum + `SafetyPolicy` for protocol-driven safety enforcement
-- **Extended Multimodal**: `MultimodalCapabilities` for modality detection, format validation, and capability checking
-- **Standard Error Codes**: 13-variant `StandardErrorCode` enum (E1001–E9999) integrated into all error paths
-- **185+ Tests**: Comprehensive coverage including 6 V2 integration tests and 53 CLI validations
+For chat, **`AiClient` does not call `ProviderDriver`**. It:
 
-## Architecture
+1. Loads a provider manifest (`ProtocolLoader`)
+2. Builds a **`Pipeline`** from manifest operators
+3. Sends HTTP via **`HttpTransport`**
+4. Emits unified **`StreamingEvent`** values
 
-The SDK is organized into distinct layers:
+Provider-specific logic still exists (SSE decoders, optional drivers, standalone service clients), but the default integration path is manifest + pipeline.
 
-### Client Layer (`client/`)
+## Public API at a glance
 
-The user-facing API:
+**Always exported from `ai_lib_rust`:**
 
-- **AiClient** — Main entry point, created from model identifiers
-- **AiClientBuilder** — Configuration builder with resilience settings
-- **ChatRequestBuilder** — Fluent API for building chat requests
-- **CallStats** — Request/response statistics (tokens, latency)
-- **CancelHandle** — Graceful stream cancellation
+- `AiClient`, `AiClientBuilder`, `ChatBatchRequest`, `CancelHandle`, `CallStats`
+- `Message`, `MessageRole`, `StreamingEvent`, `ToolCall`
+- `StandardErrorCode`, `Error`, `Result`
+- `structured` (JSON mode / schema validation)
+- Text-tool helpers: `StandardTextToolParser`, `ToolCallingPolicy`, …
+- Policy modules: `cache`, `context`, `plugins`, `resilience`
 
-### Protocol Layer (`protocol/`)
+**Feature-gated** (see [Feature flags](#feature-flags)):
 
-Loads and interprets AI-Protocol manifests:
+- Core: `embeddings`, `mcp`, `computer_use`, `multimodal`, `stt`, `tts`, `rerank`
+- Contact: `batch`, `guardrails`, `telemetry`, `tokens`, `routing_mvp`, `interceptors`
 
-- **ProtocolLoader** — Loads from local files, env vars, or GitHub
-- **ProtocolManifest** — Parsed provider configuration
-- **Validator** — JSON Schema validation
-- **UnifiedRequest** — Standard request format compiled to provider-specific JSON
+## V2 alignment (what is real today)
 
-### Pipeline Layer (`pipeline/`)
+- **Manifest loading:** V1 + V2 paths (`dist/v2/providers/*.json`, `v2/providers/*.yaml`, …)
+- **Standard error codes:** 13-variant `StandardErrorCode` (E1001–E9999)
+- **Structured output:** `JsonModeConfig`, `OutputValidator` (always available)
+- **Text-tool / TTC:** `StandardTextToolParser` and policy types at crate root
+- **Capability registry:** `registry::CapabilityRegistry` (feature-gap detection)
 
-The heart of streaming processing — an operator-based pipeline:
+### Honest capability boundaries
 
-- **Decoder** — Converts byte streams to JSON frames (SSE, JSON Lines)
-- **Selector** — Filters frames using JSONPath expressions
-- **Accumulator** — Statefully assembles tool calls from partial chunks
-- **FanOut** — Expands multi-candidate responses
-- **EventMapper** — Converts frames to unified `StreamingEvent` types
-- **Retry/Fallback** — Pipeline-level retry and fallback operators
+| Area | In the crate | Not included |
+|------|--------------|--------------|
+| **MCP** (`mcp` feature) | `McpToolBridge` format conversion | MCP server transport wired into `AiClient` |
+| **Computer Use** (`computer_use`) | `ComputerAction`, `SafetyPolicy` validation | Screenshot / input execution environment |
+| **Embeddings / STT / TTS / Rerank** | Standalone HTTP clients | Full pipeline operators for every modality |
+| **Hot reload** | Manifest in-memory cache | File watching / automatic reload |
+| **`ProviderDriver`** | Public `drivers` module | Default `AiClient` chat path |
 
-### Transport Layer (`transport/`)
+## Architecture (workspace paths)
 
-HTTP communication:
+### Client (`crates/ai-lib-core/src/client/`)
 
-- **HttpTransport** — reqwest-based HTTP client
-- **Auth** — API key resolution (OS keyring → env vars)
-- **Middleware** — Transport middleware for logging, metrics
+- `AiClient` — entry point (`"provider/model"` id)
+- `ChatRequestBuilder` — `.messages()`, `.stream()`, `.execute()`, `.execute_stream()`
+- `chat_batch` / `chat_batch_smart` — always on `AiClient` (not behind `batch` feature)
 
-### Resilience Layer (`resilience/`)
+### Protocol (`crates/ai-lib-core/src/protocol/`)
 
-Production reliability patterns:
+- `ProtocolLoader`, `ProtocolManifest`, validators
+- V2 types under `protocol::v2`
 
-- **CircuitBreaker** — Open/half-open/closed failure isolation
-- **RateLimiter** — Token bucket algorithm
-- **Backpressure** — max_inflight semaphore
+### Pipeline (`crates/ai-lib-core/src/pipeline/`)
 
-### V2 Modules (feature-gated)
+Decoder → Selector → Accumulator → FanOut → EventMapper (configured from manifests).
 
-- **drivers/** — `ProviderDriver` trait + OpenAI, Anthropic, Gemini implementations; auto-selected by manifest `api_style`
-- **registry/** — `CapabilityRegistry` for runtime module loading based on manifest declarations
-- **mcp/** — `McpToolBridge` for MCP tool format conversion, namespace isolation (`mcp__{server}__{tool}`), and provider-specific config extraction
-- **computer_use/** — `ComputerAction` enum (screenshot, mouse, keyboard, browser, file ops) + `SafetyPolicy` (domain allowlist, sensitive path protection, max actions per turn)
-- **multimodal/** — `MultimodalCapabilities` for modality detection, format validation (image, audio, video), and content block validation
+### Transport (`crates/ai-lib-core/src/transport/`)
 
-### Additional Modules
+`HttpTransport`, credential resolution (`keyring` or `<PROVIDER>_API_KEY`).
 
-- **embeddings/** — EmbeddingClient with vector operations
-- **cache/** — Response caching with TTL (MemoryCache)
-- **batch/** — BatchCollector and BatchExecutor
-- **tokens/** — Token counting and cost estimation
-- **plugins/** — Plugin trait, registry, hooks, middleware
-- **guardrails/** — Content filtering, PII detection
-- **routing/** — Model routing and load balancing (feature-gated)
-- **telemetry/** — Feedback sink for user feedback collection
+### Policy (`crates/ai-lib-contact/src/`)
 
-## Key Dependencies
+Opt-in modules — import and wire beside `AiClient`; not auto-enabled by `AiClient::new`.
 
-| Crate                                 | Purpose                |
-| ------------------------------------- | ---------------------- |
-| `tokio`                               | Async runtime          |
-| `reqwest`                             | HTTP client            |
-| `serde` / `serde_json` / `serde_yaml` | Serialization          |
-| `jsonschema`                          | Manifest validation    |
-| `tracing`                             | Structured logging     |
-| `arc-swap`                            | Hot-reload support     |
-| `notify`                              | File watching          |
-| `keyring`                             | OS keyring integration |
+## Feature flags
 
-## Feature Flags
+| Feature | Enables |
+|---------|---------|
+| `embeddings` | `EmbeddingClient` |
+| `stt` / `tts` / `reranking` | `SttClient`, `TtsClient`, `RerankerClient` |
+| `mcp` | `McpToolBridge` |
+| `computer_use` | `ComputerAction`, `SafetyPolicy` |
+| `multimodal` | `MultimodalCapabilities` |
+| `batch` | `BatchExecutor` (contact); `chat_batch` is always available |
+| `guardrails` | Content filters |
+| `telemetry` | Advanced feedback sinks |
+| `routing_mvp` | `CustomModelManager`, `ModelArray` |
+| `full` | All of the above |
 
-Optional features enabled via Cargo (use `full` to enable all):
+```toml
+ai-lib-rust = { version = "1.0.1", features = ["embeddings"] }
+```
 
-| Feature        | What it enables                                                  |
-| -------------- | ---------------------------------------------------------------- |
-| `v2`           | V2 manifest loading, ProviderDriver, Capability Registry         |
-| `mcp`          | MCP tool bridge, namespace isolation, provider config extraction |
-| `computer_use` | Computer Use actions, safety policy enforcement                  |
-| `multimodal`   | Extended multimodal capabilities, format validation              |
-| `embeddings`   | EmbeddingClient, vector operations                               |
-| `batch`        | BatchCollector, BatchExecutor                                    |
-| `guardrails`   | Content filtering, PII detection                                 |
-| `tokens`       | Token counting, cost estimation                                  |
-| `telemetry`    | Advanced observability sinks                                     |
-| `routing_mvp`  | CustomModelManager, ModelArray, load balancing strategies        |
-| `interceptors` | InterceptorPipeline for logging, metrics, audit                  |
-| `reasoning`    | Extended thinking, reasoning traces                              |
+## Resilience
 
-## Environment Variables
+- **`AiClient`:** `max_inflight` backpressure (`AI_LIB_MAX_INFLIGHT`)
+- **`ai_lib_rust::resilience`:** retry, rate limiter, circuit breaker — configure explicitly
+- **Not built into default client:** automatic breaker / rate limit on every `AiClient::new`
 
-| Variable                           | Purpose                                   |
-| ---------------------------------- | ----------------------------------------- |
-| `AI_PROTOCOL_DIR`                  | Protocol manifest directory               |
-| `<PROVIDER>_API_KEY`               | Provider API key (e.g., `OPENAI_API_KEY`) |
-| `AI_LIB_RPS`                       | Rate limit (requests per second)          |
-| `AI_LIB_BREAKER_FAILURE_THRESHOLD` | Circuit breaker threshold                 |
-| `AI_LIB_MAX_INFLIGHT`              | Max concurrent requests                   |
-| `AI_HTTP_TIMEOUT_SECS`             | HTTP timeout                              |
+## Environment variables
 
-## Next Steps
+| Variable | Purpose |
+|----------|---------|
+| `AI_PROTOCOL_DIR` / `AI_PROTOCOL_PATH` | Local or remote manifest root |
+| `<PROVIDER>_API_KEY` | API key (e.g. `OPENAI_API_KEY`) |
+| `AI_LIB_MAX_INFLIGHT` | Concurrent request cap |
+| `AI_LIB_BATCH_CONCURRENCY` | Batch worker count |
+| `AI_HTTP_TIMEOUT_SECS` | HTTP timeout |
+| `AI_PROXY_URL` | Explicit proxy override |
 
-- **[Quick Start](/rust/quickstart/)** — Get running in minutes
-- **[AiClient API](/rust/client/)** — Client usage details
-- **[Streaming Pipeline](/rust/streaming/)** — Pipeline deep dive
-- **[Resilience](/rust/resilience/)** — Reliability patterns
+## Next steps
+
+- **[Quick Start](/rust/quickstart/)** — install and first chat
+- **[AiClient API](/rust/client/)** — builder methods
+- **[Streaming](/rust/streaming/)** — pipeline & events
+- **[Resilience](/rust/resilience/)** — policy layer
+- **[Advanced](/rust/advanced/)** — embeddings, cache, plugins
+
+Source of truth: [ai-lib-rust README](https://github.com/ailib-official/ai-lib-rust/blob/main/README.md).

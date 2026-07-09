@@ -72,15 +72,15 @@ const locale = 'zh-cn';
               variant="rust"
               version="1.0.1"
               title="ai-lib-rust"
-              description="高性能 Rust 运行时。ProviderDriver 抽象、MCP 工具桥、Computer Use 安全策略、扩展多模态与基于算子的流式管道。"
+              description="高性能 Rust 运行时。E/P 工作区（ai-lib-core + ai-lib-contact），清单驱动的 Pipeline + AiClient，结构化输出与 feature 门控能力模块。"
               features={[
-                'ProviderDriver（OpenAI/Anthropic/Gemini）',
-                'MCP 工具桥 + 命名空间隔离',
-                'Computer Use + SafetyPolicy',
-                '扩展多模态验证',
-                'Capability Registry（feature-gated）',
-                '基于算子的流式管道',
-                '185+ 测试，发布于 Crates.io',
+                'AiClient + 算子流式管道',
+                'ai-lib-core / ai-lib-contact 双 crate',
+                '13 个 V2 标准错误码',
+                '结构化输出与 text-tool (TTC)',
+                '可选：embeddings、MCP 桥接、computer_use（feature）',
+                '可选韧性层 ai_lib_rust::resilience',
+                'Crates.io v1.0.1',
               ]}
               link="/zh-cn/rust/"
               github="https://github.com/ailib-official/ai-lib-rust"
