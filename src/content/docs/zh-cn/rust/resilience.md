@@ -1,60 +1,60 @@
 ---
-title: Resilience (Rust)
-description: Production reliability patterns in ai-lib-rust v1.0.1 — circuit breaker, rate limiter, backpressure, retry.
+title: 韧性模式（Rust）
+description: ai-lib-rust v1.0.1 生产可靠性模式 — 熔断、限流、背压、重试。
 ---
 
-# Resilience Patterns
+# 韧性模式
 
-ai-lib-rust (v1.0.1) separates **built-in client backpressure** from **opt-in policy primitives**:
+ai-lib-rust（v1.0.1）将**内置客户端背压**与**按需策略原语**分开：
 
-- **`AiClient`:** `max_inflight` semaphore (`AI_LIB_MAX_INFLIGHT` / `AiClientBuilder::max_inflight`) — enabled on the default client path.
-- **`ai_lib_rust::resilience`:** retry policies, token-bucket rate limiter, circuit breaker — **not** wired automatically by `AiClient::new`; configure and apply beside the client (see `examples/resilience_patterns.rs`).
+- **`AiClient`：** `max_inflight` 信号量（`AI_LIB_MAX_INFLIGHT` / `AiClientBuilder::max_inflight`）— 默认客户端路径已启用。
+- **`ai_lib_rust::resilience`：** 重试策略、令牌桶限流、熔断器 — **不会**由 `AiClient::new` 自动接线；需在客户端旁配置并应用（见 `examples/resilience_patterns.rs`）。
 
-Retry and fallback decisions inside `AiClient` use V2 standard error codes: `retryable` and `fallbackable` on `StandardErrorCode`.
+`AiClient` 内部的重试与回退决策使用 V2 标准错误码：`StandardErrorCode` 上的 `retryable` 与 `fallbackable`。
 
-## Circuit Breaker
+## 熔断器
 
-Prevents cascading failures by stopping requests to failing providers:
+通过停止向故障提供商发请求，防止级联失败：
 
-**States:**
+**状态：**
 
-- **Closed** — Normal operation, requests flow through
-- **Open** — Too many failures, requests immediately rejected
-- **Half-Open** — After cooldown, allows a test request
+- **Closed** — 正常运行，请求通行
+- **Open** — 失败过多，请求立即拒绝
+- **Half-Open** — 冷却后允许一次探测请求
 
-**Configuration:**
+**配置：**
 
 ```bash
 export AI_LIB_BREAKER_FAILURE_THRESHOLD=5
 export AI_LIB_BREAKER_COOLDOWN_SECS=30
 ```
 
-The circuit opens after `FAILURE_THRESHOLD` consecutive failures and stays open for `COOLDOWN_SECS` before testing.
+连续失败达到 `FAILURE_THRESHOLD` 后熔断打开，并在 `COOLDOWN_SECS` 内保持打开，之后再探测。
 
-## Rate Limiter
+## 限流器
 
-Token bucket algorithm prevents exceeding provider rate limits:
+令牌桶算法防止超出提供商速率限制：
 
 ```bash
 export AI_LIB_RPS=10    # Max requests per second
 export AI_LIB_RPM=600   # Max requests per minute
 ```
 
-Requests beyond the limit are queued rather than rejected, providing smooth throughput.
+超出限制的请求会排队而非直接拒绝，从而平滑吞吐。
 
-## Backpressure
+## 背压
 
-Limits concurrent in-flight requests with a semaphore:
+用信号量限制并发在途请求：
 
 ```bash
 export AI_LIB_MAX_INFLIGHT=50
 ```
 
-When the limit is reached, new requests wait until a slot opens.
+达到上限时，新请求会等待直到有空闲槽位。
 
-## Retry
+## 重试
 
-Exponential backoff retry driven by the protocol manifest's retry policy:
+由协议清单中的重试策略驱动指数退避重试：
 
 ```yaml
 # In the provider manifest
@@ -69,22 +69,22 @@ retry_policy:
     - 'server_error'
 ```
 
-Only errors classified as retryable trigger retries. Authentication errors, for example, fail immediately.
+仅被归类为可重试的错误会触发重试。例如认证错误会立即失败。
 
-## Combining Patterns
+## 组合模式
 
-All resilience patterns work together. A typical request flow:
+所有韧性模式可协同工作。典型请求流程：
 
-1. **Backpressure** — Wait for a slot if at max inflight
-2. **Circuit Breaker** — Reject immediately if circuit is open
-3. **Rate Limiter** — Wait for a token if rate limited
-4. **Execute** — Send the request
-5. **Retry** — If retryable error, wait and retry
-6. **Update** — Record success/failure for circuit breaker
+1. **背压** — 若已达最大在途数，等待槽位
+2. **熔断器** — 若熔断打开，立即拒绝
+3. **限流器** — 若受速率限制，等待令牌
+4. **执行** — 发送请求
+5. **重试** — 若为可重试错误，等待后重试
+6. **更新** — 记录成功/失败以供熔断器使用
 
-## Observability
+## 可观测性
 
-Monitor resilience state at runtime:
+运行时监控韧性状态：
 
 ```rust
 // Check circuit breaker state
@@ -95,7 +95,7 @@ println!("Circuit: {:?}", state); // Closed, Open, HalfOpen
 let inflight = client.current_inflight();
 ```
 
-## Next Steps
+## 下一步
 
-- **[Advanced Features](/rust/advanced/)** — Embeddings, cache, plugins
-- **[AiClient API](/rust/client/)** — Client usage
+- **[高级功能](/zh-cn/rust/advanced/)** — Embeddings、缓存、插件
+- **[AiClient API](/zh-cn/rust/client/)** — 客户端用法

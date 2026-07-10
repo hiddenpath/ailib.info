@@ -13,7 +13,7 @@ const locale = 'zh-cn';
     <title>ai-lib-python | AI-Protocol Python 运行时</title>
     <meta
       name="description"
-      content="ai-lib-python 是 AI-Protocol 官方 Python 运行时。异步优先、Pydantic v2 类型、清单 Pipeline + AiClient，韧性模块可选。"
+      content="ai-lib-python 是 AI-Protocol 官方 Python 运行时。异步优先、Pydantic v2、清单 Pipeline + AiClient，韧性可选。"
     />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" href="/favicon.svg" />
@@ -43,9 +43,8 @@ const locale = 'zh-cn';
               <span class="text-[var(--text)]">适用于 AI-Protocol。</span>
             </h1>
             <p class="text-lg md:text-xl text-[var(--text-dim)] max-w-2xl mb-8 leading-relaxed">
-              Async, protocol-driven AI client (v1.0.0). Default path: manifest → Pipeline →
-              httpx transport. Pydantic v2 types, 13 V2 error codes, pip extras for capabilities,
-              and opt-in resilience via AiClientBuilder. Python 3.10+.
+              异步、协议驱动的 AI 客户端（v1.0.0）。默认路径：清单 → Pipeline → httpx。
+              Pydantic v2 类型、13 个 V2 错误码、pip extras，以及通过 AiClientBuilder 可选启用的韧性。Python 3.10+。
             </p>
             <div class="flex flex-wrap gap-4 mb-8">
               <a
@@ -83,52 +82,50 @@ const locale = 'zh-cn';
           <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">核心特性</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">V2 Error Codes & Capability Extras</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">V2 错误码与能力 Extras</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                13 V2 standard error codes for consistent error handling. Capability-based extras: 8
-                optional extras plus a full extra for minimal or complete installs.
+                13 个 V2 标准错误码，统一错误处理。基于能力的 extras：8 个可选包，外加 full 完整安装。
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">Async-First Design</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">异步优先设计</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Native async/await throughout. httpx-powered transport with connection pooling.
-                CancellableStream for graceful stream termination.
+                全程原生 async/await。基于 httpx 的传输与连接池。
+                CancellableStream 支持优雅终止流。
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">Pydantic v2 Types</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">Pydantic v2 类型</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Full type hints with Pydantic v2 validation. ProtocolManifest, Message,
-                ContentBlock, StreamingEvent —all type-safe with runtime validation.
+                完整类型注解与 Pydantic v2 校验。ProtocolManifest、Message、
+                ContentBlock、StreamingEvent 均类型安全并带运行时验证。
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">Resilient Executor</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">韧性执行器</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                ResilientExecutor combines backpressure, rate limiting, circuit breaker, and retry
-                with exponential backoff. PreflightChecker gates requests before execution.
+                ResilientExecutor 组合背压、限流、熔断与指数退避重试。
+                PreflightChecker 在执行前门控请求。
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">Model Routing</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">模型路由</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                ModelManager with ModelArray for intelligent model selection. Strategies include
-                round-robin, weighted, cost-based, and quality-based routing.
+                ModelManager + ModelArray 实现智能选型。策略含轮询、加权、成本优先与质量优先。
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">Production Telemetry</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">生产级遥测</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                MetricsCollector with Prometheus export. Distributed tracing via OpenTelemetry.
-                Structured logging. Health monitoring. User feedback collection.
+                MetricsCollector 支持 Prometheus 导出。OpenTelemetry 分布式追踪。
+                结构化日志、健康监控与用户反馈采集。
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">Structured Output</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">结构化输出</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                JSON mode configuration, schema generation from Pydantic models, output validation.
-                Guardrails with content filters and PII detection.
+                JSON 模式配置、由 Pydantic 模型生成 schema、输出校验。
+                Guardrails 提供内容过滤与 PII 检测。
               </p>
             </div>
           </div>
@@ -140,13 +137,13 @@ const locale = 'zh-cn';
         <div class="container">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             <div>
-              <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Pythonic & Intuitive</h2>
+              <h2 class="text-3xl font-bold text-[var(--text)] mb-4">符合 Python 习惯、直观易用</h2>
               <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
-                A clean, Pythonic API that feels natural. Create a client from a model identifier,
-                build requests with a fluent builder, and iterate over unified streaming events.
+                干净、符合 Python 习惯的 API。用模型标识创建客户端，
+                以流畅 Builder 构造请求，并迭代统一的流式事件。
               </p>
               <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
-                The same code works across all providers. Switch from OpenAI to Anthropic to
+                同一套代码适用于所有服务商。从 OpenAI 切换到 Anthropic 再到
                 DeepSeek by changing one string —the protocol manifest handles the rest.
               </p>
             </div>
@@ -185,10 +182,9 @@ print(f<span style="color:#a5d6ff">"Latency: {'{'}stats.latency_ms{'}'}ms"</span
       <section class="section-alt">
         <div class="container">
           <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Internal Architecture</h2>
+            <h2 class="text-3xl font-bold text-[var(--text)] mb-4">内部架构</h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
-              Same layered architecture as the Rust runtime —protocol-driven, operator-based,
-              resilient by default.
+              与 Rust 运行时相同的分层架构——协议驱动、基于算子，韧性按需启用。
             </p>
           </div>
           <RuntimeArch locale={locale} variant="python" />
@@ -198,7 +194,7 @@ print(f<span style="color:#a5d6ff">"Latency: {'{'}stats.latency_ms{'}'}ms"</span
       <!-- Module Overview -->
       <section class="section">
         <div class="container">
-          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">Module Overview</h2>
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">模块概览</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-emerald-400 mb-1 font-mono">
@@ -212,15 +208,15 @@ print(f<span style="color:#a5d6ff">"Latency: {'{'}stats.latency_ms{'}'}ms"</span
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-emerald-400 mb-1 font-mono">protocol/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                ProtocolLoader (local/env/GitHub), Pydantic manifest models, JSON Schema validator,
-                hot-reload support.
+                ProtocolLoader（本地 / 环境变量 / GitHub）、Pydantic 清单模型、JSON Schema 校验器、
+                热重载支持。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-emerald-400 mb-1 font-mono">pipeline/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Decoder (SSE, JSON Lines, Anthropic SSE), Selector (JSONPath), Accumulator, FanOut,
-                EventMapper (protocol-driven, default, Anthropic).
+                Decoder（SSE、JSON Lines、Anthropic SSE）、Selector（JSONPath）、Accumulator、FanOut、
+                EventMapper（协议驱动 / 默认 / Anthropic）。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
@@ -233,15 +229,15 @@ print(f<span style="color:#a5d6ff">"Latency: {'{'}stats.latency_ms{'}'}ms"</span
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-emerald-400 mb-1 font-mono">routing/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                ModelManager, ModelArray, selection strategies (round-robin, weighted, cost-based,
-                quality-based). Pre-configured catalogs for major providers.
+                ModelManager、ModelArray 与选型策略（轮询、加权、成本、质量）。
+                主流服务商预置目录。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-emerald-400 mb-1 font-mono">telemetry/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                MetricsCollector (Prometheus), Tracer (OpenTelemetry), structured Logger,
-                HealthChecker, user feedback collection.
+                MetricsCollector（Prometheus）、Tracer（OpenTelemetry）、结构化 Logger、
+                HealthChecker、用户反馈采集。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
@@ -249,8 +245,7 @@ print(f<span style="color:#a5d6ff">"Latency: {'{'}stats.latency_ms{'}'}ms"</span
                 embeddings/ + tokens/
               </h3>
               <p class="text-sm text-[var(--text-dim)]">
-                EmbeddingClient with vector operations. TokenCounter (tiktoken integration) and cost
-                estimation for usage tracking.
+                EmbeddingClient 提供向量运算。TokenCounter（tiktoken 集成）与用量成本估算。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
@@ -258,8 +253,8 @@ print(f<span style="color:#a5d6ff">"Latency: {'{'}stats.latency_ms{'}'}ms"</span
                 plugins/ + structured/
               </h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Plugin base class, PluginRegistry, HookManager, middleware chain. JSON mode config,
-                SchemaGenerator, OutputValidator.
+                Plugin 基类、PluginRegistry、HookManager 与中间件链。JSON 模式配置、
+                SchemaGenerator、OutputValidator。
               </p>
             </div>
           </div>

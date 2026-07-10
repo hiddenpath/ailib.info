@@ -1,13 +1,13 @@
 ---
-title: TypeScript AiClient API
-description: Detailed API reference for the TypeScript AiClient.
+title: API de AiClient en TypeScript
+description: Referencia detallada de la API de AiClient en TypeScript.
 ---
 
-# AiClient API
+# API de AiClient
 
-## Creating a Client
+## Crear un cliente
 
-### Basic Creation
+### Creación básica
 
 ```typescript
 import { AiClient } from '@ailib-official/ai-lib-ts';
@@ -15,7 +15,7 @@ import { AiClient } from '@ailib-official/ai-lib-ts';
 const client = await AiClient.new('openai/gpt-4o');
 ```
 
-### With Builder Pattern
+### Con patrón builder
 
 ```typescript
 import { createClientBuilder } from '@ailib-official/ai-lib-ts';
@@ -27,11 +27,11 @@ const client = await createClientBuilder()
   .build('openai/gpt-4o');
 ```
 
-## ChatBuilder Methods
+## Métodos de ChatBuilder
 
 ### messages(messages: Message[])
 
-Set the conversation messages:
+Establece los mensajes de la conversación:
 
 ```typescript
 const response = await client
@@ -41,7 +41,7 @@ const response = await client
 
 ### user(content: string)
 
-Quick single user message:
+Un mensaje de usuario rápido:
 
 ```typescript
 const response = await client.chat().user('What is TypeScript?').execute();
@@ -49,7 +49,7 @@ const response = await client.chat().user('What is TypeScript?').execute();
 
 ### temperature(value: number)
 
-Set sampling temperature (0.0 - 2.0):
+Establece la temperatura de muestreo (0.0 - 2.0):
 
 ```typescript
 const response = await client
@@ -60,7 +60,7 @@ const response = await client
 
 ### maxTokens(value: number)
 
-Set maximum output tokens:
+Establece el máximo de tokens de salida:
 
 ```typescript
 const response = await client
@@ -71,7 +71,7 @@ const response = await client
 
 ### tools(tools: Tool[])
 
-Add tool definitions:
+Añade definiciones de herramientas:
 
 ```typescript
 const tool = Tool.define(
@@ -94,7 +94,7 @@ const response = await client
 
 ### stream()
 
-Enable streaming mode:
+Activa el modo streaming:
 
 ```typescript
 const stream = client
@@ -109,11 +109,11 @@ for await (const event of stream) {
 }
 ```
 
-## Execution Methods
+## Métodos de ejecución
 
 ### execute()
 
-Execute the request and return the response:
+Ejecuta la petición y devuelve la respuesta:
 
 ```typescript
 const response = await client.chat([Message.user('Hello')]).execute();
@@ -125,7 +125,7 @@ console.log(response.usage);
 
 ### executeWithStats()
 
-Execute and return response with timing stats:
+Ejecuta y devuelve la respuesta con estadísticas de tiempo:
 
 ```typescript
 const { response, stats } = await client.chat([Message.user('Hi')]).executeWithStats();
@@ -137,7 +137,7 @@ console.log('Model:', stats.model);
 
 ### executeStream()
 
-Execute as a stream:
+Ejecuta como flujo:
 
 ```typescript
 const stream = client
@@ -152,7 +152,7 @@ for await (const event of stream) {
 
 ### executeStreamWithCancel()
 
-Execute stream with cancellation support:
+Ejecuta un flujo con soporte de cancelación:
 
 ```typescript
 const { stream, cancelHandle } = client
@@ -170,7 +170,7 @@ for await (const event of stream) {
 }
 ```
 
-## Response Object
+## Objeto de respuesta
 
 ```typescript
 interface ChatResponse {
@@ -186,7 +186,7 @@ interface ChatResponse {
 }
 ```
 
-## Error Handling
+## Manejo de errores
 
 ```typescript
 import { AiLibError, StandardErrorCode, isRetryable, isFallbackable } from '@ailib-official/ai-lib-ts';
@@ -203,9 +203,9 @@ try {
 }
 ```
 
-## Signals
+## Señales
 
-Get runtime signals for monitoring:
+Obtiene señales de tiempo de ejecución para monitorización:
 
 ```typescript
 const signals = await client.signals();

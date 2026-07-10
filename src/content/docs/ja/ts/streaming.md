@@ -1,15 +1,15 @@
 ---
-title: TypeScript Streaming
-description: How streaming works in ai-lib-ts.
+title: TypeScript ストリーミング
+description: ai-lib-ts におけるストリーミングの仕組み。
 ---
 
-# Streaming Pipeline
+# ストリーミングパイプライン
 
-## Overview
+## 概要
 
-ai-lib-ts provides streaming-first support with Server-Sent Events (SSE) and typed streaming events.
+ai-lib-ts は Server-Sent Events（SSE）と型付きストリーミングイベントによる、ストリーミング優先のサポートを提供します。
 
-## Basic Streaming
+## 基本的なストリーミング
 
 ```typescript
 import { AiClient, Message } from '@ailib-official/ai-lib-ts';
@@ -28,16 +28,16 @@ for await (const event of stream) {
 }
 ```
 
-## Streaming Events
+## ストリーミングイベント
 
-| Event                 | Description           | Key Fields                |
+| イベント                 | 説明           | 主なフィールド                |
 | --------------------- | --------------------- | ------------------------- |
-| `PartialContentDelta` | Incremental text      | `content`                 |
-| `ToolCallStarted`     | Tool call initiated   | `toolCallId`, `name`      |
-| `PartialToolCall`     | Incremental tool args | `toolCallId`, `arguments` |
-| `StreamEnd`           | Stream completed      | `finishReason`            |
+| `PartialContentDelta` | 増分テキスト      | `content`                 |
+| `ToolCallStarted`     | ツール呼び出し開始   | `toolCallId`, `name`      |
+| `PartialToolCall`     | 増分ツール引数 | `toolCallId`, `arguments` |
+| `StreamEnd`           | ストリーム完了      | `finishReason`            |
 
-## Event Handling
+## イベント処理
 
 ```typescript
 import { StreamingEvent } from '@ailib-official/ai-lib-ts';
@@ -63,7 +63,7 @@ for await (const event of stream) {
 }
 ```
 
-## Stream Cancellation
+## ストリームのキャンセル
 
 ```typescript
 const { stream, cancelHandle } = client
@@ -84,9 +84,9 @@ for await (const event of stream) {
 }
 ```
 
-## Pipeline Architecture
+## パイプラインアーキテクチャ
 
-The streaming pipeline processes events through stages:
+ストリーミングパイプラインは次の段階でイベントを処理します。
 
 ```
 SSE Stream → Decoder → Selector → EventMapper → Emitter
@@ -94,7 +94,7 @@ SSE Stream → Decoder → Selector → EventMapper → Emitter
 
 ### Decoder
 
-Parses raw SSE data into structured events:
+生の SSE データを構造化イベントに解析します。
 
 ```typescript
 // Automatically selects decoder based on provider
@@ -103,7 +103,7 @@ Parses raw SSE data into structured events:
 
 ### Selector
 
-Filters events by type:
+イベントを種類でフィルタします。
 
 ```typescript
 // Only content events
@@ -113,13 +113,13 @@ Filters events by type:
 
 ### EventMapper
 
-Transforms provider-specific events to standard types:
+プロバイダー固有のイベントを標準型に変換します。
 
 ```typescript
 // Provider format → Standard StreamingEvent
 ```
 
-### Manual Pipeline Creation
+### 手動パイプライン作成
 
 ```typescript
 import { Pipeline, HttpTransport } from '@ailib-official/ai-lib-ts';
@@ -133,7 +133,7 @@ for await (const event of stream) {
 }
 ```
 
-## AbortSignal Support
+## AbortSignal サポート
 
 ```typescript
 const controller = new AbortController();
@@ -147,9 +147,9 @@ const stream = client
   .executeStream({ signal: controller.signal });
 ```
 
-## Best Practices
+## ベストプラクティス
 
-1. **Always handle errors in streams**
+1. **ストリーム内のエラーを必ず処理する**
 
 ```typescript
 try {
@@ -161,14 +161,14 @@ try {
 }
 ```
 
-2. **Use cancellation for user-initiated stops**
+2. **ユーザー主導の停止にはキャンセルを使う**
 
 ```typescript
 // UI: user clicks "Stop" button
 cancelHandle.cancel();
 ```
 
-3. **Buffer for rate limiting**
+3. **レート制限のためにバッファする**
 
 ```typescript
 let buffer = '';

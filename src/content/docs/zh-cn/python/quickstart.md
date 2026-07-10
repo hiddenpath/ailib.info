@@ -1,11 +1,11 @@
 ---
-title: Python Quick Start
-description: Get up and running with ai-lib-python in minutes.
+title: Python 快速开始
+description: 几分钟内上手 ai-lib-python。
 ---
 
-# Python Quick Start
+# Python 快速开始
 
-## Installation
+## 安装
 
 ```bash
 pip install ai-lib-python
@@ -14,15 +14,15 @@ pip install ai-lib-python
 pip install ai-lib-python[full]
 ```
 
-Requires **Python 3.10+**.
+需要 **Python 3.10+**。
 
-## Set API Key
+## 设置 API 密钥
 
 ```bash
 export DEEPSEEK_API_KEY="your-key-here"
 ```
 
-## Basic Chat
+## 基础聊天
 
 ```python
 import asyncio
@@ -48,11 +48,11 @@ async def main():
 asyncio.run(main())
 ```
 
-You can also use fluent shorthands: `client.chat().system("...").user("...").execute()`.
+也可使用流畅简写：`client.chat().system("...").user("...").execute()`。
 
-Same example in the repo: `python examples/basic_chat.py`.
+仓库中的同款示例：`python examples/basic_chat.py`。
 
-## Streaming
+## 流式处理
 
 ```python
 import asyncio
@@ -73,9 +73,9 @@ async def stream_example():
 asyncio.run(stream_example())
 ```
 
-Use `event.is_content_delta` / `event.as_content_delta.content` — not `event.content` on the wrapper.
+使用 `event.is_content_delta` / `event.as_content_delta.content` — 不要在包装对象上直接读 `event.content`。
 
-## Tool Calling
+## 工具调用
 
 ```python
 from ai_lib_python import ToolDefinition
@@ -101,7 +101,7 @@ async def tool_example():
     await client.close()
 ```
 
-## Multi-turn Conversation
+## 多轮对话
 
 ```python
 from ai_lib_python import AiClient, Message
@@ -119,9 +119,9 @@ async def conversation():
     await client.close()
 ```
 
-## With Statistics
+## 带统计信息
 
-`ChatResponse` does not include stats. Use `execute_with_stats()`:
+`ChatResponse` 不包含统计。请使用 `execute_with_stats()`：
 
 ```python
 response, stats = await client.chat().user("Hello!").execute_with_stats()
@@ -131,7 +131,7 @@ print(f"Tokens in/out: {stats.input_tokens}, {stats.output_tokens}")
 print(f"Latency: {stats.latency_ms}ms")
 ```
 
-## Production resilience (opt-in)
+## 生产韧性（按需启用）
 
 ```python
 client = await (
@@ -142,7 +142,7 @@ client = await (
 )
 ```
 
-## Switching Providers
+## 切换提供商
 
 ```python
 client = await AiClient.create("openai/gpt-4o")
@@ -151,9 +151,9 @@ client = await AiClient.create("deepseek/deepseek-chat")
 client = await AiClient.create("gemini/gemini-2.0-flash")
 ```
 
-## Next Steps
+## 下一步
 
-- **[AiClient API](/python/client/)** — Full API reference
-- **[Streaming Pipeline](/python/streaming/)** — How streaming works
-- **[Resilience](/python/resilience/)** — Circuit breaker, rate limiting
-- **[Advanced Features](/python/advanced/)** — Telemetry, routing, plugins
+- **[AiClient API](/zh-cn/python/client/)** — 完整 API 参考
+- **[流式 Pipeline](/zh-cn/python/streaming/)** — 流式处理原理
+- **[韧性模式](/zh-cn/python/resilience/)** — 熔断、限流
+- **[高级功能](/zh-cn/python/advanced/)** — 遥测、路由、插件

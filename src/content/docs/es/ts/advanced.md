@@ -1,13 +1,13 @@
 ---
-title: TypeScript Advanced Features
-description: Advanced features including embeddings, batch processing, MCP, and plugins.
+title: Funciones avanzadas de TypeScript
+description: "Funciones avanzadas: embeddings, procesamiento por lotes, MCP y plugins."
 ---
 
-# Advanced Features
+# Funciones avanzadas
 
 ## Embeddings
 
-Generate vector embeddings for text:
+Genere embeddings vectoriales a partir de texto:
 
 ```typescript
 import { EmbeddingClient } from '@ailib-official/ai-lib-ts';
@@ -19,7 +19,7 @@ console.log(`Dimensions: ${response.embeddings[0].vector.length}`);
 console.log(`Tokens: ${response.usage?.totalTokens}`);
 ```
 
-### Batch Embeddings
+### Embeddings por lotes
 
 ```typescript
 const response = await client.embedBatch(['Hello, world!', 'Goodbye, world!', 'AI is amazing!']);
@@ -29,9 +29,9 @@ response.embeddings.forEach((e, i) => {
 });
 ```
 
-## Speech-to-Text (STT)
+## Voz a texto (STT)
 
-Transcribe audio to text:
+Transcriba audio a texto:
 
 ```typescript
 import { SttClient } from '@ailib-official/ai-lib-ts';
@@ -46,9 +46,9 @@ const response = await client.transcribe(audioBuffer, {
 console.log('Transcript:', response.text);
 ```
 
-## Text-to-Speech (TTS)
+## Texto a voz (TTS)
 
-Convert text to speech:
+Convierta texto en audio:
 
 ```typescript
 import { TtsClient } from '@ailib-official/ai-lib-ts';
@@ -63,9 +63,9 @@ const audioBuffer = await client.speak('Hello, this is a test!', {
 // audioBuffer is ArrayBuffer
 ```
 
-## Reranking
+## Reordenación (reranking)
 
-Reorder documents by relevance:
+Reordene documentos por relevancia:
 
 ```typescript
 import { RerankerClient } from '@ailib-official/ai-lib-ts';
@@ -87,9 +87,9 @@ result.results.forEach((r, i) => {
 });
 ```
 
-## MCP Tool Bridge
+## Puente de herramientas MCP
 
-Bridge MCP tools to AI-Protocol format:
+`McpToolBridge` **solo convierte** definiciones de herramientas MCP al formato AI-Protocol. No incluye transporte de servidor MCP dentro de `AiClient`.
 
 ```typescript
 import { McpToolBridge } from '@ailib-official/ai-lib-ts';
@@ -110,9 +110,9 @@ const response = await client
   .execute();
 ```
 
-## Batch Processing
+## Procesamiento por lotes
 
-Execute multiple requests in parallel:
+Ejecute varias peticiones en paralelo:
 
 ```typescript
 import { BatchExecutor, batchExecute } from '@ailib-official/ai-lib-ts';
@@ -136,7 +136,7 @@ result.results.forEach((r, i) => {
 });
 ```
 
-### BatchExecutor Class
+### Clase BatchExecutor
 
 ```typescript
 const executor = new BatchExecutor({
@@ -154,7 +154,7 @@ const results = await executor.waitForAll();
 
 ## Plugins
 
-Extend functionality with hooks:
+Amplíe la funcionalidad con hooks:
 
 ```typescript
 import { PluginRegistry, HookManager } from '@ailib-official/ai-lib-ts';
@@ -180,18 +180,18 @@ plugins.register({
 const client = await createClientBuilder().withPlugins(plugins).build('openai/gpt-4o');
 ```
 
-### Available Hooks
+### Hooks disponibles
 
-| Hook            | Timing            | Input           |
+| Hook            | Momento            | Entrada           |
 | --------------- | ----------------- | --------------- |
-| `beforeRequest` | Before API call   | Request object  |
-| `afterResponse` | After API call    | Response object |
-| `onError`       | On error          | Error object    |
-| `onStreamEvent` | Each stream event | Streaming event |
+| `beforeRequest` | Antes de la llamada a la API   | Objeto de petición  |
+| `afterResponse` | Después de la llamada a la API    | Objeto de respuesta |
+| `onError`       | Ante un error          | Objeto de error    |
+| `onStreamEvent` | Cada evento de streaming | Evento de streaming |
 
-## Token Estimation
+## Estimación de tokens
 
-Estimate tokens without API call:
+Estime tokens sin llamar a la API:
 
 ```typescript
 import { estimateTokens, estimateCost } from '@ailib-official/ai-lib-ts';
@@ -200,9 +200,9 @@ const tokens = estimateTokens('Hello, how are you doing today?');
 console.log(`Estimated tokens: ${tokens}`);
 ```
 
-## Cost Estimation
+## Estimación de coste
 
-Estimate cost for a request:
+Estime el coste de una petición:
 
 ```typescript
 const cost = estimateCost({
@@ -216,9 +216,9 @@ console.log(`Output cost: $${cost.outputCost}`);
 console.log(`Total cost: $${cost.totalCost}`);
 ```
 
-## Memory Cache
+## Caché en memoria
 
-In-memory caching for responses:
+Caché en memoria para respuestas:
 
 ```typescript
 import { MemoryCache } from '@ailib-official/ai-lib-ts';
@@ -238,9 +238,9 @@ if (cached) {
 await cache.set('cache-key', response);
 ```
 
-## Structured Output
+## Salida estructurada
 
-JSON mode for structured responses:
+Modo JSON para respuestas estructuradas:
 
 ```typescript
 import { jsonObjectConfig, jsonSchemaConfig } from '@ailib-official/ai-lib-ts';
@@ -255,7 +255,7 @@ console.log('Name:', data.name);
 console.log('Age:', data.age);
 ```
 
-### With JSON Schema
+### Con JSON Schema
 
 ```typescript
 const schema = {

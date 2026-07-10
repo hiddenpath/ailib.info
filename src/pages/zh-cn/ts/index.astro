@@ -13,7 +13,7 @@ const locale = 'zh-cn';
     <title>ai-lib-ts | AI-Protocol TypeScript/Node.js 运行时</title>
     <meta
       name="description"
-      content="ai-lib-ts 是 AI-Protocol 的 TypeScript/Node.js 运行时。HttpTransport + 清单解析，/core 与 /contact 入口，策略层可选。"
+      content="ai-lib-ts 是 AI-Protocol 的 TypeScript/Node.js 运行时。HttpTransport + 清单解析，/core 与 /contact 入口。"
     />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" href="/favicon.svg" />
@@ -42,8 +42,8 @@ const locale = 'zh-cn';
               <span class="text-[var(--text)]">适用于 AI-Protocol。</span>
             </h1>
             <p class="text-lg md:text-xl text-[var(--text-dim)] max-w-2xl mb-8 leading-relaxed">
-              协议驱动的 TypeScript/Node.js 运行时（v1.0.0）。默认聊天路径为 HttpTransport + 清单解析（非 Pipeline 算子路径）。
-              提供 /core（执行层）与 /contact（策略层）入口，13 个 V2 错误码。
+              协议驱动的 TypeScript/Node.js 运行时（v1.0.0）。默认聊天路径为 HttpTransport + 清单解析。
+              提供 /core 与 /contact 入口，13 个 V2 错误码。
             </p>
             <div class="flex flex-wrap gap-4 mb-8">
               <a
@@ -82,45 +82,43 @@ const locale = 'zh-cn';
           <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">核心特性</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">V2 Manifest Parsing</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">V2 清单解析</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Parse and load V2 protocol manifests with standard error codes (13 codes).
-                Provider-agnostic configuration with zero hardcoded logic.
+                解析并加载带 13 个标准错误码的 V2 协议清单。
+                与服务商无关的配置，零硬编码逻辑。
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">Resilience Patterns</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">韧性模式</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Built-in RetryPolicy, CircuitBreaker, RateLimiter, and Backpressure.
-                PreflightChecker for unified request gating.
+                内置 RetryPolicy、CircuitBreaker、RateLimiter 与 Backpressure。
+                PreflightChecker 提供统一请求门控。
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">Model Routing</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">模型路由</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                ModelManager with CostBasedSelector, QualityBasedSelector, and FallbackChain. Smart
-                model selection for cost and quality optimization.
+                ModelManager 配合 CostBasedSelector、QualityBasedSelector 与 FallbackChain。
+                按成本与质量智能选型。
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">Multimodal Support</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">多模态支持</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                SttClient for speech-to-text, TtsClient for text-to-speech, RerankerClient for
-                document reranking. Full multimodal content block support.
+                SttClient（语音转文字）、TtsClient（文字转语音）、RerankerClient（文档重排）。
+                完整多模态内容块支持。
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">MCP Tool Bridge</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">MCP 工具桥接</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Bridge MCP tools to AI-Protocol format. Seamlessly integrate MCP servers with
-                unified tool calling interface.
+                将 MCP 工具桥接到 AI-Protocol 格式。以统一工具调用接口无缝集成 MCP 服务器。
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">Batch & Plugins</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">批处理与插件</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                BatchExecutor for parallel processing with configurable concurrency. Plugin system
-                with hooks for request/response interception.
+                BatchExecutor 支持可配置并发的并行处理。插件系统通过钩子拦截请求 / 响应。
               </p>
             </div>
           </div>
@@ -132,9 +130,9 @@ const locale = 'zh-cn';
         <div class="container">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             <div>
-              <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Simple, Unified API</h2>
+              <h2 class="text-3xl font-bold text-[var(--text)] mb-4">统一、简洁的 API</h2>
               <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
-                The same code works across all 37 providers. Just change the model identifier —the
+                同一套代码适用于全部 37+ 服务商。只需更换模型标识符 —the
                 protocol manifest handles everything else.
               </p>
               <ul class="space-y-3">
@@ -143,21 +141,21 @@ const locale = 'zh-cn';
                     class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold"
                     >1</span
                   >
-                  <span class="text-[var(--text-dim)]">Create client with model ID</span>
+                  <span class="text-[var(--text-dim)]">使用模型 ID 创建客户端</span>
                 </li>
                 <li class="flex items-center gap-3">
                   <span
                     class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold"
                     >2</span
                   >
-                  <span class="text-[var(--text-dim)]">Build chat request with fluent API</span>
+                  <span class="text-[var(--text-dim)]">用流畅 API 构建聊天请求</span>
                 </li>
                 <li class="flex items-center gap-3">
                   <span
                     class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold"
                     >3</span
                   >
-                  <span class="text-[var(--text-dim)]">Execute or stream the response</span>
+                  <span class="text-[var(--text-dim)]">执行或流式获取响应</span>
                 </li>
               </ul>
             </div>
@@ -193,10 +191,9 @@ console.<span class="text-blue-300">log</span>(response.content);</code></pre>
       <section class="section-alt">
         <div class="container">
           <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Internal Architecture</h2>
+            <h2 class="text-3xl font-bold text-[var(--text)] mb-4">内部架构</h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
-              Protocol-driven architecture with type-safe execution, resilient by default, and fully
-              extensible.
+              协议驱动架构：类型安全执行、默认可选韧性、完全可扩展。
             </p>
           </div>
           <RuntimeArch locale={locale} variant="ts" />
@@ -206,62 +203,58 @@ console.<span class="text-blue-300">log</span>(response.content);</code></pre>
       <!-- Module Overview -->
       <section class="section">
         <div class="container">
-          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">Module Overview</h2>
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">模块概览</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">client/ + errors/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                AiClient, ChatRequestBuilder, ChatResponse, CallStats, CancelToken,
-                CancellableStream, Unified error codes.
+                AiClient、ChatRequestBuilder、ChatResponse、CallStats、CancelToken、
+                CancellableStream，以及统一错误码。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">protocol/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                ProtocolLoader (local/fetch/GitHub), V2 manifest definitions, JSON Schema Validator,
-                Provider-agnostic models.
+                ProtocolLoader（本地 / fetch / GitHub）、V2 清单定义、JSON Schema 校验器、
+                与服务商无关的模型类型。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">pipeline/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Decoder (SSE, JSON Lines), Selector (JSONPath), Accumulator, FanOut, EventMapper
-                (protocol-driven).
+                Decoder（SSE、JSON Lines）、Selector（JSONPath）、Accumulator、FanOut、EventMapper
+                （协议驱动）。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">resilience/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                RetryPolicy, CircuitBreaker, RateLimiter, Backpressure, PreflightChecker,
-                SignalsSnapshot, FallbackChain.
+                RetryPolicy、CircuitBreaker、RateLimiter、Backpressure、PreflightChecker、
+                SignalsSnapshot、FallbackChain。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">routing/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                ModelManager, QualityBasedSelector, CostBasedSelector, FallbackChain for intelligent
-                model selection.
+                ModelManager、QualityBasedSelector、CostBasedSelector、FallbackChain，用于智能选型。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">mcp/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                McpBridge, McpTool definitions to seamlessly integrate Model Context Protocol
-                servers.
+                McpBridge 与 McpTool 定义，用于无缝集成 Model Context Protocol 服务器。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">multimodal/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                SttClient, TtsClient, RerankerClient, fully supporting multimodal inputs and
-                specialized models.
+                SttClient、TtsClient、RerankerClient，完整支持多模态输入与专用模型。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">plugins/ + batch/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                PluginRegistry, Hooks. BatchExecutor for concurrent batch execution with concurrency
-                limits.
+                PluginRegistry、Hooks。BatchExecutor 支持带并发上限的批量执行。
               </p>
             </div>
           </div>
@@ -277,42 +270,42 @@ console.<span class="text-blue-300">log</span>(response.content);</code></pre>
               href="/zh-cn/ts/quickstart/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">快速开始 →/h3>
-              <p class="text-sm text-[var(--text-dim)]">几分钟内上手。</p>
+              <h3 class="font-bold text-[var(--text)] mb-2">快速开始 →</h3>
+              <p class="text-sm text-[var(--text-dim)]">几分钟内即可上手。</p>
             </a>
             <a
               href="/zh-cn/ts/client/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">AiClient API →/h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">AiClient API →</h3>
               <p class="text-sm text-[var(--text-dim)]">完整 API 参考。</p>
             </a>
             <a
               href="/zh-cn/ts/streaming/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">流式处理 →/h3>
-              <p class="text-sm text-[var(--text-dim)]">实时流式响应处理。</p>
+              <h3 class="font-bold text-[var(--text)] mb-2">流式处理 →</h3>
+              <p class="text-sm text-[var(--text-dim)]">实时响应处理。</p>
             </a>
             <a
               href="/zh-cn/ts/resilience/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">韧性模式 →/h3>
-              <p class="text-sm text-[var(--text-dim)]">生产级韧性模式（可选配置）。</p>
+              <h3 class="font-bold text-[var(--text)] mb-2">韧性模式 →</h3>
+              <p class="text-sm text-[var(--text-dim)]">生产级韧性模式。</p>
             </a>
             <a
               href="/zh-cn/ts/advanced/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">高级特性 →/h3>
-              <p class="text-sm text-[var(--text-dim)]">Embeddings, MCP, plugins.</p>
+              <h3 class="font-bold text-[var(--text)] mb-2">高级特性 →</h3>
+              <p class="text-sm text-[var(--text-dim)]">嵌入、MCP、插件。</p>
             </a>
             <a
               href="/zh-cn/ts/overview/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">概述 →/h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">概述 →</h3>
               <p class="text-sm text-[var(--text-dim)]">架构与核心概念。</p>
             </a>
           </div>

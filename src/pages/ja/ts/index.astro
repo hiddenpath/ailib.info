@@ -13,7 +13,7 @@ const locale = 'ja';
     <title>ai-lib-ts | AI-Protocol TypeScript/Node.js ランタイム</title>
     <meta
       name="description"
-      content="ai-lib-ts is the TypeScript/Node.js runtime for AI-Protocol. Protocol-driven, streaming-first, with Resilience, Routing, MCP, and Multimodal support."
+      content="AI-Protocol 向け TypeScript/Node.js ランタイム。HttpTransport + マニフェスト解析、/core と /contact。"
     />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" href="/favicon.svg" />
@@ -39,11 +39,11 @@ const locale = 'ja';
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.05]">
               <span class="gradient-text">TypeScript ランタイム</span>
               <br />
-              <span class="text-[var(--text)]">for AI-Protocol.</span>
+              <span class="text-[var(--text)]">AI-Protocol 向け。</span>
             </h1>
             <p class="text-lg md:text-xl text-[var(--text-dim)] max-w-2xl mb-8 leading-relaxed">
-              プロトコル駆動の TypeScript/Node.js ランタイム（v1.0.0）。既定のチャット経路は HttpTransport + マニフェスト解析。
-              /core と /contact エントリポイント、V2 標準エラーコード 13 種。
+              プロトコル駆動の TypeScript/Node.js ランタイム（v1.0.0）。HttpTransport + マニフェスト解析。
+              /core と /contact、V2 エラーコード 13 種。
             </p>
             <div class="flex flex-wrap gap-4 mb-8">
               <a
@@ -82,45 +82,43 @@ const locale = 'ja';
           <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">主な機能</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">V2 Manifest Parsing</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">V2 マニフェスト解析</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Parse and load V2 protocol manifests with standard error codes (13 codes).
-                Provider-agnostic configuration with zero hardcoded logic.
+                標準エラーコード（13 種）付き V2 プロトコルマニフェストを解析・読み込み。
+                ハードコードなしのプロバイダー非依存設定。
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">Resilience Patterns</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">レジリエンスパターン</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Built-in RetryPolicy, CircuitBreaker, RateLimiter, and Backpressure.
-                PreflightChecker for unified request gating.
+                組み込みの RetryPolicy、CircuitBreaker、RateLimiter、Backpressure。
+                PreflightChecker による統一リクエストゲート。
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">Model Routing</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">モデルルーティング</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                ModelManager with CostBasedSelector, QualityBasedSelector, and FallbackChain. Smart
-                model selection for cost and quality optimization.
+                ModelManager と CostBasedSelector / QualityBasedSelector / FallbackChain。
+                コストと品質を最適化するスマート選択。
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">Multimodal Support</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">マルチモーダル対応</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                SttClient for speech-to-text, TtsClient for text-to-speech, RerankerClient for
-                document reranking. Full multimodal content block support.
+                音声認識の SttClient、音声合成の TtsClient、再ランキングの RerankerClient。
+                マルチモーダルコンテンツブロックを完全サポート。
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">MCP Tool Bridge</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">MCP ツールブリッジ</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Bridge MCP tools to AI-Protocol format. Seamlessly integrate MCP servers with
-                unified tool calling interface.
+                MCP ツールを AI-Protocol 形式へ橋渡し。統一ツール呼び出しで MCP サーバーを統合。
               </p>
             </div>
             <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
-              <h3 class="font-bold text-[var(--text)] mb-2">Batch & Plugins</h3>
+              <h3 class="font-bold text-[var(--text)] mb-2">バッチとプラグイン</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                BatchExecutor for parallel processing with configurable concurrency. Plugin system
-                with hooks for request/response interception.
+                並行度設定可能な BatchExecutor。リクエスト / レスポンス傍受用フック付きプラグイン。
               </p>
             </div>
           </div>
@@ -132,9 +130,9 @@ const locale = 'ja';
         <div class="container">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             <div>
-              <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Simple, Unified API</h2>
+              <h2 class="text-3xl font-bold text-[var(--text)] mb-4">シンプルで統一された API</h2>
               <p class="text-[var(--text-dim)] mb-6 leading-relaxed">
-                The same code works across all 37 providers. Just change the model identifier —the
+                同じコードが 37+ プロバイダーで動作します。モデル識別子を変えるだけ —the
                 protocol manifest handles everything else.
               </p>
               <ul class="space-y-3">
@@ -143,21 +141,21 @@ const locale = 'ja';
                     class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold"
                     >1</span
                   >
-                  <span class="text-[var(--text-dim)]">Create client with model ID</span>
+                  <span class="text-[var(--text-dim)]">モデル ID でクライアントを作成</span>
                 </li>
                 <li class="flex items-center gap-3">
                   <span
                     class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold"
                     >2</span
                   >
-                  <span class="text-[var(--text-dim)]">Build chat request with fluent API</span>
+                  <span class="text-[var(--text-dim)]">流暢な API でチャットリクエストを構築</span>
                 </li>
                 <li class="flex items-center gap-3">
                   <span
                     class="w-8 h-8 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm font-bold"
                     >3</span
                   >
-                  <span class="text-[var(--text-dim)]">Execute or stream the response</span>
+                  <span class="text-[var(--text-dim)]">実行またはストリームで応答を取得</span>
                 </li>
               </ul>
             </div>
@@ -193,10 +191,9 @@ console.<span class="text-blue-300">log</span>(response.content);</code></pre>
       <section class="section-alt">
         <div class="container">
           <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold text-[var(--text)] mb-4">Internal Architecture</h2>
+            <h2 class="text-3xl font-bold text-[var(--text)] mb-4">内部アーキテクチャ</h2>
             <p class="text-lg text-[var(--text-dim)] max-w-2xl mx-auto">
-              Protocol-driven architecture with type-safe execution, resilient by default, and fully
-              extensible.
+              プロトコル駆動アーキテクチャ：型安全な実行、既定のレジリエンス、完全な拡張性。
             </p>
           </div>
           <RuntimeArch locale={locale} variant="ts" />
@@ -206,62 +203,58 @@ console.<span class="text-blue-300">log</span>(response.content);</code></pre>
       <!-- Module Overview -->
       <section class="section">
         <div class="container">
-          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">Module Overview</h2>
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">モジュール概要</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">client/ + errors/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                AiClient, ChatRequestBuilder, ChatResponse, CallStats, CancelToken,
-                CancellableStream, Unified error codes.
+                AiClient、ChatRequestBuilder、ChatResponse、CallStats、CancelToken、
+                CancellableStream、統一エラーコード。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">protocol/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                ProtocolLoader (local/fetch/GitHub), V2 manifest definitions, JSON Schema Validator,
-                Provider-agnostic models.
+                ProtocolLoader（ローカル / fetch / GitHub）、V2 マニフェスト、JSON Schema 検証、
+                プロバイダー非依存モデル。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">pipeline/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                Decoder (SSE, JSON Lines), Selector (JSONPath), Accumulator, FanOut, EventMapper
-                (protocol-driven).
+                Decoder（SSE、JSON Lines）、Selector（JSONPath）、Accumulator、FanOut、EventMapper
+                （プロトコル駆動）。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">resilience/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                RetryPolicy, CircuitBreaker, RateLimiter, Backpressure, PreflightChecker,
-                SignalsSnapshot, FallbackChain.
+                RetryPolicy、CircuitBreaker、RateLimiter、Backpressure、PreflightChecker、
+                SignalsSnapshot、FallbackChain。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">routing/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                ModelManager, QualityBasedSelector, CostBasedSelector, FallbackChain for intelligent
-                model selection.
+                ModelManager、QualityBasedSelector、CostBasedSelector、FallbackChain による知的選択。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">mcp/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                McpBridge, McpTool definitions to seamlessly integrate Model Context Protocol
-                servers.
+                McpBridge と McpTool 定義で Model Context Protocol サーバーを統合。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">multimodal/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                SttClient, TtsClient, RerankerClient, fully supporting multimodal inputs and
-                specialized models.
+                SttClient、TtsClient、RerankerClient。マルチモーダル入力と専用モデルを完全サポート。
               </p>
             </div>
             <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)]">
               <h3 class="text-base font-bold text-blue-400 mb-1 font-mono">plugins/ + batch/</h3>
               <p class="text-sm text-[var(--text-dim)]">
-                PluginRegistry, Hooks. BatchExecutor for concurrent batch execution with concurrency
-                limits.
+                PluginRegistry、Hooks。並行上限付き BatchExecutor。
               </p>
             </div>
           </div>
@@ -271,49 +264,49 @@ console.<span class="text-blue-300">log</span>(response.content);</code></pre>
       <!-- Documentation Links -->
       <section class="section-alt">
         <div class="container">
-          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">Documentation</h2>
+          <h2 class="text-3xl font-bold text-[var(--text)] mb-10 text-center">ドキュメント</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <a
               href="/ja/ts/quickstart/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">Quick Start →/h3>
-              <p class="text-sm text-[var(--text-dim)]">Get up and running in minutes.</p>
+              <h3 class="font-bold text-[var(--text)] mb-2">クイックスタート →</h3>
+              <p class="text-sm text-[var(--text-dim)]">数分で始められます。</p>
             </a>
             <a
               href="/ja/ts/client/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">AiClient API →/h3>
-              <p class="text-sm text-[var(--text-dim)]">Complete API reference.</p>
+              <h3 class="font-bold text-[var(--text)] mb-2">AiClient API →</h3>
+              <p class="text-sm text-[var(--text-dim)]">完全な API リファレンス。</p>
             </a>
             <a
               href="/ja/ts/streaming/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">Streaming →/h3>
-              <p class="text-sm text-[var(--text-dim)]">Real-time response handling.</p>
+              <h3 class="font-bold text-[var(--text)] mb-2">ストリーミング →</h3>
+              <p class="text-sm text-[var(--text-dim)]">リアルタイム応答処理。</p>
             </a>
             <a
               href="/ja/ts/resilience/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">Resilience →/h3>
-              <p class="text-sm text-[var(--text-dim)]">Production-ready patterns.</p>
+              <h3 class="font-bold text-[var(--text)] mb-2">レジリエンス →</h3>
+              <p class="text-sm text-[var(--text-dim)]">本番向けパターン。</p>
             </a>
             <a
               href="/ja/ts/advanced/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">Advanced →/h3>
-              <p class="text-sm text-[var(--text-dim)]">Embeddings, MCP, plugins.</p>
+              <h3 class="font-bold text-[var(--text)] mb-2">高度な機能 →</h3>
+              <p class="text-sm text-[var(--text-dim)]">埋め込み、MCP、プラグイン。</p>
             </a>
             <a
               href="/ja/ts/overview/"
               class="block p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-blue-500/40 transition-all hover:no-underline"
             >
-              <h3 class="font-bold text-[var(--text)] mb-2">Overview →/h3>
-              <p class="text-sm text-[var(--text-dim)]">Architecture and concepts.</p>
+              <h3 class="font-bold text-[var(--text)] mb-2">概要 →</h3>
+              <p class="text-sm text-[var(--text-dim)]">アーキテクチャと概念。</p>
             </a>
           </div>
         </div>

@@ -1,13 +1,13 @@
 ---
-title: Rust Quick Start
-description: Get up and running with ai-lib-rust 1.0.1 in minutes.
+title: Rust 快速开始
+description: 几分钟内上手 ai-lib-rust 1.0.1。
 ---
 
-# Rust Quick Start
+# Rust 快速开始
 
-Examples below match the [`basic_usage`](https://github.com/ailib-official/ai-lib-rust/blob/main/crates/ai-lib-rust/examples/basic_usage.rs) example in the repository.
+以下示例与仓库中的 [`basic_usage`](https://github.com/ailib-official/ai-lib-rust/blob/main/crates/ai-lib-rust/examples/basic_usage.rs) 一致。
 
-## Installation
+## 安装
 
 ```toml
 [dependencies]
@@ -16,20 +16,20 @@ tokio = { version = "1", features = ["full"] }
 futures = "0.3"   # only needed for streaming
 ```
 
-Optional capabilities:
+可选能力：
 
 ```toml
 ai-lib-rust = { version = "1.0.1", features = ["embeddings", "telemetry"] }
 # or features = ["full"]
 ```
 
-## API key
+## API 密钥
 
 ```bash
 export DEEPSEEK_API_KEY="your-key-here"
 ```
 
-## Basic chat
+## 基础聊天
 
 ```rust
 use ai_lib_rust::{AiClient, Message};
@@ -54,9 +54,9 @@ async fn main() -> ai_lib_rust::Result<()> {
 }
 ```
 
-## Streaming
+## 流式处理
 
-Event variant is **`PartialContentDelta`** (not `ContentDelta`):
+事件变体为 **`PartialContentDelta`**（不是 `ContentDelta`）：
 
 ```rust
 use ai_lib_rust::{AiClient, Message, StreamingEvent};
@@ -84,7 +84,7 @@ async fn main() -> ai_lib_rust::Result<()> {
 }
 ```
 
-## Tool calling (streaming)
+## 工具调用（流式）
 
 ```rust
 use ai_lib_rust::{AiClient, Message, StreamingEvent, ToolDefinition};
@@ -127,7 +127,7 @@ async fn main() -> ai_lib_rust::Result<()> {
 }
 ```
 
-## Share `AiClient` across tasks
+## 跨任务共享 `AiClient`
 
 ```rust
 use ai_lib_rust::AiClient;
@@ -136,15 +136,15 @@ use std::sync::Arc;
 let client = Arc::new(AiClient::new("openai/gpt-4o").await?);
 ```
 
-## Protocol manifests
+## 协议清单
 
-Set a local checkout of [ai-protocol](https://github.com/ailib-official/ai-protocol):
+设置本地 [ai-protocol](https://github.com/ailib-official/ai-protocol) 检出路径：
 
 ```bash
 export AI_PROTOCOL_DIR="/path/to/ai-protocol"
 ```
 
-Or pass a base path in code:
+或在代码中传入基路径：
 
 ```rust
 use ai_lib_rust::protocol::ProtocolLoader;
@@ -153,16 +153,16 @@ let loader = ProtocolLoader::new().with_base_path("./ai-protocol");
 let manifest = loader.load_provider("openai").await?;
 ```
 
-## Run the shipped example
+## 运行附带示例
 
 ```bash
 cd ai-lib-rust
 DEEPSEEK_API_KEY=your_key cargo run --example basic_usage
 ```
 
-## Next steps
+## 下一步
 
-- **[Overview](/rust/overview/)** — architecture & feature boundaries
-- **[Client API](/rust/client/)** — builder reference
-- **[Streaming](/rust/streaming/)** — pipeline operators
-- **[Resilience](/rust/resilience/)** — opt-in policy layer
+- **[概述](/zh-cn/rust/overview/)** — 架构与能力边界
+- **[Client API](/zh-cn/rust/client/)** — builder 参考
+- **[流式处理](/zh-cn/rust/streaming/)** — pipeline 算子
+- **[韧性模式](/zh-cn/rust/resilience/)** — 按需策略层

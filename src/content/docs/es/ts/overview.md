@@ -1,146 +1,51 @@
 ---
-title: TypeScript Overview
-description: Understanding the ai-lib-ts architecture and core concepts.
+title: Descripción general del SDK de TypeScript
+description: Arquitectura y API pública de ai-lib-ts v1.0.0 — el runtime TypeScript de AI-Protocol.
 ---
 
-# TypeScript Overview
+# Descripción general del SDK de TypeScript
 
-## What is ai-lib-ts?
+**ai-lib-ts** (v1.0.0) es el runtime TypeScript / Node.js de [AI-Protocol](https://github.com/ailib-official/ai-protocol). Se publica como `@ailib-official/ai-lib-ts` con tres puntos de entrada:
 
-ai-lib-ts is the official TypeScript/Node.js runtime for AI-Protocol. It provides a unified interface for interacting with AI models across different providers without hardcoding provider-specific logic.
+| Importación | Capa | Cuándo usarlo |
+|--------|-------|----------|
+| `@ailib-official/ai-lib-ts` | Fachada E + P | SDK completo (predeterminado) |
+| `@ailib-official/ai-lib-ts/core` | Solo ejecución | Bundle mínimo — sin envoltorio de política en el transport |
+| `@ailib-official/ai-lib-ts/contact` | Solo política | Resiliencia, enrutamiento — sin `AiClient` |
 
-## Design Philosophy
+## Ruta de ejecución principal
 
-| Principle             | Description                                                                     |
-| --------------------- | ------------------------------------------------------------------------------- |
-| **Protocol-Driven**   | All behavior is configured through protocol manifests, not code                 |
-| **Provider-Agnostic** | Unified interface across OpenAI, Anthropic, Google, DeepSeek, and 30+ providers |
-| **Streaming-First**   | Native support for Server-Sent Events (SSE) streaming                           |
-| **Type-Safe**         | Strongly typed request/response handling with comprehensive error types         |
+En el chat, **`AiClient` no usa la API de operadores de bajo nivel `Pipeline`**. El flujo es:
 
-## Architecture
+1. Cargar el manifiesto del proveedor
+2. Construir peticiones HTTP a partir de los campos del manifiesto
+3. Enviar mediante **`HttpTransport`**
+4. Analizar JSON / SSE con `response_paths` del manifiesto y respaldos al estilo OpenAI
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                       Application                            │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                      AiClient                                │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐         │
-│  │ ChatBuilder │  │ Embeddings  │  │   Tools     │         │
-│  └─────────────┘  └─────────────┘  └─────────────┘         │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                      Pipeline                                │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │ Decoder  │→ │ Selector │→ │  Mapper  │→ │ Emitter  │   │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    HttpTransport                             │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │  Retry   │  │ Circuit  │  │  Rate    │  │ Backpres │   │
-│  │  Policy  │  │ Breaker  │  │ Limiter  │  │   sure   │   │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                   Protocol Loader                            │
-│              (V1 + V2 Manifest Support)                      │
-└─────────────────────────────────────────────────────────────┘
-```
+`Pipeline` sigue siendo público para pruebas de cumplimiento e integraciones avanzadas. En este runtime **no existe** `ProviderDriver`.
 
-## Core Modules
+## API pública de un vistazo
 
-### AiClient
+**Exportaciones de la raíz del paquete:**
 
-The main entry point for AI interactions:
+- `AiClient`, `AiClientBuilder`, `createClient`, `createClientBuilder`
+- `Message`, `StreamingEvent`, `Tool`, tipos de metadatos de ejecución
+- `ProtocolLoader`, tipos de manifiesto + V2
+- Política: `RetryPolicy`, `CircuitBreaker`, `RateLimiter`, `ModelManager`, `FallbackChain`, …
+- Extras: `EmbeddingClient`, `McpToolBridge`, `Guardrails`, helpers de telemetría
 
-```typescript
-import { AiClient, Message } from '@ailib-official/ai-lib-ts';
+### Límites de capacidad (descripción honesta)
 
-const client = await AiClient.new('anthropic/claude-3-5-sonnet');
-const response = await client.chat([Message.user('Hello')]).execute();
-```
+| Área | En el paquete | No incluido |
+|------|----------------|--------------|
+| **MCP** | Conversión con `McpToolBridge` | Transporte de servidor MCP en `AiClient` |
+| **Computer Use** | Tipos de configuración V2 | Ejecutor en tiempo de ejecución |
+| **Hot reload** | — | No implementado |
+| **Resiliencia** | Reintentos del manifiesto en el transport predeterminado | CB / límite de tasa / contrapresión salvo configuración explícita en el transport |
+| **Embeddings** | `EmbeddingClient` | No es la ruta Pipeline del manifiesto |
 
-### Message Types
+## Siguientes pasos
 
-Support for system, user, and assistant messages with multimodal content:
-
-```typescript
-import { Message, ContentBlock } from '@ailib-official/ai-lib-ts';
-
-const msg = Message.user([
-  ContentBlock.text('What is in this image?'),
-  ContentBlock.image('https://example.com/image.png'),
-]);
-```
-
-### Streaming Events
-
-Real-time streaming with typed events:
-
-| Event                 | Description                     |
-| --------------------- | ------------------------------- |
-| `PartialContentDelta` | Incremental text content        |
-| `PartialToolCall`     | Incremental tool call arguments |
-| `ToolCallStarted`     | Tool call initiated             |
-| `StreamEnd`           | Stream completed                |
-
-### Resilience
-
-Built-in resilience patterns:
-
-- **RetryPolicy**: Exponential backoff retry
-- **CircuitBreaker**: Prevent cascading failures
-- **RateLimiter**: Token bucket rate limiting
-- **Backpressure**: Concurrent request limiting
-
-### Routing
-
-Smart model selection:
-
-- **ModelManager**: Manage multiple model clients
-- **CostBasedSelector**: Select by cost efficiency
-- **QualityBasedSelector**: Select by quality score
-- **FallbackChain**: Failover across models
-
-### Extras
-
-Additional capabilities:
-
-- **EmbeddingClient**: Vector embeddings
-- **SttClient**: Speech-to-text
-- **TtsClient**: Text-to-speech
-- **RerankerClient**: Document reranking
-- **McpToolBridge**: MCP protocol integration
-
-## Error Handling
-
-Standardized error codes for consistent error handling:
-
-```typescript
-import { AiLibError, StandardErrorCode, isRetryable } from '@ailib-official/ai-lib-ts';
-
-try {
-  const response = await client.chat([Message.user('Hi')]).execute();
-} catch (e) {
-  if (e instanceof AiLibError) {
-    console.log('Code:', e.code);
-    console.log('Retryable:', isRetryable(e.code));
-  }
-}
-```
-
-## Next Steps
-
-- **[Quick Start](/ts/quickstart/)** — Get started quickly
-- **[AiClient API](/ts/client/)** — Detailed API reference
-- **[Resilience](/ts/resilience/)** — Production-ready patterns
+- [Inicio rápido](/es/ts/quickstart/)
+- [Streaming](/es/ts/streaming/)
+- [Resiliencia](/es/ts/resilience/)

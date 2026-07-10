@@ -1,13 +1,13 @@
 ---
 title: TypeScript AiClient API
-description: Detailed API reference for the TypeScript AiClient.
+description: TypeScript AiClient の詳細な API リファレンス。
 ---
 
 # AiClient API
 
-## Creating a Client
+## クライアントの作成
 
-### Basic Creation
+### 基本的な作成
 
 ```typescript
 import { AiClient } from '@ailib-official/ai-lib-ts';
@@ -15,7 +15,7 @@ import { AiClient } from '@ailib-official/ai-lib-ts';
 const client = await AiClient.new('openai/gpt-4o');
 ```
 
-### With Builder Pattern
+### ビルダーパターン
 
 ```typescript
 import { createClientBuilder } from '@ailib-official/ai-lib-ts';
@@ -27,11 +27,11 @@ const client = await createClientBuilder()
   .build('openai/gpt-4o');
 ```
 
-## ChatBuilder Methods
+## ChatBuilder メソッド
 
 ### messages(messages: Message[])
 
-Set the conversation messages:
+会話メッセージを設定します。
 
 ```typescript
 const response = await client
@@ -41,7 +41,7 @@ const response = await client
 
 ### user(content: string)
 
-Quick single user message:
+単一のユーザーメッセージを素早く送ります。
 
 ```typescript
 const response = await client.chat().user('What is TypeScript?').execute();
@@ -49,7 +49,7 @@ const response = await client.chat().user('What is TypeScript?').execute();
 
 ### temperature(value: number)
 
-Set sampling temperature (0.0 - 2.0):
+サンプリング温度を設定します（0.0〜2.0）。
 
 ```typescript
 const response = await client
@@ -60,7 +60,7 @@ const response = await client
 
 ### maxTokens(value: number)
 
-Set maximum output tokens:
+最大出力トークン数を設定します。
 
 ```typescript
 const response = await client
@@ -71,7 +71,7 @@ const response = await client
 
 ### tools(tools: Tool[])
 
-Add tool definitions:
+ツール定義を追加します。
 
 ```typescript
 const tool = Tool.define(
@@ -94,7 +94,7 @@ const response = await client
 
 ### stream()
 
-Enable streaming mode:
+ストリーミングモードを有効にします。
 
 ```typescript
 const stream = client
@@ -109,11 +109,11 @@ for await (const event of stream) {
 }
 ```
 
-## Execution Methods
+## 実行メソッド
 
 ### execute()
 
-Execute the request and return the response:
+リクエストを実行し、レスポンスを返します。
 
 ```typescript
 const response = await client.chat([Message.user('Hello')]).execute();
@@ -125,7 +125,7 @@ console.log(response.usage);
 
 ### executeWithStats()
 
-Execute and return response with timing stats:
+実行し、タイミング統計付きのレスポンスを返します。
 
 ```typescript
 const { response, stats } = await client.chat([Message.user('Hi')]).executeWithStats();
@@ -137,7 +137,7 @@ console.log('Model:', stats.model);
 
 ### executeStream()
 
-Execute as a stream:
+ストリームとして実行します。
 
 ```typescript
 const stream = client
@@ -152,7 +152,7 @@ for await (const event of stream) {
 
 ### executeStreamWithCancel()
 
-Execute stream with cancellation support:
+キャンセル対応のストリームを実行します。
 
 ```typescript
 const { stream, cancelHandle } = client
@@ -170,7 +170,7 @@ for await (const event of stream) {
 }
 ```
 
-## Response Object
+## レスポンスオブジェクト
 
 ```typescript
 interface ChatResponse {
@@ -186,7 +186,7 @@ interface ChatResponse {
 }
 ```
 
-## Error Handling
+## エラー処理
 
 ```typescript
 import { AiLibError, StandardErrorCode, isRetryable, isFallbackable } from '@ailib-official/ai-lib-ts';
@@ -203,9 +203,9 @@ try {
 }
 ```
 
-## Signals
+## シグナル
 
-Get runtime signals for monitoring:
+監視用のランタイムシグナルを取得します。
 
 ```typescript
 const signals = await client.signals();

@@ -1,6 +1,71 @@
 ---
 const { locale = 'en' } = Astro.props;
-const isZh = locale === 'zh' || locale === 'zh-cn';
+
+const labels: Record<string, Record<string, string>> = {
+  en: {
+    title: 'Request-Response Data Flow',
+    requestFlow: 'REQUEST FLOW',
+    user: 'User',
+    unified: 'UnifiedRequest',
+    provider: 'AI Provider',
+    responseFlow: 'RESPONSE FLOW (SSE/JSON)',
+    byteStream: 'Byte Stream',
+    frames: 'JSON Frames',
+    application: 'Application',
+    events: 'Unified Events',
+    legend1:
+      'All parameter mapping and event normalization driven by protocol manifests — zero hardcoded logic',
+    legend2:
+      'Unified events: PartialContentDelta · ToolCallStarted · PartialToolCall · StreamEnd',
+  },
+  'zh-cn': {
+    title: '请求-响应数据流',
+    requestFlow: '请求流',
+    user: '用户请求',
+    unified: '统一请求',
+    provider: 'AI 服务商',
+    responseFlow: '响应流 (SSE/JSON)',
+    byteStream: '字节流',
+    frames: '解码帧',
+    application: '应用消费',
+    events: '统一事件',
+    legend1: '所有参数映射和事件规范化由协议清单驱动 — 零硬编码逻辑',
+    legend2: '统一事件类型: PartialContentDelta · ToolCallStarted · PartialToolCall · StreamEnd',
+  },
+  ja: {
+    title: 'リクエスト・レスポンスデータフロー',
+    requestFlow: 'リクエストフロー',
+    user: 'ユーザー',
+    unified: 'UnifiedRequest',
+    provider: 'AI プロバイダー',
+    responseFlow: 'レスポンスフロー (SSE/JSON)',
+    byteStream: 'バイトストリーム',
+    frames: 'JSON フレーム',
+    application: 'アプリケーション',
+    events: '統一イベント',
+    legend1:
+      'パラメータ対応とイベント正規化はすべてプロトコルマニフェスト駆動 — ハードコードなし',
+    legend2:
+      '統一イベント: PartialContentDelta · ToolCallStarted · PartialToolCall · StreamEnd',
+  },
+  es: {
+    title: 'Flujo de datos petición-respuesta',
+    requestFlow: 'FLUJO DE PETICIÓN',
+    user: 'Usuario',
+    unified: 'UnifiedRequest',
+    provider: 'Proveedor de IA',
+    responseFlow: 'FLUJO DE RESPUESTA (SSE/JSON)',
+    byteStream: 'Flujo de bytes',
+    frames: 'Frames JSON',
+    application: 'Aplicación',
+    events: 'Eventos unificados',
+    legend1:
+      'Todo el mapeo de parámetros y la normalización de eventos lo impulsan los manifiestos — sin lógica hardcodeada',
+    legend2:
+      'Eventos unificados: PartialContentDelta · ToolCallStarted · PartialToolCall · StreamEnd',
+  },
+};
+const t = labels[locale] || labels.en;
 ---
 
 <div class="w-full overflow-x-auto">
@@ -46,7 +111,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
       font-weight="700"
       font-family="Inter, system-ui, sans-serif"
     >
-      {isZh ? '请求-响应数据流' : 'Request-Response Data Flow'}
+      {t.title}
     </text>
 
     <!-- Request flow (top) -->
@@ -59,7 +124,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
       font-weight="600"
       font-family="Inter, system-ui, sans-serif"
     >
-      {isZh ? '请求流' : 'REQUEST FLOW'} &rarr;
+      {t.requestFlow} &rarr;
     </text>
 
     <!-- Nodes -->
@@ -81,7 +146,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         fill="#93c5fd"
         font-size="10"
         font-weight="600"
-        font-family="Inter, system-ui, sans-serif">{isZh ? '用户请求' : 'User'}</text
+        font-family="Inter, system-ui, sans-serif">{t.user}</text
       >
       <text
         x="80"
@@ -117,7 +182,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         text-anchor="middle"
         fill="#64748b"
         font-size="8"
-        font-family="Inter, system-ui, sans-serif">{isZh ? '统一请求' : 'UnifiedRequest'}</text
+        font-family="Inter, system-ui, sans-serif">{t.unified}</text
       >
 
       <!-- Protocol -->
@@ -193,7 +258,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         fill="#fbbf24"
         font-size="10"
         font-weight="600"
-        font-family="Inter, system-ui, sans-serif">{isZh ? 'AI 服务商' : 'AI Provider'}</text
+        font-family="Inter, system-ui, sans-serif">{t.provider}</text
       >
       <text
         x="640"
@@ -249,7 +314,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
       font-weight="600"
       font-family="Inter, system-ui, sans-serif"
     >
-      &larr; {isZh ? '响应流 (SSE/JSON)' : 'RESPONSE FLOW (SSE/JSON)'}
+      &larr; {t.responseFlow}
     </text>
 
     <!-- Response nodes -->
@@ -271,7 +336,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         fill="#34d399"
         font-size="10"
         font-weight="600"
-        font-family="Inter, system-ui, sans-serif">{isZh ? '字节流' : 'Byte Stream'}</text
+        font-family="Inter, system-ui, sans-serif">{t.byteStream}</text
       >
       <text
         x="640"
@@ -307,7 +372,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         text-anchor="middle"
         fill="#64748b"
         font-size="8"
-        font-family="Inter, system-ui, sans-serif">{isZh ? '解码帧' : 'JSON Frames'}</text
+        font-family="Inter, system-ui, sans-serif">{t.frames}</text
       >
 
       <!-- Pipeline -->
@@ -383,7 +448,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         fill="#34d399"
         font-size="10"
         font-weight="600"
-        font-family="Inter, system-ui, sans-serif">{isZh ? '应用消费' : 'Application'}</text
+        font-family="Inter, system-ui, sans-serif">{t.application}</text
       >
       <text
         x="92"
@@ -391,7 +456,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         text-anchor="middle"
         fill="#64748b"
         font-size="8"
-        font-family="Inter, system-ui, sans-serif">{isZh ? '统一事件' : 'Unified Events'}</text
+        font-family="Inter, system-ui, sans-serif">{t.events}</text
       >
     </g>
 
@@ -438,11 +503,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
       font-size="9"
       font-family="Inter, system-ui, sans-serif"
     >
-      {
-        isZh
-          ? '所有参数映射和事件规范化由协议清单驱动 — 零硬编码逻辑'
-          : 'All parameter mapping and event normalization driven by protocol manifests — zero hardcoded logic'
-      }
+      {t.legend1}
     </text>
     <text
       x="400"
@@ -452,11 +513,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
       font-size="9"
       font-family="Inter, system-ui, sans-serif"
     >
-      {
-        isZh
-          ? '统一事件类型: PartialContentDelta · ToolCallStarted · PartialToolCall · StreamEnd'
-          : 'Unified events: PartialContentDelta · ToolCallStarted · PartialToolCall · StreamEnd'
-      }
+      {t.legend2}
     </text>
   </svg>
 </div>

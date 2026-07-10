@@ -1,6 +1,11 @@
 ---
 const { locale = 'en' } = Astro.props;
-const isZh = locale === 'zh' || locale === 'zh-cn';
+const L = (en: string, zh: string, ja: string, es: string) => {
+  if (locale === 'zh' || locale === 'zh-cn') return zh;
+  if (locale === 'ja') return ja;
+  if (locale === 'es') return es;
+  return en;
+};
 ---
 
 <div class="w-full overflow-x-auto">
@@ -64,7 +69,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
       font-weight="700"
       font-family="Inter, system-ui, sans-serif"
     >
-      {isZh ? 'AI-Lib 生态系统架构' : 'AI-Lib Ecosystem Architecture'}
+      {L('AI-Lib Ecosystem Architecture', 'AI-Lib 生态系统架构', 'AI-Lib エコシステムアーキテクチャ', 'Arquitectura del ecosistema AI-Lib')}
     </text>
 
     <!-- Layer Labels -->
@@ -78,7 +83,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
       text-anchor="start"
       transform="rotate(-90, 30, 130)"
     >
-      {isZh ? '应用层' : 'APPLICATION'}
+      {L('APPLICATION', '应用层', 'アプリケーション', 'APLICACIÓN')}
     </text>
     <text
       x="30"
@@ -90,7 +95,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
       text-anchor="start"
       transform="rotate(-90, 30, 300)"
     >
-      {isZh ? '运行时层' : 'RUNTIME'}
+      {L('RUNTIME', '运行时层', 'ランタイム', 'RUNTIME')}
     </text>
     <text
       x="30"
@@ -102,7 +107,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
       text-anchor="start"
       transform="rotate(-90, 30, 480)"
     >
-      {isZh ? '协议层' : 'PROTOCOL'}
+      {L('PROTOCOL', '协议层', 'プロトコル', 'PROTOCOLO')}
     </text>
 
     <!-- Layer separators -->
@@ -142,7 +147,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         font-size="11"
         font-weight="600"
         font-family="Inter, system-ui, sans-serif"
-        >{isZh ? 'Web 应用 / API 服务' : 'Web Apps / API Services'}</text
+        >{L('Web Apps / API Services', 'Web 应用 / API 服务', 'Web アプリ / API サービス', 'Apps web / servicios API')}</text
       >
       <text
         x="190"
@@ -159,7 +164,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         fill="#475569"
         font-size="9"
         font-family="Inter, system-ui, sans-serif"
-        >{isZh ? '你的应用代码' : 'Your application code'}</text
+        >{L('Your application code', '你的应用代码', 'あなたのアプリケーションコード', 'Tu código de aplicación')}</text
       >
     </g>
     <g filter="url(#shadow)">
@@ -179,7 +184,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         fill="#93c5fd"
         font-size="11"
         font-weight="600"
-        font-family="Inter, system-ui, sans-serif">{isZh ? 'AI 智能体' : 'AI Agents'}</text
+        font-family="Inter, system-ui, sans-serif">{L('AI Agents', 'AI 智能体', 'AI エージェント', 'Agentes de IA')}</text
       >
       <text
         x="410"
@@ -188,7 +193,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         fill="#64748b"
         font-size="10"
         font-family="Inter, system-ui, sans-serif"
-        >{isZh ? '多轮对话 / 工具调用' : 'Multi-turn / Tool Calling'}</text
+        >{L('Multi-turn / Tool Calling', '多轮对话 / 工具调用', 'マルチターン / ツール呼び出し', 'Multi-turno / tool calling')}</text
       >
     </g>
     <g filter="url(#shadow)">
@@ -208,7 +213,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         fill="#93c5fd"
         font-size="11"
         font-weight="600"
-        font-family="Inter, system-ui, sans-serif">{isZh ? 'CLI 工具' : 'CLI Tools'}</text
+        font-family="Inter, system-ui, sans-serif">{L('CLI Tools', 'CLI 工具', 'CLI ツール', 'Herramientas CLI')}</text
       >
       <text
         x="630"
@@ -217,7 +222,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         fill="#64748b"
         font-size="10"
         font-family="Inter, system-ui, sans-serif"
-        >{isZh ? '批处理 / 数据管道' : 'Batch / Data Pipelines'}</text
+        >{L('Batch / Data Pipelines', '批处理 / 数据管道', 'バッチ / データパイプライン', 'Lotes / pipelines de datos')}</text
       >
     </g>
     <g filter="url(#shadow)">
@@ -237,7 +242,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         fill="#93c5fd"
         font-size="11"
         font-weight="600"
-        font-family="Inter, system-ui, sans-serif">{isZh ? '测试与开发' : 'Testing & Dev'}</text
+        font-family="Inter, system-ui, sans-serif">{L('Testing & Dev', '测试与开发', 'テストと開発', 'Pruebas y desarrollo')}</text
       >
       <text
         x="850"
@@ -245,7 +250,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         text-anchor="middle"
         fill="#64748b"
         font-size="10"
-        font-family="Inter, system-ui, sans-serif">{isZh ? 'Mock 服务' : 'Mock Services'}</text
+        font-family="Inter, system-ui, sans-serif">{L('Mock Services', 'Mock 服务', 'モックサービス', 'Servicios mock')}</text
       >
     </g>
 
@@ -776,7 +781,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
       text-anchor="middle"
       fill="#475569"
       font-size="9"
-      font-family="Inter, system-ui, sans-serif">{isZh ? '加载协议清单' : 'Load Manifests'}</text
+      font-family="Inter, system-ui, sans-serif">{L('Load Manifests', '加载协议清单', 'マニフェスト読み込み', 'Cargar manifiestos')}</text
     >
 
     <!-- Protocol Layer -->
@@ -828,7 +833,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         text-anchor="middle"
         fill="#64748b"
         font-size="8"
-        font-family="Inter, system-ui, sans-serif">{isZh ? '核心规范' : 'Core Specification'}</text
+        font-family="Inter, system-ui, sans-serif">{L('Core Specification', '核心规范', 'コア仕様', 'Especificación central')}</text
       >
 
       <rect
@@ -857,7 +862,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         fill="#64748b"
         font-size="8"
         font-family="Inter, system-ui, sans-serif"
-        >{isZh ? '37 个服务商清单' : '37 Provider Manifests'}</text
+        >{L('37 Provider Manifests', '37 个服务商清单', '37 プロバイダーマニフェスト', '37 manifiestos de proveedores')}</text
       >
 
       <rect
@@ -885,7 +890,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         text-anchor="middle"
         fill="#64748b"
         font-size="8"
-        font-family="Inter, system-ui, sans-serif">{isZh ? '模型注册表' : 'Model Registry'}</text
+        font-family="Inter, system-ui, sans-serif">{L('Model Registry', '模型注册表', 'モデルレジストリ', 'Registro de modelos')}</text
       >
 
       <text
@@ -896,9 +901,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         font-size="9"
         font-family="Inter, system-ui, sans-serif"
         >{
-          isZh
-            ? 'YAML 定义 → JSON 编译 → 运行时消费 · 无供应商锁定'
-            : 'YAML definitions → JSON compilation → Runtime consumption · Vendor neutral'
+          L('YAML definitions → JSON compilation → Runtime consumption · Vendor neutral', 'YAML 定义 → JSON 编译 → 运行时消费 · 无供应商锁定', 'YAML definitions → JSON compilation → Runtime consumption · Vendor neutral', 'YAML definitions → JSON compilation → Runtime consumption · Vendor neutral')
         }</text
       >
     </g>
@@ -944,7 +947,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         fill="#9ca3af"
         font-size="10"
         font-weight="600"
-        font-family="Inter, system-ui, sans-serif">{isZh ? '模拟服务器' : 'Mock Server'}</text
+        font-family="Inter, system-ui, sans-serif">{L('Mock Server', '模拟服务器', 'モックサーバー', 'Servidor mock')}</text
       >
       <text
         x="848"
@@ -952,7 +955,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         text-anchor="middle"
         fill="#64748b"
         font-size="8"
-        font-family="Inter, system-ui, sans-serif">{isZh ? '本地测试' : 'Local Testing'}</text
+        font-family="Inter, system-ui, sans-serif">{L('Local Testing', '本地测试', 'ローカルテスト', 'Pruebas locales')}</text
       >
 
       <rect
@@ -972,7 +975,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         fill="#9ca3af"
         font-size="10"
         font-weight="600"
-        font-family="Inter, system-ui, sans-serif">{isZh ? '响应录制' : 'Record/Replay'}</text
+        font-family="Inter, system-ui, sans-serif">{L('Record/Replay', '响应录制', 'レコード / リプレイ', 'Grabar/reproducir')}</text
       >
       <text
         x="977"
@@ -980,7 +983,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         text-anchor="middle"
         fill="#64748b"
         font-size="8"
-        font-family="Inter, system-ui, sans-serif">{isZh ? '快照测试' : 'Snapshot Tests'}</text
+        font-family="Inter, system-ui, sans-serif">{L('Snapshot Tests', '快照测试', 'スナップショットテスト', 'Pruebas snapshot')}</text
       >
 
       <rect
@@ -1001,7 +1004,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         font-size="10"
         font-weight="600"
         font-family="Inter, system-ui, sans-serif"
-        >{isZh ? '协议兼容性验证' : 'Protocol Compliance Check'}</text
+        >{L('Protocol Compliance Check', '协议兼容性验证', 'プロトコル準拠チェック', 'Comprobación de cumplimiento')}</text
       >
 
       <text
@@ -1012,7 +1015,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
         font-size="9"
         font-family="Inter, system-ui, sans-serif"
         >{
-          isZh ? '开发测试 · CI/CD · 无需真实 API' : 'Dev Testing · CI/CD · No real API needed'
+          L('Dev Testing · CI/CD · No real API needed', '开发测试 · CI/CD · 无需真实 API', '開発テスト · CI/CD · 実 API 不要', 'Pruebas · CI/CD · sin API real')
         }</text
       >
     </g>
@@ -1032,7 +1035,7 @@ const isZh = locale === 'zh' || locale === 'zh-cn';
       text-anchor="middle"
       fill="#475569"
       font-size="8"
-      font-family="Inter, system-ui, sans-serif">{isZh ? '模拟' : 'mock'}</text
+      font-family="Inter, system-ui, sans-serif">{L('mock', '模拟', 'mock', 'mock')}</text
     >
   </svg>
 </div>

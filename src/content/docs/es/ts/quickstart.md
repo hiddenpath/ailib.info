@@ -1,61 +1,73 @@
 ---
-title: TypeScript クイックスタート
-description: TypeScript/Node.js ランタイム，面向 npm 生态系统。协议驱动、流式优先。
-## イン
+title: Inicio rápido de TypeScript
+description: Empiece a usar ai-lib-ts en minutos.
 ---
 
-title: TypeScript クイックスタート
-description: TypeScript/Node.js ランタイム、面向 npm 生态系统。协议驱动、流式优先。
+# Inicio rápido de TypeScript
 
-## イン
+## Instalación
 
 ```bash
 npm install @ailib-official/ai-lib-ts
-# 或
-yarn add @ailib-official/ai-lib-ts
-# 或
-pnpm add @ailib-official/ai-lib-ts
+export OPENAI_API_KEY="your-key"
 ```
 
-## 設定
+Requiere **Node 18+**.
 
-库会自动在以下位置查找协议清单文件：
-
-1. `node_modules/@ailib-official/ai-protocol/dist` (`npm i @ailib-official/ai-protocol`), o rutas heredadas `node_modules/ai-protocol/dist` / `node_modules/@ailib-official/ai-protocol/dist`
-2. `../ai-protocol/dist` 或 `./protocols`
-
-### Provider API 密钥钥
-
-通过环境变量 `<PROVIDER_ID>_API_KEY` 设置：
-
-```bash
-export OPENAI_API_KEY="sk-..."
-export ANTHROPIC_API_KEY="sk-ant-..."
-export DEEPSEEK_API_KEY="..."
-```
-
-## 嵌入
+## Chat básico
 
 ```typescript
-import { EmbeddingClient } from '@ailib-official/ai-lib-ts';
+import { AiClient, Message } from '@ailib-official/ai-lib-ts';
 
-const client = await EmbeddingClient.new('openai/text-embedding-3-small');
+const client = await AiClient.new('openai/gpt-4o');
 
-const response = await client.embed('你好，世界！');
-console.log(`维度: ${response.embeddings[0].vector.length}`);
+const response = await client
+  .chat([
+    Message.system('You are a helpful assistant.'),
+    Message.user('Hello!'),
+  ])
+  .execute();
+
+console.log(response.content);
 ```
 
-## 批处理
+## Servidor mock
 
 ```typescript
-import { batchExecute } from '@ailib-official/ai-lib-ts';
+import { Message, createClientBuilder } from '@ailib-official/ai-lib-ts';
 
-const result = await batchExecute(
-  ['问题1', '问题2', '问题3'],
-  async (q: string) => {
-    const client = await AiClient.new('openai/gpt-4o');
-    return (await client.chat([Message.user(q)]).execute()).content;
-  },
-  { maxConcurrent: 3 }
-);
+const client = await createClientBuilder()
+  .withMockServer('http://localhost:4010')
+  .build('openai/gpt-4o');
+
+const response = await client.chat([Message.user('Hello!')]).execute();
 ```
+
+Requiere [ai-protocol-mock](https://github.com/ailib-official/ai-protocol-mock). El patrón proviene de `tests/integration.test.ts`.
+
+## Streaming
+
+```typescript
+const stream = client
+  .chat([Message.user('Count from 1 to 5')])
+  .stream()
+  .executeStream();
+
+for await (const event of stream) {
+  if (event.event_type === 'PartialContentDelta') {
+    process.stdout.write(event.content);
+  }
+}
+```
+
+## Puntos de entrada
+
+- **SDK completo:** `@ailib-official/ai-lib-ts`
+- **Solo ejecución:** `@ailib-official/ai-lib-ts/core` (sin envoltorio de reintentos de política)
+- **Solo política:** `@ailib-official/ai-lib-ts/contact`
+
+## Siguientes pasos
+
+- **[API del cliente](/es/ts/client/)**
+- **[Streaming](/es/ts/streaming/)**
+- **[Resiliencia](/es/ts/resilience/)**

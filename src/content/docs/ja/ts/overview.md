@@ -1,146 +1,51 @@
 ---
-title: TypeScript Overview
-description: Understanding the ai-lib-ts architecture and core concepts.
+title: TypeScript SDK 概要
+description: ai-lib-ts v1.0.0 のアーキテクチャと公開 API — AI-Protocol の TypeScript ランタイム。
 ---
 
-# TypeScript Overview
+# TypeScript SDK 概要
 
-## What is ai-lib-ts?
+**ai-lib-ts**（v1.0.0）は [AI-Protocol](https://github.com/ailib-official/ai-protocol) の TypeScript / Node.js ランタイムです。npm パッケージ `@ailib-official/ai-lib-ts` として公開され、3 つのエントリポイントを提供します。
 
-ai-lib-ts is the official TypeScript/Node.js runtime for AI-Protocol. It provides a unified interface for interacting with AI models across different providers without hardcoding provider-specific logic.
+| インポート | レイヤー | 用途 |
+|--------|-------|----------|
+| `@ailib-official/ai-lib-ts` | E + P ファサード | フル SDK（デフォルト） |
+| `@ailib-official/ai-lib-ts/core` | 実行層のみ | 最小バンドル — ポリシー層の transport ラッパーなし |
+| `@ailib-official/ai-lib-ts/contact` | ポリシー層のみ | レジリエンス、ルーティング — `AiClient` なし |
 
-## Design Philosophy
+## 主な実行パス
 
-| Principle             | Description                                                                     |
-| --------------------- | ------------------------------------------------------------------------------- |
-| **Protocol-Driven**   | All behavior is configured through protocol manifests, not code                 |
-| **Provider-Agnostic** | Unified interface across OpenAI, Anthropic, Google, DeepSeek, and 30+ providers |
-| **Streaming-First**   | Native support for Server-Sent Events (SSE) streaming                           |
-| **Type-Safe**         | Strongly typed request/response handling with comprehensive error types         |
+チャットでは、**`AiClient` は低レベルな `Pipeline` 演算子 API を使いません**。流れは次のとおりです。
 
-## Architecture
+1. プロバイダーマニフェストを読み込む
+2. マニフェストのフィールドから HTTP リクエストを構築する
+3. **`HttpTransport`** 経由で送信する
+4. マニフェストの `response_paths` と OpenAI スタイルのフォールバックで JSON / SSE を解析する
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                       Application                            │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                      AiClient                                │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐         │
-│  │ ChatBuilder │  │ Embeddings  │  │   Tools     │         │
-│  └─────────────┘  └─────────────┘  └─────────────┘         │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                      Pipeline                                │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │ Decoder  │→ │ Selector │→ │  Mapper  │→ │ Emitter  │   │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    HttpTransport                             │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │  Retry   │  │ Circuit  │  │  Rate    │  │ Backpres │   │
-│  │  Policy  │  │ Breaker  │  │ Limiter  │  │   sure   │   │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                   Protocol Loader                            │
-│              (V1 + V2 Manifest Support)                      │
-└─────────────────────────────────────────────────────────────┘
-```
+`Pipeline` はコンプライアンステストと高度な統合向けに公開されたままです。このランタイムに **`ProviderDriver` はありません**。
 
-## Core Modules
+## 公開 API の概観
 
-### AiClient
+**パッケージルートのエクスポート:**
 
-The main entry point for AI interactions:
+- `AiClient`、`AiClientBuilder`、`createClient`、`createClientBuilder`
+- `Message`、`StreamingEvent`、`Tool`、実行メタデータ型
+- `ProtocolLoader`、マニフェスト + V2 型
+- ポリシー: `RetryPolicy`、`CircuitBreaker`、`RateLimiter`、`ModelManager`、`FallbackChain`、…
+- 追加機能: `EmbeddingClient`、`McpToolBridge`、`Guardrails`、テレメトリヘルパー
 
-```typescript
-import { AiClient, Message } from '@ailib-official/ai-lib-ts';
+### 能力境界（正直な記述）
 
-const client = await AiClient.new('anthropic/claude-3-5-sonnet');
-const response = await client.chat([Message.user('Hello')]).execute();
-```
+| 領域 | パッケージに含まれるもの | 含まれないもの |
+|------|----------------|--------------|
+| **MCP** | `McpToolBridge` による形式変換 | `AiClient` 内の MCP サーバートランスポート |
+| **Computer Use** | V2 設定型 | ランタイム実行環境 |
+| **ホットリロード** | — | 未実装 |
+| **レジリエンス** | デフォルト transport 上のマニフェスト再試行 | CB / レート制限 / 背圧は transport に明示設定が必要 |
+| **Embeddings** | `EmbeddingClient` | マニフェスト Pipeline パスではない |
 
-### Message Types
+## 次のステップ
 
-Support for system, user, and assistant messages with multimodal content:
-
-```typescript
-import { Message, ContentBlock } from '@ailib-official/ai-lib-ts';
-
-const msg = Message.user([
-  ContentBlock.text('What is in this image?'),
-  ContentBlock.image('https://example.com/image.png'),
-]);
-```
-
-### Streaming Events
-
-Real-time streaming with typed events:
-
-| Event                 | Description                     |
-| --------------------- | ------------------------------- |
-| `PartialContentDelta` | Incremental text content        |
-| `PartialToolCall`     | Incremental tool call arguments |
-| `ToolCallStarted`     | Tool call initiated             |
-| `StreamEnd`           | Stream completed                |
-
-### Resilience
-
-Built-in resilience patterns:
-
-- **RetryPolicy**: Exponential backoff retry
-- **CircuitBreaker**: Prevent cascading failures
-- **RateLimiter**: Token bucket rate limiting
-- **Backpressure**: Concurrent request limiting
-
-### Routing
-
-Smart model selection:
-
-- **ModelManager**: Manage multiple model clients
-- **CostBasedSelector**: Select by cost efficiency
-- **QualityBasedSelector**: Select by quality score
-- **FallbackChain**: Failover across models
-
-### Extras
-
-Additional capabilities:
-
-- **EmbeddingClient**: Vector embeddings
-- **SttClient**: Speech-to-text
-- **TtsClient**: Text-to-speech
-- **RerankerClient**: Document reranking
-- **McpToolBridge**: MCP protocol integration
-
-## Error Handling
-
-Standardized error codes for consistent error handling:
-
-```typescript
-import { AiLibError, StandardErrorCode, isRetryable } from '@ailib-official/ai-lib-ts';
-
-try {
-  const response = await client.chat([Message.user('Hi')]).execute();
-} catch (e) {
-  if (e instanceof AiLibError) {
-    console.log('Code:', e.code);
-    console.log('Retryable:', isRetryable(e.code));
-  }
-}
-```
-
-## Next Steps
-
-- **[Quick Start](/ts/quickstart/)** — Get started quickly
-- **[AiClient API](/ts/client/)** — Detailed API reference
-- **[Resilience](/ts/resilience/)** — Production-ready patterns
+- [クイックスタート](/ja/ts/quickstart/)
+- [ストリーミング](/ja/ts/streaming/)
+- [レジリエンス](/ja/ts/resilience/)

@@ -1,15 +1,15 @@
 ---
-title: TypeScript Streaming
-description: How streaming works in ai-lib-ts.
+title: Streaming en TypeScript
+description: Cómo funciona el streaming en ai-lib-ts.
 ---
 
-# Streaming Pipeline
+# Pipeline de streaming
 
-## Overview
+## Descripción general
 
-ai-lib-ts provides streaming-first support with Server-Sent Events (SSE) and typed streaming events.
+ai-lib-ts ofrece soporte orientado al streaming con Server-Sent Events (SSE) y eventos de streaming tipados.
 
-## Basic Streaming
+## Streaming básico
 
 ```typescript
 import { AiClient, Message } from '@ailib-official/ai-lib-ts';
@@ -28,16 +28,16 @@ for await (const event of stream) {
 }
 ```
 
-## Streaming Events
+## Eventos de streaming
 
-| Event                 | Description           | Key Fields                |
+| Evento                 | Descripción           | Campos clave                |
 | --------------------- | --------------------- | ------------------------- |
-| `PartialContentDelta` | Incremental text      | `content`                 |
-| `ToolCallStarted`     | Tool call initiated   | `toolCallId`, `name`      |
-| `PartialToolCall`     | Incremental tool args | `toolCallId`, `arguments` |
-| `StreamEnd`           | Stream completed      | `finishReason`            |
+| `PartialContentDelta` | Texto incremental      | `content`                 |
+| `ToolCallStarted`     | Llamada a herramienta iniciada   | `toolCallId`, `name`      |
+| `PartialToolCall`     | Argumentos de herramienta incrementales | `toolCallId`, `arguments` |
+| `StreamEnd`           | Flujo completado      | `finishReason`            |
 
-## Event Handling
+## Manejo de eventos
 
 ```typescript
 import { StreamingEvent } from '@ailib-official/ai-lib-ts';
@@ -63,7 +63,7 @@ for await (const event of stream) {
 }
 ```
 
-## Stream Cancellation
+## Cancelación del flujo
 
 ```typescript
 const { stream, cancelHandle } = client
@@ -84,9 +84,9 @@ for await (const event of stream) {
 }
 ```
 
-## Pipeline Architecture
+## Arquitectura del pipeline
 
-The streaming pipeline processes events through stages:
+El pipeline de streaming procesa eventos en etapas:
 
 ```
 SSE Stream → Decoder → Selector → EventMapper → Emitter
@@ -94,7 +94,7 @@ SSE Stream → Decoder → Selector → EventMapper → Emitter
 
 ### Decoder
 
-Parses raw SSE data into structured events:
+Analiza datos SSE en bruto en eventos estructurados:
 
 ```typescript
 // Automatically selects decoder based on provider
@@ -103,7 +103,7 @@ Parses raw SSE data into structured events:
 
 ### Selector
 
-Filters events by type:
+Filtra eventos por tipo:
 
 ```typescript
 // Only content events
@@ -113,13 +113,13 @@ Filters events by type:
 
 ### EventMapper
 
-Transforms provider-specific events to standard types:
+Transforma eventos específicos del proveedor a tipos estándar:
 
 ```typescript
 // Provider format → Standard StreamingEvent
 ```
 
-### Manual Pipeline Creation
+### Creación manual del pipeline
 
 ```typescript
 import { Pipeline, HttpTransport } from '@ailib-official/ai-lib-ts';
@@ -133,7 +133,7 @@ for await (const event of stream) {
 }
 ```
 
-## AbortSignal Support
+## Soporte de AbortSignal
 
 ```typescript
 const controller = new AbortController();
@@ -147,9 +147,9 @@ const stream = client
   .executeStream({ signal: controller.signal });
 ```
 
-## Best Practices
+## Buenas prácticas
 
-1. **Always handle errors in streams**
+1. **Siempre maneje errores en los flujos**
 
 ```typescript
 try {
@@ -161,14 +161,14 @@ try {
 }
 ```
 
-2. **Use cancellation for user-initiated stops**
+2. **Use la cancelación para paradas iniciadas por el usuario**
 
 ```typescript
 // UI: user clicks "Stop" button
 cancelHandle.cancel();
 ```
 
-3. **Buffer for rate limiting**
+3. **Acumule en búfer para limitar la tasa**
 
 ```typescript
 let buffer = '';

@@ -1,13 +1,13 @@
 ---
-title: TypeScript Advanced Features
-description: Advanced features including embeddings, batch processing, MCP, and plugins.
+title: TypeScript 高度な機能
+description: 埋め込み、バッチ処理、MCP、プラグインなどの高度な機能。
 ---
 
-# Advanced Features
+# 高度な機能
 
-## Embeddings
+## 埋め込み（Embeddings）
 
-Generate vector embeddings for text:
+テキストのベクトル埋め込みを生成します。
 
 ```typescript
 import { EmbeddingClient } from '@ailib-official/ai-lib-ts';
@@ -19,7 +19,7 @@ console.log(`Dimensions: ${response.embeddings[0].vector.length}`);
 console.log(`Tokens: ${response.usage?.totalTokens}`);
 ```
 
-### Batch Embeddings
+### バッチ埋め込み
 
 ```typescript
 const response = await client.embedBatch(['Hello, world!', 'Goodbye, world!', 'AI is amazing!']);
@@ -29,9 +29,9 @@ response.embeddings.forEach((e, i) => {
 });
 ```
 
-## Speech-to-Text (STT)
+## 音声認識（STT）
 
-Transcribe audio to text:
+音声をテキストに書き起こします。
 
 ```typescript
 import { SttClient } from '@ailib-official/ai-lib-ts';
@@ -46,9 +46,9 @@ const response = await client.transcribe(audioBuffer, {
 console.log('Transcript:', response.text);
 ```
 
-## Text-to-Speech (TTS)
+## 音声合成（TTS）
 
-Convert text to speech:
+テキストを音声に変換します。
 
 ```typescript
 import { TtsClient } from '@ailib-official/ai-lib-ts';
@@ -63,9 +63,9 @@ const audioBuffer = await client.speak('Hello, this is a test!', {
 // audioBuffer is ArrayBuffer
 ```
 
-## Reranking
+## リランキング
 
-Reorder documents by relevance:
+関連性に基づいてドキュメントを並べ替えます。
 
 ```typescript
 import { RerankerClient } from '@ailib-official/ai-lib-ts';
@@ -87,9 +87,9 @@ result.results.forEach((r, i) => {
 });
 ```
 
-## MCP Tool Bridge
+## MCP ツールブリッジ
 
-Bridge MCP tools to AI-Protocol format:
+`McpToolBridge` は MCP ツール定義を AI-Protocol 形式へ**変換するだけ**です。`AiClient` 内に MCP サーバートランスポートは含まれません。
 
 ```typescript
 import { McpToolBridge } from '@ailib-official/ai-lib-ts';
@@ -110,9 +110,9 @@ const response = await client
   .execute();
 ```
 
-## Batch Processing
+## バッチ処理
 
-Execute multiple requests in parallel:
+複数のリクエストを並列実行します。
 
 ```typescript
 import { BatchExecutor, batchExecute } from '@ailib-official/ai-lib-ts';
@@ -136,7 +136,7 @@ result.results.forEach((r, i) => {
 });
 ```
 
-### BatchExecutor Class
+### BatchExecutor クラス
 
 ```typescript
 const executor = new BatchExecutor({
@@ -152,9 +152,9 @@ executor.add(() => client.chat([Message.user('Task 2')]).execute());
 const results = await executor.waitForAll();
 ```
 
-## Plugins
+## プラグイン
 
-Extend functionality with hooks:
+フックで機能を拡張します。
 
 ```typescript
 import { PluginRegistry, HookManager } from '@ailib-official/ai-lib-ts';
@@ -180,18 +180,18 @@ plugins.register({
 const client = await createClientBuilder().withPlugins(plugins).build('openai/gpt-4o');
 ```
 
-### Available Hooks
+### 利用可能なフック
 
-| Hook            | Timing            | Input           |
+| フック            | タイミング            | 入力           |
 | --------------- | ----------------- | --------------- |
-| `beforeRequest` | Before API call   | Request object  |
-| `afterResponse` | After API call    | Response object |
-| `onError`       | On error          | Error object    |
-| `onStreamEvent` | Each stream event | Streaming event |
+| `beforeRequest` | API 呼び出し前   | リクエストオブジェクト  |
+| `afterResponse` | API 呼び出し後    | レスポンスオブジェクト |
+| `onError`       | エラー時          | エラーオブジェクト    |
+| `onStreamEvent` | 各ストリームイベント | ストリーミングイベント |
 
-## Token Estimation
+## トークン推定
 
-Estimate tokens without API call:
+API 呼び出しなしでトークン数を推定します。
 
 ```typescript
 import { estimateTokens, estimateCost } from '@ailib-official/ai-lib-ts';
@@ -200,9 +200,9 @@ const tokens = estimateTokens('Hello, how are you doing today?');
 console.log(`Estimated tokens: ${tokens}`);
 ```
 
-## Cost Estimation
+## コスト推定
 
-Estimate cost for a request:
+リクエストのコストを推定します。
 
 ```typescript
 const cost = estimateCost({
@@ -216,9 +216,9 @@ console.log(`Output cost: $${cost.outputCost}`);
 console.log(`Total cost: $${cost.totalCost}`);
 ```
 
-## Memory Cache
+## メモリキャッシュ
 
-In-memory caching for responses:
+レスポンスのインメモリキャッシュです。
 
 ```typescript
 import { MemoryCache } from '@ailib-official/ai-lib-ts';
@@ -238,9 +238,9 @@ if (cached) {
 await cache.set('cache-key', response);
 ```
 
-## Structured Output
+## 構造化出力
 
-JSON mode for structured responses:
+構造化レスポンス向けの JSON モードです。
 
 ```typescript
 import { jsonObjectConfig, jsonSchemaConfig } from '@ailib-official/ai-lib-ts';
@@ -255,7 +255,7 @@ console.log('Name:', data.name);
 console.log('Age:', data.age);
 ```
 
-### With JSON Schema
+### JSON Schema 付き
 
 ```typescript
 const schema = {

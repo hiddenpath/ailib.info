@@ -1,18 +1,18 @@
 ---
-title: Resilience (Python)
-description: Production reliability patterns in ai-lib-python v1.0.0 — circuit breaker, rate limiter, backpressure, retry.
+title: 韧性模式（Python）
+description: ai-lib-python v1.0.0 生产可靠性模式 — 熔断、限流、背压、重试。
 ---
 
-# Resilience Patterns
+# 韧性模式
 
-ai-lib-python (v1.0.0) separates **built-in client backpressure** from **opt-in policy primitives**:
+ai-lib-python（v1.0.0）将**内置客户端背压**与**按需策略原语**分开：
 
-- **`AiClient`:** optional `max_inflight` backpressure via `AiClientBuilder` or `AI_LIB_MAX_INFLIGHT`.
-- **`ai_lib_python.resilience`:** retry policies, token-bucket rate limiter, circuit breaker — **not** wired automatically by `AiClient.create()`; use `production_ready()` or explicit `ResilientConfig` (see `examples/resilience.py`).
+- **`AiClient`：** 可选的 `max_inflight` 背压，通过 `AiClientBuilder` 或 `AI_LIB_MAX_INFLIGHT`。
+- **`ai_lib_python.resilience`：** 重试策略、令牌桶限流、熔断器 — **不会**由 `AiClient.create()` 自动接线；请使用 `production_ready()` 或显式 `ResilientConfig`（见 `examples/resilience.py`）。
 
-Retry and fallback decisions use V2 standard error codes: `retryable` and `fallbackable` metadata on normalized errors.
+重试与回退决策使用 V2 标准错误码：归一化错误上的 `retryable` 与 `fallbackable` 元数据。
 
-## Quick enable
+## 快速启用
 
 ```python
 client = await (
@@ -23,17 +23,17 @@ client = await (
 )
 ```
 
-## Circuit breaker
+## 熔断器
 
-Prevents cascading failures by stopping requests to failing providers.
+通过停止向故障提供商发请求，防止级联失败。
 
-**States:** Closed → Open (after failure threshold) → Half-Open (test request after cooldown).
+**状态：** Closed → Open（达到失败阈值后）→ Half-Open（冷却后探测请求）。
 
-Configure via `ResilientConfig` / builder methods — not via undocumented env vars.
+通过 `ResilientConfig` / builder 方法配置 — 不依赖未文档化的环境变量。
 
-## Rate limiter
+## 限流器
 
-Token-bucket rate limiting lives in `ai_lib_python.resilience`. Configure on the builder:
+令牌桶限流位于 `ai_lib_python.resilience`。在 builder 上配置：
 
 ```python
 from ai_lib_python.resilience import RateLimitConfig
@@ -46,34 +46,34 @@ client = await (
 )
 ```
 
-`AI_LIB_RPS` / `AI_LIB_RPM` environment variables are **not** read by the runtime.
+运行时**不会**读取 `AI_LIB_RPS` / `AI_LIB_RPM` 环境变量。
 
-## Backpressure
+## 背压
 
-Limits concurrent in-flight requests:
+限制并发在途请求：
 
 ```bash
 export AI_LIB_MAX_INFLIGHT=50
 ```
 
-Or on the builder: `.max_inflight(50)`.
+或在 builder 上：`.max_inflight(50)`。
 
-## Retry
+## 重试
 
-Exponential backoff retry driven by manifest `retry_policy` and `ResilientConfig`. Only errors classified as retryable trigger retries.
+由清单 `retry_policy` 与 `ResilientConfig` 驱动指数退避重试。仅被归类为可重试的错误会触发重试。
 
-## Combining patterns
+## 组合模式
 
-A typical request flow when `production_ready()` is enabled:
+启用 `production_ready()` 时的典型请求流程：
 
-1. **Backpressure** — wait for a slot if at max inflight
-2. **Circuit breaker** — reject immediately if circuit is open
-3. **Rate limiter** — wait for a token if rate limited
-4. **Execute** — send the HTTP request via pipeline
-5. **Retry** — on retryable errors, backoff and retry
-6. **Update** — record success/failure for circuit breaker
+1. **背压** — 若已达最大在途数，等待槽位
+2. **熔断器** — 若熔断打开，立即拒绝
+3. **限流器** — 若受速率限制，等待令牌
+4. **执行** — 经 pipeline 发送 HTTP 请求
+5. **重试** — 可重试错误时退避并重试
+6. **更新** — 记录成功/失败以供熔断器使用
 
-## Next steps
+## 下一步
 
-- **[Advanced Features](/python/advanced/)** — Telemetry, routing, plugins
-- **[AiClient API](/python/client/)** — Client usage
+- **[高级功能](/zh-cn/python/advanced/)** — 遥测、路由、插件
+- **[AiClient API](/zh-cn/python/client/)** — 客户端用法

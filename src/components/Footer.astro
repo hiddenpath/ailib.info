@@ -14,6 +14,8 @@ const t: Record<string, Record<string, string>> = {
     started: 'Getting Started',
     spec: 'Protocol Spec',
     guides: 'Developer Guides',
+    copyright: 'AI-Lib Contributors. Dual-licensed under MIT and Apache 2.0.',
+    builtWith: 'Built with',
   },
   'zh-cn': {
     brand: '开源 AI 模型交互标准化生态系统。一套协议，多种运行时。',
@@ -23,6 +25,8 @@ const t: Record<string, Record<string, string>> = {
     started: '入门指南',
     spec: '协议规范',
     guides: '开发者指南',
+    copyright: 'AI-Lib 贡献者。采用 MIT 与 Apache 2.0 双重许可。',
+    builtWith: '基于',
   },
   ja: {
     brand:
@@ -33,6 +37,8 @@ const t: Record<string, Record<string, string>> = {
     started: '入門ガイド',
     spec: 'プロトコル仕様',
     guides: '開発者ガイド',
+    copyright: 'AI-Lib Contributors. MIT および Apache 2.0 のデュアルライセンス。',
+    builtWith: '構築:',
   },
   es: {
     brand:
@@ -43,6 +49,8 @@ const t: Record<string, Record<string, string>> = {
     started: 'Primeros pasos',
     spec: 'Especificación',
     guides: 'Guías para desarrolladores',
+    copyright: 'Colaboradores de AI-Lib. Doble licencia MIT y Apache 2.0.',
+    builtWith: 'Hecho con',
   },
 };
 const i = t[locale] || t.en;
@@ -215,10 +223,11 @@ const i = t[locale] || t.en;
       class="mt-12 pt-8 border-t border-[var(--border)] flex flex-col md:flex-row items-center justify-between gap-4"
     >
       <p class="text-xs text-[var(--text-muted)]">
-        &copy; {year} AI-Lib Contributors. Dual-licensed under MIT and Apache 2.0.
+        &copy; {year} {i.copyright}
       </p>
       <p class="text-xs text-[var(--text-muted)]">
-        Built with <a
+        {i.builtWith}{' '}
+        <a
           href="https://astro.build"
           target="_blank"
           rel="noopener"
