@@ -32,7 +32,7 @@ The latest release cycle delivers full **V2 protocol** execution with governance
 
 ### AI-Protocol (Specification)
 
-Since the v0.8.x milestone, **AI-Protocol V2** relies heavily on declarative configuration (`v2/providers/*.yaml`). Instead of burying provider-specific quirks in code, the ecosystem supports 37+ total providers (10 V2 + 27 V1) mapping directly via schema.
+Since the v0.8.x milestone, **AI-Protocol V2** relies heavily on declarative configuration (`v2/providers/*.yaml`). Instead of burying provider-specific quirks in code, the ecosystem ships **37** provider manifests in V1 and **12** formal V2 manifests (overlapping vendors; unique provider count remains 37 when treating `gemini`/`google` as one).
 
 ### ai-lib-rust (Rust Runtime)
 
@@ -52,7 +52,7 @@ High-concurrency runtime optimized for server-side deployments. Direct V2 specif
 
 ## Key Features
 
-- **37 providers** — OpenAI, Anthropic, Gemini, DeepSeek, Qwen, Moonshot, Zhipu, and many more (10 V2 + 27 V1)
+- **37 providers** — OpenAI, Anthropic, Google/Gemini, DeepSeek, Qwen, Moonshot, Zhipu, and more (**12** with formal V2 manifests; full V1 set is 37)
 - **Unified streaming** — Same `StreamingEvent` types regardless of provider
 - **Protocol-driven** — All behavior defined in YAML, not code
 - **MCP integration** — Built-in MCP tool bridge: convert MCP server tools to AI-Protocol format automatically
