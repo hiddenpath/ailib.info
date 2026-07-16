@@ -31,6 +31,8 @@ Thumbs.db
 # Misc
 *.swp
 *.tgz
+__pycache__/
+*.pyc
 
 # Astro specific (if using adapter outputs)
 .server/
